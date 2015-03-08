@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 	end   
 
 	def match_password(login_password="")
-		encrypted_password == BCrypt::Engine.hash_secret(login_password, salt)
+		pass == BCrypt::Engine.hash_secret(login_password, salt)
 	end
 
 
@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
 	def encrypt_password
 	unless password.blank?
 	  self.salt = BCrypt::Engine.generate_salt
-	  self.encrypted_password = BCrypt::Engine.hash_secret(password, salt)
+	  self.pass = BCrypt::Engine.hash_secret(password, salt)
 	end
 	end
 
