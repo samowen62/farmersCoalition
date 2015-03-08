@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
 	before_save :encrypt_password
 	after_save :clear_password
 
+	#validates_confirmation_of :password
+  	#attr_accessible :password_confirmation
+  	#attr_accessor :password
+
 	EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 	validates :email, :presence => true, :uniqueness => true, :length => { :in => 3..20 }, :format => EMAIL_REGEX
 	#validates :email, :presence => true, :uniqueness => true, :format => EMAIL_REGEX

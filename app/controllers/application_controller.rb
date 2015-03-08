@@ -26,4 +26,8 @@ class ApplicationController < ActionController::Base
       return true
     end
   end
+
+  def user_is_logged_in?
+    !!session[:user_id]
+  end
 end

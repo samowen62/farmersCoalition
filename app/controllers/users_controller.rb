@@ -8,11 +8,20 @@ class UsersController < ApplicationController
 
 	def show
 		#validate session here as well
-    	@user = User.find(params[:id])
+		if user_is_logged_in?
+    		@user = User.find(session[:user_id])
+    	else 
+    		render "new"
+    	end
   	end
 
 	def create
 		#render plain: params[:user].inspect
+		if params[:user][:password] != params[:user][:password_confirmation]
+			render "new"
+			return
+		end
+
 		@user = User.new(user_params)
 		if @user.save
 			flash[:notice] = "You signed up successfully"
@@ -21,7 +30,7 @@ class UsersController < ApplicationController
 			flash[:notice] = "Form is invalid"
 			flash[:color]= "invalid"
 		end 
-  		render "new"
+  		render "show"
 	end
 
 	def edit
@@ -30,6 +39,6 @@ class UsersController < ApplicationController
 
 	private
 	  def user_params
-	    params.require(:user).permit(:name, :city, :email, :password)
+	    params.require(:user).permit(:email, :password , :password_confirmation)
 	  end
 end
