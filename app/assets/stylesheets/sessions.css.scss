@@ -1,4 +1,68 @@
 // Place all the styles related to the sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-@import "bootstrap"
+@import "bootstrap";
+
+$background-main: #55873A;
+$background-prim: #e2e2e2;
+$text-prim: #1E120D;
+$text-light: #333;
+$btn-color: #e7540c;
+$font-clean: "Droid Sans",sans-serif;
+$font-serif: "Droid Serif",serif;
+
+body{
+	color: $text-prim;
+	font-size: 15px;
+	line-height: 1.5;
+	font-family: $font-serif;
+	font-weight: 400;
+}
+
+input[type="text"], input[type="password"]{
+	margin: 5px;
+	padding: 5px;
+}
+label{
+	margin: 5px;
+}
+.btn-default{
+	background-color:$btn-color;
+	border-radius: 0px;
+	font-family: $font-clean;
+	border: 0;
+	padding: 5px 20px;
+	color: white;
+}
+
+#menu{
+	border-top: 4px solid $background-main;
+	height:160px;
+	#title{
+		color: $text-light;
+		font-size: 35px;
+		font-weight: 600;
+		padding: 20px; 
+		font-family: $font-clean;
+	}
+}
+
+#sidebar{
+	padding: 25px;
+	font-family: $font-clean;
+	color: $text-light;
+	.link{
+		padding-top: 5px;
+		a{
+			color: $text-prim !important;
+		}
+	}
+}
+
+#newUser{
+	background-color: $background-prim;	
+	.main{
+		padding: 25px;
+		background-color: $background-main;	
+	}
+}

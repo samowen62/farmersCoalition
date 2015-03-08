@@ -1,16 +1,20 @@
-<div class="col-md-12">
+<div class="col-md-12" id="sidebar">
 	<div class="clearfix"></div>
     <div class="row">
-		<label class="col-md-4">Login</label>
-		<div class="col-md-8">
+    	<div class="col-md-4">
+			<label>Login</label>
+		</div>
+		<div class="link col-md-8">
 			<%= link_to "Log in", controller: "sessions", action: "login"%>
 		</div>	
 	</div>
 	<div class="clearfix"></div>
     <div class="row">
-		<label class="col-md-4">Sign Up</label>
-		<div class="col-md-8">
-			<%= link_to "Sign up", action: "new"%>
+    	<div class="col-md-4">
+			<label>Sign Up</label>
+		</div>
+		<div class="link col-md-8">
+			<%= link_to "Sign up", controller: "users", action: "new"%>
 		</div>
 	</div>
 	<div class="clearfix"></div>
