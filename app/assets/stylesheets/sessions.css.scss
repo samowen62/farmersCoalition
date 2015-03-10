@@ -66,3 +66,30 @@ label{
 		background-color: $background-main;	
 	}
 }
+#form-ctrl{
+	label{
+		float: left;
+		margin: 2px;
+		font-size: 12px;
+	}
+	input[type="text"]{
+		float: left;
+		margin: 2px;
+		width: 100%;
+		border-radius: 6px;
+		border: 1px solid #eee;
+		padding: 3px;
+	}
+}
+.profile-info{
+	h2{
+		font-weight: 600;
+		font-family: "Droid Sans",sans-serif;
+		color: $background-prim;
+	}
+	.profile-group{
+		background-color: white;
+		padding: 20px;
+		border-radius: 20px;
+	}
+}

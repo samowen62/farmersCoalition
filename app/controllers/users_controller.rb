@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     		@user = User.find(session[:user_id])
     		@profile = Profile.where(user_id: session[:user_id]).first
     	else 
-    		render "new"
+    		redirect_to root_path
     	end
   	end
 
