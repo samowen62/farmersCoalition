@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 	def show
 		if user_is_logged_in?
     		@user = User.find(session[:user_id])
-    		@profile = Profile.where(user_id: session[:user_id]).take
+    		@profile = Profile.where(user_id: session[:user_id]).first
     	else 
     		render "new"
     	end

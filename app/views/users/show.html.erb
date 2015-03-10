@@ -4,7 +4,7 @@
   <div class="col-md-offset-3 col-md-6 main">	 
 	<%= form_for :profile, url: "/post_info" do |f| %>
 	<div class="col-md-12">
-		<div class="row">
+		<!--div class="row">
 			<div class="col-md-6">
 				<label>Name</label>
 			</div>
@@ -12,7 +12,7 @@
 				<%= @user.email %>
 			</div>
 		</div>
-		<div class="clearfix"></div>
+		<div class="clearfix"></div-->
 		<div class="row">
 			<div class="col-md-6">
 				<label>Name</label>
@@ -23,20 +23,40 @@
 		</div>
 		<div class="clearfix"></div>
 		<div class="row">
+			<div class="col-md-6">
+				<label>City</label>
+			</div>
+			<div class="col-md-6">
+				<%= f.text_field :city %>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
 			<div class="col-md-offset-2 col-md-10">
 				<%= f.submit :Update, :class => "btn btn-default", :style => "margin-top: 10px;
 	" %>
 			</div>
 		</div>
-		<div class="clearfix"></div>
-		<h3>Profile Info</h3>
-		<div class="row">
-			<div class="col-md-6">
-				<label>Name</label>
-			</div>
-			<div class="col-md-6">
-				<%= @profile.name %>
-			</div>
+	</div>
+	<% end %>
+	<% if !@profile.nil? && !@profile.new_record? %>
+	<div class="clearfix"></div>
+	<h3>Profile Info</h3>
+	<div class="row">
+		<div class="col-md-6">
+			<label>Name</label>
+		</div>
+		<div class="col-md-6">
+			<%= @profile.name %>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="row">
+		<div class="col-md-6">
+			<label>City</label>
+		</div>
+		<div class="col-md-6">
+			<%= @profile.city %>
 		</div>
 	</div>
 	<% end %>
