@@ -7,9 +7,9 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		#validate session here as well
 		if user_is_logged_in?
     		@user = User.find(session[:user_id])
+    		@profile = Profile.where(user_id: session[:user_id]).take
     	else 
     		render "new"
     	end
