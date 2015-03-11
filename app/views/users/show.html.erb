@@ -34,7 +34,7 @@
 			<label class="col-md-3">Multiple Locations</label><%= f.check_box :multiple_locs, "ng-model" => "profile.multiple_locs" %>
 		</div>
 		<div class="clearfix"></div>
-		<div class="row" ng-if="profile.multiple_locs">
+		<div class="row">
 			<div class="col-md-4">
 				<h4 class="drop-but" ng-click="locSlide('#l1')">Primary market season</h4>
 				<div id="l1" class="loc-drop">
@@ -45,30 +45,88 @@
 					<input type="text" ng-model="market1.end" placeholder="yyyy-mm-dd">
 
 					<a ng-click="addMarket(market1,'m',1)" href="javascript:void" class="btn btn-default">Add Market</a>
+
+					<h5>Seperate Seasonal Market #1</h5>
+					<label>Opening Date</label>
+					<input type="text" ng-model="market11.start" placeholder="yyyy-mm-dd">
+
+					<label>Closing Date</label>
+					<input type="text" ng-model="market11.end" placeholder="yyyy-mm-dd">
+
+					<a ng-click="addMarket(market11,'s',1)" href="javascript:void" class="btn btn-default">Add Market</a>
+
+					<h5>Seperate Seasonal Market #2</h5>
+					<label>Opening Date</label>
+					<input type="text" ng-model="market12.start" placeholder="yyyy-mm-dd">
+
+					<label>Closing Date</label>
+					<input type="text" ng-model="market12.end" placeholder="yyyy-mm-dd">
+
+					<a ng-click="addMarket(market12,'s',1)" href="javascript:void" class="btn btn-default">Add Market</a>
 				</div>
 			</div>
 			<div class="col-md-4">
-				<h4 class="drop-but" ng-click="locSlide('#l2')">Seperate Seasonal Market #1</h4>
-				<div id="l2" class="loc-drop">
-					<label>Opening Date</label>
-					<input type="text" ng-model="market2.start" placeholder="yyyy-mm-dd">
+				<div ng-if="profile.multiple_locs">
+					<h4 class="drop-but" ng-click="locSlide('#l2')">Alternate Location #1</h4>
+					<div id="l2" class="loc-drop">
+						<label>Opening Date</label>
+						<input type="text" ng-model="market2.start" placeholder="yyyy-mm-dd">
 
-					<label>Closing Date</label>
-					<input type="text" ng-model="market2.end" placeholder="yyyy-mm-dd">
+						<label>Closing Date</label>
+						<input type="text" ng-model="market2.end" placeholder="yyyy-mm-dd">
 
-					<a ng-click="addMarket(market2,'m',2)" href="javascript:void" class="btn btn-default">Add Market</a>
+						<a ng-click="addMarket(market2,'m',2)" href="javascript:void" class="btn btn-default">Add Market</a>
+
+						<h5>Seperate Seasonal Market #1</h5>
+						<label>Opening Date</label>
+						<input type="text" ng-model="market21.start" placeholder="yyyy-mm-dd">
+
+						<label>Closing Date</label>
+						<input type="text" ng-model="market21.end" placeholder="yyyy-mm-dd">
+
+						<a ng-click="addMarket(market21,'s',1)" href="javascript:void" class="btn btn-default">Add Market</a>
+
+						<h5>Seperate Seasonal Market #2</h5>
+						<label>Opening Date</label>
+						<input type="text" ng-model="market22.start" placeholder="yyyy-mm-dd">
+
+						<label>Closing Date</label>
+						<input type="text" ng-model="market22.end" placeholder="yyyy-mm-dd">
+
+						<a ng-click="addMarket(market22,'s',1)" href="javascript:void" class="btn btn-default">Add Market</a>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-4">
-				<h4 class="drop-but" ng-click="locSlide('#l3')">Seperate Seasonal Market #2</h4>
-				<div id="l3" class="loc-drop">
-					<label>Opening Date</label>
-					<input type="text" ng-model="market3.start" placeholder="yyyy-mm-dd">
+				<div ng-if="profile.multiple_locs">
+					<h4 class="drop-but" ng-click="locSlide('#l3')">Alternate Location #2</h4>
+					<div id="l3" class="loc-drop">
+						<label>Opening Date</label>
+						<input type="text" ng-model="market3.start" placeholder="yyyy-mm-dd">
 
-					<label>Closing Date</label>
-					<input type="text" ng-model="market3.end" placeholder="yyyy-mm-dd">
+						<label>Closing Date</label>
+						<input type="text" ng-model="market3.end" placeholder="yyyy-mm-dd">
 
-					<a ng-click="addMarket(market3,'m',3)" href="javascript:void" class="btn btn-default">Add Market</a>
+						<a ng-click="addMarket(market3,'m',3)" href="javascript:void" class="btn btn-default">Add Market</a>
+
+						<h5>Seperate Seasonal Market #1</h5>
+						<label>Opening Date</label>
+						<input type="text" ng-model="market31.start" placeholder="yyyy-mm-dd">
+
+						<label>Closing Date</label>
+						<input type="text" ng-model="market31.end" placeholder="yyyy-mm-dd">
+
+						<a ng-click="addMarket(market31,'s',1)" href="javascript:void" class="btn btn-default">Add Market</a>
+
+						<h5>Seperate Seasonal Market #2</h5>
+						<label>Opening Date</label>
+						<input type="text" ng-model="market32.start" placeholder="yyyy-mm-dd">
+
+						<label>Closing Date</label>
+						<input type="text" ng-model="market32.end" placeholder="yyyy-mm-dd">
+
+						<a ng-click="addMarket(market32,'s',1)" href="javascript:void" class="btn btn-default">Add Market</a>
+					</div>
 				</div>
 			</div>
 		</div>
