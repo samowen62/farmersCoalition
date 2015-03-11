@@ -10,6 +10,9 @@ class UsersController < ApplicationController
 		if user_is_logged_in?
     		@user = User.find(session[:user_id])
     		@profile = Profile.where(user_id: session[:user_id]).first
+    		@markets = @profile.markets
+    		#render plain: @markets.inspect
+    		#return
     	else 
     		redirect_to root_path
     	end

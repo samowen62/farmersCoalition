@@ -1,25 +1,75 @@
 <%= render "shared/menu" %>
 
-<div id="showUser" class="col-md-12">
+<div id="showUser" class="col-md-12" ng-app ng-controller="profileCtrl">
   <div class="col-md-offset-3 col-md-6 main">	 
 	<%= form_for :profile, url: "/post_info" do |f| %>
 	<div id="form-ctrl" class="col-md-12">
-		<!--div class="row">
-			<div class="col-md-6">
-				<label>Name</label>
+		<div class="row">
+			<div class="col-md-9">
+				<label>Name of Market</label>
+				<%= f.text_field :name %>
 			</div>
-			<div class="col-md-6">
-				<%= @user.email %>
+			<div class="col-md-3">
+				<label>County</label>
+				<%= f.text_field :county %>
 			</div>
 		</div>
-		<div class="clearfix"></div-->
+		<div class="clearfix"></div>
 		<div class="row">
-			<div class="col-md-4">
-				<label>Name</label>
-				<%= f.text_field :name %>
-
+			<div class="col-md-7">
+				<label>Address</label>
+				<%= f.text_field :address %>
+			</div>
+			<div class="col-md-3">
 				<label>City</label>
 				<%= f.text_field :city %>
+			</div>
+			<div class="col-md-2">
+				<label>State</label>
+				<%= f.text_field :state %>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<label class="col-md-3">Multiple Locations</label><%= f.check_box :multiple_locs, "ng-model" => "profile.multiple_locs" %>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row" ng-if="profile.multiple_locs">
+			<div class="col-md-4">
+				<h4 class="drop-but" ng-click="locSlide('#l1')">Primary market season</h4>
+				<div id="l1" class="loc-drop">
+					<label>Opening Date</label>
+					<input type="text" ng-model="market1.start" placeholder="yyyy-mm-dd">
+
+					<label>Closing Date</label>
+					<input type="text" ng-model="market1.end" placeholder="yyyy-mm-dd">
+
+					<a ng-click="addMarket(market1,'m',1)" href="javascript:void" class="btn btn-default">Add Market</a>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<h4 class="drop-but" ng-click="locSlide('#l2')">Seperate Seasonal Market #1</h4>
+				<div id="l2" class="loc-drop">
+					<label>Opening Date</label>
+					<input type="text" ng-model="market2.start" placeholder="yyyy-mm-dd">
+
+					<label>Closing Date</label>
+					<input type="text" ng-model="market2.end" placeholder="yyyy-mm-dd">
+
+					<a ng-click="addMarket(market2,'m',2)" href="javascript:void" class="btn btn-default">Add Market</a>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<h4 class="drop-but" ng-click="locSlide('#l3')">Seperate Seasonal Market #2</h4>
+				<div id="l3" class="loc-drop">
+					<label>Opening Date</label>
+					<input type="text" ng-model="market3.start" placeholder="yyyy-mm-dd">
+
+					<label>Closing Date</label>
+					<input type="text" ng-model="market3.end" placeholder="yyyy-mm-dd">
+
+					<a ng-click="addMarket(market3,'m',3)" href="javascript:void" class="btn btn-default">Add Market</a>
+				</div>
 			</div>
 		</div>
 		<div class="clearfix"></div>
@@ -51,7 +101,7 @@
 					<label>Location:</label>
 				</div>
 				<div class="col-md-6">
-					<%= @profile.address %> <%= @profile.city%>, <%= @profile.state%>
+					<%= @profile.address %> <%= @profile.city %>, <%= @profile.state %>
 				</div>
 			</div>
 			<div class="clearfix"></div>
@@ -72,8 +122,46 @@
 					<%= @profile.year %>
 				</div>
 			</div>
+			<div class="clearfix"></div>
+			<div class="row">
+				
+			</div>
 		</div>
 	</div>
 	<% end %>
   </div>
 </div>
+<script type="text/javascript">
+var host = "http://localhost:3000/"
+
+function profileCtrl($scope){
+
+	$scope.profile = <%= raw(@profile.to_json) %>;
+	$scope.markets = <%= raw(@markets.to_json) %>;
+	console.log($scope.profile);
+	console.log($scope.markets);
+
+	$scope.locSlide = function(id) {
+	  	if ($(id).is(":hidden")) {
+	    	$(id).slideDown("slow");
+	  	}else{
+	    	$(id).slideUp("slow");
+	  	}
+	};
+
+	$scope.addMarket = function(market,type,market_num){
+		market.profile_id = <%= @profile.id %>
+		market.market_type = type == 'm' ? 'market' : 'seasonal';
+		market.market_num = market_num;
+
+		$.ajax({
+			type: "POST",
+			url: host + "post_market",
+			data: market,
+			success: function(data){
+				console.log(data);
+			}
+		});
+	};
+}
+</script>

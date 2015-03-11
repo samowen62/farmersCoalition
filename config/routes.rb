@@ -1,17 +1,20 @@
 Rails.application.routes.draw do
 
   resources :users do
-    resources :profiles
+    resources :profiles do
+      resources :markets
+    end
   end
 
   get 'profile/index'
-  root 'profile#index'
+  root 'sessions#login'
   #root :to => 'sessions#login'
   get "signup", :to => "users#new"
   get "login", :to => "sessions#login"
   get "logout", :to => "sessions#logout"
   post "login_attempt", :to => "sessions#login_attempt"
   post "post_info", :to => "profile#create"
+  post "post_market", :to => "markets#create"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
