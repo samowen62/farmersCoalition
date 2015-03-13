@@ -35,6 +35,6 @@ class ProfileController < ApplicationController
 
   private
   	def profile_params #dont forget to add params down here for new ones
-  		params.require(:profile).permit(:name, :city, :address, :state, :county, :multiple_locs)
+  		params.require(:profile).permit(:name, :city, :address, :state, :county, :multiple_locs. :FMC_member, :host_name, :other_associations, :mission_statement)
   	end
 end
