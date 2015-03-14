@@ -15,7 +15,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer',  platforms: :ruby
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'bootstrap-sass', '~> 3.2.0'
-
+gem 'aws-sdk'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

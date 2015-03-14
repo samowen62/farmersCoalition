@@ -65,6 +65,34 @@ label{
 		padding: 25px;
 		background-color: $background-main;	
 	}
+	#mission_statement{
+		display:none;
+		.col-md-12{
+			background-color: $background-prim;
+			border-radius: 8px;
+			padding: 10px;
+			.full{
+				width: 100%;
+				float: left;
+				input[type="checkbox"]{
+					float:right;
+				}
+			}
+		}
+	}
+	textarea {
+    	resize: none;
+    	width: 100%;
+    	float: left;
+    	border-radius: 8px;
+	}
+	select {
+		background-color: white;
+		border-radius: 7px;
+		height: 32px;
+		border: 0;
+		width: 100%;
+	}
 }
 #form-ctrl{
 	a{
@@ -85,10 +113,12 @@ label{
 		padding: 3px;
 	}
 	.loc-drop{
-		border-radius: 0px 0px 7px 7px;
-		background-color: $background-prim;
 		display:none;
-		padding: 10px;
+		.col-md-12{
+			border-radius: 0px 0px 7px 7px;
+			background-color: $background-prim;
+			padding: 10px;
+		}
 	}
 	h4.drop-but{
 		font-size: 15px;
@@ -97,7 +127,7 @@ label{
 		padding: 6px;
 		color: $background-prim;
 		border-radius: 8px;
-		height: 45px;
+		height: 30px;
 	}
 }
 .profile-info{

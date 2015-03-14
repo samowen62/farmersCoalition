@@ -22,6 +22,23 @@ class ProfileController < ApplicationController
         profile[:state] = params[:profile][:state]
         profile[:county] = params[:profile][:county]
         profile[:multiple_locs] = params[:profile][:multiple_locs]
+        profile[:FMC_member] = params[:profile][:FMC_member]
+        profile[:host_name] = params[:profile][:host_name]
+        profile[:other_associations] = params[:profile][:other_associations]
+        profile[:incorporated] = params[:profile][:incorporated]
+        profile[:mission_statement] = params[:profile][:mission_statement]
+        profile[:ms_website] = params[:profile][:ms_website]
+        profile[:ms_manual] = params[:profile][:ms_manual]
+        profile[:ms_market_promos] = params[:profile][:ms_market_promos]
+        profile[:ms_none] = params[:profile][:ms_none]
+        profile[:ms_other] = params[:profile][:ms_other]
+        if profile[:ms_other]
+          profile[:ms_other_text] = params[:profile][:ms_other_text]
+        end
+        profile[:when_ms] = params[:profile][:when_ms]
+        profile[:person_decisions] = params[:profile][:person_decisions]
+        profile[:list_of_persons] = params[:profile][:list_of_persons]
+        profile[:logo_path] = params[:profile][:logo_path]
         profile.save!
       end
       
@@ -34,7 +51,7 @@ class ProfileController < ApplicationController
   end
 
   private
-  	def profile_params #dont forget to add params down here for new ones
-  		params.require(:profile).permit(:name, :city, :address, :state, :county, :multiple_locs. :FMC_member, :host_name, :other_associations, :mission_statement)
+  	def profile_params 
+  		params.require(:profile).permit(:name, :city, :address, :state, :county, :multiple_locs, :FMC_member, :host_name, :other_associations, :mission_statement, :ms_website, :ms_manual, :ms_market_promos, :ms_none, :ms_other, :ms_other_text, :when_ms, :person_decisions, :list_of_persons, :logo_path)
   	end
 end
