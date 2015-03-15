@@ -21,6 +21,7 @@ class ProfileController < ApplicationController
         profile[:address] = params[:profile][:address]
         profile[:state] = params[:profile][:state]
         profile[:county] = params[:profile][:county]
+        profile[:year] = params[:profile][:year]
         profile[:multiple_locs] = params[:profile][:multiple_locs]
         profile[:FMC_member] = params[:profile][:FMC_member]
         profile[:host_name] = params[:profile][:host_name]
@@ -39,6 +40,7 @@ class ProfileController < ApplicationController
         profile[:person_decisions] = params[:profile][:person_decisions]
         profile[:list_of_persons] = params[:profile][:list_of_persons]
         profile[:logo_path] = params[:profile][:logo_path]
+        profile[:incorporated_other] = params[:profile][:incorporated_other]
         profile.save!
       end
       
@@ -52,6 +54,6 @@ class ProfileController < ApplicationController
 
   private
   	def profile_params 
-  		params.require(:profile).permit(:name, :city, :address, :state, :county, :multiple_locs, :FMC_member, :host_name, :other_associations, :mission_statement, :ms_website, :ms_manual, :ms_market_promos, :ms_none, :ms_other, :ms_other_text, :when_ms, :person_decisions, :list_of_persons, :logo_path)
+  		params.require(:profile).permit(:name, :city, :address, :state, :county, :year, :multiple_locs, :FMC_member, :host_name, :other_associations, :mission_statement, :ms_website, :ms_manual, :ms_market_promos, :ms_none, :ms_other, :ms_other_text, :when_ms, :person_decisions, :list_of_persons, :logo_path, :incorporated_other)
   	end
 end

@@ -10,9 +10,10 @@ class UsersController < ApplicationController
 		if user_is_logged_in?
     		@user = User.find(session[:user_id])
     		@profile = Profile.where(user_id: session[:user_id]).first
-    		@markets = @profile.markets#should group by market_num
+    		@markets = @profile.markets#works just should group by market_num
+    		#@markets = Market.where(profile_id: @profile[:id]).order(:market_num)
+
     		#render plain: @markets.inspect
-    		#return
     	else 
     		redirect_to root_path
     	end
@@ -44,4 +45,5 @@ class UsersController < ApplicationController
 	  def user_params
 	    params.require(:user).permit(:email, :password , :password_confirmation)
 	  end
+
 end

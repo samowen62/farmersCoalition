@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150311031638) do
+ActiveRecord::Schema.define(version: 20150315170757) do
 
   create_table "markets", force: true do |t|
     t.date     "start"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150311031638) do
     t.text     "list_of_persons"
     t.string   "logo_path"
     t.string   "city"
+    t.string   "incorporated_other"
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
