@@ -22,6 +22,8 @@ class SessionsController < ApplicationController
 		authorized_user = User.authenticate(params[:username_or_email],params[:login_password])
 		if authorized_user
 			session[:user_id] = authorized_user.id
+			#render plain: session[:user_id].inspect
+			#return
 			flash[:notice] = "Wow Welcome again, you logged in as #{authorized_user.email}"
 
 			@user = User.find(authorized_user.id)
