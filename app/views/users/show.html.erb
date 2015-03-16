@@ -305,15 +305,17 @@ function profileCtrl($scope){
 
 	var seasonalArr = [1,1,1];
 	var base;
-	$scope.markets.forEach(function(entry){
-		base = 'market' + entry.market_num;
-		if(entry.market_type == "seasonal"){
-			base += seasonalArr[entry.market_num - 1];
-			seasonalArr[entry.market_num - 1]++;
-		}
-		if(entry.market_num != null)
-			$scope[base] = entry;
-	});
+
+	if($scope.markets != null)
+		$scope.markets.forEach(function(entry){
+			base = 'market' + entry.market_num;
+			if(entry.market_type == "seasonal"){
+				base += seasonalArr[entry.market_num - 1];
+				seasonalArr[entry.market_num - 1]++;
+			}
+			if(entry.market_num != null)
+				$scope[base] = entry;
+		});
 
 	$scope.locSlide = function(id) {
 	  	if ($(id).is(":hidden")) {

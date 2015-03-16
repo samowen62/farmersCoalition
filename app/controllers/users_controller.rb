@@ -9,11 +9,13 @@ class UsersController < ApplicationController
 	def show
 		if user_is_logged_in?
     		@user = User.find(session[:user_id])
+    		session[:user_id] = @user.id
     		@profile = Profile.where(user_id: session[:user_id]).first
     		@markets = @profile.markets#works just should group by market_num
     		#@markets = Market.where(profile_id: @profile[:id]).order(:market_num)
 
-    		#render plain: @markets.inspect
+    		#render plain: session.inspect
+    		#return
     	else 
     		redirect_to root_path
     	end
@@ -26,10 +28,18 @@ class UsersController < ApplicationController
 			return
 		end
 
+		if params[:user][:password].nil? || params[:user][:password_confirmation].nil?
+			render "new"
+			return
+		end
+
 		@user = User.new(user_params)
 		if @user.save
 			flash[:notice] = "You signed up successfully"
 			flash[:color]= "valid"
+			session[:user_id] = @user.id
+			@profile = Profile.new(:user_id => @user.id)
+			@profile.save!
 		else
 			flash[:notice] = "Form is invalid"
 			flash[:color]= "invalid"
