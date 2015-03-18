@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get "signup", :to => "users#new"
   get "login", :to => "sessions#login"
   get "logout", :to => "sessions#logout"
+  get "display", :to => "users#display"
+
   post "login_attempt", :to => "sessions#login_attempt"
   post "post_info", :to => "profile#create"
   post "post_market", :to => "markets#create"

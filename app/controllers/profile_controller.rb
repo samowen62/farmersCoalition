@@ -4,8 +4,6 @@ class ProfileController < ApplicationController
 
   #same as update
   def create
-  	#render plain: profile_params
-
   	if user_is_logged_in?
     	@user = User.find(session[:user_id])
       #check if any exist
@@ -42,6 +40,9 @@ class ProfileController < ApplicationController
         profile[:logo_path] = params[:profile][:logo_path]
         profile[:incorporated_other] = params[:profile][:incorporated_other]
         profile.save!
+
+        redirect_to "/display"
+        return
       end
       
       redirect_to user_path(@user)

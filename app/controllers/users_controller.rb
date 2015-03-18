@@ -21,6 +21,17 @@ class UsersController < ApplicationController
     	end
   	end
 
+  	def display
+  		if user_is_logged_in?
+    		@user = User.find(session[:user_id])
+    		session[:user_id] = @user.id
+    		@profile = Profile.where(user_id: session[:user_id]).first
+    		@markets = @profile.markets
+    	else 
+    		redirect_to root_path
+    	end
+  	end
+
 	def create
 		#render plain: params[:user].inspect
 		if params[:user][:password] != params[:user][:password_confirmation]
@@ -34,17 +45,19 @@ class UsersController < ApplicationController
 		end
 
 		@user = User.new(user_params)
-		if @user.save
+		if @user.save!
 			flash[:notice] = "You signed up successfully"
 			flash[:color]= "valid"
 			session[:user_id] = @user.id
 			@profile = Profile.new(:user_id => @user.id)
 			@profile.save!
+			render "show"
 		else
 			flash[:notice] = "Form is invalid"
 			flash[:color]= "invalid"
+			render "signup"
 		end 
-  		render "show"
+  		
 	end
 
 	def edit

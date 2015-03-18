@@ -1,0 +1,123 @@
+<%= render "shared/menu" %>
+
+<div id="showUser" class="col-md-12" ng-app ng-controller="displayCtrl">
+  <div class="col-md-offset-3 col-md-6 main">	 
+	<% if !@profile.nil? && !@profile.new_record? %>
+	<div class="clearfix"></div>
+	<div class="profile-header">
+		<h2 ng-click="slide('#info')" class="title" >Profile Info <span ng-if="profile.FMC_member">FMC Member!</span></h2>
+		<div class="profile-group" id="info">
+			<h3><span>Summary</span></h3>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Name:</label>
+				</div>
+				<div class="col-md-6">
+					<%= @profile.name %>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Location:</label>
+				</div>
+				<div class="col-md-6">
+					<%= @profile.address %> <%= @profile.city %>, <%= @profile.state %>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="row">
+				<div class="col-md-3">
+					<label>County:</label>
+				</div>
+				<div class="col-md-3">
+					<%= @profile.county %>
+				</div>
+				<div class="col-md-3">
+					<label>Year Founded:</label>
+				</div>
+				<div class="col-md-3">
+					<%= @profile.year %>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			
+		</div>
+	</div>
+	<div class="profile-header" ng-if="mars.length > 0">
+		<h2 ng-click="slide('#markets')" class="title" >Markets</h2>
+		<div class="profile-group" id="markets">
+			<div ng-repeat="market in markets">
+				<div ng-if="market != [null,null,null]">
+					<h3 ng-if="$index == 0"><span>Main Market</span></h3>
+					<h3 ng-if="$index != 0"><span>Alternate Location #{{$index}}</span></h3>
+					<div class="row">
+						<div class="col-xs-4" ng-if="market[0] != null">
+							<h5>Primary Seasonal Market</h5>
+							<div class="date">Opening Date: {{market[0].start}}</div>
+							<div class="date">Opening Date: {{market[0].end}}</div>
+						</div>
+						<div class="col-xs-4" ng-if="market[1] != null">
+							<h5>Seperate Seasonal #1</h5>
+							<div class="date">Opening Date: {{market[1].start}}</div>
+							<div class="date">Opening Date: {{market[1].end}}</div>
+						</div>
+						<div class="col-xs-4" ng-if="market[2] != null">
+							<h5>Seperate Seasonal #2</h5>
+							<div class="date">Opening Date: {{market[2].start}}</div>
+							<div class="date">Opening Date: {{market[2].end}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>	
+			</div>	
+		</div>
+	</div>
+	<div ng-if="mars.length == 0">
+		<h2>No Markets Saved</h2>
+	</div>
+	<% end %>
+  </div>
+</div>
+<script type="text/javascript">
+var host = "http://localhost:3000/"
+//https://fathomless-bayou-8856.herokuapp.com/
+
+function displayCtrl($scope){
+
+	$scope.profile = <%= raw(@profile.to_json) %>;
+	$scope.mars = <%= raw(@markets.to_json) %>;
+	console.log($scope.profile);
+	console.log($scope.mars);
+
+	var seasonalArr = [1,1,1];
+	var num;
+
+	$scope.markets = [[null,null,null],[null,null,null],[null,null,null]];
+
+	if($scope.mars != null)
+		$scope.mars.forEach(function(entry){
+			num = entry.market_num - 1;
+			if(entry.market_type == "market")
+				$scope.markets[num][0] = entry;
+			else if(entry.market_type == "seasonal"){
+				if($scope.markets[num][1] == null)
+					$scope.markets[num][1] = entry;
+				else
+					$scope.markets[num][2] = entry;
+			}
+		});
+
+	console.log($scope.markets);
+
+
+	$scope.slide = function(id) {
+	  	if ($(id).is(":hidden")) {
+	    	$(id).slideDown("slow");
+	  	}else{
+	    	$(id).slideUp("slow");
+	  	}
+	};
+
+}
+</script>

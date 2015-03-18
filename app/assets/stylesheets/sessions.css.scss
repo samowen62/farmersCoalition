@@ -142,3 +142,38 @@ label{
 		border-radius: 20px;
 	}
 }
+.profile-header{
+	#info, #etc{
+		display:none;
+	}
+	#markets{
+		display:none;
+		.date{
+			font-size:12px;
+		}
+	}
+	h2{
+		font-weight: 600;
+		font-family: "Droid Sans",sans-serif;
+		color: $background-prim;
+		width: 100%;
+		padding: 4px 10px;
+		background-color: $btn-color;
+		border-radius: 8px;
+	}
+	.profile-group{
+		background-color: white;
+		padding: 20px;
+		font-size:12px;
+		h3{
+			margin: 10px 5px;
+			span{
+				font-family: $font-clean;
+				color: $background-prim;
+				background-color: $background-main;
+				padding: 4px;
+				border-radius: 8px;
+			}
+		}
+	}
+}
