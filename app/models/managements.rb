@@ -1,24 +1,41 @@
 class Managements < ActiveRecord::Base
 	belongs_to :profile
-	#after_initialize :default_values
+	
+	def ManFullYrPaid 
+		(positions << 0) % 2 == 1
+	end
+	def ManFullYrUnPaid 
+		(positions << 1)  % 2 == 1
+	end
+	def ManPartPaid 
+		(positions << 2) % 2 == 1
+	end
+	def ManPartUnPaid 
+		(positions << 3) % 2 == 1
+	end
+	def ManFullPaid 
+		(positions << 4) % 2 == 1
+	end
+	def ManFullUnPaid 
+		(positions << 5) % 2 == 1
+	end
+	def ManSeasPaid 
+		(positions << 6) % 2 == 1
+	end
+	def ManSeasUnPaid 
+		(positions << 7) % 2 == 1
+	end
+	def VolunteerPaid 
+		(positions << 8) % 2 == 1
+	end
+	def VolunteerUnPaid
+		(positions << 9) % 2 == 1
+	end
+	def OtherPaid 
+		(positions << 10) % 2 == 1
+	end
+	def OtherUnPaid 
+		(positions << 11) % 2 == 1
+	end
 
-    	def default_values 
-    		#if :positions == 0
-				self.ManFullYrPaid = :positions << 0
-			#end
-=begin  			self.ManFullYrUnPaid  = (:positions << 1)
-  			self.ManPartPaid    = (:positions << 2)
-  			self.ManPartUnPaid = (:positions << 3)
-  			self.ManFullPaid  = (:positions << 4)
-  			self.ManFullUnPaid    = (:positions << 5)
-  			self.ManSeasPaid = (:positions << 6)
-  			self.ManSeasUnPaid  = (:positions << 7)
-  			self.VolunteerPaid  = (:positions << 8)
-  			self.VolunteerUnPaid    = (:positions << 9)
-  			self.OtherPaid = (:positions << 10)
-  			self.OtherUnPaid  = (:positions << 11)
-=end		
-		end
-
-	  #for i in 0..10 do puts "#{c >> i} and i is #{i}" end
 end

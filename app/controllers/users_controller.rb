@@ -12,9 +12,8 @@ class UsersController < ApplicationController
     		session[:user_id] = @user.id
     		@profile = Profile.where(user_id: session[:user_id]).first
     		@markets = @profile.markets
-    		#@markets = Market.where(profile_id: @profile[:id]).order(:market_num)
     		@management = @profile.managements
-    		render plain: @management.inspect
+    		
     		return
     	else 
     		redirect_to root_path

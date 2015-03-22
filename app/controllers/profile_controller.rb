@@ -40,7 +40,7 @@ class ProfileController < ApplicationController
         profile[:logo_path] = params[:profile][:logo_path]
         profile[:incorporated_other] = params[:profile][:incorporated_other]
         profile.save!
-
+        
         redirect_to "/display"
         return
       end
