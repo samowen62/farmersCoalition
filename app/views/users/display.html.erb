@@ -9,39 +9,22 @@
 		<div class="profile-group" id="info">
 			<h3><span>Summary</span></h3>
 			<div class="row">
-				<div class="col-md-6">
-					<label>Name:</label>
+				<div class="col-md-8">
+					<label>Name:</label><span class="val"><%= @profile.name %></span>
 				</div>
-				<div class="col-md-6">
-					<%= @profile.name %>
-				</div>
-			</div>
-			<div class="clearfix"></div>
-			<div class="row">
-				<div class="col-md-6">
-					<label>Location:</label>
-				</div>
-				<div class="col-md-6">
-					<%= @profile.address %> <%= @profile.city %>, <%= @profile.state %>
+				<div class="col-md-4">
+					<label>Year Founded:</label><span class="val"><%= @profile.year %></span>
 				</div>
 			</div>
 			<div class="clearfix"></div>
 			<div class="row">
-				<div class="col-md-3">
-					<label>County:</label>
+				<div class="col-md-7">
+					<label>Location:</label><span class="val"><%= @profile.address %> <%= @profile.city %>, <%= @profile.state %></span>
 				</div>
-				<div class="col-md-3">
-					<%= @profile.county %>
-				</div>
-				<div class="col-md-3">
-					<label>Year Founded:</label>
-				</div>
-				<div class="col-md-3">
-					<%= @profile.year %>
+				<div class="col-md-5">
+					<label>County:</label><span class="val"><%= @profile.county %></span>
 				</div>
 			</div>
-			<div class="clearfix"></div>
-			
 		</div>
 	</div>
 	<div class="profile-header" ng-if="mars.length > 0">
@@ -76,7 +59,31 @@
 	<div ng-if="mars.length == 0">
 		<h2>No Markets Saved</h2>
 	</div>
+	<div class="profile-header">
+		<h2 ng-click="slide('#impact')" class="title" >Indicators for Impact</h2>
+			<div class="profile-group" id="impact">
+			<p>Farmers Markets as Leaders in Collaborative Food System Data Collection and Analysis.</p>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Operates year round?:</label><span class="val"><%= @profile.year_round ? "yes" : "no" %></span>
+				</div>
+				<div class="col-md-6">
+					<label>FMC Member?:</label><span class="val"><%= @profile.FMC_member ? "yes" : "no" %></span>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="row">
+				<div class="col-md-12">
+					<label>Host Organization name:</label><span class="val"><%= @profile.host_name %> <%= @profile.incorporated != "Other" ? @profile.incorporated : @profile.incorporated_other %></span>
+				</div>
+			</div>
+			
+		</div>
+	</div>
 	<% end %>
+  </div>
+  <div class="col-md-3">
+  	<%= render "shared/logged_in" %>
   </div>
 </div>
 <script type="text/javascript">

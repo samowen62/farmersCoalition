@@ -1,21 +1,10 @@
 <div class="col-md-12" id="sidebar">
-	<div class="clearfix"></div>
     <div class="row">
-    	<div class="col-md-4">
-			<label>Login</label>
-		</div>
-		<div class="link col-md-8">
-			<%= link_to "Log in", controller: "sessions", action: "login"%>
-		</div>	
+			<label>New to FMC? Click</label><%= link_to "here", controller: "users", action: "new"%>
 	</div>
 	<div class="clearfix"></div>
     <div class="row">
-    	<div class="col-md-4">
-			<label>Sign Up</label>
-		</div>
-		<div class="link col-md-8">
-			<%= link_to "Sign up", controller: "users", action: "new"%>
-		</div>
+			<label>Log in to your profile</label><%= link_to "here", controller: "sessions", action: "login"%>	
 	</div>
-	<div class="clearfix"></div>
+
 </div>
