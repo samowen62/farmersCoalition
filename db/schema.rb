@@ -11,7 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315170757) do
+ActiveRecord::Schema.define(version: 20150319213132) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "managements", force: true do |t|
+    t.integer "num_staff"
+    t.integer "positions"
+    t.string  "other"
+    t.integer "ave_unpaid_market"
+    t.integer "ave_unpaid_non_market"
+    t.integer "ave_paid_market"
+    t.integer "ave_paid_non_market"
+    t.float   "annual_budget_for_staff"
+    t.float   "annual_operating_budget"
+    t.string  "bookKeeper"
+    t.boolean "other_rules"
+    t.string  "other_rules_path"
+    t.float   "annual_application_fee"
+    t.float   "annual_membership_fee"
+    t.float   "percentage_sales"
+    t.float   "no_charge"
+    t.float   "other_charge"
+    t.string  "other_charge_explained"
+    t.integer "ave_num_vendors"
+    t.integer "profile_id"
+  end
+
+  add_index "managements", ["profile_id"], name: "index_managements_on_profile_id", using: :btree
 
   create_table "markets", force: true do |t|
     t.date     "start"
@@ -23,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150315170757) do
     t.integer  "market_num"
   end
 
-  add_index "markets", ["profile_id"], name: "index_markets_on_profile_id"
+  add_index "markets", ["profile_id"], name: "index_markets_on_profile_id", using: :btree
 
   create_table "profiles", force: true do |t|
     t.string   "name"
@@ -55,7 +83,7 @@ ActiveRecord::Schema.define(version: 20150315170757) do
     t.string   "incorporated_other"
   end
 
-  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
