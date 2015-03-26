@@ -2,8 +2,32 @@
 
 <div id="showUser" class="col-md-12" ng-app ng-controller="profileCtrl">
   <div  id="summary" class="col-md-offset-3 col-md-6 main">
+  	<div class="col-md-10 col-md-offset-1">
+	  	<div class="progress" style="width:96%">
+		  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
+		  </div>
+		</div>
+		<ul class="nav">
+			<li>
+				<a ng-click="changeTab(1)">1</a>
+			</li>
+			<li>
+				<a ng-click="changeTab(2)">2</a>
+			</li>
+			<li>
+				<a ng-click="changeTab(3)">3</a>
+			</li>
+			<li>
+				<a ng-click="changeTab(4)">4</a>
+			</li>
+		</ul>
+	</div>
 	<%= form_for :profile, url: "/post_info" do |f| %>
-	<div id="form-ctrl" class="col-md-12">
+	<div ng-show="tab == 1" class="col-md-12">
+		<div class="row">
+			<h1>Profile Summary</h1>
+		</div>
+		<div class="clearfix"></div>
 		<div class="row">
 			<div class="col-md-9">
 				<label>Name of Market</label>
@@ -244,10 +268,93 @@
 		<div class="row">
 			<div class="col-md-offset-4 col-md-4">
 				<%= f.submit :Update, :class => "btn btn-default", :style => "margin-top: 10px; width: 100%;" %>
+				<!--a href="javascript:void" class="btn btn-default" ng-click="changeTab(2)" style="margin-top: 10px; width: 100%;">next</a-->
 			</div>
 			<div class="col-md-4"> 
 				<!--a class="btn btn-primary" ng-click="rightScroll('#summary')">sfsfd</a-->
 			</div>
+		</div>
+	</div>
+	<div ng-show="tab == 2" class="col-md-12">
+		<div class="row">
+			<h1>Management</h1>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-4 skinny">
+				<h4>Total average hours worked by...</h4>
+				<div class="col-md-12">
+					<label>Unpaid/volunteer staff on market day:</label>
+					<input type="text" ng-model="management.ave_unpaid_market"/>
+				</div>
+				<div class="col-md-12">
+					<label>Unpaid/volunteer staff on NON market days:</label>
+					<input type="text" ng-model="management.ave_unpaid_non_market"/>
+				</div>
+				<div class="col-md-12">
+					<label>Paid staff on market day:</label>
+					<input type="text" ng-model="management.ave_paid_market"/>
+				</div>
+				<div class="col-md-12">
+					<label>Paid staff on NON market days:</label>
+					<input type="text" ng-model="management.ave_paid_non_market"/>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<p>What roles, paid and unpaid, do you have at your market? (select all that apply):</p>
+				<table>
+					<thead>
+						<th></th>
+						<th>Paid</th>
+						<th>Unpaid</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Manager, full-time, year-round</td>
+							<td style="text-align: center;"><input type="checkbox" ng-model="positions[0]" /></td>
+							<td style="text-align: center;"><input type="checkbox" ng-model="positions[1]" /></td>
+						</tr>
+						<tr>
+							<td>Manager, part-time, year round</td>
+							<td style="text-align: center;"><input type="checkbox" ng-model="positions[2]" /></td>
+							<td style="text-align: center;"><input type="checkbox" ng-model="positions[3]" /></td>
+						</tr>
+						<tr>
+							<td>Manager, full-time, seasonal</td>
+							<td style="text-align: center;"><input type="checkbox" ng-model="positions[4]" /></td>
+							<td style="text-align: center;"><input type="checkbox" ng-model="positions[5]" /></td>
+						</tr>
+						<tr>
+							<td>Manager, part-time, seasonal</td>
+							<td style="text-align: center;"><input type="checkbox" ng-model="positions[6]" /></td>
+							<td style="text-align: center;"><input type="checkbox" ng-model="positions[7]" /></td>
+						</tr>
+						<tr>
+							<td>Volunteer (s)</td>
+							<td style="text-align: center;"><input type="checkbox" ng-model="positions[8]" /></td>
+							<td style="text-align: center;"><input type="checkbox" ng-model="positions[9]" /></td>
+						</tr>
+						<tr>
+							<td>Other (please explain)</td>
+							<td style="text-align: center;"><input type="checkbox" ng-model="positions[10]" /></td>
+							<td style="text-align: center;"><input type="checkbox" ng-model="positions[11]" /></td>
+						</tr>
+					</tbody>
+				</table>
+				<div ng-if="positions[10] || positions[11]">
+					<label>Other Position:</label>
+					<input type="text" ng-model="management.other"/>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<label class="col-md-4">Number of staff during primary season:</label>
+			<input class="col-md-2" type="text" ng-model="management.num_staff"/>
+			<label class="col-md-4">Amount of annual budget allocated for paid staff:</label>
+			<input class="col-md-2" type="text" ng-model="management.annual_budget_for_staff" placeholder="$"/>
+			<label class="col-md-4">Annual operating budget:</label>
+			<input class="col-md-2" type="text" ng-model="management.annual_operating_budget" placeholder="$"/>
 		</div>
 	</div>
 	<% end %>
@@ -267,14 +374,21 @@
 </div>
 <script type="text/javascript">
 var host = "http://localhost:3000/"
-//https://fathomless-bayou-8856.herokuapp.com/
+//var host = "https://fathomless-bayou-8856.herokuapp.com/";
 
 function profileCtrl($scope){
 
 	$scope.profile = <%= raw(@profile.to_json) %>;
 	$scope.markets = <%= raw(@markets.to_json) %>;
+	$scope.management = <%= raw(@management.to_json) %>;
+	$scope.positions = <%= raw(@positions.to_json) %>;
+
 	console.log($scope.profile);
 	console.log($scope.markets);
+	console.log($scope.management);
+	console.log($scope.positions);
+
+	$scope.tab = 1;
 
 	var seasonalArr = [1,1,1];
 	var base;
@@ -296,6 +410,10 @@ function profileCtrl($scope){
 		});
 	};
 
+	$scope.changeTab = function(tab){
+		$scope.tab = tab;
+		$('.progress-bar-success').width((tab*25) + '%');
+	};
 
 	$scope.locSlide = function(id) {
 	  	if ($(id).is(":hidden")) {

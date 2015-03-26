@@ -9,11 +9,14 @@ class UsersController < ApplicationController
 	def show
 		if user_is_logged_in?
     		@user = User.find(session[:user_id])
-    		session[:user_id] = @user.id
     		@profile = Profile.where(user_id: session[:user_id]).first
     		@markets = @profile.markets
     		@management = @profile.managements
-    		
+    		@positions = Array.new
+
+    		for i in 0..11
+    			@positions.push(@management.pos(i))
+    		end
     		return
     	else 
     		redirect_to root_path

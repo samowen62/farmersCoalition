@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post "login_attempt", :to => "sessions#login_attempt"
   post "post_info", :to => "profile#create"
   post "post_market", :to => "markets#create"
+  post "post_managements", :to => "profile#create_man"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
