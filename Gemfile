@@ -22,6 +22,11 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'aws-sdk'
+
+group :production do
+  gem 'rails_log_stdout',           github: 'heroku/rails_log_stdout'
+  gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
+end
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
