@@ -14,9 +14,11 @@ class UsersController < ApplicationController
     		@management = @profile.managements
     		@positions = Array.new
 
-    		for i in 0..11
-    			@positions.push(@management.pos(i))
-    		end
+    		unless  @management.nil? || @management.empty?
+	    		for i in 0..11
+	    			@positions.push(@management.pos(i))
+	    		end
+	    	end
     		return
     	else 
     		redirect_to root_path
