@@ -267,8 +267,8 @@
 		<div class="clearfix"></div>
 		<div class="row">
 			<div class="col-md-offset-4 col-md-4">
-				<%= f.submit :Update, :class => "btn btn-default", :style => "margin-top: 10px; width: 100%;" %>
-				<!--a href="javascript:void" class="btn btn-default" ng-click="changeTab(2)" style="margin-top: 10px; width: 100%;">next</a-->
+				<!--%= #f.submit :Update, :class => "btn btn-default", :style => "margin-top: 10px; width: 100%;" %-->
+				<a href="javascript:void" class="btn btn-default" ng-click="changeTab(2)" style="margin-top: 10px; width: 100%;">next</a>
 			</div>
 			<div class="col-md-4"> 
 				<!--a class="btn btn-primary" ng-click="rightScroll('#summary')">sfsfd</a-->
@@ -348,13 +348,51 @@
 			</div>
 		</div>
 		<div class="clearfix"></div>
-		<div class="row">
+		<div class="row" style="margin: 10px;">
 			<label class="col-md-4">Number of staff during primary season:</label>
-			<input class="col-md-2" type="text" ng-model="management.num_staff"/>
+			<input class="col-md-2" type="text" ng-model="management.num_staff" style="width: 10%;"/>
 			<label class="col-md-4">Amount of annual budget allocated for paid staff:</label>
-			<input class="col-md-2" type="text" ng-model="management.annual_budget_for_staff" placeholder="$"/>
+			<input class="col-md-2" type="text" ng-model="management.annual_budget_for_staff" placeholder="$" style="width: 10%;"/>
 			<label class="col-md-4">Annual operating budget:</label>
-			<input class="col-md-2" type="text" ng-model="management.annual_operating_budget" placeholder="$"/>
+			<input class="col-md-2" type="text" ng-model="management.annual_operating_budget" placeholder="$" style="width: 10%;"/>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<h1>Vendors</h1>
+			<h3>Vendor participation fees (complete all that apply)</h3>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<label class="col-md-4">Annual application fee:</label>
+			<input class="col-md-2" type="text" ng-model="management.annual_application_fee" placeholder="$" style="width: 10%;"/>
+			<label class="col-md-4">Annual flat rate membership fee:</label>
+			<input class="col-md-2" type="text" ng-model="management.annual_membership_fee" placeholder="$" style="width: 10%;"/>
+			<label class="col-md-4">Percentage of sales:</label>
+			<input class="col-md-2" type="text" ng-model="management.percentage_sales" placeholder="$" style="width: 10%;"/>
+			<label class="col-md-4">No charge to vendors:</label>
+			<input class="col-md-2" type="text" ng-model="management.no_charge" placeholder="$" style="width: 10%;"/>
+			<label class="col-md-4">Other (please explain):</label>
+			<input class="col-md-2" type="text" ng-model="management.other_charge" placeholder="$" style="width: 10%;"/>
+			<input ng-show="management.other_charge != '' || management.other_charge != null" class="col-md-4" type="text" ng-model="management.other_charge_explained" style="width: 40%;"/>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<label class="col-md-8">Average number of vendors during the primary season</label>
+			<input class="col-md-2" type="text" ng-model="management.ave_num_vendors" style="width: 10%;"/>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-offset-4 col-md-4">
+				<a href="javascript:void" class="btn btn-default" ng-click="addMan()" style="margin-top: 10px; width: 100%;">next</a>
+			</div>
+		</div>
+	</div>
+	<div ng-show="tab == 3" class="col-md-12">
+		<div class="row">
+			<h1>Accessibility</h1>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
 		</div>
 	</div>
 	<% end %>
@@ -373,8 +411,8 @@
   </div>
 </div>
 <script type="text/javascript">
-//var host = "http://localhost:3000/"
-var host = "https://fathomless-bayou-8856.herokuapp.com/";
+var host = "http://localhost:3000/"
+//var host = "https://fathomless-bayou-8856.herokuapp.com/";
 
 function profileCtrl($scope){
 
@@ -435,6 +473,20 @@ function profileCtrl($scope){
 			type: "POST",
 			url: host + "post_market",
 			data: market,
+			success: function(data){
+				console.log(data);
+			}
+		});
+	};
+
+	$scope.addMan = function(){
+		$scope.changeTab(3);
+		$scope.management.pos = $scope.positions;
+
+		$.ajax({
+			type: "POST",
+			url: host + "post_managements",
+			data: $scope.management,
 			success: function(data){
 				console.log(data);
 			}

@@ -30,17 +30,33 @@ class ProfileController < ApplicationController
 
   def create_man
     if user_is_logged_in?
-      unless profile = Profile.where(user_id: session[:user_id]).first == 0
-        unless management = Mangements.where(profile_id: profile.id).first == 0
+      unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
+        params[:positions] = 0;
+
+        unless  params[:pos].nil?
+          for i in 0..11
+            if params[:pos][i] == "true"
+              params[:positions] += 2 ** i
+            end
+          end
+        end
+
+        #render plain: profile.managements.inspect;
+        #return
+
+        unless (management = Managements.where(profile_id: profile.id).first).nil?
           management.update_attributes!(management_params)
           management.save!
-          redirect_to "display"
+          render plain: management.inspect
           return
-        #else
+        else
+          management = Managements.new(management_params)
+          management.save!
+          render plain: management.inspect
+          return
         end
       end
     end
-    redirect_to root_path
   end
 
   private
@@ -50,6 +66,6 @@ class ProfileController < ApplicationController
 
   private
     def management_params 
-      params.permit(:num_staff, :positions, :other, :ave_unpaid_market, :ave_unpaid_non_market, :ave_paid_market, :ave_unpaid_non_market, :annual_budget_for_staff, :annual_operating_budget, :bookKeeper, :other_rules, :other_rules_path, :annual_application_fee, :annual_membership_fee, :percentage_sales, :no_charge, :other_charge, :other_charge_explained, :ave_num_vendors, :profile_id)
+      params.permit(:num_staff, :positions, :other, :ave_unpaid_market, :ave_unpaid_non_market, :ave_paid_market, :ave_paid_non_market, :annual_budget_for_staff, :annual_operating_budget, :bookKeeper, :other_rules, :other_rules_path, :annual_application_fee, :annual_membership_fee, :percentage_sales, :no_charge, :other_charge, :other_charge_explained, :ave_num_vendors)
     end
 end

@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     		@management = @profile.managements
     		@positions = Array.new
 
-    		unless  @management.nil? || @management.empty?
+    		unless  @management.nil?
 	    		for i in 0..11
 	    			@positions.push(@management.pos(i))
 	    		end
@@ -51,15 +51,11 @@ class UsersController < ApplicationController
 
 		@user = User.new(user_params)
 		if @user.save!
-			flash[:notice] = "You signed up successfully"
-			flash[:color]= "valid"
 			session[:user_id] = @user.id
 			@profile = Profile.new(:user_id => @user.id)
 			@profile.save!
 			render "show"
 		else
-			flash[:notice] = "Form is invalid"
-			flash[:color]= "invalid"
 			render "signup"
 		end 
   		
