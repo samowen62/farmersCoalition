@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319213132) do
+ActiveRecord::Schema.define(version: 20150405190608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accessibilities", force: true do |t|
+    t.integer  "profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "accessibilities", ["profile_id"], name: "index_accessibilities_on_profile_id", using: :btree
 
   create_table "managements", force: true do |t|
     t.integer "num_staff"

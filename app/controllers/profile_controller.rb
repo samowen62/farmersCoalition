@@ -30,6 +30,7 @@ class ProfileController < ApplicationController
 
   def create_man
     if user_is_logged_in?
+      #could do it with find but an exeption will be thrown if not found
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
         params[:positions] = 0;
 
@@ -59,6 +60,38 @@ class ProfileController < ApplicationController
     end
   end
 
+  def create_access
+    if user_is_logged_in?
+      #could do it with find but an exeption will be thrown if not found
+      unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
+        params[:positions] = 0;
+
+        unless  params[:pos].nil?
+          for i in 0..11
+            if params[:pos][i] == "true"
+              params[:positions] += 2 ** i
+            end
+          end
+        end
+
+        #render plain: profile.managements.inspect;
+        #return
+
+        unless (management = Managements.where(profile_id: profile.id).first).nil?
+          management.update_attributes!(access_params)
+          management.save!
+          render plain: management.inspect
+          return
+        else
+          management = Managements.new(access_params)
+          management.save!
+          render plain: management.inspect
+          return
+        end
+      end
+    end
+  end
+
   private
   	def profile_params 
   		params.require(:profile).permit(:name, :city, :address, :state, :county, :year, :year_round, :multiple_locs, :FMC_member, :host_name, :other_associations, :mission_statement, :ms_website, :ms_manual, :ms_market_promos, :ms_none, :ms_other, :ms_other_text, :when_ms, :person_decisions, :list_of_persons, :logo_path, :incorporated_other)
@@ -66,6 +99,11 @@ class ProfileController < ApplicationController
 
   private
     def management_params 
+      params.permit(:num_staff, :positions, :other, :ave_unpaid_market, :ave_unpaid_non_market, :ave_paid_market, :ave_paid_non_market, :annual_budget_for_staff, :annual_operating_budget, :bookKeeper, :other_rules, :other_rules_path, :annual_application_fee, :annual_membership_fee, :percentage_sales, :no_charge, :other_charge, :other_charge_explained, :ave_num_vendors)
+    end
+
+  private
+    def access_params 
       params.permit(:num_staff, :positions, :other, :ave_unpaid_market, :ave_unpaid_non_market, :ave_paid_market, :ave_paid_non_market, :annual_budget_for_staff, :annual_operating_budget, :bookKeeper, :other_rules, :other_rules_path, :annual_application_fee, :annual_membership_fee, :percentage_sales, :no_charge, :other_charge, :other_charge_explained, :ave_num_vendors)
     end
 end
