@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406005426) do
+ActiveRecord::Schema.define(version: 20150406223640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,11 @@ ActiveRecord::Schema.define(version: 20150406005426) do
     t.string   "CVV_offer"
     t.boolean  "other_vouchers"
     t.text     "other_vouchers_explain"
+    t.string   "other_access_features_explain"
+    t.string   "SNAP_offer_other"
+    t.string   "FMNP_offer_other"
+    t.string   "FMNP_senior_offer_other"
+    t.string   "CVV_offer_other"
   end
 
   add_index "accessibilities", ["profile_id"], name: "index_accessibilities_on_profile_id", using: :btree

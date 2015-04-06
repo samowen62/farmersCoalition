@@ -53,33 +53,40 @@ label{
 		font-family: $font-clean;
 	}
 }
-
-#sidebar{
-	.progress-bar-success{
-		background-color:$btn-color;
-	}
-	padding: 25px;
-	font-family: $font-clean;
-	color: $text-light;
-	.link{
-		padding-top: 5px;
-		a{
-			color: $text-prim !important;
+.sidebar-left{
+	width: 250px;
+	position: absolute;
+	top: 0px;
+	#sidebar{
+		.progress-bar-success{
+			background-color:$btn-color;
 		}
-	}
-	ul{
-		list-style-type: none;
-		li{
-			background-color: $text-light;
-			padding: 7px;
-			border: 1px solid $background-prim;
-			font-size: 12px;
-			width: 80%;
+		padding: 25px;
+		font-family: $font-clean;
+		color: $text-light;
+		.link{
+			padding-top: 5px;
 			a{
-				color: $background-prim;
-				&:hover{
-					text-decoration: none;
+				color: $text-prim !important;
+			}
+		}
+		ul{
+			list-style-type: none;
+			li{
+				background-color: $text-light;
+				padding: 7px;
+				border: 1px solid $background-prim;
+				font-size: 12px;
+				width: 80%;
+				a{
+					color: $background-prim;
+					&:hover{
+						text-decoration: none;
+					}
 				}
+			}
+			li.active{
+				background-color: $background-main !important;
 			}
 		}
 	}
@@ -127,11 +134,15 @@ label{
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
 }
+
 #newUser, #showUser{
 	background-color: $background-prim;	
 	.main{
 		padding: 25px;
 		background-color: $background-main;	
+		width: 800px;
+		margin: auto;
+		height: 1000px;
 	}
 	#mission_statement{
 		display:none;

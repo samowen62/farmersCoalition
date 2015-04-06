@@ -84,7 +84,7 @@ class ProfileController < ApplicationController
 
   private
   	def profile_params 
-  		params.require(:profile).permit(:name, :city, :address, :state, :county, :year, :year_round, :multiple_locs, :FMC_member, :host_name, :other_associations, :mission_statement, :ms_website, :ms_manual, :ms_market_promos, :ms_none, :ms_other, :ms_other_text, :when_ms, :person_decisions, :list_of_persons, :logo_path, :incorporated_other)
+  		params.require(:profile).permit(:name, :city, :address, :state, :county, :year, :year_round, :multiple_locs, :FMC_member, :host_name, :other_associations, :mission_statement, :ms_website, :ms_manual, :ms_market_promos, :ms_none, :ms_other, :ms_other_text, :when_ms, :person_decisions, :list_of_persons, :logo_path, :incorporated_other, :incorporated)
   	end
 
   private
@@ -94,6 +94,6 @@ class ProfileController < ApplicationController
 
   private
     def access_params 
-      params.permit(:bus_sub, :bike_racks, :sidewalks, :free_parking, :roof, :other_access, :other_access_explain, :selling_space, :children_activities, :live_music, :food_demonstrations, :restrooms, :restroom_count, :accept_SNAP, :SNAP_offer, :FMNP_available, :accept_FMNP, :FMNP_offer, :FMNP_senior_available, :accept_FMNP_senior, :FMNP_senior_offer, :CVV_available, :accept_CVV, :CVV_offer, :other_vouchers, :other_vouchers_explain)
+      params.permit(:bus_sub, :bike_racks, :sidewalks, :free_parking, :roof, :other_access, :other_access_explain, :selling_space, :children_activities, :live_music, :food_demonstrations, :restrooms, :restroom_count, :accept_SNAP, :SNAP_offer, :FMNP_available, :accept_FMNP, :FMNP_offer, :FMNP_senior_available, :accept_FMNP_senior, :FMNP_senior_offer, :CVV_available, :accept_CVV, :CVV_offer, :other_vouchers, :other_vouchers_explain, :other_access_features_explain, :SNAP_offer_other, :FMNP_offer_other, :FMNP_senior_offer_other, :CVV_offer_other)
     end
 end

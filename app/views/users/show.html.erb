@@ -1,7 +1,7 @@
 <%= render "shared/menu" %>
 
 <div id="showUser" class="col-md-12" ng-app ng-controller="profileCtrl">
-  <div  id="summary" class="col-md-offset-3 col-md-6 main">
+  <div id="summary" class="main">
   	<div class="col-md-10 col-md-offset-1">
 	  	<div class="progress" style="width:96%">
 		  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
@@ -270,9 +270,6 @@
 				<!--%= #f.submit :Update, :class => "btn btn-default", :style => "margin-top: 10px; width: 100%;" %-->
 				<a href="javascript:void" class="btn btn-default" ng-click="changeTab(2)" style="margin-top: 10px; width: 100%;">next</a>
 			</div>
-			<div class="col-md-4"> 
-				<!--a class="btn btn-primary" ng-click="rightScroll('#summary')">sfsfd</a-->
-			</div>
 		</div>
 	</div>
 	<div ng-show="tab == 2" class="col-md-12">
@@ -383,7 +380,7 @@
 		<div class="clearfix"></div>
 		<div class="row">
 			<div class="col-md-offset-4 col-md-4">
-				<a href="javascript:void" class="btn btn-default" ng-click="addMan()" style="margin-top: 10px; width: 100%;">next</a>
+				<a href="javascript:void" class="btn btn-default" ng-click="addMan()" style="margin-top: 20px; width: 100%;">next</a>
 			</div>
 		</div>
 	</div>
@@ -422,6 +419,7 @@
 					</tr>
 					<tr ng-show="accessibility.other_access">
 						<td><input type="text" ng-model="accessibility.other_access_explain" /></td>
+						<td></td>
 					</tr>
 				</table>
 			</div>
@@ -463,8 +461,7 @@
 		</div>
 		<div class="clearfix"></div>
 		<div class="row">
-			<div class="col-md-7">
-			CREATE OFFER OTHERS
+			<div class="col-md-7" style="margin-top: 20px;">
 				<table>
 					<tr>
 						<td class="first">Does your market accept SNAP/EBT?</td>
@@ -475,7 +472,7 @@
 						<td>
 							Who offers SNAP at your market?
 						</td>
-						<td colspan="2">
+						<td>
 							<select ng-model="accessibility.SNAP_offer">
 								<option value="The market organization and no vendors">The market organization and no vendors</option>
 								<option value="The market organization and some vendors">The market organization and some vendors</option>
@@ -483,6 +480,13 @@
 								<option value="Other (please explain)">Other (please explain)</option>
 							</select>
 						</td>
+						<td>
+						</td>
+					</tr>
+					<tr ng-show="accessibility.SNAP_offer == 'Other (please explain)'">	
+						<td></td><td>
+							<input type="text" ng-model="accessibility.SNAP_offer_other"/>
+						</td><td></td>
 					</tr>
 					<tr>
 						<td class="first">Does your market accept WIC FMNP?</td>
@@ -498,7 +502,7 @@
 						<td >
 							Who offers WIC FMNP at your market?
 						</td>
-						<td colspan="2">
+						<td>
 							<select ng-model="accessibility.FMNP_offer">
 								<option value="The market organization and no vendors">The market organization and no vendors</option>
 								<option value="The market organization and some vendors">The market organization and some vendors</option>
@@ -506,6 +510,13 @@
 								<option value="Other (please explain)">Other (please explain)</option>
 							</select>
 						</td>
+						<td>
+						</td>
+					</tr>
+					<tr ng-show="accessibility.FMNP_offer == 'Other (please explain)'">	
+						<td></td><td>
+							<input type="text" ng-model="accessibility.FMNP_offer_other"/>
+						</td><td></td>
 					</tr>
 					<tr>
 						<td class="first">Does your market accept Senior FMNP?</td>
@@ -521,7 +532,7 @@
 						<td >
 							Who offers Senior FMNP at your market?
 						</td>
-						<td colspan="2">
+						<td>
 							<select ng-model="accessibility.FMNP_senior_offer">
 								<option value="The market organization and no vendors">The market organization and no vendors</option>
 								<option value="The market organization and some vendors">The market organization and some vendors</option>
@@ -529,6 +540,13 @@
 								<option value="Other (please explain)">Other (please explain)</option>
 							</select>
 						</td>
+						<td>
+						</td>
+					</tr>
+					<tr ng-show="accessibility.FMNP_senior_offer == 'Other (please explain)'">	
+						<td></td><td>
+							<input type="text" ng-model="accessibility.FMNP_senior_offer_other"/>
+						</td><td></td>
 					</tr>
 					<tr>
 						<td class="first">Does your market accept WIC CVV?</td>
@@ -543,7 +561,7 @@
 					<tr ng-show="accessibility.accept_CVV == 'true'">	
 						<td >
 							Who offers WIC CVV at your market?
-						</td colspan="2">
+						</td>
 						<td>
 							<select ng-model="accessibility.CVV_offer">
 								<option value="The market organization and no vendors">The market organization and no vendors</option>
@@ -552,6 +570,13 @@
 								<option value="Other (please explain)">Other (please explain)</option>
 							</select>
 						</td>
+						<td>
+						</td>
+					</tr>
+					<tr ng-show="accessibility.CVV_offer == 'Other (please explain)'">	
+						<td></td><td>
+							<input type="text" ng-model="accessibility.CVV_offer_other"/>
+						</td><td></td>
 					</tr>
 				</table>
 			</div>
@@ -585,13 +610,13 @@
 		<div class="clearfix"></div>
 		<div class="row">
 			<div class="col-md-offset-4 col-md-4">
-				<a href="javascript:void" class="btn btn-default" ng-click="addAccessibility()" style="margin-top: 10px; width: 100%;">next</a>
+				<a href="javascript:void" class="btn btn-default" ng-click="addAccessibility()" style="margin-top: 20px; width: 100%;">next</a>
 			</div>
 		</div>
 	</div>
 	<% end %>
   </div>
-  <div class="col-md-3">
+  <div class="sidebar-left">
   	<%= render "shared/logged_in" %>
   </div>
 </div>
@@ -600,6 +625,7 @@ var host = "http://localhost:3000/"
 //var host = "https://fathomless-bayou-8856.herokuapp.com/";
 
 function profileCtrl($scope){
+	$('#sidebar ul li')[0].className = "active";
 
 	$scope.profile = <%= raw(@profile.to_json) %>;
 	$scope.markets = <%= raw(@markets.to_json) %>;
@@ -654,6 +680,15 @@ function profileCtrl($scope){
 	$scope.changeTab = function(tab){
 		$scope.tab = tab;
 		$('.progress-bar-success').width((tab*25) + '%');
+		switch(tab){
+			case 1:
+			case 3:
+				$('#summary').height('1000px');
+				break;
+			case 2:
+				$('#summary').height('780px');
+				break;
+		}
 	};
 
 	$scope.locSlide = function(id) {
