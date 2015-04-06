@@ -240,6 +240,18 @@ label{
 				font-family: $font-clean;
 				padding: 3px;
 			}
+			td.first{
+				width: 200px;
+			}
+		}
+	}
+	table.plain-table{
+		tr{
+			background-color: transparent;
+			border: 0;
+			td.first{
+				width: 200px;
+			}
 		}
 	}
 }

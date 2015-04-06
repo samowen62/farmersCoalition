@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     		@profile = Profile.where(user_id: session[:user_id]).first
     		@markets = @profile.markets
     		@management = @profile.managements
+    		@accessibility = @profile.accessibility
     		@positions = Array.new
 
     		unless  @management.nil?

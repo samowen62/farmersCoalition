@@ -393,21 +393,206 @@
 		</div>
 		<div class="clearfix"></div>
 		<div class="row">
+			<div class="col-md-5">
+				<h4>Access features and amenities</h4>
+				<table>
+					<tr>
+						<td><label>Adjacent bus or subway:</label></td>
+						<td><input type="checkbox" ng-model="accessibility.bus_sub" /></td>
+					</tr>
+					<tr>
+						<td><label>Bicycle racks:</label></td>
+						<td><input type="checkbox" ng-model="accessibility.bike_racks" /></td>
+					</tr>
+					<tr>
+						<td><label>Sidewalks:</label></td>
+						<td><input type="checkbox" ng-model="accessibility.sidewalks" /></td>
+					</tr>
+					<tr>
+						<td><label>Free parking:</label></td>
+						<td><input type="checkbox" ng-model="accessibility.free_parking" /></td>
+					</tr>
+					<tr>
+						<td><label>Roof/permanent covering:</label></td>
+						<td><input type="checkbox" ng-model="accessibility.roof" /></td>
+					</tr>
+					<tr>
+						<td><label>Other (please explain):</label></td>
+						<td><input type="checkbox" ng-model="accessibility.other_access" /></td>
+					</tr>
+					<tr ng-show="accessibility.other_access">
+						<td><input type="text" ng-model="accessibility.other_access_explain" /></td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-7">
+				<h4>Features, amenities and services</h4>
+				<table class="plain-table">
+					<tr>
+						<td class="first">Children-specific activities</td>
+						<td>Yes <input type="radio" ng-model="accessibility.children_activities" value="true" /></td>
+						<td>No <input type="radio" ng-model="accessibility.children_activities" value="false" /></td>
+					</tr>
+					<tr>
+						<td class="first">Live music</td>
+						<td>Yes <input type="radio" ng-model="accessibility.live_music" value="true"/></td>
+						<td>No <input type="radio" ng-model="accessibility.live_music" value="false" /></td>
+					</tr>
+					<tr>
+						<td class="first">Food demonstrations</td>
+						<td>Yes <input type="radio" ng-model="accessibility.food_demonstrations" value="true" /></td>
+						<td>No <input type="radio" ng-model="accessibility.food_demonstrations" value="false" /></td>
+					</tr>
+					<tr>
+						<td class="first">Restrooms (including portable ones) on site</td>
+						<td>Yes <input type="radio" ng-model="accessibility.restrooms" value="true" /></td>
+						<td>No <input type="radio" ng-model="accessibility.restrooms" value="false" /></td>
+					</tr>
+					<tr ng-show="accessibility.restrooms == 'true'">
+						<td class="first">How Many?</td>
+						<td><input style="width: 30px;" type="text" ng-model="accessibility.restroom_count" /></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="first">Other (please explain)ADD THISS</td>
+						<td>Yes <input type="radio" ng-model="accessibility.f" value="true" /></td>
+						<td>No <input type="radio" ng-model="accessibility.f" value="false" /></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-7">
+			CREATE OFFER OTHERS
+				<table>
+					<tr>
+						<td class="first">Does your market accept SNAP/EBT?</td>
+						<td>Yes <input type="radio" ng-model="accessibility.accept_SNAP" value="true" /></td>
+						<td>No <input type="radio" ng-model="accessibility.accept_SNAP" value="false" /></td>
+					</tr>
+					<tr ng-show="accessibility.accept_SNAP == 'true'">	
+						<td>
+							Who offers SNAP at your market?
+						</td>
+						<td colspan="2">
+							<select ng-model="accessibility.SNAP_offer">
+								<option value="The market organization and no vendors">The market organization and no vendors</option>
+								<option value="The market organization and some vendors">The market organization and some vendors</option>
+								<option value="Not the market organization and one or more vendors">Not the market organization and one or more vendors</option>
+								<option value="Other (please explain)">Other (please explain)</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="first">Does your market accept WIC FMNP?</td>
+						<td>Yes <input type="radio" ng-model="accessibility.accept_FMNP" value="true" /></td>
+						<td>No <input type="radio" ng-model="accessibility.accept_FMNP" value="false" /></td>
+					</tr>
+					<tr>
+						<td class="first">Is WIC FMNP available in your area? </td>
+						<td>Yes <input type="radio" ng-model="accessibility.FMNP_available" value="true" /></td>
+						<td>No <input type="radio" ng-model="accessibility.FMNP_available" value="false" /></td>
+					</tr>
+					<tr ng-show="accessibility.accept_FMNP == 'true'">	
+						<td >
+							Who offers WIC FMNP at your market?
+						</td>
+						<td colspan="2">
+							<select ng-model="accessibility.FMNP_offer">
+								<option value="The market organization and no vendors">The market organization and no vendors</option>
+								<option value="The market organization and some vendors">The market organization and some vendors</option>
+								<option value="Not the market organization and one or more vendors">Not the market organization and one or more vendors</option>
+								<option value="Other (please explain)">Other (please explain)</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="first">Does your market accept Senior FMNP?</td>
+						<td>Yes <input type="radio" ng-model="accessibility.accept_FMNP_senior" value="true" /></td>
+						<td>No <input type="radio" ng-model="accessibility.accept_FMNP_senior" value="false" /></td>
+					</tr>
+					<tr>
+						<td class="first">Is Senior FMNP available in your area? </td>
+						<td>Yes <input type="radio" ng-model="accessibility.FMNP_senior_available" value="true" /></td>
+						<td>No <input type="radio" ng-model="accessibility.FMNP_senior_available" value="false" /></td>
+					</tr>
+					<tr ng-show="accessibility.accept_FMNP_senior == 'true'">	
+						<td >
+							Who offers Senior FMNP at your market?
+						</td>
+						<td colspan="2">
+							<select ng-model="accessibility.FMNP_senior_offer">
+								<option value="The market organization and no vendors">The market organization and no vendors</option>
+								<option value="The market organization and some vendors">The market organization and some vendors</option>
+								<option value="Not the market organization and one or more vendors">Not the market organization and one or more vendors</option>
+								<option value="Other (please explain)">Other (please explain)</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="first">Does your market accept WIC CVV?</td>
+						<td>Yes <input type="radio" ng-model="accessibility.accept_CVV" value="true" /></td>
+						<td>No <input type="radio" ng-model="accessibility.accept_CVV" value="false" /></td>
+					</tr>
+					<tr>
+						<td class="first">Is WIC CVV available in your area? </td>
+						<td>Yes <input type="radio" ng-model="accessibility.CVV_available" value="true" /></td>
+						<td>No <input type="radio" ng-model="accessibility.CVV_available" value="false" /></td>
+					</tr>
+					<tr ng-show="accessibility.accept_CVV == 'true'">	
+						<td >
+							Who offers WIC CVV at your market?
+						</td colspan="2">
+						<td>
+							<select ng-model="accessibility.CVV_offer">
+								<option value="The market organization and no vendors">The market organization and no vendors</option>
+								<option value="The market organization and some vendors">The market organization and some vendors</option>
+								<option value="Not the market organization and one or more vendors">Not the market organization and one or more vendors</option>
+								<option value="Other (please explain)">Other (please explain)</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-5">
+				<div>
+					<label>Total square footage that can be used by the market as selling space (including aisles but excluding customer parking, storage space, or office space):</label>
+					<select ng-model="accessibility.selling_space">
+						<option value="1-10,000 square feet">1-10,000 square feet</option>
+						<option value="10,001-20,000 square feet">10,001-20,000 square feet</option>
+						<option value="20,001-30,000 square feet">20,001-30,000 square feet</option>
+						<option value="30,001-40,000 square feet">30,001-40,000 square feet</option>
+						<option value="40,001-50,000 square feet">40,001-50,000 square feet</option>
+						<option value="More than 50,000 square feet">More than 50,000 square feet</option>
+					</select>
+				</div>
+				<div>
+					<table class="plain-table">
+						<tr>
+							<td class="first">Does your market or vendors accept other vouchers?</td>
+							<td>Yes <input type="radio" ng-model="accessibility.other_vouchers" value="true" /></td>
+							<td>No <input type="radio" ng-model="accessibility.other_vouchers" value="false" /></td>
+						</tr>
+					</table>
+					<div ng-show="accessibility.other_vouchers == 'true'">
+						<label>Please explain:</label>
+						<textarea ng-model="accessibility.other_vouchers_explain" style ="height:130px"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-offset-4 col-md-4">
+				<a href="javascript:void" class="btn btn-default" ng-click="addAccessibility()" style="margin-top: 10px; width: 100%;">next</a>
+			</div>
 		</div>
 	</div>
 	<% end %>
   </div>
   <div class="col-md-3">
   	<%= render "shared/logged_in" %>
-  </div>
-  <div id="management" class="col-md-offset-3 col-md-6 main" style="left:100%; display:none">
-	<div id="form-ctrl" class="col-md-12">
-		<div class="row">
-			<div class="col-md-9">
-				<label>Name of Market</label>
-			</div>
-		</div>
-	</div>
   </div>
 </div>
 <script type="text/javascript">
@@ -420,11 +605,29 @@ function profileCtrl($scope){
 	$scope.markets = <%= raw(@markets.to_json) %>;
 	$scope.management = <%= raw(@management.to_json) %>;
 	$scope.positions = <%= raw(@positions.to_json) %>;
+	$scope.accessibility = <%= raw(@accessibility.to_json) %>;
+
+	//have to do this crap too because of fucking postgres booleans
+	$scope.accessibility.children_activities = $scope.accessibility.children_activities ? 'true' : 'false';
+	$scope.accessibility.live_music = $scope.accessibility.live_music ? 'true' : 'false';
+	$scope.accessibility.food_demonstrations = $scope.accessibility.food_demonstrations ? 'true' : 'false';
+	$scope.accessibility.restrooms = $scope.accessibility.restrooms ? 'true' : 'false';
+	$scope.accessibility.accept_SNAP = $scope.accessibility.accept_SNAP ? 'true' : 'false';
+	$scope.accessibility.accept_FMNP = $scope.accessibility.accept_FMNP ? 'true' : 'false';
+	$scope.accessibility.accept_FMNP_senior = $scope.accessibility.accept_FMNP_senior ? 'true' : 'false';
+	$scope.accessibility.accept_CVV = $scope.accessibility.accept_CVV ? 'true' : 'false';
+	$scope.accessibility.FMNP_available = $scope.accessibility.FMNP_available ? 'true' : 'false';
+	$scope.accessibility.FMNP_senior_available = $scope.accessibility.FMNP_senior_available ? 'true' : 'false';
+	$scope.accessibility.CVV_available = $scope.accessibility.CVV_available ? 'true' : 'false';
+	$scope.accessibility.other_vouchers = $scope.accessibility.other_vouchers ? 'true' : 'false';
+
+
 
 	console.log($scope.profile);
 	console.log($scope.markets);
 	console.log($scope.management);
 	console.log($scope.positions);
+	console.log($scope.accessibility);
 
 	$scope.tab = 1;
 
@@ -487,6 +690,19 @@ function profileCtrl($scope){
 			type: "POST",
 			url: host + "post_managements",
 			data: $scope.management,
+			success: function(data){
+				console.log(data);
+			}
+		});
+	};
+
+	$scope.addAccessibility = function(){
+		$scope.changeTab(4);
+
+		$.ajax({
+			type: "POST",
+			url: host + "post_accessibilities",
+			data: $scope.accessibility,
 			success: function(data){
 				console.log(data);
 			}

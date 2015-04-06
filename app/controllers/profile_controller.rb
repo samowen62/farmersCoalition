@@ -52,6 +52,7 @@ class ProfileController < ApplicationController
           return
         else
           management = Managements.new(management_params)
+          management[:profile_id] = profile.id
           management.save!
           render plain: management.inspect
           return
@@ -62,30 +63,19 @@ class ProfileController < ApplicationController
 
   def create_access
     if user_is_logged_in?
-      #could do it with find but an exeption will be thrown if not found
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
-        params[:positions] = 0;
-
-        unless  params[:pos].nil?
-          for i in 0..11
-            if params[:pos][i] == "true"
-              params[:positions] += 2 ** i
-            end
-          end
-        end
-
-        #render plain: profile.managements.inspect;
-        #return
-
-        unless (management = Managements.where(profile_id: profile.id).first).nil?
-          management.update_attributes!(access_params)
-          management.save!
-          render plain: management.inspect
+        unless (accessibility = Accessibility.where(profile_id: profile.id).first).nil?
+          accessibility.update_attributes!(access_params)
+          accessibility.save!
+          render plain: accessibility.inspect
           return
         else
-          management = Managements.new(access_params)
-          management.save!
-          render plain: management.inspect
+          #because this horseshit doesn't work for some reason
+          #accessibility = profile.accessibility.create(access_params)
+          accessibility = Accessibility.new(access_params)
+          accessibility[:profile_id] = profile.id
+          accessibility.save!
+          render plain: accessibility.inspect
           return
         end
       end
@@ -104,6 +94,6 @@ class ProfileController < ApplicationController
 
   private
     def access_params 
-      params.permit(:num_staff, :positions, :other, :ave_unpaid_market, :ave_unpaid_non_market, :ave_paid_market, :ave_paid_non_market, :annual_budget_for_staff, :annual_operating_budget, :bookKeeper, :other_rules, :other_rules_path, :annual_application_fee, :annual_membership_fee, :percentage_sales, :no_charge, :other_charge, :other_charge_explained, :ave_num_vendors)
+      params.permit(:bus_sub, :bike_racks, :sidewalks, :free_parking, :roof, :other_access, :other_access_explain, :selling_space, :children_activities, :live_music, :food_demonstrations, :restrooms, :restroom_count, :accept_SNAP, :SNAP_offer, :FMNP_available, :accept_FMNP, :FMNP_offer, :FMNP_senior_available, :accept_FMNP_senior, :FMNP_senior_offer, :CVV_available, :accept_CVV, :CVV_offer, :other_vouchers, :other_vouchers_explain)
     end
 end
