@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406223640) do
+ActiveRecord::Schema.define(version: 20150407214507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,9 +51,38 @@ ActiveRecord::Schema.define(version: 20150406223640) do
     t.string   "FMNP_offer_other"
     t.string   "FMNP_senior_offer_other"
     t.string   "CVV_offer_other"
+    t.boolean  "other_features"
+    t.string   "other_features_explain"
   end
 
   add_index "accessibilities", ["profile_id"], name: "index_accessibilities_on_profile_id", using: :btree
+
+  create_table "communities", force: true do |t|
+    t.integer  "profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "customers"
+    t.boolean  "municipal"
+    t.boolean  "producers"
+    t.boolean  "extension"
+    t.boolean  "community_groups"
+    t.boolean  "advisors_other"
+    t.text     "sponsors"
+    t.boolean  "newsletter"
+    t.boolean  "facebook"
+    t.boolean  "twitter"
+    t.boolean  "google"
+    t.boolean  "pinterest"
+    t.boolean  "online_other"
+    t.string   "online_other_explain"
+    t.boolean  "annual_report"
+    t.string   "report_link"
+    t.boolean  "experience_collecting"
+    t.text     "resources_available"
+    t.boolean  "advisors_other_explain"
+  end
+
+  add_index "communities", ["profile_id"], name: "index_communities_on_profile_id", using: :btree
 
   create_table "managements", force: true do |t|
     t.integer "num_staff"

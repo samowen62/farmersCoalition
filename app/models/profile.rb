@@ -3,4 +3,5 @@ class Profile < ActiveRecord::Base
   has_many :markets
   has_one :managements
   has_one :accessibility
+  has_one :communities
 end

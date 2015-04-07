@@ -452,9 +452,14 @@
 						<td></td>
 					</tr>
 					<tr>
-						<td class="first">Other (please explain)ADD THISS</td>
-						<td>Yes <input type="radio" ng-model="accessibility.f" value="true" /></td>
-						<td>No <input type="radio" ng-model="accessibility.f" value="false" /></td>
+						<td class="first">Other (please explain)</td>
+						<td>Yes <input type="radio" ng-model="accessibility.other_features" value="true" /></td>
+						<td>No <input type="radio" ng-model="accessibility.other_features" value="false" /></td>
+					</tr>
+					<tr ng-show="accessibility.other_features == 'true'">
+						<td><input type="text" ng-model="accessibility.other_features_explain"/></td>
+						<td></td>
+						<td></td>
 					</tr>
 				</table>
 			</div>
@@ -614,6 +619,47 @@
 			</div>
 		</div>
 	</div>
+	<div ng-show="tab == 4" class="col-md-12">
+		<div class="row">
+			<h1>Accessibility</h1>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+    		<div class="col-md-5">
+				<h4>The elected advisors/board members include:</h4>
+				<table>
+					<tr>
+						<td><label>Customers:</label></td>
+						<td><input type="checkbox" ng-model="communities.customers" /></td>
+					</tr>
+					<tr>
+						<td><label>Municipal/government staff:</label></td>
+						<td><input type="checkbox" ng-model="communities.municipal" /></td>
+					</tr>
+					<tr>
+						<td><label>Producers/vendors:</label></td>
+						<td><input type="checkbox" ng-model="communities.producers" /></td>
+					</tr>
+					<tr>
+						<td><label>University or extension service staff:</label></td>
+						<td><input type="checkbox" ng-model="communities.extension" /></td>
+					</tr>
+					<tr>
+						<td><label>Community groups:</label></td>
+						<td><input type="checkbox" ng-model="communities.community_groups" /></td>
+					</tr>
+					<tr>
+						<td><label>Other (please explain):</label></td>
+						<td><input type="checkbox" ng-model="communities.advisors_other" /></td>
+					</tr>
+					<tr ng-show="communities.advisors_other">
+						<td><input type="text" ng-model="communities.advisors_other_explain" /></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
 	<% end %>
   </div>
   <div class="sidebar-left">
@@ -646,7 +692,7 @@ function profileCtrl($scope){
 	$scope.accessibility.FMNP_senior_available = $scope.accessibility.FMNP_senior_available ? 'true' : 'false';
 	$scope.accessibility.CVV_available = $scope.accessibility.CVV_available ? 'true' : 'false';
 	$scope.accessibility.other_vouchers = $scope.accessibility.other_vouchers ? 'true' : 'false';
-
+	$scope.accessibility.other_features = $scope.accessibility.other_features ? 'true' : 'false';
 
 
 	console.log($scope.profile);
