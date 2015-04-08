@@ -859,7 +859,7 @@ function profileCtrl($scope){
 		$.ajax({
 			type: "POST",
 			url: host + "post_managements",
-			data: $scope.management,
+			data: JSON.stringify($scope.management),
 			contentType: "application/json",
 			success: function(data){
 				console.log(data);
