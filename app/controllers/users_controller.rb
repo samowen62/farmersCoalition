@@ -7,6 +7,8 @@ class UsersController < ApplicationController
 	end
 
 	def show
+		#render plain: user_is_logged_in?
+		#return
 		if user_is_logged_in?
     		@user = User.find(session[:user_id])
     		@profile = Profile.where(user_id: session[:user_id]).first
@@ -14,6 +16,7 @@ class UsersController < ApplicationController
     		@management = @profile.managements
     		@accessibility = @profile.accessibility
     		@positions = Array.new
+    		@communities = @profile.community
 
     		unless  @management.nil?
 	    		for i in 0..11

@@ -1,7 +1,7 @@
 <%= render "shared/menu" %>
 
 <div id="showUser" class="col-md-12" ng-app ng-controller="displayCtrl">
-  <div class="col-md-offset-3 col-md-6 main">	 
+  <div class="main">	 
 	<% if !@profile.nil? && !@profile.new_record? %>
 	<div class="clearfix"></div>
 	<div class="profile-header">
@@ -91,7 +91,7 @@
 	</div>
 	<% end %>
   </div>
-  <div class="col-md-3">
+  <div class="sidebar-left">
   	<%= render "shared/logged_in" %>
   </div>
 </div>
@@ -100,6 +100,7 @@ var host = "http://localhost:3000/"
 //var host = "https://fathomless-bayou-8856.herokuapp.com/";
 
 function displayCtrl($scope){
+	    $('#sidebar ul li')[1].className = "active";
 
 	$scope.profile = <%= raw(@profile.to_json) %>;
 	$scope.mars = <%= raw(@markets.to_json) %>;

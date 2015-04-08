@@ -85,13 +85,13 @@ class ProfileController < ApplicationController
   def create_communities
     if user_is_logged_in?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
-        unless (communities = Communities.where(profile_id: profile.id).first).nil?
+        unless (communities = Community.where(profile_id: profile.id).first).nil?
           communities.update_attributes!(community_params)
           communities.save!
           render plain: communities.inspect
           return
         else
-          communities = Communities.new(community_params)
+          communities = Community.new(community_params)
           communities[:profile_id] = profile.id
           communities.save!
           render plain: communities.inspect

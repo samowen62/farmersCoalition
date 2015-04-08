@@ -626,7 +626,7 @@
 		<div class="clearfix"></div>
 		<div class="row">
     		<div class="col-md-5">
-				<h4>The elected advisors/board members include:</h4>
+				<label>The elected advisors/board members include:</label>
 				<table>
 					<tr>
 						<td><label>Customers:</label></td>
@@ -658,6 +658,84 @@
 					</tr>
 				</table>
 			</div>
+			<div class="col-md-7">
+				<div class="row">
+					<label>List up to five key partners (sponsors, major funders, or event collaborators):</label>
+					<textarea style="height:100px" ng-model="communities.sponsors"></textarea>
+				</div>
+				<div class="clearfix"></div>
+				<div class="row">
+					<label class="col-xs-6">Do you produce an annual report?</label>
+					<div class="col-xs-3">
+						Yes <input type="radio" ng-model="communities.annual_report" value="true" />
+					</div>
+					<div class="col-xs-2">
+						No <input type="radio" ng-model="communities.annual_report" value="false" />
+					</div>
+					<div class="col-xs-12" ng-show="communities.annual_report == 'true'">
+						Please provide the link<input type="text" ng-model="communities.report_link">
+						<!-- uploads comming soon -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-5">
+				<label>Select the online communication methods that your market uses (select all that apply):</label>
+				<table>
+					<tr>
+						<td><label>Newsletter:</label></td>
+						<td><input type="checkbox" ng-model="communities.newsletter" /></td>
+					</tr>
+					<tr>
+						<td><label>Facebook:</label></td>
+						<td><input type="checkbox" ng-model="communities.facebook" /></td>
+					</tr>
+					<tr>
+						<td><label>Twitter:</label></td>
+						<td><input type="checkbox" ng-model="communities.twitter" /></td>
+					</tr>
+					<tr>
+						<td><label>Google+:</label></td>
+						<td><input type="checkbox" ng-model="communities.google" /></td>
+					</tr>
+					<tr>
+						<td><label>Pinterest:</label></td>
+						<td><input type="checkbox" ng-model="communities.pinterest" /></td>
+					</tr>
+					<tr>
+						<td><label>Other (please explain):</label></td>
+						<td><input type="checkbox" ng-model="communities.online_other" /></td>
+					</tr>
+					<tr ng-show="communities.online_other">
+						<td><input type="text" ng-model="communities.online_other_explain" /></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-7">
+				<div class="row">
+					<label>What resources do you have available for collecting and reporting data (e.g., paid staff, consultant, board members, volunteers, internet access, a smart phone or tablet, etc.)?</label>
+					<textarea style="height:100px" ng-model="communities.resources_available"></textarea>
+				</div>
+				<div class="clearfix"></div>
+				<div class="row">
+					<label>Do you have experience collecting and reporting data at your market?</label>
+					<div class="col-xs-3">
+						Yes <input type="radio" ng-model="communities.experience_collecting" value="true" />
+					</div>
+					<div class="col-xs-2">
+						No <input type="radio" ng-model="communities.experience_collecting" value="false" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-offset-4 col-md-4">
+				<a href="javascript:void" class="btn btn-default" ng-click="addCommunity()" style="margin-top: 20px; width: 100%;">Update Profile</a>
+			</div>
 		</div>
 	</div>
 	<% end %>
@@ -671,6 +749,7 @@ var host = "http://localhost:3000/"
 //var host = "https://fathomless-bayou-8856.herokuapp.com/";
 
 function profileCtrl($scope){
+	
 	$('#sidebar ul li')[0].className = "active";
 
 	$scope.profile = <%= raw(@profile.to_json) %>;
@@ -678,21 +757,29 @@ function profileCtrl($scope){
 	$scope.management = <%= raw(@management.to_json) %>;
 	$scope.positions = <%= raw(@positions.to_json) %>;
 	$scope.accessibility = <%= raw(@accessibility.to_json) %>;
+	$scope.communities = <%= raw(@communities.to_json) %>;
+
 
 	//have to do this crap too because of fucking postgres booleans
-	$scope.accessibility.children_activities = $scope.accessibility.children_activities ? 'true' : 'false';
-	$scope.accessibility.live_music = $scope.accessibility.live_music ? 'true' : 'false';
-	$scope.accessibility.food_demonstrations = $scope.accessibility.food_demonstrations ? 'true' : 'false';
-	$scope.accessibility.restrooms = $scope.accessibility.restrooms ? 'true' : 'false';
-	$scope.accessibility.accept_SNAP = $scope.accessibility.accept_SNAP ? 'true' : 'false';
-	$scope.accessibility.accept_FMNP = $scope.accessibility.accept_FMNP ? 'true' : 'false';
-	$scope.accessibility.accept_FMNP_senior = $scope.accessibility.accept_FMNP_senior ? 'true' : 'false';
-	$scope.accessibility.accept_CVV = $scope.accessibility.accept_CVV ? 'true' : 'false';
-	$scope.accessibility.FMNP_available = $scope.accessibility.FMNP_available ? 'true' : 'false';
-	$scope.accessibility.FMNP_senior_available = $scope.accessibility.FMNP_senior_available ? 'true' : 'false';
-	$scope.accessibility.CVV_available = $scope.accessibility.CVV_available ? 'true' : 'false';
-	$scope.accessibility.other_vouchers = $scope.accessibility.other_vouchers ? 'true' : 'false';
-	$scope.accessibility.other_features = $scope.accessibility.other_features ? 'true' : 'false';
+	if($scope.accessibility != null){
+		$scope.accessibility.children_activities = $scope.accessibility.children_activities ? 'true' : 'false';
+		$scope.accessibility.live_music = $scope.accessibility.live_music ? 'true' : 'false';
+		$scope.accessibility.food_demonstrations = $scope.accessibility.food_demonstrations ? 'true' : 'false';
+		$scope.accessibility.restrooms = $scope.accessibility.restrooms ? 'true' : 'false';
+		$scope.accessibility.accept_SNAP = $scope.accessibility.accept_SNAP ? 'true' : 'false';
+		$scope.accessibility.accept_FMNP = $scope.accessibility.accept_FMNP ? 'true' : 'false';
+		$scope.accessibility.accept_FMNP_senior = $scope.accessibility.accept_FMNP_senior ? 'true' : 'false';
+		$scope.accessibility.accept_CVV = $scope.accessibility.accept_CVV ? 'true' : 'false';
+		$scope.accessibility.FMNP_available = $scope.accessibility.FMNP_available ? 'true' : 'false';
+		$scope.accessibility.FMNP_senior_available = $scope.accessibility.FMNP_senior_available ? 'true' : 'false';
+		$scope.accessibility.CVV_available = $scope.accessibility.CVV_available ? 'true' : 'false';
+		$scope.accessibility.other_vouchers = $scope.accessibility.other_vouchers ? 'true' : 'false';
+		$scope.accessibility.other_features = $scope.accessibility.other_features ? 'true' : 'false';
+	}
+	if($scope.communities){
+		$scope.communities.annual_report = $scope.communities.annual_report ? 'true' : 'false';
+		$scope.communities.experience_collecting = $scope.communities.experience_collecting ? 'true' : 'false';
+	}
 
 
 	console.log($scope.profile);
@@ -700,6 +787,7 @@ function profileCtrl($scope){
 	console.log($scope.management);
 	console.log($scope.positions);
 	console.log($scope.accessibility);
+	console.log($scope.communities);
 
 	$scope.tab = 1;
 
@@ -789,5 +877,22 @@ function profileCtrl($scope){
 			}
 		});
 	};
+
+	$scope.addCommunity = function(){
+		$.ajax({
+			type: "POST",
+			url: host + "post_communities",
+			data: $scope.communities,
+			success: function(data){
+				$('form').submit();
+			}
+		});
+	};
+
 }
+//cuz fucking angular wont load. I'll have to fix this
+$(document).ready(function(){
+ 	if($('#showUser').height() > 2000)
+		location.reload();
+ });
 </script>

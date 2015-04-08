@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get "login", :to => "sessions#login"
   get "logout", :to => "sessions#logout"
   get "display", :to => "users#display"
+  get "show", :to => "users#show"
 
   post "login_attempt", :to => "sessions#login_attempt"
   post "post_info", :to => "profile#create"
