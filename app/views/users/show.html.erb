@@ -744,9 +744,11 @@
   	<%= render "shared/logged_in" %>
   </div>
 </div>
+<%= token_tag nil %>
 <script type="text/javascript">
 //var host = "http://localhost:3000/"
 var host = "https://fathomless-bayou-8856.herokuapp.com/";
+var auth = $("input[name='authenticity_token'").val();
 
 function profileCtrl($scope){
 	
@@ -858,7 +860,9 @@ function profileCtrl($scope){
 
 		$.ajax({
 			type: "POST",
-			url: host + "post_managements",
+			url: host + "post_managements",		
+			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+
 			data: JSON.stringify($scope.management),
 			contentType: "application/json",
 			success: function(data){
