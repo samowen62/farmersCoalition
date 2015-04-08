@@ -861,8 +861,9 @@ function profileCtrl($scope){
 		$.ajax({
 			type: "POST",
 			url: host + "post_managements",		
-			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-
+			headers: {
+			    'X-CSRF-Token': '<%= form_authenticity_token.to_s %>'
+			  },
 			data: JSON.stringify($scope.management),
 			contentType: "application/json",
 			success: function(data){
