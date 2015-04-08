@@ -12,15 +12,17 @@ class UsersController < ApplicationController
 		if user_is_logged_in?
     		@user = User.find(session[:user_id])
     		@profile = Profile.where(user_id: session[:user_id]).first
-    		@markets = @profile.markets
-    		@management = @profile.managements
-    		@accessibility = @profile.accessibility
-    		@positions = Array.new
-    		@communities = @profile.community
+    		unless @profile.nil?
+	    		@markets = @profile.markets
+    			@management = @profile.managements
+    			@accessibility = @profile.accessibility
+    			@positions = Array.new
+    			@communities = @profile.community
 
-    		unless  @management.nil?
-	    		for i in 0..11
-	    			@positions.push(@management.pos(i))
+    			unless  @management.nil?
+	    			for i in 0..11
+	    				@positions.push(@management.pos(i))
+	    			end
 	    		end
 	    	end
     		return
@@ -65,9 +67,6 @@ class UsersController < ApplicationController
   		
 	end
 
-	def edit
-  		@article = Article.find(params[:id])
-	end
 
 	private
 	  def user_params
