@@ -22,6 +22,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'aws-sdk'
+gem 'rack-cors', :require => 'rack/cors'
 
 group :production do
   gem 'rails_log_stdout',           github: 'heroku/rails_log_stdout'
