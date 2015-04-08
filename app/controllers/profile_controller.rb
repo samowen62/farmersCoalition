@@ -59,6 +59,7 @@ class ProfileController < ApplicationController
         end
       end
     end
+    redirect_to root_path
   end
 
   def create_access
