@@ -59,7 +59,8 @@ class ProfileController < ApplicationController
         end
       end
     end
-    redirect_to root_path
+    render plain: "not logged in"
+    return 
   end
 
   def create_access
