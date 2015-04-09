@@ -29,8 +29,8 @@ class ProfileController < ApplicationController
   end
 
   def create_man
-    render plain: session.inspect
-    return
+    #render plain: params.inspect
+    #return
     if user_is_logged_in?
       #could do it with find but an exeption will be thrown if not found
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
