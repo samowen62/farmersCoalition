@@ -750,11 +750,11 @@
 var host = "https://fathomless-bayou-8856.herokuapp.com/";
 var auth = $("input[name='authenticity_token'").val();
 
-$.ajaxSetup({
-	headers: {
-		'X-CSRF-Token' : AUTH_TOKEN
-	}
-});
+//$.ajaxSetup({
+//	headers: {
+//		'X-CSRF-Token' : AUTH_TOKEN
+//	}
+//});
 
 function profileCtrl($scope){
 	
@@ -870,6 +870,7 @@ function profileCtrl($scope){
 			//headers: {
 			  //  'authenticity_token': '<%= form_authenticity_token.to_s %>'
 			  //},
+			beforeSend: function(xhr){ xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN)},
 			data: JSON.stringify($scope.management),
 			contentType: "application/json",
 			success: function(data){
