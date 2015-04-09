@@ -61,7 +61,7 @@ class ProfileController < ApplicationController
         end
       end
     end
-    render plain: "not logged in"
+    render plain: "not logged in #{session[:_csrf_token]} #{params[:authenticity_token]}"
     return 
   end
 
