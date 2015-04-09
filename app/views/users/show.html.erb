@@ -856,12 +856,12 @@ function profileCtrl($scope){
 	$scope.addMan = function(){
 		$scope.changeTab(3);
 		$scope.management.pos = $scope.positions;
-		$scope.management.authenticity_token = '<%= form_authenticity_token.to_s %>';
+		//$scope.management.authenticity_token = '<%= form_authenticity_token.to_s %>';
 		console.log($scope.management);
 
 		$.ajax({
 			type: "POST",
-			url: host + "post_managements",		
+			url: host + "post_managements?&authenticity_token=" + AUTH_TOKEN,		
 			data: JSON.stringify($scope.management),
 			contentType: "application/json",
 			success: function(data){
