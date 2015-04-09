@@ -26,6 +26,7 @@
 	<div ng-show="tab == 1" class="col-md-12">
 		<div class="row">
 			<h1>Profile Summary</h1>
+			<%= render plain: "#{session[:_csrf_token]}" %> 
 		</div>
 		<div class="clearfix"></div>
 		<div class="row">
