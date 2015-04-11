@@ -26,7 +26,6 @@
 	<div ng-show="tab == 1" class="col-md-12">
 		<div class="row">
 			<h1>Profile Summary</h1>
-			<%= render plain: "#{session[:_csrf_token]}" %> 
 		</div>
 		<div class="clearfix"></div>
 		<div class="row">
@@ -748,7 +747,8 @@
 <%= token_tag nil %>
 <script type="text/javascript">
 //var host = "http://localhost:3000/"
-var host = "https://fathomless-bayou-8856.herokuapp.com/";
+//var host = "https://fathomless-bayou-8856.herokuapp.com/";
+var host = "http://frozen-chamber-4612.herokuapp.com/";
 var auth = $("input[name='authenticity_token'").val();
 
 function profileCtrl($scope){
