@@ -267,8 +267,7 @@
 		<div class="clearfix"></div>
 		<div class="row">
 			<div class="col-md-offset-4 col-md-4">
-				<!--%= #f.submit :Update, :class => "btn btn-default", :style => "margin-top: 10px; width: 100%;" %-->
-				<a href="javascript:void" class="btn btn-default" ng-click="changeTab(2)" style="margin-top: 10px; width: 100%;">next</a>
+				<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(2)" style="margin-top: 10px; width: 100%;">next</a>
 			</div>
 		</div>
 	</div>
@@ -380,7 +379,7 @@
 		<div class="clearfix"></div>
 		<div class="row">
 			<div class="col-md-offset-4 col-md-4">
-				<a href="javascript:void" class="btn btn-default" ng-click="addMan()" style="margin-top: 20px; width: 100%;">next</a>
+				<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(3)" style="margin-top: 20px; width: 100%;">next</a>
 			</div>
 		</div>
 	</div>
@@ -615,7 +614,7 @@
 		<div class="clearfix"></div>
 		<div class="row">
 			<div class="col-md-offset-4 col-md-4">
-				<a href="javascript:void" class="btn btn-default" ng-click="addAccessibility()" style="margin-top: 20px; width: 100%;">next</a>
+				<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(4)" style="margin-top: 20px; width: 100%;">next</a>
 			</div>
 		</div>
 	</div>
@@ -734,7 +733,7 @@
 		<div class="clearfix"></div>
 		<div class="row">
 			<div class="col-md-offset-4 col-md-4">
-				<a href="javascript:void" class="btn btn-default" ng-click="addCommunity()" style="margin-top: 20px; width: 100%;">Update Profile</a>
+				<a href="javascript:void" class="btn btn-default button" ng-click="addCommunity()" style="margin-top: 20px; width: 100%;">Update Profile</a>
 			</div>
 		</div>
 	</div>
@@ -749,7 +748,7 @@
 //var host = "http://localhost:3000/"
 //var host = "https://fathomless-bayou-8856.herokuapp.com/";
 var host = "http://frozen-chamber-4612.herokuapp.com/";
-var auth = $("input[name='authenticity_token'").val();
+//var auth = $("input[name='authenticity_token'").val();
 
 function profileCtrl($scope){
 	
@@ -762,6 +761,7 @@ function profileCtrl($scope){
 	$scope.accessibility = <%= raw(@accessibility.to_json) %>;
 	$scope.communities = <%= raw(@communities.to_json) %>;
 
+	$scope.tall;
 
 	//have to do this crap too because of fucking postgres booleans
 	if($scope.accessibility != null){
@@ -817,7 +817,7 @@ function profileCtrl($scope){
 	$scope.changeTab = function(tab){
 		$scope.tab = tab;
 		$('.progress-bar-success').width((tab*25) + '%');
-		switch(tab){
+		/*switch(tab){
 			case 1:
 			case 3:
 				$('#summary').height('1000px');
@@ -825,7 +825,9 @@ function profileCtrl($scope){
 			case 2:
 				$('#summary').height('780px');
 				break;
-		}
+		}*/
+		window.location.href = '#summary';
+		//$scope.tall = $('.button')[tab - 1].getBoundingClientRect().bottom + 'px';
 	};
 
 	$scope.locSlide = function(id) {
@@ -855,10 +857,8 @@ function profileCtrl($scope){
 	};
 
 	$scope.addMan = function(){
-		$scope.changeTab(3);
 		$scope.management.pos = $scope.positions;
 		$scope.management.authenticity_token = AUTH_TOKEN;
-					console.log($scope.management);
 
 		$.ajax({
 			type: "POST",
@@ -866,23 +866,25 @@ function profileCtrl($scope){
 			data: JSON.stringify($scope.management),
 			contentType: "application/json",
 			success: function(data){
-				console.log(data);
+				$('form').submit();
 			},
 			error: function(data){
-				console.log(data);
+				alert("Failed Submitting Page 2");
 			}
 		});
 	};
 
 	$scope.addAccessibility = function(){
-		$scope.changeTab(4);
-
 		$.ajax({
 			type: "POST",
 			url: host + "post_accessibilities",
-			data: $scope.accessibility,
+			data: JSON.stringify($scope.accessibility),
+			contentType: "application/json",
 			success: function(data){
-				console.log(data);
+				$scope.addMan();
+			},
+			error: function(data){
+				alert("Failed Submitting Page 3");
 			}
 		});
 	};
@@ -891,14 +893,20 @@ function profileCtrl($scope){
 		$.ajax({
 			type: "POST",
 			url: host + "post_communities",
-			data: $scope.communities,
+			data: JSON.stringify($scope.communities),
+			contentType: "application/json",
 			success: function(data){
-				$('form').submit();
+				$scope.addAccessibility();
+			},
+			error: function(data){
+				alert("Failed Submitting Page 4");
 			}
 		});
 	};
 
 }
+
+
 //cuz fucking angular wont load. I'll have to fix this
 
 </script>
