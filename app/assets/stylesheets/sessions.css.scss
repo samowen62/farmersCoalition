@@ -136,13 +136,15 @@ label{
 }
 
 #newUser, #showUser{
+	display: table;
 	background-color: $background-prim;	
 	.main{
 		padding: 25px;
 		background-color: $background-main;	
 		width: 800px;
 		margin: auto;
-		height: 1000px;
+		display: table;
+
 	}
 	#mission_statement{
 		display:none;
