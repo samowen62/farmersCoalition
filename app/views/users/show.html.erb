@@ -745,9 +745,9 @@
 </div>
 <%= token_tag nil %>
 <script type="text/javascript">
-//var host = "http://localhost:3000/"
+var host = "http://localhost:3000/"
 //var host = "https://fathomless-bayou-8856.herokuapp.com/";
-var host = "http://frozen-chamber-4612.herokuapp.com/";
+//var host = "http://frozen-chamber-4612.herokuapp.com/";
 //var auth = $("input[name='authenticity_token'").val();
 
 function profileCtrl($scope){
@@ -848,8 +848,9 @@ function profileCtrl($scope){
 
 		$.ajax({
 			type: "POST",
-			url: host + "post_market",
-			data: market,
+			url: "/post_market",
+			data: JSON.stringify(market),
+			contentType: "application/json",
 			success: function(data){
 				console.log(data);
 			}
@@ -862,7 +863,7 @@ function profileCtrl($scope){
 
 		$.ajax({
 			type: "POST",
-			url: host + "post_managements",		
+			url: "/post_managements",		
 			data: JSON.stringify($scope.management),
 			contentType: "application/json",
 			success: function(data){
@@ -877,7 +878,7 @@ function profileCtrl($scope){
 	$scope.addAccessibility = function(){
 		$.ajax({
 			type: "POST",
-			url: host + "post_accessibilities",
+			url: "/post_accessibilities",
 			data: JSON.stringify($scope.accessibility),
 			contentType: "application/json",
 			success: function(data){
@@ -892,7 +893,7 @@ function profileCtrl($scope){
 	$scope.addCommunity = function(){
 		$.ajax({
 			type: "POST",
-			url: host + "post_communities",
+			url: "/post_communities",
 			data: JSON.stringify($scope.communities),
 			contentType: "application/json",
 			success: function(data){
