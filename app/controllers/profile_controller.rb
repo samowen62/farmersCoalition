@@ -38,14 +38,11 @@ class ProfileController < ApplicationController
 
         unless  params[:pos].nil?
           for i in 0..11
-            if params[:pos][i] == "true"
+            if params[:pos][i]
               params[:positions] += 2 ** i
             end
           end
         end
-
-        #render plain: profile.managements.inspect;
-        #return
 
         unless (management = Managements.where(profile_id: profile.id).first).nil?
           management.update_attributes!(management_params)
