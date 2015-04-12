@@ -745,10 +745,6 @@
 </div>
 <%= token_tag nil %>
 <script type="text/javascript">
-var host = "http://localhost:3000/"
-//var host = "https://fathomless-bayou-8856.herokuapp.com/";
-//var host = "http://frozen-chamber-4612.herokuapp.com/";
-//var auth = $("input[name='authenticity_token'").val();
 
 function profileCtrl($scope){
 	
@@ -760,6 +756,8 @@ function profileCtrl($scope){
 	$scope.positions = <%= raw(@positions.to_json) %>;
 	$scope.accessibility = <%= raw(@accessibility.to_json) %>;
 	$scope.communities = <%= raw(@communities.to_json) %>;
+
+	$scope.positions = $scope.positions != null ? $scope.positions : [false, false, false, false, false, false, false, false, false, false, false, false];
 
 	$scope.tall;
 
@@ -817,15 +815,7 @@ function profileCtrl($scope){
 	$scope.changeTab = function(tab){
 		$scope.tab = tab;
 		$('.progress-bar-success').width((tab*25) + '%');
-		/*switch(tab){
-			case 1:
-			case 3:
-				$('#summary').height('1000px');
-				break;
-			case 2:
-				$('#summary').height('780px');
-				break;
-		}*/
+
 		window.location.href = '#summary';
 		//$scope.tall = $('.button')[tab - 1].getBoundingClientRect().bottom + 'px';
 	};
@@ -858,6 +848,7 @@ function profileCtrl($scope){
 	};
 
 	$scope.addMan = function(){
+		$scope.management = $scope.management != null ? $scope.management : {};
 		$scope.management.pos = $scope.positions;
 		$scope.management.authenticity_token = AUTH_TOKEN;
 
@@ -906,8 +897,4 @@ function profileCtrl($scope){
 	};
 
 }
-
-
-//cuz fucking angular wont load. I'll have to fix this
-
 </script>
