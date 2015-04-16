@@ -6,6 +6,26 @@ class UsersController < ApplicationController
 		@user = User.new
 	end
 
+	def metrics
+    	if user_is_logged_in?
+      		@user = User.find(session[:user_id])
+      		@profile = Profile.where(user_id: session[:user_id]).first
+      		@metrics = metric_calc(@profile)
+	    else 
+      		redirect_to root_path
+    	end
+  	end
+
+  	def instruments
+    	if user_is_logged_in?
+      		@user = User.find(session[:user_id])
+      		@profile = profile = Profile.where(user_id: session[:user_id]).first
+
+	    else 
+      		redirect_to root_path
+    	end
+  	end
+
 	def show
 		#render plain: user_is_logged_in?
 		#return
@@ -44,7 +64,7 @@ class UsersController < ApplicationController
   	end
 
 	def create
-		#render plain: params[:user].inspect
+
 		if params[:user][:password] != params[:user][:password_confirmation]
 			render "new"
 			return
@@ -72,5 +92,25 @@ class UsersController < ApplicationController
 	  def user_params
 	    params.require(:user).permit(:email, :password , :password_confirmation)
 	  end
+
+
+	def metric_calc(profile)
+		metrics = Array.new
+
+		if profile[:metrics_1].nil?
+			profile[:metrics_1] = 0
+		end
+		if profile[:metrics_2] .nil?
+			profile[:metrics_2] = 0
+		end
+
+		for i in 0..19
+			metrics[i] = ((profile[:metrics_1] >> i) % 2 == 1)
+		end
+		for i in 20..39
+			metrics[i] = ((profile[:metrics_2] >> i - 20) % 2 == 1)
+		end
+		return metrics
+	end
 
 end

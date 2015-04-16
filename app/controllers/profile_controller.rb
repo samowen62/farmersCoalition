@@ -1,6 +1,4 @@
 class ProfileController < ApplicationController
-  def index
-  end
 
   #same as update
   def create
@@ -58,8 +56,8 @@ class ProfileController < ApplicationController
         end
       end
     end
-    render plain: "not logged in #{session[:_csrf_token]} #{params[:authenticity_token]}"
-    return 
+    #render plain: "not logged in #{session[:_csrf_token]} #{params[:authenticity_token]}"
+    #return 
   end
 
   def create_access
@@ -100,6 +98,37 @@ class ProfileController < ApplicationController
         end
       end
     end
+  end
+
+  def create_metrics
+    if user_is_logged_in?
+      unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
+        metrics_1 = 0;
+        metrics_2 = 0;
+
+        metrics = params[:_json]
+
+        unless  metrics.nil?
+          for i in 0..37
+            if metrics[i]
+              if i < 20 # 0-19 in metrics_1
+                metrics_1 += 2 ** i
+              else
+                metrics_2 += 2 ** (i - 20)
+              end
+            end
+          end
+        end
+
+        profile[:metrics_1] = metrics_1
+        profile[:metrics_2] = metrics_2
+
+        profile.save!
+        render plain: profile.inspect
+        return
+      end
+    end
+    return
   end
 
   private

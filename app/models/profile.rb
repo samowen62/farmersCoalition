@@ -4,4 +4,6 @@ class Profile < ActiveRecord::Base
   has_one :managements
   has_one :accessibility
   has_one :community
+
+  has_many :vc_entrys
 end
