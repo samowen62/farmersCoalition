@@ -2,17 +2,14 @@
 
 <div id="showUser" class="col-md-12" ng-app ng-controller="displayCtrl">
   <div class="sidebar-left">
-  	<%= render "shared/logged_in" %>
+    <%= render "shared/logged_in" %>
   </div>
   <div class="main">	 
 	<% if !@profile.nil? && !@profile.new_record? %>
 	<div class="clearfix"></div>
 	<div class="row">
 		<h1 style="margin-left: 5%;">List of Metrics</h1>
-	</div>
-	<div class="row">
-		<span class="col-md-9"><h4 style="margin-left: 15%;">Select the metrics that you would like to get data on</h4></span>
-		<span class="col-md-3"><a class="btn btn-default" style="width:100%" href="javascript:void" ng-click="change()">Update</a></span>
+		<h4 style="margin-left: 15%;">Select the metrics that you would like to get data on</h4>
 	</div>
 	<div class="row metrics-list">
 		<ul>
@@ -59,27 +56,14 @@
   </div>
 </div>
 <script type="text/javascript">
+//var host = "http://localhost:3000/"
+var host = "https://fathomless-bayou-8856.herokuapp.com/";
 
 function displayCtrl($scope){
 	$('#sidebar ul li')[2].className = "active";
 
 	$scope.profile = <%= raw(@profile.to_json) %>;
-	$scope.metrics = <%= raw(@metrics.to_json) %>;
 	
-	$scope.change = function(){
-		$.ajax({
-			type: "POST",
-			url: "/post_metrics",
-			data: JSON.stringify($scope.metrics),
-			contentType: "application/json",
-			success: function(data){
-				console.log(data);
-			},
-			error: function(data){
-				console.log(data);
-			}
-		});
-	}
 
 }
 </script>

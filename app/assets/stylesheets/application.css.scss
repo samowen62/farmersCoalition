@@ -34,17 +34,17 @@ label{
 	margin: 5px;
 }
 .btn-default{
-	background-color:$btn-color;
-	border-radius: 0px;
+	background-color:$btn-color !important;
+	border-radius: 0px !important;;
 	font-family: $font-clean;
-	border: 0;
+	border: 0 !important;;
 	padding: 5px 20px;
-	color: white;
+	color: white !important;;
 }
 
 #menu{
 	border-top: 4px solid $background-main;
-	height:160px;
+	min-height:160px;
 	#title{
 		color: $text-light;
 		font-size: 35px;
@@ -54,9 +54,9 @@ label{
 	}
 }
 .sidebar-left{
-	width: 250px;
-	position: absolute;
-	top: 0px;
+	max-width: 240px;
+  	margin-right: -90px;
+  	float: left;
 	#sidebar{
 		.progress-bar-success{
 			background-color:$btn-color;
@@ -200,13 +200,13 @@ label{
 	ul{
 		max-height: 45vh;
 		overflow-y: auto;
+		width: 75%;
+		margin: 0 auto;
 		li{
 			background-color: $background-prim;
 			padding: 3px;
 			border: 1px solid #333;
 			list-style-type: none;
-			width: 75%;
-			margin: 0 auto;
 			input{
 				float: left;
 				margin: 3px;

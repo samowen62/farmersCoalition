@@ -30,18 +30,18 @@ label {
 
 /* line 36, ../../../app/assets/stylesheets/application.css.scss */
 .btn-default {
-  background-color: #e7540c;
-  border-radius: 0px;
+  background-color: #e7540c !important;
+  border-radius: 0px !important;
   font-family: "Droid Sans", sans-serif;
-  border: 0;
+  border: 0 !important;
   padding: 5px 20px;
-  color: white;
+  color: white !important;
 }
 
 /* line 45, ../../../app/assets/stylesheets/application.css.scss */
 #menu {
   border-top: 4px solid #55873A;
-  height: 160px;
+  min-height: 160px;
 }
 /* line 48, ../../../app/assets/stylesheets/application.css.scss */
 #menu #title {
@@ -54,9 +54,9 @@ label {
 
 /* line 56, ../../../app/assets/stylesheets/application.css.scss */
 .sidebar-left {
-  width: 250px;
-  position: absolute;
-  top: 0px;
+  max-width: 240px;
+  margin-right: -90px;
+  float: left;
 }
 /* line 60, ../../../app/assets/stylesheets/application.css.scss */
 .sidebar-left #sidebar {
@@ -230,15 +230,15 @@ label {
 .metrics-list ul {
   max-height: 45vh;
   overflow-y: auto;
+  width: 75%;
+  margin: 0 auto;
 }
-/* line 203, ../../../app/assets/stylesheets/application.css.scss */
+/* line 205, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list ul li {
   background-color: #e2e2e2;
   padding: 3px;
   border: 1px solid #333;
   list-style-type: none;
-  width: 75%;
-  margin: 0 auto;
 }
 /* line 210, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list ul li input {
