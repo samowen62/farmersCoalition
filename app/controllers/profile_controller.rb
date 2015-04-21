@@ -26,6 +26,14 @@ class ProfileController < ApplicationController
 
   end
 
+  def update_visitor_survey
+    #if user_is_logged_in?
+
+
+    #end
+    render plain: "error"
+  end
+
   def create_man
     #render plain: "#{session[:_csrf_token]} | #{params[:authenticity_token]}"
     #return

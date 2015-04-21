@@ -135,7 +135,7 @@ label{
   transform: scaleX(1);
 }
 
-#newUser, #showUser{
+#newUser, #showUser, #survey{
 	display: table;
 	background-color: $background-prim;	
 	.main{
@@ -195,6 +195,11 @@ label{
 		width: 100%;
 	}
 }
+#survey{
+	.row{
+		padding: 2px 10px;
+	}
+}
 .metrics-list{
 	margin-top: 20px;
 	ul{
@@ -223,7 +228,7 @@ label{
 	label{
 		float: left;
 		margin: 2px;
-		font-size: 12px;
+		font-size: 13px;
 	}
 	input[type="text"]{
 		float: left;

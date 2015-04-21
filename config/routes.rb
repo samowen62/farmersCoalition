@@ -22,10 +22,11 @@ Rails.application.routes.draw do
   post "post_accessibilities", :to => "profile#create_access"
   post "post_communities", :to => "profile#create_communities"
   post "post_metrics", :to => "profile#create_metrics"
-
+  post "post_visitor_survey", :to => "profile#update_visitor_survey"
 
   get "user_metrics", :to => "users#metrics"
   get "user_instruments", :to => "users#instruments"
+  get "visitor_survey", :to => "users#visitor_survey"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

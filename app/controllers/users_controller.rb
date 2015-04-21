@@ -63,8 +63,18 @@ class UsersController < ApplicationController
     	end
   	end
 
-	def create
+  	def visitor_survey
+  		if user_is_logged_in?
+  			@user = User.find(session[:user_id])
+    		session[:user_id] = @user.id
+    		@profile = Profile.where(user_id: session[:user_id]).first
+    		@metrics = metric_calc(@profile)
+  		else
+  			redirect_to root_path
+  		end
+  	end
 
+	def create
 		if params[:user][:password] != params[:user][:password_confirmation]
 			render "new"
 			return

@@ -152,12 +152,12 @@ label {
 }
 
 /* line 138, ../../../app/assets/stylesheets/application.css.scss */
-#newUser, #showUser {
+#newUser, #showUser, #survey {
   display: table;
   background-color: #e2e2e2;
 }
 /* line 141, ../../../app/assets/stylesheets/application.css.scss */
-#newUser .main, #showUser .main {
+#newUser .main, #showUser .main, #survey .main {
   padding: 25px;
   background-color: #55873A;
   width: 800px;
@@ -165,39 +165,39 @@ label {
   display: table;
 }
 /* line 149, ../../../app/assets/stylesheets/application.css.scss */
-#newUser #mission_statement, #showUser #mission_statement {
+#newUser #mission_statement, #showUser #mission_statement, #survey #mission_statement {
   display: none;
 }
 /* line 151, ../../../app/assets/stylesheets/application.css.scss */
-#newUser #mission_statement .col-md-12, #showUser #mission_statement .col-md-12 {
+#newUser #mission_statement .col-md-12, #showUser #mission_statement .col-md-12, #survey #mission_statement .col-md-12 {
   background-color: #e2e2e2;
   border-radius: 8px;
   padding: 10px;
 }
 /* line 155, ../../../app/assets/stylesheets/application.css.scss */
-#newUser #mission_statement .col-md-12 .full, #showUser #mission_statement .col-md-12 .full {
+#newUser #mission_statement .col-md-12 .full, #showUser #mission_statement .col-md-12 .full, #survey #mission_statement .col-md-12 .full {
   width: 100%;
   float: left;
 }
 /* line 158, ../../../app/assets/stylesheets/application.css.scss */
-#newUser #mission_statement .col-md-12 .full input[type="checkbox"], #showUser #mission_statement .col-md-12 .full input[type="checkbox"] {
+#newUser #mission_statement .col-md-12 .full input[type="checkbox"], #showUser #mission_statement .col-md-12 .full input[type="checkbox"], #survey #mission_statement .col-md-12 .full input[type="checkbox"] {
   float: right;
 }
 /* line 164, ../../../app/assets/stylesheets/application.css.scss */
-#newUser ul.nav, #showUser ul.nav {
+#newUser ul.nav, #showUser ul.nav, #survey ul.nav {
   position: absolute;
   top: -20px;
   width: 100%;
 }
 /* line 168, ../../../app/assets/stylesheets/application.css.scss */
-#newUser ul.nav li, #showUser ul.nav li {
+#newUser ul.nav li, #showUser ul.nav li, #survey ul.nav li {
   text-align: center;
   overflow: visible;
   display: inline-block;
   width: calc(92% / 4);
 }
 /* line 173, ../../../app/assets/stylesheets/application.css.scss */
-#newUser ul.nav li a, #showUser ul.nav li a {
+#newUser ul.nav li a, #showUser ul.nav li a, #survey ul.nav li a {
   float: right;
   z-index: 4;
   background-color: #e2e2e2;
@@ -207,14 +207,14 @@ label {
   padding: 4px;
 }
 /* line 184, ../../../app/assets/stylesheets/application.css.scss */
-#newUser textarea, #showUser textarea {
+#newUser textarea, #showUser textarea, #survey textarea {
   resize: none;
   width: 100%;
   float: left;
   border-radius: 8px;
 }
 /* line 190, ../../../app/assets/stylesheets/application.css.scss */
-#newUser select, #showUser select {
+#newUser select, #showUser select, #survey select {
   background-color: white;
   border-radius: 7px;
   height: 32px;
@@ -222,43 +222,48 @@ label {
   width: 100%;
 }
 
-/* line 198, ../../../app/assets/stylesheets/application.css.scss */
+/* line 199, ../../../app/assets/stylesheets/application.css.scss */
+#survey .row {
+  padding: 2px 10px;
+}
+
+/* line 203, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list {
   margin-top: 20px;
 }
-/* line 200, ../../../app/assets/stylesheets/application.css.scss */
+/* line 205, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list ul {
   max-height: 45vh;
   overflow-y: auto;
   width: 75%;
   margin: 0 auto;
 }
-/* line 205, ../../../app/assets/stylesheets/application.css.scss */
+/* line 210, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list ul li {
   background-color: #e2e2e2;
   padding: 3px;
   border: 1px solid #333;
   list-style-type: none;
 }
-/* line 210, ../../../app/assets/stylesheets/application.css.scss */
+/* line 215, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list ul li input {
   float: left;
   margin: 3px;
   padding: 3px;
 }
 
-/* line 219, ../../../app/assets/stylesheets/application.css.scss */
+/* line 224, ../../../app/assets/stylesheets/application.css.scss */
 #summary a {
   width: 100%;
   margin: 15px 0px;
 }
-/* line 223, ../../../app/assets/stylesheets/application.css.scss */
+/* line 228, ../../../app/assets/stylesheets/application.css.scss */
 #summary label {
   float: left;
   margin: 2px;
-  font-size: 12px;
+  font-size: 13px;
 }
-/* line 228, ../../../app/assets/stylesheets/application.css.scss */
+/* line 233, ../../../app/assets/stylesheets/application.css.scss */
 #summary input[type="text"] {
   float: left;
   margin: 2px;
@@ -267,27 +272,27 @@ label {
   border: 1px solid #eee;
   padding: 3px;
 }
-/* line 236, ../../../app/assets/stylesheets/application.css.scss */
+/* line 241, ../../../app/assets/stylesheets/application.css.scss */
 #summary .loc-drop {
   display: none;
 }
-/* line 238, ../../../app/assets/stylesheets/application.css.scss */
+/* line 243, ../../../app/assets/stylesheets/application.css.scss */
 #summary .loc-drop .col-md-12 {
   border-radius: 0px 0px 7px 7px;
   background-color: #e2e2e2;
   padding: 10px;
 }
-/* line 245, ../../../app/assets/stylesheets/application.css.scss */
+/* line 250, ../../../app/assets/stylesheets/application.css.scss */
 #summary .skinny label {
   width: 70%;
   font-size: 11px;
   padding: 3px;
 }
-/* line 250, ../../../app/assets/stylesheets/application.css.scss */
+/* line 255, ../../../app/assets/stylesheets/application.css.scss */
 #summary .skinny input {
   width: 24%;
 }
-/* line 254, ../../../app/assets/stylesheets/application.css.scss */
+/* line 259, ../../../app/assets/stylesheets/application.css.scss */
 #summary h4.drop-but {
   font-size: 15px;
   font-family: "Droid Sans", sans-serif;
@@ -297,62 +302,62 @@ label {
   border-radius: 8px;
   height: 30px;
 }
-/* line 264, ../../../app/assets/stylesheets/application.css.scss */
+/* line 269, ../../../app/assets/stylesheets/application.css.scss */
 #summary table th {
   padding: 5px;
 }
-/* line 267, ../../../app/assets/stylesheets/application.css.scss */
+/* line 272, ../../../app/assets/stylesheets/application.css.scss */
 #summary table tr {
   background-color: #e2e2e2;
   border: 1px solid grey;
 }
-/* line 270, ../../../app/assets/stylesheets/application.css.scss */
+/* line 275, ../../../app/assets/stylesheets/application.css.scss */
 #summary table tr td {
   font-weight: 600;
   font-size: 13px;
   font-family: "Droid Sans", sans-serif;
   padding: 3px;
 }
-/* line 276, ../../../app/assets/stylesheets/application.css.scss */
+/* line 281, ../../../app/assets/stylesheets/application.css.scss */
 #summary table tr td.first {
   width: 200px;
 }
-/* line 282, ../../../app/assets/stylesheets/application.css.scss */
+/* line 287, ../../../app/assets/stylesheets/application.css.scss */
 #summary table.plain-table tr {
   background-color: transparent;
   border: 0;
 }
-/* line 285, ../../../app/assets/stylesheets/application.css.scss */
+/* line 290, ../../../app/assets/stylesheets/application.css.scss */
 #summary table.plain-table tr td.first {
   width: 200px;
 }
 
-/* line 292, ../../../app/assets/stylesheets/application.css.scss */
+/* line 297, ../../../app/assets/stylesheets/application.css.scss */
 .profile-info h2 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
   color: #e2e2e2;
 }
-/* line 297, ../../../app/assets/stylesheets/application.css.scss */
+/* line 302, ../../../app/assets/stylesheets/application.css.scss */
 .profile-info .profile-group {
   background-color: white;
   padding: 20px;
   border-radius: 20px;
 }
 
-/* line 304, ../../../app/assets/stylesheets/application.css.scss */
+/* line 309, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #info, .profile-header #impact {
   display: none;
 }
-/* line 307, ../../../app/assets/stylesheets/application.css.scss */
+/* line 312, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #markets {
   display: none;
 }
-/* line 309, ../../../app/assets/stylesheets/application.css.scss */
+/* line 314, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #markets .date {
   font-size: 12px;
 }
-/* line 313, ../../../app/assets/stylesheets/application.css.scss */
+/* line 318, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header h2 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
@@ -362,17 +367,17 @@ label {
   background-color: #e7540c;
   border-radius: 8px;
 }
-/* line 322, ../../../app/assets/stylesheets/application.css.scss */
+/* line 327, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group {
   background-color: white;
   padding: 20px;
   font-size: 12px;
 }
-/* line 326, ../../../app/assets/stylesheets/application.css.scss */
+/* line 331, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group h3 {
   margin: 10px 5px;
 }
-/* line 328, ../../../app/assets/stylesheets/application.css.scss */
+/* line 333, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group h3 span {
   font-family: "Droid Sans", sans-serif;
   font-size: 20px;
@@ -381,11 +386,11 @@ label {
   padding: 4px;
   border-radius: 8px;
 }
-/* line 337, ../../../app/assets/stylesheets/application.css.scss */
+/* line 342, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group .val {
   padding: 5px;
 }
-/* line 340, ../../../app/assets/stylesheets/application.css.scss */
+/* line 345, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group .row {
   margin-bottom: 15px;
 }

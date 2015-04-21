@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416214013) do
+ActiveRecord::Schema.define(version: 20150421210002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -224,5 +224,54 @@ ActiveRecord::Schema.define(version: 20150416214013) do
   end
 
   add_index "vc_entries", ["profile_id"], name: "index_vc_entries_on_profile_id", using: :btree
+
+  create_table "visitor_surveys", force: true do |t|
+    t.integer  "profile_id"
+    t.integer  "bikes"
+    t.integer  "walking"
+    t.integer  "bus"
+    t.integer  "taxi"
+    t.integer  "other_method"
+    t.integer  "every_week"
+    t.integer  "every_other_week"
+    t.integer  "every_month"
+    t.integer  "less_than_month"
+    t.float    "spent_morning"
+    t.float    "spent_afternoon"
+    t.float    "downtown_spent_morning"
+    t.float    "downtown_spent_afternoon"
+    t.integer  "lettuces"
+    t.integer  "roots"
+    t.integer  "tomatoes"
+    t.integer  "corn"
+    t.integer  "melons"
+    t.integer  "berries"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "visitor_surveys", ["profile_id"], name: "index_visitor_surveys_on_profile_id", using: :btree
+
+  create_table "vistor_surveys", force: true do |t|
+    t.integer  "profile_id"
+    t.boolean  "other_activities"
+    t.boolean  "morning_activities"
+    t.float    "money_activities"
+    t.float    "money_market"
+    t.boolean  "morning_market"
+    t.boolean  "first_time"
+    t.string   "frequency"
+    t.boolean  "personal_vehicle"
+    t.string   "vehicle"
+    t.string   "home_zip"
+    t.boolean  "fruits"
+    t.string   "fruit1"
+    t.string   "fruit2"
+    t.string   "fruit3"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "vistor_surveys", ["profile_id"], name: "index_vistor_surveys_on_profile_id", using: :btree
 
 end
