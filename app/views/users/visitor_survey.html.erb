@@ -1,0 +1,177 @@
+<%= render "shared/menu" %>
+
+<div id="survey" class="col-md-12" ng-app ng-controller="visitorCtrl">
+  <div class="sidebar-left">
+  	<%= render "shared/logged_in" %>
+  </div>
+  <div id="summary" class="main">
+  	<h1>Visitor Survey</h1>
+  	<div class="col-md-12">
+		<div class="col-md-6" ng-if="metrics[27]">
+			<div class="row">
+				<div class="row">
+					<label>Did you arrive at the market today in a personal vehicle?</label>
+				</div>
+				<div class="row">
+					<label class="yes">Yes <input type="radio" ng-model="survey.yes27" value="true" /></label>
+					<label class="no">No <input type="radio" ng-model="survey.yes27" value="false" /></label>
+				</div>
+			</div>
+			<div class="row" ng-show="survey.yes27 == 'true'">
+				<label>What method did you use to get to the market today?</label>
+				<select ng-model="survey.method"   style="max-width: 200px;margin: 10px;">
+					<option value="bikes">Bicycle</option>
+					<option value="walking">Walking</option>
+					<option value="bus">Bus or other public transportation</option>
+					<option value="taxi">Taxi</option>
+					<option value="other_method">Other</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-md-6" ng-if="metrics[12]">
+			<div class="row">
+				<div class="row">
+					<label>Is this your first time visiting the market?</label>
+				</div>
+				<div class="row">
+					<label class="yes">Yes <input type="radio" ng-model="survey.yes12" value="true" /></label>
+					<label class="no">No <input type="radio" ng-model="survey.yes12" value="false" /></label>
+				</div>
+			</div>
+			<div class="row" ng-show="survey.yes12 == 'true'">
+				<label>So far this season, how frequently have you visited the market?</label>
+				<select ng-model="survey.frequency" style="max-width: 200px;margin: 10px;">
+					<option value="every_week">Every week</option>
+					<option value="every_other_week">Every other week</option>
+					<option value="every_month">Once a month</option>
+					<option value="less_than_month">Less than once a month</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-6" ng-if="metrics[35]">
+			<div class="row">
+				<div class="row">
+					<label>Did you or do you plan to purchase fruits or vegetables at this market today?</label>
+				</div>
+				<div class="row">
+					<label class="yes">Yes <input type="radio" ng-model="survey.yes35" value="true" /></label>
+					<label class="no">No <input type="radio" ng-model="survey.yes35" value="false" /></label>
+				</div>
+			</div>
+			<div class="row" ng-show="survey.yes35 == 'true'">
+				<div class="row">
+					<label>Which ones did you purchase?</label>
+				</div>
+				<div class="row">
+					<table>
+						<tr><td>Brassicas, lettuces, spinach, & other greens</td><td><input type="checkbox" ng-model="survey.lettuces" /></td></tr>
+				    	<tr><td>Carrots, beets, & root crops</td><td><input type="checkbox" ng-model="survey.roots" /></td></tr>
+				    	<tr><td>Tomatoes</td><td><input type="checkbox" ng-model="survey.tomatoes" /></td></tr>
+				    	<tr><td>Fresh Corn</td><td><input type="checkbox" ng-model="survey.corn" /></td></tr>
+				    	<tr><td>Melons</td><td><input type="checkbox" ng-model="survey.melons" /></td></tr>
+				    	<tr><td>Berries & soft fruits</td><td><input type="checkbox" ng-model="survey.berries" /></td></tr>
+				    </table>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6" ng-if="metrics[6]">
+			<div class="row">
+				<div class="row">
+					<span style="font-size: 12px; font-weight: 700;">Did you or do you plan on doing additional shopping, eating, or other activities in this neighborhood/downtown area this 
+						<label class="day">Morning <input type="radio" ng-model="survey.day6" value="morning" /></label>
+						<label class="day">Afternoon<input type="radio" ng-model="survey.day6" value="afternoon" /></label> ?
+					</span>
+				</div>
+				<div class="row">
+					<label class="yes">Yes <input type="radio" ng-model="survey.yes6" value="true" /></label>
+					<label class="no">No <input type="radio" ng-model="survey.yes6" value="false" /></label>
+				</div>
+			</div>
+			<div class="row" ng-show="survey.yes6 == 'true'">
+				<div class="row">
+					<label>How much money have you spent or do you plan to spend in the neighborhood/downtown area this {{survey.day6 ? survey.day6 : 'day'}}?</label>
+					<input type="text" ng-model="survey.downtown_spent" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-6" ng-if="metrics[10]">
+			<div class="row">
+				<span style="font-size: 12px; font-weight: 700;">How much money have you spent or do you plan to spend at the market this 
+					<label class="day">Morning <input type="radio" ng-model="survey.day10" value="morning" /></label>
+					<label class="day">Afternoon<input type="radio" ng-model="survey.day10" value="afternoon" /></label> ? 
+
+					<br /><em>Money includes cash, credit/debit, food assistance vouchers, and market tokens.</em>
+				</span>
+			</div>
+			<div class="row">
+				<input type="text" ng-model="survey.spent" />
+			</div>
+		</div>
+		<div class="col-md-6" ng-if="metrics[30]">
+			<div class="row">
+				<label>What is your home Zip code?</label>
+			</div>
+			<div class="row">
+				<input type="text" ng-model="survey.home_zip" />
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-offset-2 col-md-4">
+			<a class="btn btn-default" href="javascript:void" ng-click="submitSurvey()">Submit</a>
+		</div>
+		<div class="col-md-4">
+			<a class="btn btn-danger" href="javascript:void" ng-click="reset()">Reset</a>
+		</div>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+
+function visitorCtrl($scope){
+	
+	$('#sidebar ul li')[3].className = "active";
+
+	$scope.metrics = <%= raw(@metrics.to_json) %>;
+	$scope.survey = {};
+	//$scope.day6 = 'day';
+
+	$scope.submitSurvey = function(){
+		if($scope.survey.frequency != '')
+			$scope.survey[$scope.survey.frequency] = true;
+
+		if($scope.survey.method != '')
+			$scope.survey[$scope.survey.method] = true;
+
+		if($scope.survey.day6 != null)
+			$scope.survey['downtown_spent_'+$scope.survey.day6] = $scope.survey.downtown_spent;
+
+		if($scope.survey.day10 != null)
+			$scope.survey['spent_'+$scope.survey.day10] = $scope.survey.spent;
+
+		console.log($scope.survey);
+
+		$.ajax({
+			type: "POST",
+			url: "/post_visitor_survey",
+			data: JSON.stringify($scope.survey),
+			contentType: "application/json",
+			success: function(data){
+				console.log(data);
+			},
+			error: function(data){
+				alert("Error Submitting Data");
+			}
+		});
+	};
+
+	$scope.reset = function(){
+		$scope.survey = {};
+	}
+
+}
+</script>

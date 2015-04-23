@@ -27,10 +27,45 @@ class ProfileController < ApplicationController
   end
 
   def update_visitor_survey
-    #if user_is_logged_in?
+    list = ["home_zip","bikes","walking","bus","taxi","other_method","every_week","every_other_week", "every_month","less_than_month", "spent_morning","spent_afternoon", "downtown_spent_morning","downtown_spent_afternoon","lettuces","roots","tomatoes","corn","melons","berries"]
+    doubleList = ["spent_morning","spent_afternoon", "downtown_spent_morning","downtown_spent_afternoon"]
 
+    if user_is_logged_in?
+      unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
+        #render plain: params.inspect
+        #return
+        unless (survey = VisitorSurvey.where(date: Date.today).where(profile_id: profile.id).first).nil?
+          for i in list
+            if doubleList.include?(i)
+              survey[i] += params[i] ? params[i].to_f : 0
+            else
+              if i == "home_zip"
+                survey[i] += params[i] ? "#{params[i]};" : ""
+              else  
+                survey[i] += params[i] ? 1 : 0
+              end
+            end
+          end
+          survey.save!
 
-    #end
+        else
+          survey = VisitorSurvey.new
+          survey[:date] = Date.today
+          survey[:profile_id] = profile.id
+
+          for i in list
+            if doubleList.include?(i)
+              survey[i] = params[i] ? params[i].to_f : 0
+            else
+              survey[i] = params[i] ? 1 : 0
+            end
+          end
+          survey.save!
+        end
+        render plain: survey.inspect
+        return
+      end
+    end
     render plain: "error"
   end
 
@@ -158,4 +193,10 @@ class ProfileController < ApplicationController
     def community_params 
       params.permit(:profile_id, :created_at, :updated_at, :customers, :municipal, :producers, :extension, :community_groups, :advisors_other, :sponsors, :newsletter, :facebook, :twitter, :google, :pinterest, :online_other, :online_other_explain, :annual_report, :report_link, :experience_collecting, :resources_available)
     end
+
+  #private
+   # def survey_params
+    #  params.permit(
+     #   )
+    #end
 end

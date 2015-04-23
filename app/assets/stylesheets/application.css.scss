@@ -347,3 +347,23 @@ label{
 		}
 	}
 }
+label.yes{
+	cursor: pointer;
+  	background-color: #33CC33;
+  	padding: 5px 10px;
+  	border-radius: 15px;
+  	margin: 5px 10px !important;
+}
+label.no{
+	cursor: pointer;
+  	background-color: #FF1919;
+  	padding: 5px 10px;
+  	border-radius: 15px;
+  	margin: 5px 10px !important;
+}
+label.day{
+	padding: 1px 4px;
+  	background-color: #eee;
+  	border-radius: 7px;
+  	float: none !important;
+}
