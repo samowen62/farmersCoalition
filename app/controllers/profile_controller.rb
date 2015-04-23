@@ -56,8 +56,12 @@ class ProfileController < ApplicationController
           for i in list
             if doubleList.include?(i)
               survey[i] = params[i] ? params[i].to_f : 0
-            else
-              survey[i] = params[i] ? 1 : 0
+            else 
+              if i == "home_zip"
+                survey[i] = params[i] ? "#{params[i]};" : ""
+              else 
+                survey[i] = params[i] ? 1 : 0
+              end
             end
           end
           survey.save!
