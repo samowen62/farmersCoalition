@@ -29,11 +29,11 @@ class ProfileController < ApplicationController
   def update_visitor_survey
     list = ["home_zip","bikes","walking","bus","taxi","other_method","every_week","every_other_week", "every_month","less_than_month", "spent_morning","spent_afternoon", "downtown_spent_morning","downtown_spent_afternoon","lettuces","roots","tomatoes","corn","melons","berries"]
     doubleList = ["spent_morning","spent_afternoon", "downtown_spent_morning","downtown_spent_afternoon"]
+    radioList = [28, 13, 36, 7]
 
     if user_is_logged_in?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
-        #render plain: params.inspect
-        #return
+
         unless (survey = VisitorSurvey.where(date: Date.today).where(profile_id: profile.id).first).nil?
           for i in list
             if doubleList.include?(i)
@@ -46,6 +46,12 @@ class ProfileController < ApplicationController
               end
             end
           end
+
+          for i in radioList
+            survey ["yes#{i}"] += params["yes#{i}"] == 'true' ? 1 : 0
+            survey ["no#{i}"] += params["yes#{i}"] == 'false' ? 1 : 0
+          end
+
           survey.save!
 
         else
@@ -64,6 +70,12 @@ class ProfileController < ApplicationController
               end
             end
           end
+
+          for i in radioList
+            survey ['yes#{i}'] = params['yes#{i}'] == 'true' ? 1 : 0
+            survey ['no#{i}'] = params['yes#{i}'] == 'false' ? 1 : 0
+          end
+
           survey.save!
         end
         render plain: survey.inspect

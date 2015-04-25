@@ -1,16 +1,16 @@
 <%= render "shared/menu" %>
 
 <div id="showUser" class="col-md-12" ng-app ng-controller="profileCtrl">
-  <div class="sidebar-left">
-  	<%= render "shared/logged_in" %>
-  </div>
   <div id="summary" class="main">
+	
+	<%= render "shared/nav" %>
+
   	<div class="col-md-10 col-md-offset-1">
 	  	<div class="progress" style="width:96%">
 		  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
 		  </div>
 		</div>
-		<ul class="nav">
+		<ul class="navig">
 			<li>
 				<a ng-click="changeTab(1)">1</a>
 			</li>
@@ -762,7 +762,7 @@
 
 function profileCtrl($scope){
 	
-	$('#sidebar ul li')[0].className = "active";
+	//$('#sidebar ul li')[0].className = "active";
 
 	$scope.profile = <%= raw(@profile.to_json) %>;
 	$scope.markets = <%= raw(@markets.to_json) %>;

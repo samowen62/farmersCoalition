@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'angular', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'bootstrap', 'data-turbolinks-track' => true %>
+
   <%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.ico' %>

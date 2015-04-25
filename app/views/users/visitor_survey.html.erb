@@ -1,10 +1,10 @@
 <%= render "shared/menu" %>
 
 <div id="survey" class="col-md-12" ng-app ng-controller="visitorCtrl">
-  <div class="sidebar-left">
-  	<%= render "shared/logged_in" %>
-  </div>
   <div id="summary" class="main">
+
+	<%= render "shared/nav" %>
+
   	<h1>Visitor Survey</h1>
   	<div class="col-md-12">
 		<div class="col-md-6" ng-if="metrics[27]">
@@ -13,11 +13,11 @@
 					<label>Did you arrive at the market today in a personal vehicle?</label>
 				</div>
 				<div class="row">
-					<label class="yes">Yes <input type="radio" ng-model="survey.yes27" value="true" /></label>
-					<label class="no">No <input type="radio" ng-model="survey.yes27" value="false" /></label>
+					<label class="yes">Yes <input type="radio" ng-model="survey.yes28" value="true" /></label>
+					<label class="no">No <input type="radio" ng-model="survey.yes28" value="false" /></label>
 				</div>
 			</div>
-			<div class="row" ng-show="survey.yes27 == 'true'">
+			<div class="row" ng-show="survey.yes28 == 'false'">
 				<label>What method did you use to get to the market today?</label>
 				<select ng-model="survey.method"   style="max-width: 200px;margin: 10px;">
 					<option value="bikes">Bicycle</option>
@@ -34,11 +34,11 @@
 					<label>Is this your first time visiting the market?</label>
 				</div>
 				<div class="row">
-					<label class="yes">Yes <input type="radio" ng-model="survey.yes12" value="true" /></label>
-					<label class="no">No <input type="radio" ng-model="survey.yes12" value="false" /></label>
+					<label class="yes">Yes <input type="radio" ng-model="survey.yes13" value="true" /></label>
+					<label class="no">No <input type="radio" ng-model="survey.yes13" value="false" /></label>
 				</div>
 			</div>
-			<div class="row" ng-show="survey.yes12 == 'true'">
+			<div class="row" ng-show="survey.yes13 == 'false'">
 				<label>So far this season, how frequently have you visited the market?</label>
 				<select ng-model="survey.frequency" style="max-width: 200px;margin: 10px;">
 					<option value="every_week">Every week</option>
@@ -56,11 +56,11 @@
 					<label>Did you or do you plan to purchase fruits or vegetables at this market today?</label>
 				</div>
 				<div class="row">
-					<label class="yes">Yes <input type="radio" ng-model="survey.yes35" value="true" /></label>
-					<label class="no">No <input type="radio" ng-model="survey.yes35" value="false" /></label>
+					<label class="yes">Yes <input type="radio" ng-model="survey.yes36" value="true" /></label>
+					<label class="no">No <input type="radio" ng-model="survey.yes36" value="false" /></label>
 				</div>
 			</div>
-			<div class="row" ng-show="survey.yes35 == 'true'">
+			<div class="row" ng-show="survey.yes36 == 'true'">
 				<div class="row">
 					<label>Which ones did you purchase?</label>
 				</div>
@@ -85,11 +85,11 @@
 					</span>
 				</div>
 				<div class="row">
-					<label class="yes">Yes <input type="radio" ng-model="survey.yes6" value="true" /></label>
-					<label class="no">No <input type="radio" ng-model="survey.yes6" value="false" /></label>
+					<label class="yes">Yes <input type="radio" ng-model="survey.yes7" value="true" /></label>
+					<label class="no">No <input type="radio" ng-model="survey.yes7" value="false" /></label>
 				</div>
 			</div>
-			<div class="row" ng-show="survey.yes6 == 'true'">
+			<div class="row" ng-show="survey.yes7 == 'true'">
 				<div class="row">
 					<label>How much money have you spent or do you plan to spend in the neighborhood/downtown area this {{survey.day6 ? survey.day6 : 'day'}}?</label>
 					<input type="text" ng-model="survey.downtown_spent" />
@@ -134,7 +134,7 @@
 
 function visitorCtrl($scope){
 	
-	$('#sidebar ul li')[3].className = "active";
+	//$('#sidebar ul li')[3].className = "active";
 
 	$scope.metrics = <%= raw(@metrics.to_json) %>;
 	$scope.survey = {};

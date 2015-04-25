@@ -1,10 +1,8 @@
 <%= render "shared/menu" %>
 
 <div id="showUser" class="col-md-12" ng-app ng-controller="displayCtrl">
-  <div class="sidebar-left">
-  	<%= render "shared/logged_in" %>
-  </div>
   <div class="main">	 
+  <%= render "shared/nav" %>
 	<% if !@profile.nil? && !@profile.new_record? %>
 	<div class="clearfix"></div>
 	<div class="row">
@@ -61,7 +59,7 @@
 <script type="text/javascript">
 
 function displayCtrl($scope){
-	$('#sidebar ul li')[2].className = "active";
+	//$('#sidebar ul li')[2].className = "active";
 
 	$scope.profile = <%= raw(@profile.to_json) %>;
 	$scope.metrics = <%= raw(@metrics.to_json) %>;
