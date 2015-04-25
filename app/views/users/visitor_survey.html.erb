@@ -130,6 +130,11 @@
 	</div>
   </div>
 </div>
+<div id="successScreen"> 
+	<a href="#" class="suc-text">Success!</a>
+</div> 
+<div id="cover" ></div>
+
 <script type="text/javascript">
 
 function visitorCtrl($scope){
@@ -162,9 +167,15 @@ function visitorCtrl($scope){
 			contentType: "application/json",
 			success: function(data){
 				console.log(data);
+				location.href = '#successScreen';
+				$scope.survey = {};
+				setTimeout(ret, 1000);
 			},
 			error: function(data){
 				alert("Error Submitting Data");
+				location.href = '#successScreen';
+				$scope.survey = {};
+				setTimeout(ret, 1000);
 			}
 		});
 	};
@@ -173,5 +184,9 @@ function visitorCtrl($scope){
 		$scope.survey = {};
 	}
 
+	function ret(){
+		location.href = "#";
+	}
 }
+
 </script>
