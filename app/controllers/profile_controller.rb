@@ -48,8 +48,12 @@ class ProfileController < ApplicationController
           end
 
           for i in radioList
-            survey ["yes#{i}"] += params["yes#{i}"] == 'true' ? 1 : 0
-            survey ["no#{i}"] += params["yes#{i}"] == 'false' ? 1 : 0
+            if survey ["yes#{i}"].nil?
+              survey["yes#{i}"] = 0
+            else
+              survey ["yes#{i}"] += params["yes#{i}"] == 'true' ? 1 : 0
+              survey ["no#{i}"] += params["yes#{i}"] == 'false' ? 1 : 0
+            end
           end
 
           survey.save!
@@ -72,8 +76,8 @@ class ProfileController < ApplicationController
           end
 
           for i in radioList
-            survey ['yes#{i}'] = params['yes#{i}'] == 'true' ? 1 : 0
-            survey ['no#{i}'] = params['yes#{i}'] == 'false' ? 1 : 0
+            survey ["yes#{i}"] = params["yes#{i}"] == 'true' ? 1 : 0
+            survey ["no#{i}"] = params["yes#{i}"] == 'false' ? 1 : 0
           end
 
           survey.save!
