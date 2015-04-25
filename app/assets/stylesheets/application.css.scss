@@ -53,41 +53,41 @@ label{
 		font-family: $font-clean;
 	}
 }
-.sidebar-left{
-	max-width: 240px;
-  	margin-right: -90px;
-  	float: left;
-	#sidebar{
-		.progress-bar-success{
-			background-color:$btn-color;
+#sidebar{
+	.progress-bar-success{
+		background-color:$btn-color;
+	}
+	padding: 25px;
+	font-family: $font-clean;
+	color: $text-light;
+	.link{
+		padding-top: 5px;
+		a{
+			color: $text-prim !important;
 		}
-		padding: 25px;
-		font-family: $font-clean;
-		color: $text-light;
-		.link{
-			padding-top: 5px;
+	}
+	ul{
+		padding:0px;
+		width:100%;
+		border: 15px solid $background-prim;
+		list-style-type: none;
+		border-radius: 10px;
+		margin:0;
+		li{
+			background-color: $text-light;
+			padding: 7px;
+			border: 1px solid $background-prim;
+			font-size: 12px;
+			width: 100%;
 			a{
-				color: $text-prim !important;
-			}
-		}
-		ul{
-			list-style-type: none;
-			li{
-				background-color: $text-light;
-				padding: 7px;
-				border: 1px solid $background-prim;
-				font-size: 12px;
-				width: 80%;
-				a{
-					color: $background-prim;
-					&:hover{
-						text-decoration: none;
-					}
+				color: $background-prim;
+				&:hover{
+					text-decoration: none;
 				}
 			}
-			li.active{
-				background-color: $background-main !important;
-			}
+		}
+		li.active{
+			background-color: $background-main !important;
 		}
 	}
 }

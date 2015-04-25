@@ -1,9 +1,6 @@
 <%= render "shared/menu" %>
 
 <div id="newUser" class="col-md-12">
-  <div class="sidebar-left">
-    <%= render "shared/logged_out" %>
-  </div>
   <div class="main" style="height: 300px;">
   	<h1 class="col-md-offset-1">Login to your profile</h1>
     <div class="col-md-2"></div>
@@ -37,6 +34,9 @@
 			<% end %>
 		</div>
     </div>
+  </div>
+  <div class="col-md-4">
+  	<%= render "shared/logged_out" %>
   </div>
 </div>
 
