@@ -56,6 +56,10 @@
 	<% end %>
   </div>
 </div>
+<div id="successScreen"> 
+	<a href="#" class="suc-text">Success!</a>
+</div> 
+<div id="cover" ></div>
 <script type="text/javascript">
 
 function displayCtrl($scope){
@@ -72,11 +76,19 @@ function displayCtrl($scope){
 			contentType: "application/json",
 			success: function(data){
 				console.log(data);
+				location.href = '#successScreen';
+				setTimeout(ret, 1000);
 			},
 			error: function(data){
-				console.log(data);
+				alert("Error Submitting Data");
+				location.href = '#successScreen';
+				setTimeout(ret, 1000);
 			}
 		});
+	}
+
+	function ret(){
+		location.href = "#";
 	}
 
 }

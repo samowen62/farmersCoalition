@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150425200301) do
+ActiveRecord::Schema.define(version: 20150428172108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,6 +194,30 @@ ActiveRecord::Schema.define(version: 20150425200301) do
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
+
+  create_table "sales_slips", force: true do |t|
+    t.integer  "profile_id"
+    t.float    "total_sales"
+    t.float    "farm_sales"
+    t.float    "value_sales"
+    t.float    "ready_sales"
+    t.float    "WIC_FMNP_sales"
+    t.float    "WIC_sales"
+    t.float    "Senior_FMNP_sales"
+    t.float    "Debt_sales"
+    t.float    "SNAP_sales"
+    t.float    "SNAP_transactions"
+    t.float    "pounds_donated"
+    t.float    "values_donated"
+    t.string   "veg1"
+    t.string   "veg2"
+    t.string   "veg3"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sales_slips", ["profile_id"], name: "index_sales_slips_on_profile_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

@@ -57,6 +57,9 @@ class UsersController < ApplicationController
     		session[:user_id] = @user.id
     		@profile = Profile.where(user_id: session[:user_id]).first
     		@markets = @profile.markets
+    		@management = @profile.managements
+    		@accessibility = @profile.accessibility
+    		@communities = @profile.community
 
     	else 
     		redirect_to root_path
@@ -69,6 +72,18 @@ class UsersController < ApplicationController
     		session[:user_id] = @user.id
     		@profile = Profile.where(user_id: session[:user_id]).first
     		@metrics = metric_calc(@profile)
+  		else
+  			redirect_to root_path
+  		end
+  	end
+
+ 	def sales_slip
+  		if user_is_logged_in?
+  			@user = User.find(session[:user_id])
+    		session[:user_id] = @user.id
+    		@profile = Profile.where(user_id: session[:user_id]).first
+    		@metrics = metric_calc(@profile)
+    		@slip = SalesSlip.where(date: Date.today).where(profile_id: @profile.id).first
   		else
   			redirect_to root_path
   		end

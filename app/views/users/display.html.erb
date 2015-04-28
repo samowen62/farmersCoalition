@@ -96,7 +96,37 @@
 </div>
 <script type="text/javascript">
 //var host = "http://localhost:3000/"
-var host = "https://fathomless-bayou-8856.herokuapp.com/";
+//var host = "https://fathomless-bayou-8856.herokuapp.com/";
+var profile = <%= raw(@profile.to_json) %>;
+var markets = <%= raw(@markets.to_json) %>;
+var management = <%= raw(@management.to_json) %>;
+var accessibility = <%= raw(@accessibility.to_json) %>;
+var communities = <%= raw(@communities.to_json) %>;
+
+var finalVal = '';
+
+for (var key in profile) {if (profile.hasOwnProperty(key)) {key = '"' + key + '",';finalVal += key;}}
+for (var key in markets) {if (markets.hasOwnProperty(key) && key != 'profile_id') {key = '"' + key + '",';finalVal += key;}}
+for (var key in management) {if (management.hasOwnProperty(key) && key != 'profile_id') {key = '"' + key + '",';finalVal += key;}}
+for (var key in accessibility) {if (accessibility.hasOwnProperty(key) && key != 'profile_id') {key = '"' + key + '",';finalVal += key;}}
+for (var key in communities) {if (communities.hasOwnProperty(key) && key != 'profile_id') {key = '"' + key + '",';finalVal += key;}}
+
+finalVal += '\n';
+var k;
+
+for (var key in profile) {k = '';if (profile.hasOwnProperty(key)) {k = '"' + profile[key] + '",';finalVal += k;}}
+for (var key in markets) {k = '';if (markets.hasOwnProperty(key) && key != 'profile_id') {k = '"' + markets[key] + '",';finalVal += k;}}
+for (var key in management) {k = '';if (management.hasOwnProperty(key) && key != 'profile_id') {k = '"' + management[key] + '",';finalVal += k;}}
+for (var key in accessibility) {k = '';if (accessibility.hasOwnProperty(key) && key != 'profile_id') {k = '"' + accessibility[key] + '",';finalVal += k;}}
+for (var key in communities) {k = '';if (communities.hasOwnProperty(key) && key != 'profile_id') {k = '"' + communities[key] + '",';finalVal += k;}}
+
+
+
+var pom = document.createElement('a');
+pom.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(finalVal));
+pom.setAttribute('download', 'test.csv');
+pom.click();
+
 
 function displayCtrl($scope){
 	  //  $('#sidebar ul li')[1].className = "active";

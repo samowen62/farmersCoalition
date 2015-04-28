@@ -1,0 +1,150 @@
+<%= render "shared/menu" %>
+
+<div id="survey" class="col-md-12" ng-app ng-controller="surveyCtrl">
+  <div id="summary" class="main">
+
+	<%= render "shared/nav" %>
+
+  	<h1>Sales Slip</h1>
+	<div class="col-md-6" ng-if="metrics[15]">
+		<label class="col-xs-8">WIC FMNP sales</label>
+		<div  class="col-xs-3"><input type="text" ng-model="survey.WIC_FMNP_sales"/></div>
+	</div>
+	<div class="col-md-6" ng-if="metrics[16]">
+		<label class="col-xs-8">WIC CVV sales</label>
+		<div  class="col-xs-3"><input type="text" ng-model="survey.WIC_sales"/></div>
+	</div>
+	<div class="col-md-6" ng-if="metrics[21]">
+		<label class="col-xs-8">Senior FMNP sales</label>
+		<div  class="col-xs-3"><input type="text" ng-model="survey.Senior_FMNP_sales"/></div>	
+	</div>
+	<div class="col-md-6" ng-if="metrics[7]">
+		<label class="col-xs-8">Debit/Credit sales</label>
+		<div  class="col-xs-3"><input type="text" ng-model="survey.Debt_sales"/></div>
+	</div>
+	<div class="col-md-6" ng-if="metrics[14]">
+		<label class="col-xs-8">SNAP/EBT sales</label>
+		<div  class="col-xs-3"><input type="text" ng-model="survey.SNAP_sales"/></div>
+	</div>
+	<div class="col-md-6" ng-if="metrics[13]">
+		<label class="col-xs-8">Number of SNAP/EBT transactions</label>
+		<div  class="col-xs-3"><input type="text" ng-model="survey.SNAP_transactions"/></div>
+	</div>
+	<div class="col-md-6" ng-if="metrics[1]">
+		<div class="row">
+			<label class="col-xs-8">Total Gross Sales: </label>
+			<div  class="col-xs-3"><input type="text" ng-model="survey.total_sales"/></div>
+		</div>
+		<div class="row">
+			<h3>Product Categories:</h3>
+			<label class="col-xs-8">Farm Product Sales: </label>
+			<div  class="col-xs-3"><input type="text" ng-model="survey.farm_sales"/></div>
+		</div>
+		<div class="row">
+			<label class="col-xs-8">Value-added Sales: </label>
+			<div  class="col-xs-3"><input type="text" ng-model="survey.value_sales"/></div>
+		</div>
+		<div class="row">
+			<label class="col-xs-8">Ready-to-Eat (Prepared) food Sales: </label>
+			<div  class="col-xs-3"><input type="text" ng-model="survey.ready_sales"/></div>
+		</div>
+	</div>
+	<div class="col-md-6" ng-if="metrics[31]">
+		<h3>Donated Food</h3>
+		<div class="row">
+			<label class="col-xs-8">Estimated Pounds of Donated Food: </label>
+			<div  class="col-xs-3"><input type="text" ng-model="survey.pounds_donated"/></div>
+		</div>
+		<div class="row">
+			<label class="col-xs-8">Estimated Retail Value of Donation: </label>
+			<div  class="col-xs-3"><input type="text" ng-model="survey.values_donated"/></div>
+		</div>
+	</div>
+	<div class="col-md-6" ng-if="metrics[35]">
+		<label>Which three fresh vegetables or fruits did you sell most frequently on {{today}} at the market?</label>
+		<input type="text" ng-model="survey.veg1"/>
+		<input type="text" ng-model="survey.veg2"/>
+		<input type="text" ng-model="survey.veg3"/>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-offset-4 col-md-4">
+			<a class="btn btn-default" href="javascript:void" ng-click="submitSurvey()">Submit</a>
+		</div>
+	</div>
+  </div>
+</div>
+<div id="successScreen"> 
+	<a href="#" class="suc-text">Success!</a>
+</div> 
+<div id="cover" ></div>
+
+<script type="text/javascript">
+
+function surveyCtrl($scope){
+	
+	$scope.metrics = <%= raw(@metrics.to_json) %>;
+	$scope.survey = <%= raw(@slip.to_json) %>;
+
+	if($scope.survey == null)
+		$scope.survey = {};
+
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {
+	    dd='0'+dd
+	} 
+
+	if(mm<10) {
+	    mm='0'+mm
+	} 
+
+	$scope.today = mm+'/'+dd+'/'+yyyy;
+
+	$scope.submitSurvey = function(){
+		if($scope.survey.frequency != '')
+			$scope.survey[$scope.survey.frequency] = true;
+
+		if($scope.survey.method != '')
+			$scope.survey[$scope.survey.method] = true;
+
+		if($scope.survey.day6 != null)
+			$scope.survey['downtown_spent_'+$scope.survey.day6] = $scope.survey.downtown_spent;
+
+		if($scope.survey.day10 != null)
+			$scope.survey['spent_'+$scope.survey.day10] = $scope.survey.spent;
+
+		console.log($scope.survey);
+
+		$.ajax({
+			type: "POST",
+			url: "/post_sales_slip",
+			data: JSON.stringify($scope.survey),
+			contentType: "application/json",
+			success: function(data){
+				console.log(data);
+				location.href = '#successScreen';
+				$scope.survey = {};
+				setTimeout(ret, 1000);
+			},
+			error: function(data){
+				alert("Error Submitting Data");
+				location.href = '#successScreen';
+				$scope.survey = {};
+				setTimeout(ret, 1000);
+			}
+		});
+	};
+
+	$scope.reset = function(){
+		$scope.survey = {};
+	}
+
+	function ret(){
+		location.href = "#";
+	}
+}
+
+</script>

@@ -89,6 +89,30 @@ class ProfileController < ApplicationController
     render plain: "error"
   end
 
+  def update_sales_slip
+
+    if user_is_logged_in?
+      unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
+        if (slip = SalesSlip.where(date: Date.today).where(profile_id: profile.id).first).nil?
+          slip = SalesSlip.new(sales_params)
+          slip[:date] = Date.today
+          slip[:profile_id] = profile.id
+          slip.save!
+
+          render plain: slip.inspect
+          return
+        else
+          slip.update_attributes!(sales_params)
+          slip.save!
+
+          render plain: slip.inspect
+          return
+        end
+      end
+    end
+    render plain: "error"
+  end
+
   def create_man
     #render plain: "#{session[:_csrf_token]} | #{params[:authenticity_token]}"
     #return
@@ -214,6 +238,10 @@ class ProfileController < ApplicationController
       params.permit(:profile_id, :created_at, :updated_at, :customers, :municipal, :producers, :extension, :community_groups, :advisors_other, :sponsors, :newsletter, :facebook, :twitter, :google, :pinterest, :online_other, :online_other_explain, :annual_report, :report_link, :experience_collecting, :resources_available)
     end
 
+  private
+    def sales_params
+      params.permit(:total_sales,:farm_sales,:value_sales,:ready_sales, :WIC_FMNP_sales,:WIC_sales,:Senior_FMNP_sales,:Debt_sales,:SNAP_sales,:SNAP_transactions,:pounds_donated, :values_donated, :veg1, :veg2, :veg3)
+    end
   #private
    # def survey_params
     #  params.permit(
