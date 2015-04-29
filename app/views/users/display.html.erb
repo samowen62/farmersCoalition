@@ -5,6 +5,12 @@
 	<% if !@profile.nil? && !@profile.new_record? %>
 	<%= render "shared/nav" %>
 	<div class="clearfix"></div>
+	<div row>
+		<div class="col-md-4">
+			<a id="profileDoc" class="btn btn-default">Export Profile</a>
+		</div>
+	</div>
+	<div class="clearfix"></div>
 	<div class="profile-header">
 		<h2 ng-click="slide('#info')" class="title" >Profile Info <span ng-if="profile.FMC_member">FMC Member!</span></h2>
 		<div class="profile-group" id="info">
@@ -122,10 +128,10 @@ for (var key in communities) {k = '';if (communities.hasOwnProperty(key) && key 
 
 
 
-var pom = document.createElement('a');
+var pom = document.getElementById('profileDoc');
 pom.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(finalVal));
-pom.setAttribute('download', 'test.csv');
-pom.click();
+pom.setAttribute('download', 'profile.csv');
+//pom.click();
 
 
 function displayCtrl($scope){
