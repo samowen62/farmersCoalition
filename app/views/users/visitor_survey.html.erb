@@ -89,10 +89,11 @@
 					<label class="no">No <input type="radio" ng-model="survey.yes7" value="false" /></label>
 				</div>
 			</div>
-			<div class="row" ng-show="survey.yes7 == 'true'">
-				<div class="row">
-					<label>How much money have you spent or do you plan to spend in the neighborhood/downtown area this {{survey.day6 ? survey.day6 : 'day'}}?</label>
-					<input type="text" ng-model="survey.downtown_spent" />
+			<div class="row money" ng-show="survey.yes7 == 'true'">
+				<label>How much money have you spent or do you plan to spend in the neighborhood/downtown area this {{survey.day6 ? survey.day6 : 'day'}}?</label>
+				<div class="col-xs-12">
+					<span class="col-xs-1 dollars">$</span>
+					<input type="text" class="col-xs-10" ng-model="survey.downtown_spent" style="width:82%;border-radius: 0px 6px 6px 0px !important;margin-left:0px !important;" />
 				</div>
 			</div>
 		</div>
@@ -107,16 +108,17 @@
 					<br /><em>Money includes cash, credit/debit, food assistance vouchers, and market tokens.</em>
 				</span>
 			</div>
-			<div class="row">
-				<input type="text" ng-model="survey.spent" />
+			<div class="row money">
+				<div class="col-xs-12">
+					<span class="col-xs-1 dollars">$</span>
+					<input type="text" class="col-xs-10" ng-model="survey.spent" style="width:82%;border-radius: 0px 6px 6px 0px !important;margin-left:0px !important;" />
+				</div>
 			</div>
 		</div>
 		<div class="col-md-6" ng-if="metrics[30]">
 			<div class="row">
-				<label>What is your home Zip code?</label>
-			</div>
-			<div class="row">
-				<input type="text" ng-model="survey.home_zip" />
+				<label class="col-xs-8">What is your home Zip code?</label>
+				<input class="col-xs-3" style="width:25%" type="text" ng-model="survey.home_zip" />
 			</div>
 		</div>
 	</div>

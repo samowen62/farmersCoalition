@@ -7,7 +7,7 @@
 
   	<div class="col-md-10 col-md-offset-1">
 	  	<div class="progress" style="width:96%">
-		  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
+		  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 26%">
 		  </div>
 		</div>
 		<ul class="navig">
@@ -828,10 +828,9 @@ function profileCtrl($scope){
 
 	$scope.changeTab = function(tab){
 		$scope.tab = tab;
-		$('.progress-bar-success').width((tab*25) + '%');
+		$('.progress-bar-success').width((tab == 1 ? 26 : tab*25) + '%');
 
 		window.location.href = '#summary';
-		//$scope.tall = $('.button')[tab - 1].getBoundingClientRect().bottom + 'px';
 	};
 
 	$scope.locSlide = function(id) {

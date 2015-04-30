@@ -375,7 +375,22 @@ label.day{
   	border-radius: 7px;
   	float: none !important;
 }
-
+.money{
+	.dollars{
+		background-color: #eee;
+  		padding: 4px;
+  		margin: 2px 0px;
+  		text-align: right;
+  		border-radius: 6px 0px 0px 6px;
+	}
+	.col-xs-3, .col-xs-10{
+		padding-left:0px !important;
+		input[type="text"]{
+			border-radius: 0px 6px 6px 0px !important;
+			margin-left:0px !important;
+		}
+	}
+}
 #cover{ 
 	position:fixed; 
 	top:0; 
