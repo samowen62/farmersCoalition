@@ -131,36 +131,56 @@ for (var key in management) {k = '';if (management.hasOwnProperty(key) && key !=
 for (var key in accessibility) {k = '';if (accessibility.hasOwnProperty(key) && key != 'profile_id') {k = '"' + accessibility[key] + '",';finalVal += k;}}
 for (var key in communities) {k = '';if (communities.hasOwnProperty(key) && key != 'profile_id') {k = '"' + communities[key] + '",';finalVal += k;}}
 
-
-
 var pom = document.getElementById('profileDoc');
 pom.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(finalVal));
 pom.setAttribute('download', 'profile.csv');
 //pom.click();
 
-var visitor_survey = '';
+var visitor_survey = '"Date",';
 
-for (var key in surveys[0]) {if (surveys[0].hasOwnProperty(key) && key != 'profile_id' && key != 'id') {key = '"' + key + '",';visitor_survey += key;}}
-visitor_survey += '\n';
+for (var key in surveys[0]) {if (surveys[0].hasOwnProperty(key) && key != 'profile_id' && key != 'id' && key != 'date') {key = '"' + titleTrans(key) + '",';visitor_survey += key;}}
+visitor_survey += '\n"' + surveys[0].date + '",';
 
 for (var s = 0; s < surveys.length; s++){
 	var survey = surveys[s];
 	for (var key in survey) {
 		k = '';
-		if (survey.hasOwnProperty(key) && key != 'profile_id' && key != 'id') {
+		if (survey.hasOwnProperty(key) && key != 'profile_id' && key != 'id' && key != 'date') {
 			k = '"' + survey[key] + '",';
 			visitor_survey += k;
 		}
 	}
-	visitor_survey += '\n';
+	visitor_survey += '\n"' + (s != surveys.length - 1 ? surveys[s + 1].date : '' )+'",';
 }
+
+//turn this into hash when we want better descriptions
+function titleTrans(key){
+	if(key == 'yes28'){
+		return 'Arrived in Personal Vehicle';
+	}else if(key == 'no28'){
+		return 'Did not arrive in Personal Vehicle';
+	}else if(key == 'yes13'){
+		return 'First Time';
+	}else if(key == 'no13'){
+		return 'Not First Time';
+	}else if(key == 'yes36'){
+		return 'Plan to Purchase Fruits';
+	}else if(key == 'no36'){
+		return 'Does not Plan to Purchase Fruits';
+	}else if(key == 'yes7'){
+		return 'Plan on Other Activities';
+	}else if(key == 'no7'){
+		return 'Does not Plan on Other Activities';
+	}else
+		return key;
+}
+
 
 var csv1 = document.getElementById('visitor_survey');
 csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_survey));
 csv1.setAttribute('download', 'VisitorSurveys.csv');
 
 function displayCtrl($scope){
-	  //  $('#sidebar ul li')[1].className = "active";
 
 	$scope.profile = <%= raw(@profile.to_json) %>;
 	$scope.mars = <%= raw(@markets.to_json) %>;
