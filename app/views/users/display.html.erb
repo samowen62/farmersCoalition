@@ -6,8 +6,11 @@
 	<%= render "shared/nav" %>
 	<div class="clearfix"></div>
 	<div row>
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<a id="profileDoc" class="btn btn-default">Export Profile</a>
+		</div>
+		<div class="col-md-3">
+			<a id="visitor_survey" class="btn btn-default">Visitor Surveys</a>
 		</div>
 	</div>
 	<div class="clearfix"></div>
@@ -109,6 +112,8 @@ var management = <%= raw(@management.to_json) %>;
 var accessibility = <%= raw(@accessibility.to_json) %>;
 var communities = <%= raw(@communities.to_json) %>;
 
+var surveys = <%= raw(@surveys.to_json) %>;
+
 var finalVal = '';
 
 for (var key in profile) {if (profile.hasOwnProperty(key)) {key = '"' + key + '",';finalVal += key;}}
@@ -133,6 +138,26 @@ pom.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(fin
 pom.setAttribute('download', 'profile.csv');
 //pom.click();
 
+var visitor_survey = '';
+
+for (var key in surveys[0]) {if (surveys[0].hasOwnProperty(key) && key != 'profile_id' && key != 'id') {key = '"' + key + '",';visitor_survey += key;}}
+visitor_survey += '\n';
+
+for (var s = 0; s < surveys.length; s++){
+	var survey = surveys[s];
+	for (var key in survey) {
+		k = '';
+		if (survey.hasOwnProperty(key) && key != 'profile_id' && key != 'id') {
+			k = '"' + survey[key] + '",';
+			visitor_survey += k;
+		}
+	}
+	visitor_survey += '\n';
+}
+
+var csv1 = document.getElementById('visitor_survey');
+csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_survey));
+csv1.setAttribute('download', 'VisitorSurveys.csv');
 
 function displayCtrl($scope){
 	  //  $('#sidebar ul li')[1].className = "active";

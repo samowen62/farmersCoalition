@@ -55,11 +55,14 @@ class UsersController < ApplicationController
   		if user_is_logged_in?
     		@user = User.find(session[:user_id])
     		session[:user_id] = @user.id
+
     		@profile = Profile.where(user_id: session[:user_id]).first
     		@markets = @profile.markets
     		@management = @profile.managements
     		@accessibility = @profile.accessibility
     		@communities = @profile.community
+
+    		@surveys = VisitorSurvey.where(profile_id: @profile.id)
 
     	else 
     		redirect_to root_path
