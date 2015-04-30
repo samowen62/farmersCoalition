@@ -112,6 +112,9 @@ var management = <%= raw(@management.to_json) %>;
 var accessibility = <%= raw(@accessibility.to_json) %>;
 var communities = <%= raw(@communities.to_json) %>;
 
+var profiles = <%= raw(@profiles.to_json) %>;
+console.log(profiles);
+
 var surveys = <%= raw(@surveys.to_json) %>;
 
 var finalVal = '';
@@ -125,11 +128,20 @@ for (var key in communities) {if (communities.hasOwnProperty(key) && key != 'pro
 finalVal += '\n';
 var k;
 
-for (var key in profile) {k = '';if (profile.hasOwnProperty(key)) {k = '"' + profile[key] + '",';finalVal += k;}}
-for (var key in markets) {k = '';if (markets.hasOwnProperty(key) && key != 'profile_id') {k = '"' + markets[key] + '",';finalVal += k;}}
-for (var key in management) {k = '';if (management.hasOwnProperty(key) && key != 'profile_id') {k = '"' + management[key] + '",';finalVal += k;}}
-for (var key in accessibility) {k = '';if (accessibility.hasOwnProperty(key) && key != 'profile_id') {k = '"' + accessibility[key] + '",';finalVal += k;}}
-for (var key in communities) {k = '';if (communities.hasOwnProperty(key) && key != 'profile_id') {k = '"' + communities[key] + '",';finalVal += k;}}
+for (var i in profiles){
+	var Tprofile = profiles[i].profile;
+	var Tmarkets = profiles[i].markets;
+	var Tmanagement = profiles[i].management;
+	var Taccessibility = profiles[i].accessibility;
+	var Tcommunities = profiles[i].community;
+
+	for (var key in Tprofile) {k = '';if (Tprofile.hasOwnProperty(key)) {k = '"' + Tprofile[key] + '",';finalVal += k;}}
+	for (var key in Tmarkets) {k = '';if (Tmarkets.hasOwnProperty(key) && key != 'profile_id') {k = '"' + Tmarkets[key] + '",';finalVal += k;}}
+	for (var key in Tmanagement) {k = '';if (Tmanagement.hasOwnProperty(key) && key != 'profile_id') {k = '"' + Tmanagement[key] + '",';finalVal += k;}}
+	for (var key in Taccessibility) {k = '';if (Taccessibility.hasOwnProperty(key) && key != 'profile_id') {k = '"' + Taccessibility[key] + '",';finalVal += k;}}
+	for (var key in Tcommunities) {k = '';if (Tcommunities.hasOwnProperty(key) && key != 'profile_id') {k = '"' + Tcommunities[key] + '",';finalVal += k;}}
+	finalVal += '\n';
+}
 
 var pom = document.getElementById('profileDoc');
 pom.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(finalVal));
@@ -184,8 +196,8 @@ function displayCtrl($scope){
 
 	$scope.profile = <%= raw(@profile.to_json) %>;
 	$scope.mars = <%= raw(@markets.to_json) %>;
-	console.log($scope.profile);
-	console.log($scope.mars);
+	//console.log($scope.profile);
+	//console.log($scope.mars);
 
 	var seasonalArr = [1,1,1];
 	var num;
@@ -205,7 +217,7 @@ function displayCtrl($scope){
 			}
 		});
 
-	console.log($scope.markets);
+	//console.log($scope.markets);
 
 
 	$scope.slide = function(id) {
