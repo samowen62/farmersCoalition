@@ -6,52 +6,71 @@
 	<% if !@profile.nil? && !@profile.new_record? %>
 	<div class="clearfix"></div>
 	<div class="row">
-		<h1 style="margin-left: 5%;">List of Metrics</h1>
+		<h4 style="margin-left: 5%;" class="col-md-6">Select what you would like to get data on</h4>
+		<div class="col-md-2">
+			<a class="btn btn-default" href="javascript:void" ng-click="deselect()">(Un)select all</a>
+		</div>
+		<div class="col-md-2">
+			<a class="btn btn-default" href="javascript:void" ng-click="change()">Update</a>
+		</div>
 	</div>
 	<div class="row">
-		<span class="col-md-9"><h4 style="margin-left: 15%;">Select the metrics that you would like to get data on</h4></span>
-		<span class="col-md-3"><a class="btn btn-default" style="width:100%" href="javascript:void" ng-click="change()">Update</a></span>
+		<span class="col-md-9"></span>
+		<span class="col-md-3">
+			
+		</span>
 	</div>
 	<div class="row metrics-list">
-		<ul>
-			<li><input type="checkbox" ng-model="metrics[0]" />1) Average number of visitors per market day</li>
-			<li><input type="checkbox" ng-model="metrics[1]" />2) Total annual vendor sales at market</li>
-			<li><input type="checkbox" ng-model="metrics[2]" />3) Average distance in miles traveled from product origin (eg. farm) to market (estimated annually)</li>
-			<li><input type="checkbox" ng-model="metrics[3]" />4) Acres in agricultural production by market vendors</li>
-			<li><input type="checkbox" ng-model="metrics[4]" />5) Number of vendors who sold through the market at least once per year</li>
-			<li><input type="checkbox" ng-model="metrics[5]" />6) Sales tax revenue generated from market sales (where applicable) (estimated annually)</li>
-			<li><input type="checkbox" ng-model="metrics[6]" />7) Dollars spent at neighboring businesses by market shoppers on market days (averaged annually)</li>
-			<li><input type="checkbox" ng-model="metrics[7]" />8) Dollar amount of credit/debit sales per market day (annual average)</li>
-			<li><input type="checkbox" ng-model="metrics[8]" />9) Number of individuals employed by market businesses annually</li>
-			<li><input type="checkbox" ng-model="metrics[9]" />10) Total annual farm vendor sales</li>
-			<li><input type="checkbox" ng-model="metrics[10]" />11) Average total spending per shopper per visit</li>
-			<li><input type="checkbox" ng-model="metrics[11]" />12) Percentage of farm vendors with less than 10 years farming experience</li>
-			<li><input type="checkbox" ng-model="metrics[12]" />13) Percent of customers who were first time visitors</li>
-			<li><input type="checkbox" ng-model="metrics[13]" />14) Average number of SNAP transactions per year</li>
-			<li><input type="checkbox" ng-model="metrics[14]" />15) Total dollar amount of SNAP benefits redeemed annually></li>
-			<li><input type="checkbox" ng-model="metrics[15]" />16) Total dollar amount of WIC FMNP redeemed annually</li>
-			<li><input type="checkbox" ng-model="metrics[16]" />17) Total dollar amount of WIC/CVV redeemed annually</li>
-			<li><input type="checkbox" ng-model="metrics[17]" />18) Number of SNAP customers participating in incentive campaign annually</li>
-			<li><input type="checkbox" ng-model="metrics[18]" />19) Number of SNAP customers using benefits through the market on more than one market day</li>
-			<li><input type="checkbox" ng-model="metrics[19]" />20) Number of SNAP-eligible goods available at market on an average day</li>
-			<li><input type="checkbox" ng-model="metrics[20]" />21) Total dollar amount of senior FMNP redeemed annually</li>
-			<li><input type="checkbox" ng-model="metrics[21]" />22) Number (or percentage of ) women-owned producer businesses selling at least once at the market annually</li>
-			<li><input type="checkbox" ng-model="metrics[22]" />23) Number of socially disadvantaged vendors selling at market annually</li>
-			<li><input type="checkbox" ng-model="metrics[23]" />24) Number of food products for sale unique to the region (estimated annually)</li>
-			<li><input type="checkbox" ng-model="metrics[24]" />25) Number of farm vendors with organic certification (or in 3 year transition) selling at market annually</li>
-			<li><input type="checkbox" ng-model="metrics[25]" />26) Number of products sold as Certified Organic or certified by other third-party sustainability criteria per year (#)</li>
-			<li><input type="checkbox" ng-model="metrics[26]" />27) Number of different fruit and vegetable crops available for sale annually</li>
-			<li><input type="checkbox" ng-model="metrics[27]" />28) Percentage of shoppers walking, bicycling, carpooling, driving or taking public transportation to the market annually</li>
-			<li><input type="checkbox" ng-model="metrics[28]" />29) Percentage of agricultural producers at market who are less than 35 years old, annually</li>
-			<li><input type="checkbox" ng-model="metrics[29]" />30) Number of volunteer hours contributed annually</li>
-			<li><input type="checkbox" ng-model="metrics[30]" />31) Percentage of shoppers from represented zip codes annually</li>
-			<li><input type="checkbox" ng-model="metrics[31]" />32) Pounds or retail value of food donated by vendors (estimated annually)</li>
-			<li><input type="checkbox" ng-model="metrics[32]" />33) Number of food education programs held (including cooking demonstrations) (estimated annually)</li>
-			<li><input type="checkbox" ng-model="metrics[33]" />34) Average hours from harvest to point of sale (estimated annually)</li>
-			<li><input type="checkbox" ng-model="metrics[34]" />35) Number and type of educational materials distributed through market monthly</li>
-			<li><input type="checkbox" ng-model="metrics[35]" />36) Most frequently sold fruit or vegetables sold monthly</li>
-			<li><input type="checkbox" ng-model="metrics[36]" />37) Number of youth less than 18 participating in market programs annually</li>
-		</ul>
+		<h1 ng-click="slide('#metrics')">Metric List</h1>
+		<div id="metrics" style="display:none">
+			<ul>
+				<li><input type="checkbox" ng-model="metrics[0]" />1) Average number of visitors per market day</li>
+				<li><input type="checkbox" ng-model="metrics[1]" />2) Total annual vendor sales at market</li>
+				<li><input type="checkbox" ng-model="metrics[2]" />3) Average distance in miles traveled from product origin (eg. farm) to market (estimated annually)</li>
+				<li><input type="checkbox" ng-model="metrics[3]" />4) Acres in agricultural production by market vendors</li>
+				<li><input type="checkbox" ng-model="metrics[4]" />5) Number of vendors who sold through the market at least once per year</li>
+				<li><input type="checkbox" ng-model="metrics[5]" />6) Sales tax revenue generated from market sales (where applicable) (estimated annually)</li>
+				<li><input type="checkbox" ng-model="metrics[6]" />7) Dollars spent at neighboring businesses by market shoppers on market days (averaged annually)</li>
+				<li><input type="checkbox" ng-model="metrics[7]" />8) Dollar amount of credit/debit sales per market day (annual average)</li>
+				<li><input type="checkbox" ng-model="metrics[8]" />9) Number of individuals employed by market businesses annually</li>
+				<li><input type="checkbox" ng-model="metrics[9]" />10) Total annual farm vendor sales</li>
+				<li><input type="checkbox" ng-model="metrics[10]" />11) Average total spending per shopper per visit</li>
+				<li><input type="checkbox" ng-model="metrics[11]" />12) Percentage of farm vendors with less than 10 years farming experience</li>
+				<li><input type="checkbox" ng-model="metrics[12]" />13) Percent of customers who were first time visitors</li>
+				<li><input type="checkbox" ng-model="metrics[13]" />14) Average number of SNAP transactions per year</li>
+				<li><input type="checkbox" ng-model="metrics[14]" />15) Total dollar amount of SNAP benefits redeemed annually></li>
+				<li><input type="checkbox" ng-model="metrics[15]" />16) Total dollar amount of WIC FMNP redeemed annually</li>
+				<li><input type="checkbox" ng-model="metrics[16]" />17) Total dollar amount of WIC/CVV redeemed annually</li>
+				<li><input type="checkbox" ng-model="metrics[17]" />18) Number of SNAP customers participating in incentive campaign annually</li>
+				<li><input type="checkbox" ng-model="metrics[18]" />19) Number of SNAP customers using benefits through the market on more than one market day</li>
+				<li><input type="checkbox" ng-model="metrics[19]" />20) Number of SNAP-eligible goods available at market on an average day</li>
+				<li><input type="checkbox" ng-model="metrics[20]" />21) Total dollar amount of senior FMNP redeemed annually</li>
+				<li><input type="checkbox" ng-model="metrics[21]" />22) Number (or percentage of ) women-owned producer businesses selling at least once at the market annually</li>
+				<li><input type="checkbox" ng-model="metrics[22]" />23) Number of socially disadvantaged vendors selling at market annually</li>
+				<li><input type="checkbox" ng-model="metrics[23]" />24) Number of food products for sale unique to the region (estimated annually)</li>
+				<li><input type="checkbox" ng-model="metrics[24]" />25) Number of farm vendors with organic certification (or in 3 year transition) selling at market annually</li>
+				<li><input type="checkbox" ng-model="metrics[25]" />26) Number of products sold as Certified Organic or certified by other third-party sustainability criteria per year (#)</li>
+				<li><input type="checkbox" ng-model="metrics[26]" />27) Number of different fruit and vegetable crops available for sale annually</li>
+				<li><input type="checkbox" ng-model="metrics[27]" />28) Percentage of shoppers walking, bicycling, carpooling, driving or taking public transportation to the market annually</li>
+				<li><input type="checkbox" ng-model="metrics[28]" />29) Percentage of agricultural producers at market who are less than 35 years old, annually</li>
+				<li><input type="checkbox" ng-model="metrics[29]" />30) Number of volunteer hours contributed annually</li>
+				<li><input type="checkbox" ng-model="metrics[30]" />31) Percentage of shoppers from represented zip codes annually</li>
+				<li><input type="checkbox" ng-model="metrics[31]" />32) Pounds or retail value of food donated by vendors (estimated annually)</li>
+				<li><input type="checkbox" ng-model="metrics[32]" />33) Number of food education programs held (including cooking demonstrations) (estimated annually)</li>
+				<li><input type="checkbox" ng-model="metrics[33]" />34) Average hours from harvest to point of sale (estimated annually)</li>
+				<li><input type="checkbox" ng-model="metrics[34]" />35) Number and type of educational materials distributed through market monthly</li>
+				<li><input type="checkbox" ng-model="metrics[35]" />36) Most frequently sold fruit or vegetables sold monthly</li>
+				<li><input type="checkbox" ng-model="metrics[36]" />37) Number of youth less than 18 participating in market programs annually</li>
+			</ul>
+		</div>
+		<h1 ng-click="slide('#instruments')" style="  margin-top: 20px;">Instrument List</h1>
+		<div id="instruments" style="display:none">
+			<ul>
+				<li><input type="checkbox" ng-model="instruments[0]" ng-click="update([27,12,35,10,6,30])" />Visitor Survey</li>
+				<li><input type="checkbox" ng-model="instruments[1]" ng-click="update([1,15,16,20,7,14,13,31,35])" />Vendor Sales Slip</li>
+			</ul>
+
+		</div>
 	</div>
 	<% end %>
   </div>
@@ -68,6 +87,20 @@ function displayCtrl($scope){
 	$scope.profile = <%= raw(@profile.to_json) %>;
 	$scope.metrics = <%= raw(@metrics.to_json) %>;
 	
+	var trueArr = [];
+	var falseArr = [];
+	for(var i = 0; i < 37; i++){
+		trueArr[i] = true;
+		falseArr[i] = false;
+	}
+
+	$scope.instruments = [];
+
+	$scope.update = function(arr){
+		for(var i = 0; i < arr.length; i++)
+			$scope.metrics[arr[i]] = true;		
+	}
+
 	$scope.change = function(){
 		$.ajax({
 			type: "POST",
@@ -87,9 +120,21 @@ function displayCtrl($scope){
 		});
 	}
 
+	$scope.deselect = function(){
+		$scope.metrics = $scope.metrics[0] ? falseArr : trueArr;
+	}
+
 	function ret(){
 		location.href = "#";
 	}
+
+	$scope.slide = function(id) {
+	  	if ($(id).is(":hidden")) {
+	    	$(id).slideDown("slow");
+	  	}else{
+	    	$(id).slideUp("slow");
+	  	}
+	};
 
 }
 </script>
