@@ -24,10 +24,10 @@
 		<h1 ng-click="slide('#metrics')">Metric List</h1>
 		<div id="metrics" style="display:none">
 			<ul>
-				<li><input type="checkbox" ng-model="metrics[0]" />1) Average number of visitors per market day</li>
-				<li><input type="checkbox" ng-model="metrics[1]" />2) Total annual vendor sales at market</li>
-				<li><input type="checkbox" ng-model="metrics[2]" />3) Average distance in miles traveled from product origin (eg. farm) to market (estimated annually)</li>
-				<li><input type="checkbox" ng-model="metrics[3]" />4) Acres in agricultural production by market vendors</li>
+				<li><input type="checkbox" ng-model="metrics[0]" disabled />1) Average number of visitors per market day</li>
+				<li><input type="checkbox" ng-model="metrics[1]" disabled />2) Total annual vendor sales at market</li>
+				<li><input type="checkbox" ng-model="metrics[2]" disabled />3) Average distance in miles traveled from product origin (eg. farm) to market (estimated annually)</li>
+				<li><input type="checkbox" ng-model="metrics[3]" disabled />4) Acres in agricultural production by market vendors</li>
 				<li><input type="checkbox" ng-model="metrics[4]" />5) Number of vendors who sold through the market at least once per year</li>
 				<li><input type="checkbox" ng-model="metrics[5]" />6) Sales tax revenue generated from market sales (where applicable) (estimated annually)</li>
 				<li><input type="checkbox" ng-model="metrics[6]" />7) Dollars spent at neighboring businesses by market shoppers on market days (averaged annually)</li>
@@ -63,14 +63,14 @@
 				<li><input type="checkbox" ng-model="metrics[36]" />37) Number of youth less than 18 participating in market programs annually</li>
 			</ul>
 		</div>
-		<h1 ng-click="slide('#instruments')" style="  margin-top: 20px;">Instrument List</h1>
+		<!--h1 ng-click="slide('#instruments')" style="  margin-top: 20px;">Instrument List</h1>
 		<div id="instruments" style="display:none">
 			<ul>
 				<li><input type="checkbox" ng-model="instruments[0]" ng-click="update([27,12,35,10,6,30])" />Visitor Survey</li>
 				<li><input type="checkbox" ng-model="instruments[1]" ng-click="update([1,15,16,20,7,14,13,31,35])" />Vendor Sales Slip</li>
 			</ul>
 
-		</div>
+		</div-->
 	</div>
 	<% end %>
   </div>
@@ -91,7 +91,7 @@ function displayCtrl($scope){
 	var falseArr = [];
 	for(var i = 0; i < 37; i++){
 		trueArr[i] = true;
-		falseArr[i] = false;
+		falseArr[i] = i < 4;
 	}
 
 	$scope.instruments = [];
@@ -121,7 +121,7 @@ function displayCtrl($scope){
 	}
 
 	$scope.deselect = function(){
-		$scope.metrics = $scope.metrics[0] ? falseArr : trueArr;
+		$scope.metrics = $scope.metrics[4] ? falseArr : trueArr;
 	}
 
 	function ret(){

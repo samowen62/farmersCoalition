@@ -85,109 +85,109 @@
 						<div class="col-md-4">
 							<h5>Primary Seasonal Market</h5>
 							<label>Opening Date</label>
-							<input type="text" ng-model="market1.start" placeholder="yyyy-mm-dd">
+							<input type="text" ng-model="market1.start" class="tcal" >
 
 							<label>Closing Date</label>
-							<input type="text" ng-model="market1.end" placeholder="yyyy-mm-dd">
+							<input type="text" ng-model="market1.end" class="tcal">
 
-							<a ng-click="addMarket(market1,'m',1)" href="javascript:void" class="btn btn-default">Add Market</a>
+							<a ng-click="addMarket('market1','m',1)" href="javascript:void" class="btn btn-default">Add Market</a>
 						</div>
 						<div class="col-md-4">
 							<h5>Seperate Seasonal Market #1</h5>
 							<label>Opening Date</label>
-							<input type="text" ng-model="market11.start" placeholder="yyyy-mm-dd">
+							<input type="text" ng-model="market11.start" class="tcal">
 
 							<label>Closing Date</label>
-							<input type="text" ng-model="market11.end" placeholder="yyyy-mm-dd">
+							<input type="text" ng-model="market11.end" class="tcal">
 
-							<a ng-click="addMarket(market11,'s',1)" href="javascript:void" class="btn btn-default">Add Market</a>
+							<a ng-click="addMarket('market11','s',1)" href="javascript:void" class="btn btn-default">Add Market</a>
 						</div>
 						<div class="col-md-4">
 							<h5>Seperate Seasonal Market #2</h5>
 							<label>Opening Date</label>
-							<input type="text" ng-model="market12.start" placeholder="yyyy-mm-dd">
+							<input type="text" ng-model="market12.start" class="tcal">
 
 							<label>Closing Date</label>
-							<input type="text" ng-model="market12.end" placeholder="yyyy-mm-dd">
+							<input type="text" ng-model="market12.end" class="tcal">
 
-							<a ng-click="addMarket(market12,'s',1)" href="javascript:void" class="btn btn-default">Add Market</a>
+							<a ng-click="addMarket('market12','s',1)" href="javascript:void" class="btn btn-default">Add Market</a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-12">
-				<div ng-if="profile.multiple_locs">
+				<div ng-show="profile.multiple_locs">
 					<h4 class="drop-but" ng-click="locSlide('#l2')">Alternate Location #1</h4>
 					<div id="l2" class="loc-drop">
 						<div class="col-md-12">
 							<div class="col-md-4">
 								<h5>Primary Seasonal Market</h5>
 								<label>Opening Date</label>
-								<input type="text" ng-model="market2.start" placeholder="yyyy-mm-dd">
+								<input type="text" ng-model="market2.start" class="tcal">
 
 								<label>Closing Date</label>
-								<input type="text" ng-model="market2.end" placeholder="yyyy-mm-dd">
+								<input type="text" ng-model="market2.end" class="tcal">
 
-								<a ng-click="addMarket(market2,'m',2)" href="javascript:void" class="btn btn-default">Add Market</a>
+								<a ng-click="addMarket('market2','m',2)" href="javascript:void" class="btn btn-default">Add Market</a>
 							</div>
 							<div class="col-md-4">
 								<h5>Seperate Seasonal Market #1</h5>
 								<label>Opening Date</label>
-								<input type="text" ng-model="market21.start" placeholder="yyyy-mm-dd">
+								<input type="text" ng-model="market21.start" class="tcal">
 
 								<label>Closing Date</label>
-								<input type="text" ng-model="market21.end" placeholder="yyyy-mm-dd">
+								<input type="text" ng-model="market21.end" class="tcal">
 
-								<a ng-click="addMarket(market21,'s',2)" href="javascript:void" class="btn btn-default">Add Market</a>
+								<a ng-click="addMarket('market21','s',2)" href="javascript:void" class="btn btn-default">Add Market</a>
 							</div>
 							<div class="col-md-4">
 								<h5>Seperate Seasonal Market #2</h5>
 								<label>Opening Date</label>
-								<input type="text" ng-model="market22.start" placeholder="yyyy-mm-dd">
+								<input type="text" ng-model="market22.start" class="tcal">
 
 								<label>Closing Date</label>
-								<input type="text" ng-model="market22.end" placeholder="yyyy-mm-dd">
+								<input type="text" ng-model="market22.end" class="tcal">
 
-								<a ng-click="addMarket(market22,'s',2)" href="javascript:void" class="btn btn-default">Add Market</a>
+								<a ng-click="addMarket('market22','s',2)" href="javascript:void" class="btn btn-default">Add Market</a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-12">
-				<div ng-if="profile.multiple_locs">
+				<div ng-show="profile.multiple_locs">
 					<h4 class="drop-but" ng-click="locSlide('#l3')">Alternate Location #2</h4>
 					<div id="l3" class="loc-drop">
 						<div class="col-md-12">
 							<div class="col-md-4">
 								<h5>Primary Seasonal Market</h5>
 								<label>Opening Date</label>
-								<input type="text" ng-model="market3.start" placeholder="yyyy-mm-dd">
+								<input type="text" ng-model="market3.start" class="tcal">
 
 								<label>Closing Date</label>
-								<input type="text" ng-model="market3.end" placeholder="yyyy-mm-dd">
+								<input type="text" ng-model="market3.end" class="tcal">
 
-								<a ng-click="addMarket(market3,'m',3)" href="javascript:void" class="btn btn-default">Add Market</a>
+								<a ng-click="addMarket('market3','m',3)" href="javascript:void" class="btn btn-default">Add Market</a>
 							</div>
 							<div class="col-md-4">
 								<h5>Seperate Seasonal Market #1</h5>
 								<label>Opening Date</label>
-								<input type="text" ng-model="market31.start" placeholder="yyyy-mm-dd">
+								<input type="text" ng-model="market31.start" class="tcal">
 
 								<label>Closing Date</label>
-								<input type="text" ng-model="market31.end" placeholder="yyyy-mm-dd">
+								<input type="text" ng-model="market31.end" class="tcal">
 
-								<a ng-click="addMarket(market31,'s',3)" href="javascript:void" class="btn btn-default">Add Market</a>
+								<a ng-click="addMarket('market31','s',3)" href="javascript:void" class="btn btn-default">Add Market</a>
 							</div>
 							<div class="col-md-4">
 								<h5>Seperate Seasonal Market #2</h5>
 								<label>Opening Date</label>
-								<input type="text" ng-model="market32.start" placeholder="yyyy-mm-dd">
+								<input type="text" ng-model="market32.start" class="tcal">
 
 								<label>Closing Date</label>
-								<input type="text" ng-model="market32.end" placeholder="yyyy-mm-dd">
+								<input type="text" ng-model="market32.end" class="tcal">
 
-								<a ng-click="addMarket(market32,'s',3)" href="javascript:void" class="btn btn-default">Add Market</a>
+								<a ng-click="addMarket('market32','s',3)" href="javascript:void" class="btn btn-default">Add Market</a>
 							</div>
 						</div>
 					</div>
@@ -809,6 +809,16 @@ function profileCtrl($scope){
 	var seasonalArr = [1,1,1];
 	var base;
 
+	$scope.market1 = {};
+	$scope.market11 = {};
+	$scope.market12 = {};
+	$scope.market2 = {};
+	$scope.market21 = {};
+	$scope.market22 = {};
+	$scope.market3 = {};
+	$scope.market31 = {};
+	$scope.market32 = {};
+
 	if($scope.markets != null)
 		$scope.markets.forEach(function(entry){
 			base = 'market' + entry.market_num;
@@ -819,6 +829,8 @@ function profileCtrl($scope){
 			if(entry.market_num != null)
 				$scope[base] = entry;
 		});
+
+	console.log($scope);
 
 	$scope.rightScroll = function(panel){
 		$(panel).animate({
@@ -844,10 +856,19 @@ function profileCtrl($scope){
 	if($scope.profile.mission_statement)
 		$scope.locSlide('#mission_statement');
 
-	$scope.addMarket = function(market,type,market_num){
+	$scope.addMarket = function(m,type,market_num){
+		market = {};
 		market.profile_id = <%= @profile.id %>
 		market.market_type = type == 'm' ? 'market' : 'seasonal';
 		market.market_num = market_num;
+		var charr = (parseInt(m[6]) - 1) * 6;
+		var rrrrr = m.length == 8 ? parseInt(m[7]) * 2 : 0;
+		console.log($('.tcal')[charr + rrrrr].value);//cuz fucking angular aint doing shit
+
+		market.start = $('.tcal')[charr + rrrrr].value;
+		market.end = $('.tcal')[charr + rrrrr + 1].value;
+		//$('.tcal')[9].value
+		console.log(market);
 
 		$.ajax({
 			type: "POST",

@@ -79,9 +79,7 @@
 		<div class="col-md-6" ng-if="metrics[6]">
 			<div class="row">
 				<div class="row">
-					<span style="font-size: 12px; font-weight: 700;">Did you or do you plan on doing additional shopping, eating, or other activities in this neighborhood/downtown area this 
-						<label class="day">Morning <input type="radio" ng-model="survey.day6" value="morning" /></label>
-						<label class="day">Afternoon<input type="radio" ng-model="survey.day6" value="afternoon" /></label> ?
+					<span style="font-size: 12px; font-weight: 700;">Did you or do you plan on doing additional shopping, eating, or other activities in this neighborhood/downtown area today?
 					</span>
 				</div>
 				<div class="row">
@@ -93,7 +91,7 @@
 				<label>How much money have you spent or do you plan to spend in the neighborhood/downtown area this {{survey.day6 ? survey.day6 : 'day'}}?</label>
 				<div class="col-xs-12">
 					<span class="col-xs-1 dollars">$</span>
-					<input type="text" class="col-xs-10" ng-model="survey.downtown_spent" style="width:82%;border-radius: 0px 6px 6px 0px !important;margin-left:0px !important;" />
+					<input type="text" class="col-xs-10" ng-model="survey.downtown_spent_morning" style="width:82%;border-radius: 0px 6px 6px 0px !important;margin-left:0px !important;" />
 				</div>
 			</div>
 		</div>
@@ -101,9 +99,7 @@
 	<div class="col-md-12">
 		<div class="col-md-6" ng-if="metrics[10]">
 			<div class="row">
-				<span style="font-size: 12px; font-weight: 700;">How much money have you spent or do you plan to spend at the market this 
-					<label class="day">Morning <input type="radio" ng-model="survey.day10" value="morning" /></label>
-					<label class="day">Afternoon<input type="radio" ng-model="survey.day10" value="afternoon" /></label> ? 
+				<span style="font-size: 12px; font-weight: 700;">How much money have you spent or do you plan to spend at the market today? 
 
 					<br /><em>Money includes cash, credit/debit, food assistance vouchers, and market tokens.</em>
 				</span>
@@ -111,7 +107,7 @@
 			<div class="row money">
 				<div class="col-xs-12">
 					<span class="col-xs-1 dollars">$</span>
-					<input type="text" class="col-xs-10" ng-model="survey.spent" style="width:82%;border-radius: 0px 6px 6px 0px !important;margin-left:0px !important;" />
+					<input type="text" class="col-xs-10" ng-model="survey.spent_morning" style="width:82%;border-radius: 0px 6px 6px 0px !important;margin-left:0px !important;" />
 				</div>
 			</div>
 		</div>
@@ -154,12 +150,6 @@ function visitorCtrl($scope){
 		if($scope.survey.method != '')
 			$scope.survey[$scope.survey.method] = true;
 
-		if($scope.survey.day6 != null)
-			$scope.survey['downtown_spent_'+$scope.survey.day6] = $scope.survey.downtown_spent;
-
-		if($scope.survey.day10 != null)
-			$scope.survey['spent_'+$scope.survey.day10] = $scope.survey.spent;
-
 		console.log($scope.survey);
 
 		$.ajax({
@@ -170,13 +160,13 @@ function visitorCtrl($scope){
 			success: function(data){
 				console.log(data);
 				location.href = '#successScreen';
-				$scope.survey = {};
+				$('.btn-danger').click();//for some fucking reason
 				setTimeout(ret, 1000);
 			},
 			error: function(data){
 				alert("Error Submitting Data");
 				location.href = '#successScreen';
-				$scope.survey = {};
+				$('.btn-danger').click();
 				setTimeout(ret, 1000);
 			}
 		});
@@ -188,6 +178,7 @@ function visitorCtrl($scope){
 
 	function ret(){
 		location.href = "#";
+
 	}
 }
 
