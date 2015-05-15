@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428172108) do
+ActiveRecord::Schema.define(version: 20150506195359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,17 @@ ActiveRecord::Schema.define(version: 20150428172108) do
   end
 
   add_index "communities", ["profile_id"], name: "index_communities_on_profile_id", using: :btree
+
+  create_table "entry_points", force: true do |t|
+    t.integer  "visitor_counts_id"
+    t.integer  "count"
+    t.integer  "start_hour"
+    t.integer  "end_hour"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "entry_points", ["visitor_counts_id"], name: "index_entry_points_on_visitor_counts_id", using: :btree
 
   create_table "managements", force: true do |t|
     t.integer "num_staff"
@@ -248,6 +259,16 @@ ActiveRecord::Schema.define(version: 20150428172108) do
   end
 
   add_index "vc_entries", ["profile_id"], name: "index_vc_entries_on_profile_id", using: :btree
+
+  create_table "visitor_counts", force: true do |t|
+    t.integer  "profile_id"
+    t.date     "day"
+    t.integer  "period"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "visitor_counts", ["profile_id"], name: "index_visitor_counts_on_profile_id", using: :btree
 
   create_table "visitor_surveys", force: true do |t|
     t.integer  "profile_id"

@@ -208,6 +208,52 @@ nav{
 		}
 	}
 }
+.btn-list{
+	ul{
+  		background-color: #eee;
+  		list-style: none;
+  		width: 35px;
+  		border-radius: 5px;
+  		padding: 0px;
+  		li{
+  			padding: 6px 13px;
+  		}
+  		li.active{
+  			background-color: $btn-color;
+  			border-radius: 20px;
+  			width: 46px;
+  			padding: 13px 18px;
+  			height: 46px;
+  			position: relative;
+  			right: 6px;
+  			bottom: 6px;
+  			color: white;
+  		}
+  	}
+}
+.period-list{
+	width:100%;
+	background-color: #eee;
+	border-radius:5px;
+	height:30px;
+	.item{
+		width:12.5%;
+		float:left;
+		padding: 4px 30px;
+		height:30px;
+	}
+	.active{
+  			background-color: $btn-color;
+  			border-radius: 20px;
+  			width: 46px;
+  			padding: 13px 18px;
+  			height: 46px;
+  			position: relative;
+  			right: 6px;
+  			bottom: 10px;
+  			color: white;
+  	}
+}
 .metrics-list{
 	h1{
 		font-weight: 600;
@@ -434,4 +480,15 @@ label.day{
   left: 100px;
   font-size: 30px;
   color: green;
+}
+#home{
+	p{
+		font-size:20px;
+		a{
+			color: #eee;
+			&:hover{
+				text-decoration: none;
+			}
+		}
+	}
 }

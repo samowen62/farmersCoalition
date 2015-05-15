@@ -1,0 +1,80 @@
+<%= render "shared/menu" %>
+
+<div id="survey" class="col-md-12" ng-app ng-controller="visitorCtrl">
+  <div id="summary" class="main">
+
+	<%= render "shared/nav" %>
+
+  	<h1>Visitor Count</h1>
+  	<div class="col-md-12">
+		<div class="col-md-2">
+			<h2>Day</h2>
+			<div class="btn-list">
+				<ul>
+					<li ng-click="changeDay(1)">1</li>
+					<li class="active" ng-click="changeDay(2)">2</li>
+					<li ng-click="changeDay(3)">3</li>
+					<li ng-click="changeDay(4)">4</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-10">
+			<h2>Sample Period</h2>
+			<div class="period-list row">
+				<div class="item" ng-click="changeDay(1)">1</div>
+				<div class="item" ng-click="changeDay(2)">2</div>
+				<div class="item active" ng-click="changeDay(3)">3</div>
+				<div class="item" ng-click="changeDay(4)">4</div>
+				<div class="item" ng-click="changeDay(5)">5</div>
+				<div class="item" ng-click="changeDay(6)">6</div>
+				<div class="item" ng-click="changeDay(7)">7</div>
+				<div class="item" ng-click="changeDay(8)">8</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-offset-4 col-md-4">
+			<a class="btn btn-default" href="javascript:void" ng-click="submitSurvey()">Submit</a>
+		</div>
+	</div>
+  </div>
+</div>
+<div id="successScreen"> 
+	<a href="#" class="suc-text">Success!</a>
+</div> 
+<div id="cover" ></div>
+
+<script type="text/javascript">
+
+function visitorCtrl($scope){
+	$scope.survey = <%= raw(@count.to_json) %>;
+
+	$scope.submitSurvey = function(){
+
+		console.log($scope.survey);
+
+		$.ajax({
+			type: "POST",
+			url: "/post_visitor_survey",
+			data: JSON.stringify($scope.survey),
+			contentType: "application/json",
+			success: function(data){
+				console.log(data);
+				location.href = '#successScreen';
+				setTimeout(ret, 1000);
+			},
+			error: function(data){
+				alert("Error Submitting Data");
+				location.href = '#successScreen';
+				setTimeout(ret, 1000);
+			}
+		});
+	};
+
+	function ret(){
+		location.href = "#";
+
+	}
+}
+
+</script>

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "logout", :to => "sessions#logout"
   get "display", :to => "users#display"
   get "show", :to => "users#show"
+  get "home", :to => "users#home"
 
   post "login_attempt", :to => "sessions#login_attempt"
   post "post_info", :to => "profile#create"

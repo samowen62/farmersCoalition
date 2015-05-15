@@ -5,6 +5,12 @@
 	<%= render "shared/nav" %>
 
   	<h1>Sales Slip</h1>
+  	<div class="col-md-6">
+  		<div class="col-md-8">
+	  		<label>Date</label>
+			<input type="text" ng-model="date" class="tcal">
+  		</div>
+  	</div>
 	<div class="col-md-6" ng-if="metrics[15]">
 		<label class="col-xs-7">WIC FMNP sales</label>
 		<span class="col-xs-1 dollars">$</span>
@@ -127,8 +133,9 @@ function surveyCtrl($scope){
 
 		if($scope.survey.day10 != null)
 			$scope.survey['spent_'+$scope.survey.day10] = $scope.survey.spent;
+		$scope.survey.date = $('input')[0].value;
 
-		console.log($scope.survey);
+		console.log($scope.date);
 
 		$.ajax({
 			type: "POST",

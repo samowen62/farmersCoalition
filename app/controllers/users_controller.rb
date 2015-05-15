@@ -6,6 +6,14 @@ class UsersController < ApplicationController
 		@user = User.new
 	end
 
+	def home
+		if user_is_logged_in?
+      		@user = User.find(session[:user_id])
+	    else 
+      		redirect_to root_path
+    	end
+	end
+
 	def metrics
     	if user_is_logged_in?
       		@user = User.find(session[:user_id])
@@ -16,6 +24,7 @@ class UsersController < ApplicationController
     	end
   	end
 
+=begin
   	def instruments
     	if user_is_logged_in?
       		@user = User.find(session[:user_id])
@@ -25,6 +34,7 @@ class UsersController < ApplicationController
       		redirect_to root_path
     	end
   	end
+=end
 
 	def show
 		#render plain: user_is_logged_in?
@@ -89,6 +99,17 @@ class UsersController < ApplicationController
     		session[:user_id] = @user.id
     		@profile = Profile.where(user_id: session[:user_id]).first
     		@metrics = metric_calc(@profile)
+  		else
+  			redirect_to root_path
+  		end
+  	end
+
+	def visitor_count
+  		if user_is_logged_in?
+  			@user = User.find(session[:user_id])
+    		session[:user_id] = @user.id
+    		@profile = Profile.where(user_id: session[:user_id]).first
+    		@count = @profile.visitor_counts#EntryPoint
   		else
   			redirect_to root_path
   		end

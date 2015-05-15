@@ -28,13 +28,17 @@ class ProfileController < ApplicationController
 
   def update_visitor_survey
     list = ["home_zip","bikes","walking","bus","taxi","other_method","every_week","every_other_week", "every_month","less_than_month", "spent_morning","spent_afternoon", "downtown_spent_morning","downtown_spent_afternoon","lettuces","roots","tomatoes","corn","melons","berries"]
-    doubleList = ["spent_morning","spent_afternoon", "downtown_spent_morning","downtown_spent_afternoon"]
+    doubleList = ["spent_morning", "downtown_spent_morning"]
     radioList = [28, 13, 36, 7]
+
+    #if !params[:date]
+    #  return "need Date"
+    #end
 
     if user_is_logged_in?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
 
-        unless (survey = VisitorSurvey.where(date: Date.today).where(profile_id: profile.id).first).nil?
+        unless (survey = VisitorSurvey.where(date: params[:date]).where(profile_id: profile.id).first).nil?
           for i in list
             if doubleList.include?(i)
               survey[i] += params[i] ? params[i].to_f : 0
@@ -60,7 +64,7 @@ class ProfileController < ApplicationController
 
         else
           survey = VisitorSurvey.new
-          survey[:date] = Date.today
+          survey[:date] = params[:date]
           survey[:profile_id] = profile.id
 
           for i in list
@@ -92,10 +96,13 @@ class ProfileController < ApplicationController
   def update_sales_slip
 
     if user_is_logged_in?
+      #slip = SalesSlip.new(sales_params)
+      #render plain: params.inspect
+      #return
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
-        if (slip = SalesSlip.where(date: Date.today).where(profile_id: profile.id).first).nil?
+        if (slip = SalesSlip.where(date: params[:date]).where(profile_id: profile.id).first).nil?
           slip = SalesSlip.new(sales_params)
-          slip[:date] = Date.today
+          slip[:date] = params[:date]
           slip[:profile_id] = profile.id
           slip.save!
 
@@ -240,7 +247,7 @@ class ProfileController < ApplicationController
 
   private
     def sales_params
-      params.permit(:total_sales,:farm_sales,:value_sales,:ready_sales, :WIC_FMNP_sales,:WIC_sales,:Senior_FMNP_sales,:Debt_sales,:SNAP_sales,:SNAP_transactions,:pounds_donated, :values_donated, :veg1, :veg2, :veg3)
+      params.permit(:date, :total_sales,:farm_sales,:value_sales,:ready_sales, :WIC_FMNP_sales,:WIC_sales,:Senior_FMNP_sales,:Debt_sales,:SNAP_sales,:SNAP_transactions,:pounds_donated, :values_donated, :veg1, :veg2, :veg3)
     end
   #private
    # def survey_params
