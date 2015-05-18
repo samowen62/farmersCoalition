@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506195359) do
+ActiveRecord::Schema.define(version: 20150518012324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,15 +85,18 @@ ActiveRecord::Schema.define(version: 20150506195359) do
   add_index "communities", ["profile_id"], name: "index_communities_on_profile_id", using: :btree
 
   create_table "entry_points", force: true do |t|
-    t.integer  "visitor_counts_id"
-    t.integer  "count"
-    t.integer  "start_hour"
-    t.integer  "end_hour"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "profile_id"
+    t.date    "day"
+    t.integer "period"
+    t.string  "start"
+    t.string  "end"
+    t.integer "count"
+    t.integer "int_day"
+    t.date    "date"
+    t.integer "ptNum"
   end
 
-  add_index "entry_points", ["visitor_counts_id"], name: "index_entry_points_on_visitor_counts_id", using: :btree
+  add_index "entry_points", ["profile_id"], name: "index_entry_points_on_profile_id", using: :btree
 
   create_table "managements", force: true do |t|
     t.integer "num_staff"
@@ -252,24 +255,6 @@ ActiveRecord::Schema.define(version: 20150506195359) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "vc_entries", force: true do |t|
-    t.integer  "profile_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "vc_entries", ["profile_id"], name: "index_vc_entries_on_profile_id", using: :btree
-
-  create_table "visitor_counts", force: true do |t|
-    t.integer  "profile_id"
-    t.date     "day"
-    t.integer  "period"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "visitor_counts", ["profile_id"], name: "index_visitor_counts_on_profile_id", using: :btree
-
   create_table "visitor_surveys", force: true do |t|
     t.integer  "profile_id"
     t.integer  "bikes"
@@ -306,27 +291,5 @@ ActiveRecord::Schema.define(version: 20150506195359) do
   end
 
   add_index "visitor_surveys", ["profile_id"], name: "index_visitor_surveys_on_profile_id", using: :btree
-
-  create_table "vistor_surveys", force: true do |t|
-    t.integer  "profile_id"
-    t.boolean  "other_activities"
-    t.boolean  "morning_activities"
-    t.float    "money_activities"
-    t.float    "money_market"
-    t.boolean  "morning_market"
-    t.boolean  "first_time"
-    t.string   "frequency"
-    t.boolean  "personal_vehicle"
-    t.string   "vehicle"
-    t.string   "home_zip"
-    t.boolean  "fruits"
-    t.string   "fruit1"
-    t.string   "fruit2"
-    t.string   "fruit3"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "vistor_surveys", ["profile_id"], name: "index_vistor_surveys_on_profile_id", using: :btree
 
 end

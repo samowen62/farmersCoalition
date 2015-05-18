@@ -1,3 +1,3 @@
 class EntryPoint < ActiveRecord::Base
-  belongs_to :visitor_counts
+  belongs_to :profile
 end

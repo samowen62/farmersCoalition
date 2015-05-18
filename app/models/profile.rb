@@ -7,6 +7,5 @@ class Profile < ActiveRecord::Base
 
   has_many :visitor_survey
   has_many :sales_slip
-
-  has_many :vc_entrys
+  has_many :entry_points
 end

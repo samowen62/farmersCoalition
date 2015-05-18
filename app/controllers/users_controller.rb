@@ -109,7 +109,21 @@ class UsersController < ApplicationController
   			@user = User.find(session[:user_id])
     		session[:user_id] = @user.id
     		@profile = Profile.where(user_id: session[:user_id]).first
-    		@count = @profile.visitor_counts#EntryPoint
+        points = @profile.entry_points.order(ptNum: :asc)
+
+        @points = []
+        day = []
+        for i in 0..3 do
+          for j in 0..7 do
+            day.push([])
+          end
+          @points.push(day)
+          day = []
+        end
+
+        for p in points do
+          @points[p.int_day][p.period].push(p)
+        end 
   		else
   			redirect_to root_path
   		end

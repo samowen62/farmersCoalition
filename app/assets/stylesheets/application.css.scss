@@ -209,6 +209,7 @@ nav{
 	}
 }
 .btn-list{
+	cursor: pointer;
 	ul{
   		background-color: #eee;
   		list-style: none;
@@ -232,6 +233,7 @@ nav{
   	}
 }
 .period-list{
+	cursor: pointer;
 	width:100%;
 	background-color: #eee;
 	border-radius:5px;
@@ -253,6 +255,22 @@ nav{
   			bottom: 10px;
   			color: white;
   	}
+}
+#rem{
+	  float: left;
+  width: 240px !important;
+  text-align: center;
+  color: red;
+  font-size: 30px;
+  text-decoration: none;
+}
+#add{
+	  float: left;
+  width: 240px !important;
+  text-align: center;
+  color: green;
+  font-size: 30px;
+  text-decoration: none;
 }
 .metrics-list{
 	h1{

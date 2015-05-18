@@ -26,6 +26,25 @@ class ProfileController < ApplicationController
 
   end
 
+  def update_visitor_count
+    if user_is_logged_in?
+      unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
+        EntryPoint.where(profile_id: profile.id, period: params[:period], int_day: params[:day]).destroy_all
+
+        for d in params[:points] do
+          p = EntryPoint.new(profile_id: profile.id, period: params[:period], int_day: params[:day])
+          p[:start] = d[:start]
+          p[:end] = d[:end]
+          p[:count] = d[:count]
+          p[:ptNum] = d[:ptNum]
+          p.save!
+        end
+      end
+    end
+    
+    render plain: "done"
+  end
+
   def update_visitor_survey
     list = ["home_zip","bikes","walking","bus","taxi","other_method","every_week","every_other_week", "every_month","less_than_month", "spent_morning","spent_afternoon", "downtown_spent_morning","downtown_spent_afternoon","lettuces","roots","tomatoes","corn","melons","berries"]
     doubleList = ["spent_morning", "downtown_spent_morning"]

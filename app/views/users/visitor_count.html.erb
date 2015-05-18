@@ -7,34 +7,54 @@
 
   	<h1>Visitor Count</h1>
   	<div class="col-md-12">
-		<div class="col-md-2">
-			<h2>Day</h2>
-			<div class="btn-list">
-				<ul>
-					<li ng-click="changeDay(1)">1</li>
-					<li class="active" ng-click="changeDay(2)">2</li>
-					<li ng-click="changeDay(3)">3</li>
-					<li ng-click="changeDay(4)">4</li>
-				</ul>
-			</div>
-		</div>
-		<div class="col-md-10">
-			<h2>Sample Period</h2>
+		<div class="col-md-9 col-md-offset-3">
+			<h2 style="  margin-top: 0px;">Sample Period</h2>
 			<div class="period-list row">
-				<div class="item" ng-click="changeDay(1)">1</div>
-				<div class="item" ng-click="changeDay(2)">2</div>
-				<div class="item active" ng-click="changeDay(3)">3</div>
-				<div class="item" ng-click="changeDay(4)">4</div>
-				<div class="item" ng-click="changeDay(5)">5</div>
-				<div class="item" ng-click="changeDay(6)">6</div>
-				<div class="item" ng-click="changeDay(7)">7</div>
-				<div class="item" ng-click="changeDay(8)">8</div>
+				<div class="item" ng-click="changePeriod(0)" ng-class="{'active' : period == 0}">1</div>
+				<div class="item" ng-click="changePeriod(1)" ng-class="{'active' : period == 1}">2</div>
+				<div class="item" ng-click="changePeriod(2)" ng-class="{'active' : period == 2}">3</div>
+				<div class="item" ng-click="changePeriod(3)" ng-class="{'active' : period == 3}">4</div>
+				<div class="item" ng-click="changePeriod(4)" ng-class="{'active' : period == 4}">5</div>
+				<div class="item" ng-click="changePeriod(5)" ng-class="{'active' : period == 5}">6</div>
+				<div class="item" ng-click="changePeriod(6)" ng-class="{'active' : period == 6}">7</div>
+				<div class="item" ng-click="changePeriod(7)" ng-class="{'active' : period == 7}">8</div>
 			</div>
 		</div>
-	</div>
-	<div class="col-md-12">
-		<div class="col-md-offset-4 col-md-4">
-			<a class="btn btn-default" href="javascript:void" ng-click="submitSurvey()">Submit</a>
+		<div class="col-md-12">
+			<div class="col-md-3">
+				<h2>Day</h2>
+				<div class="row">
+					<div class="btn-list">
+						<ul>
+							<li ng-click="changeDay(0)" ng-class="{'active' : day == 0}">1</li>
+							<li ng-click="changeDay(1)" ng-class="{'active' : day == 1}">2</li>
+							<li ng-click="changeDay(2)" ng-class="{'active' : day == 2}">3</li>
+							<li ng-click="changeDay(3)" ng-class="{'active' : day == 3}">4</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="row">
+					<table style="  margin-top: 20px;">
+						<tr data-ng-repeat="i in points[day][period] track by $index">
+							<td><label>Entry Point #{{$index + 1}}</label></td>
+							<td><label>Start</label></td>
+							<td><input type="text" class="t" ng-model="points[day][period][$index].start"></td>
+							<td><label>End</label></td>
+							<td><input type="text" class="t" ng-model="points[day][period][$index].end"></td>
+							<td><label>Count</label></td>
+							<td><input type="text" style="width: 35px;" ng-model="points[day][period][$index].count" class="hasPtTimeSelect"></td>
+						</tr>
+						<tr>
+							<td colspan="7"><a id="add" href="javascript:void(0)" ng-click="addPoint()">+</a><a href="javascript:void(0)" ng-click="removePoint()" id="rem">-</a></td>
+						</tr>
+					</table>
+				</div>
+				<div class="row">
+					<a class="btn btn-default" href="javascript:void" ng-click="submitSurvey()">Save Page</a>
+				</div>
+			</div>
 		</div>
 	</div>
   </div>
@@ -46,17 +66,60 @@
 
 <script type="text/javascript">
 
+$(document).ready(function(){
+	//window.setInterval(function(){
+  		$('body input').ptTimeSelect();
+	//}, 500);
+});
+
+function check(){
+	//because I guess angular is too slow or something?
+	$('body input').ptTimeSelect();
+}
+
 function visitorCtrl($scope){
-	$scope.survey = <%= raw(@count.to_json) %>;
+	$scope.points = <%= raw(@points.to_json) %>;
+
+	$scope.day = 1;
+	$scope.period = 1;
+
+	$scope.changeDay = function(i){
+		$scope.day = i;
+		setTimeout(function(){ $('body input').ptTimeSelect();} ,250);
+	}
+
+	$scope.changePeriod= function(i){
+		$scope.period = i;
+		setTimeout(function(){ $('body input').ptTimeSelect();} ,250);
+	}
+
+	$scope.addPoint = function(){
+		if($scope.points[$scope.day][$scope.period].length < 10){
+			$scope.points[$scope.day][$scope.period].push({});
+			setTimeout(function(){ $('body input').ptTimeSelect();} ,250);
+		}
+	}
+
+	$scope.removePoint = function(){
+		if($scope.points[$scope.day][$scope.period].length > 0){
+			$scope.points[$scope.day][$scope.period].pop();
+			setTimeout(function(){ $('body input').ptTimeSelect();} ,250);
+		}
+	}
 
 	$scope.submitSurvey = function(){
+		$.each($('.t'), function(k,e){ 
+			$scope.points[$scope.day][$scope.period][parseInt(k/2)][k % 2 == 0 ? 'start' : 'end'] = e.value;
+			$scope.points[$scope.day][$scope.period][parseInt(k/2)]['ptNum'] = parseInt(k/2);
+		});
 
-		console.log($scope.survey);
+
+		console.log($scope.points[$scope.day][$scope.period]);
 
 		$.ajax({
 			type: "POST",
-			url: "/post_visitor_survey",
-			data: JSON.stringify($scope.survey),
+			url: "/post_visitor_count",
+			data: JSON.stringify({points: $scope.points[$scope.day][$scope.period], day: $scope.day, period: $scope.period}),
 			contentType: "application/json",
 			success: function(data){
 				console.log(data);
@@ -65,15 +128,12 @@ function visitorCtrl($scope){
 			},
 			error: function(data){
 				alert("Error Submitting Data");
-				location.href = '#successScreen';
-				setTimeout(ret, 1000);
 			}
 		});
 	};
 
 	function ret(){
 		location.href = "#";
-
 	}
 }
 
