@@ -450,6 +450,21 @@ label.day{
   	border-radius: 7px;
   	float: none !important;
 }
+.opt{
+	position:absolute;
+	display:none;
+	background-color: #eee;
+  	padding: 3px;
+  	border: 2px solid #333;
+  	border-radius: 4px;
+  	z-index: 2;
+  	ul{
+  		cursor:pointer;
+  		list-style: none;
+  		padding-left: 3px;
+  		margin-bottom:5px;
+  	}
+}
 .money{
 	.dollars{
 		background-color: #eee;

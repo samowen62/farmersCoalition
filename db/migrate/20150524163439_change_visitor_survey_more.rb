@@ -1,0 +1,75 @@
+class ChangeVisitorSurveyMore < ActiveRecord::Migration
+  def change  	  
+  	change_table :visitor_surveys do |t|
+  		t.integer :Artichokes , :default => 0
+  		t.integer :Arugula, :default => 0
+  		t.integer :Asparagus , :default => 0
+  		t.integer :Beets , :default => 0
+  		t.integer :Beet_greens, :default => 0	#
+  		t.integer :Bok_choy, :default => 0 	#
+  		t.integer :Broccoli , :default => 0
+  		t.integer :Broccoli_rabe, :default => 0 	#
+  		t.integer :Brussels_sprouts, :default => 0 #
+  		t.integer :Cabbage , :default => 0
+  		t.integer :Cardoons , :default => 0
+  		t.integer :Carrots , :default => 0
+  		t.integer :Cauliflower , :default => 0
+  		t.integer :Celeriac , :default => 0
+  		t.integer :Celery , :default => 0
+  		t.integer :Chard , :default => 0
+  		t.integer :Chicory , :default => 0
+  		t.integer :Chipilín , :default => 0
+  		t.integer :Collards , :default => 0
+  		t.integer :Cress , :default => 0
+  		t.integer :Cucumbers , :default => 0
+  		t.integer :Dandelion_greens, :default => 0 	#
+  		t.integer :Dry_beans, :default => 0 			#
+  		t.integer :Eggplant, :default => 0 
+  		t.integer :Fennel, :default => 0 
+  		t.integer :Garlic_bulb, :default => 0 			#
+  		t.integer :Garlic_scapes, :default => 0 		#
+  		t.integer :Green_beans , :default => 0			#
+  		t.integer :Herbs_fresh, :default => 0 		#
+  		t.integer :Hierbamora, :default => 0 
+  		t.integer :Horseradish , :default => 0
+  		t.integer :Jicama , :default => 0
+   		t.integer :Kale , :default => 0
+  		t.integer :Kohlrabi , :default => 0
+  		t.integer :Lambs_quarters, :default => 0 		#
+  		t.integer :Leeks , :default => 0
+  		t.integer :Lettuce , :default => 0
+  		t.integer :Lima_Beans, :default => 0 			#
+  		t.integer :Mushrooms, :default => 0 
+  		t.integer :Mustard_greens, :default => 0 		#
+  		t.integer :Okra, :default => 0 
+  		t.integer :Onions, :default => 0 
+  		t.integer :Parsnips, :default => 0 
+  		t.integer :Peas, :default => 0
+  		t.integer :Pea_shoots , :default => 0			#
+  		t.integer :Peppers_hot , :default => 0		#
+  		t.integer :Peppers_sweet, :default => 0 		#
+  		t.integer :Pumpkins , :default => 0
+  		t.integer :Potatoes, :default => 0
+  		t.integer :Purslane , :default => 0
+  		t.integer :Squash_summer, :default => 0		#
+  		t.integer :Squash_winter, :default => 0		#
+  		t.integer :Radishes , :default => 0
+  		t.integer :Rhubarb, :default => 0
+  		t.integer :Rutabagas , :default => 0
+  		t.integer :Salsify , :default => 0
+  		t.integer :Scallions , :default => 0
+  		t.integer :Shallots, :default => 0
+  		t.integer :Spinach , :default => 0
+  		t.integer :Sprouts, :default => 0
+  		t.integer :Sunchokes, :default => 0 
+  		t.integer :Sweet_corn, :default => 0			#
+  		t.integer :Sweet_potatoes , :default => 0		#
+  		t.integer :Sweet_potato , :default => 0		#
+  		t.integer :Tomatillos , :default => 0
+  		t.integer :Tomatoes , :default => 0
+  		t.integer :Turnips, :default => 0
+  		t.integer :Turnip_greens, :default => 0 		#
+  		t.integer :Yacon, :default => 0
+  	end
+  end
+end

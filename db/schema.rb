@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518012324) do
+ActiveRecord::Schema.define(version: 20150524182053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -288,6 +288,114 @@ ActiveRecord::Schema.define(version: 20150518012324) do
     t.integer  "no36"
     t.integer  "yes7"
     t.integer  "no7"
+    t.integer  "Watermelons",              default: 0
+    t.integer  "Wineberries",              default: 0
+    t.integer  "PawPaws",                  default: 0
+    t.integer  "Peaches",                  default: 0
+    t.integer  "Pears",                    default: 0
+    t.integer  "Plums",                    default: 0
+    t.integer  "Quince",                   default: 0
+    t.integer  "Raspberries",              default: 0
+    t.integer  "Strawberries",             default: 0
+    t.integer  "Tangerines",               default: 0
+    t.integer  "Tayberries",               default: 0
+    t.integer  "Kumquats",                 default: 0
+    t.integer  "Lemons",                   default: 0
+    t.integer  "Limes",                    default: 0
+    t.integer  "Mulberries",               default: 0
+    t.integer  "Oranges",                  default: 0
+    t.integer  "Fejioas",                  default: 0
+    t.integer  "Figs",                     default: 0
+    t.integer  "Gooseberries",             default: 0
+    t.integer  "Grapefruit",               default: 0
+    t.integer  "Grapes",                   default: 0
+    t.integer  "Honeydew_melons",          default: 0
+    t.integer  "Apricots",                 default: 0
+    t.integer  "Apriums",                  default: 0
+    t.integer  "Asian_pears",              default: 0
+    t.integer  "Avocados",                 default: 0
+    t.integer  "Blackberries",             default: 0
+    t.integer  "Blueberries",              default: 0
+    t.integer  "Boysenberries",            default: 0
+    t.integer  "Canary_melons",            default: 0
+    t.integer  "Cantaloupes",              default: 0
+    t.integer  "Cherimoyas",               default: 0
+    t.integer  "Cherries",                 default: 0
+    t.integer  "Chestnuts",                default: 0
+    t.integer  "Currants",                 default: 0
+    t.integer  "Dates",                    default: 0
+    t.integer  "Artichokes",               default: 0
+    t.integer  "Arugula",                  default: 0
+    t.integer  "Asparagus",                default: 0
+    t.integer  "Beets",                    default: 0
+    t.integer  "Beet_greens",              default: 0
+    t.integer  "Bok_choy",                 default: 0
+    t.integer  "Broccoli",                 default: 0
+    t.integer  "Broccoli_rabe",            default: 0
+    t.integer  "Brussels_sprouts",         default: 0
+    t.integer  "Cabbage",                  default: 0
+    t.integer  "Cardoons",                 default: 0
+    t.integer  "Carrots",                  default: 0
+    t.integer  "Cauliflower",              default: 0
+    t.integer  "Celeriac",                 default: 0
+    t.integer  "Celery",                   default: 0
+    t.integer  "Chard",                    default: 0
+    t.integer  "Chicory",                  default: 0
+    t.integer  "Chipilín",                 default: 0
+    t.integer  "Collards",                 default: 0
+    t.integer  "Cress",                    default: 0
+    t.integer  "Cucumbers",                default: 0
+    t.integer  "Dandelion_greens",         default: 0
+    t.integer  "Dry_beans",                default: 0
+    t.integer  "Eggplant",                 default: 0
+    t.integer  "Fennel",                   default: 0
+    t.integer  "Garlic_bulb",              default: 0
+    t.integer  "Garlic_scapes",            default: 0
+    t.integer  "Green_beans",              default: 0
+    t.integer  "Herbs_fresh",              default: 0
+    t.integer  "Hierbamora",               default: 0
+    t.integer  "Horseradish",              default: 0
+    t.integer  "Jicama",                   default: 0
+    t.integer  "Kale",                     default: 0
+    t.integer  "Kohlrabi",                 default: 0
+    t.integer  "Lambs_quarters",           default: 0
+    t.integer  "Leeks",                    default: 0
+    t.integer  "Lettuce",                  default: 0
+    t.integer  "Lima_Beans",               default: 0
+    t.integer  "Mushrooms",                default: 0
+    t.integer  "Mustard_greens",           default: 0
+    t.integer  "Okra",                     default: 0
+    t.integer  "Onions",                   default: 0
+    t.integer  "Parsnips",                 default: 0
+    t.integer  "Peas",                     default: 0
+    t.integer  "Pea_shoots",               default: 0
+    t.integer  "Peppers_hot",              default: 0
+    t.integer  "Peppers_sweet",            default: 0
+    t.integer  "Pumpkins",                 default: 0
+    t.integer  "Potatoes",                 default: 0
+    t.integer  "Purslane",                 default: 0
+    t.integer  "Squash_summer",            default: 0
+    t.integer  "Squash_winter",            default: 0
+    t.integer  "Radishes",                 default: 0
+    t.integer  "Rhubarb",                  default: 0
+    t.integer  "Rutabagas",                default: 0
+    t.integer  "Salsify",                  default: 0
+    t.integer  "Scallions",                default: 0
+    t.integer  "Shallots",                 default: 0
+    t.integer  "Spinach",                  default: 0
+    t.integer  "Sprouts",                  default: 0
+    t.integer  "Sunchokes",                default: 0
+    t.integer  "Sweet_corn",               default: 0
+    t.integer  "Sweet_potatoes",           default: 0
+    t.integer  "Sweet_potato",             default: 0
+    t.integer  "Tomatillos",               default: 0
+    t.integer  "Tomatoes",                 default: 0
+    t.integer  "Turnips",                  default: 0
+    t.integer  "Turnip_greens",            default: 0
+    t.integer  "Yacon",                    default: 0
+    t.integer  "Fava_beans",               default: 0
+    t.integer  "Jujubes",                  default: 0
+    t.integer  "Apples",                   default: 0
   end
 
   add_index "visitor_surveys", ["profile_id"], name: "index_visitor_surveys_on_profile_id", using: :btree

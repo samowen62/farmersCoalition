@@ -50,10 +50,6 @@ class ProfileController < ApplicationController
     doubleList = ["spent_morning", "downtown_spent_morning"]
     radioList = [28, 13, 36, 7]
 
-    #if !params[:date]
-    #  return "need Date"
-    #end
-
     if user_is_logged_in?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
 
@@ -79,6 +75,12 @@ class ProfileController < ApplicationController
             end
           end
 
+          food = params[:food]
+          food.each do |k,v|
+            if(v)
+              survey[k] += 1
+            end
+          end
           survey.save!
 
         else
@@ -101,6 +103,11 @@ class ProfileController < ApplicationController
           for i in radioList
             survey ["yes#{i}"] = params["yes#{i}"] == 'true' ? 1 : 0
             survey ["no#{i}"] = params["yes#{i}"] == 'false' ? 1 : 0
+          end
+          
+          food = params[:food]
+          food.each do |k,v|
+            survey[k] = v ? 1 : 0
           end
 
           survey.save!

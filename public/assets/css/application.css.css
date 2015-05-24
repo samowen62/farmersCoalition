@@ -518,7 +518,25 @@ label.day {
   float: none !important;
 }
 
-/* line 454, ../../../app/assets/stylesheets/application.css.scss */
+/* line 453, ../../../app/assets/stylesheets/application.css.scss */
+.opt {
+  position: absolute;
+  display: none;
+  background-color: #eee;
+  padding: 3px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  z-index: 2;
+}
+/* line 461, ../../../app/assets/stylesheets/application.css.scss */
+.opt ul {
+  cursor: pointer;
+  list-style: none;
+  padding-left: 3px;
+  margin-bottom: 5px;
+}
+
+/* line 469, ../../../app/assets/stylesheets/application.css.scss */
 .money .dollars {
   background-color: #eee;
   padding: 4px;
@@ -526,17 +544,17 @@ label.day {
   text-align: right;
   border-radius: 6px 0px 0px 6px;
 }
-/* line 461, ../../../app/assets/stylesheets/application.css.scss */
+/* line 476, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3, .money .col-xs-10 {
   padding-left: 0px !important;
 }
-/* line 463, ../../../app/assets/stylesheets/application.css.scss */
+/* line 478, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3 input[type="text"], .money .col-xs-10 input[type="text"] {
   border-radius: 0px 6px 6px 0px !important;
   margin-left: 0px !important;
 }
 
-/* line 469, ../../../app/assets/stylesheets/application.css.scss */
+/* line 484, ../../../app/assets/stylesheets/application.css.scss */
 #cover {
   position: fixed;
   top: 0;
@@ -548,7 +566,7 @@ label.day {
   display: none;
 }
 
-/* line 479, ../../../app/assets/stylesheets/application.css.scss */
+/* line 494, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen {
   height: 80px;
   width: 340px;
@@ -562,13 +580,13 @@ label.day {
   border-radius: 10px;
 }
 
-/* line 491, ../../../app/assets/stylesheets/application.css.scss */
+/* line 506, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen:target, #successScreen:target + #cover {
   display: block;
   opacity: 2;
 }
 
-/* line 494, ../../../app/assets/stylesheets/application.css.scss */
+/* line 509, ../../../app/assets/stylesheets/application.css.scss */
 .suc-text {
   display: block;
   position: absolute;
@@ -578,15 +596,15 @@ label.day {
   color: green;
 }
 
-/* line 503, ../../../app/assets/stylesheets/application.css.scss */
+/* line 518, ../../../app/assets/stylesheets/application.css.scss */
 #home p {
   font-size: 20px;
 }
-/* line 505, ../../../app/assets/stylesheets/application.css.scss */
+/* line 520, ../../../app/assets/stylesheets/application.css.scss */
 #home p a {
   color: #eee;
 }
-/* line 507, ../../../app/assets/stylesheets/application.css.scss */
+/* line 522, ../../../app/assets/stylesheets/application.css.scss */
 #home p a:hover {
   text-decoration: none;
 }

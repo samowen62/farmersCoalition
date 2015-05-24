@@ -9,7 +9,7 @@
   	<div class="col-md-12">
   		<div class="col-md-6">
   			<div class="col-md-8">
-	  			<label>Date</label>
+	  			<label>Sample Date</label>
 				<input type="text" ng-model="survey.date" class="tcal">
   			</div>
   		</div>
@@ -71,14 +71,26 @@
 					<label>Which ones did you purchase?</label>
 				</div>
 				<div class="row">
-					<table>
-						<tr><td>Brassicas, lettuces, spinach, & other greens</td><td><input type="checkbox" ng-model="survey.lettuces" /></td></tr>
-				    	<tr><td>Carrots, beets, & root crops</td><td><input type="checkbox" ng-model="survey.roots" /></td></tr>
-				    	<tr><td>Tomatoes</td><td><input type="checkbox" ng-model="survey.tomatoes" /></td></tr>
-				    	<tr><td>Fresh Corn</td><td><input type="checkbox" ng-model="survey.corn" /></td></tr>
-				    	<tr><td>Melons</td><td><input type="checkbox" ng-model="survey.melons" /></td></tr>
-				    	<tr><td>Berries & soft fruits</td><td><input type="checkbox" ng-model="survey.berries" /></td></tr>
-				    </table>
+					<select ng-model="type" ng-change="selectLetter(type)">
+						<option value="f">Fruit</option>
+						<option value="v">Vegetable</option>
+					</select>
+					<select ng-model="filter" ng-change="selectGroup(filter)" id="alpha" style="display:none; margin-top:15px">
+						<option value="a">A - E</option>
+						<option value="f">F - J</option>
+						<option value="k">K - O</option>
+						<option value="p">P - T</option>
+						<option value="u">U - Z</option>
+					</select>
+					<div id="food" style="display:none; background-color: #eee; border-radius: 4px; position:absolute; z-index: 2;margin-top: 10px;overflow-y: scroll;max-height: 130px;">
+						<div ng-repeat="n in foodList" class="col-md-12">
+							<label>{{n}}</label>
+							<input ng-model="food[n]" type="checkbox" style="float:right" />
+						</div>
+						<div>
+							<span style="float:right"><a href="javascript:void(0)" style="  color: red;text-decoration: none;padding: 0px 18px;" ng-click="hideList()">X</a></span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -149,6 +161,41 @@ function visitorCtrl($scope){
 	$scope.survey = {};
 	//$scope.day6 = 'day';
 
+	$scope.selectLetter = function(type){
+		$scope.type = type;
+		$('#alpha').show();
+		$('#food').hide();
+	}
+
+	var items = {};
+
+	items['f'] = {};
+	items['f']['a'] = ['Apples','Apricots','Apriums','Asian pears','Avocados','Blackberries','Blueberries','Boysenberries','Canary melons','Cantaloupes','Cherimoyas','Cherries','Chestnuts','Currants','Dates'];
+	items['f']['f'] = ['Fejioas','Figs','Gooseberries','Grapefruit','Grapes','Honeydew melons','Jujubes'];
+	items['f']['k'] =['Kumquats','Lemons','Limes','Mulberries','Oranges'];
+	items['f']['p'] = ['PawPaws','Peaches','Pears','Plums','Quince','Raspberries','Strawberries','Tangerines','Tayberries'];
+	items['f']['u'] = ['Watermelons','Wineberries'];
+
+	items['v'] = {};
+	items['v']['a'] = ['Artichokes','Arugula','Asparagus','Beets','Beet green','Bok choy','Broccoli','Broccoli rabe','Brussels sprouts','Cabbage','Cardoons','Carrots','Cauliflower','Celeriac','Celery','Chard','Chicory','Chipilín','Collards','Cress','Cucumbers','Dandelion greens','Dry beans','Eggplant'];
+	items['v']['f'] = ['Fava beans','Fennel','Garlic bulb','Garlic scapes','Green beans','Herbs (fresh)','Hierbamora','Horseradish','Jicama'];
+	items['v']['k'] =['Kale','Kohlrabi','Lambs quarters','Leeks','Lettuce','Lima Beans','Mushrooms','Mustard greens','Okra','Onions'];
+	items['v']['p'] = ['Parsnips','Peas','Pea shoots','Peppers (hot)','Peppers (sweet)','Pumpkins','Potatoes','Purslane','Squash (summer)','Squash (winter)','Radishes','Rhubarb','Rutabagas','Salsify','Scallions','Shallots','Spinach','Sprout','Sunchokes','Sweet corn','Sweet potatoes','Sweet potato greens','Tomatillos','Tomatoes','Turnip','Turnip greens'];
+	items['v']['u'] = ['Yacon'];
+
+	$scope.selectGroup = function(filter){
+		$('#food').hide();
+		$scope.foodList = items[$scope.type][filter];
+		console.log(items[$scope.type][filter],$scope.type,filter);
+		$('#food').show();
+	}
+
+	$scope.hideList = function(){
+		$('#food').hide();
+	}
+
+	$scope.food = {};
+
 	$scope.submitSurvey = function(){
 		if($scope.survey.frequency != '')
 			$scope.survey[$scope.survey.frequency] = true;
@@ -156,8 +203,67 @@ function visitorCtrl($scope){
 		if($scope.survey.method != '')
 			$scope.survey[$scope.survey.method] = true;
 
+		if($('input')[0].value == ""){
+			alert("Please Enter a Date");
+			return;
+		}
 		$scope.survey.date = $('input')[0].value;
+		$scope.food.Honeydew_melons = $scope.food["Honeydew melons"] == undefined ? false : $scope.food["Honeydew melons"] ;
+		$scope.food.Asian_pears = $scope.food["Asian pears"] == undefined ? false : $scope.food["Asian pears"];
+		$scope.food.Canary_melons = $scope.food["Canary melons"] == undefined ? false : $scope.food["Canary melons"];	
+		$scope.food.Beet_greens = $scope.food["Beet green"] == undefined ? false : $scope.food["Beet green"];
+		$scope.food.Bok_choy = $scope.food["Bok choy"] == undefined ? false : $scope.food["Bok choy"];
+		$scope.food.Broccoli_rabe = $scope.food["Broccoli rabe"] == undefined ? false : $scope.food["Broccoli rabe"];
+		$scope.food.Brussels_sprouts = $scope.food["Brussels sprouts"] == undefined ? false : $scope.food["Brussels sprouts"];
+		$scope.food.Dandelion_greens = $scope.food["Dandelion greens"] == undefined ? false : $scope.food["Dandelion greens"];
+		$scope.food.Dry_beans = $scope.food["Dry beans"] == undefined ? false : $scope.food["Dry beans"];
+		$scope.food.Fava_beans = $scope.food["Fava beans"] == undefined ? false : $scope.food["Fava beans"];
+		$scope.food.Garlic_bulb = $scope.food["Garlic bulb"] == undefined ? false : $scope.food["Garlic bulb"];
+		$scope.food.Garlic_scapes = $scope.food["Garlic scapes"] == undefined ? false : $scope.food["Garlic scapes"];
+		$scope.food.Green_beans = $scope.food["Green beans"] == undefined ? false : $scope.food["Green beans"];
+		$scope.food.Herbs_fresh = $scope.food["Herbs (fresh)"] == undefined ? false : $scope.food["Herbs (fresh)"];
+		$scope.food.Lambs_quarters = $scope.food["Lambs quarters"] == undefined ? false : $scope.food["Lambs quarters"];
+		$scope.food.Lima_Beans = $scope.food["Lima Beans"] == undefined ? false : $scope.food["Lima Beans"];
+		$scope.food.Mustard_greens = $scope.food["Mustard greens"] == undefined ? false : $scope.food["Mustard greens"];
+		$scope.food.Pea_shoots = $scope.food["Pea shoots"] == undefined ? false : $scope.food["Pea shoots"];
+		$scope.food.Peppers_hot = $scope.food["Peppers (hot)"] == undefined ? false : $scope.food["Peppers (hot)"];
+		$scope.food.Peppers_sweet = $scope.food["Peppers (sweet)"] == undefined ? false : $scope.food["Peppers (sweet)"];
+		$scope.food.Squash_summer = $scope.food["Squash (summer)"] == undefined ? false : $scope.food["Squash (summer)"];
+		$scope.food.Squash_winter = $scope.food["Squash (winter)"] == undefined ? false : $scope.food["Squash (winter)"];
+		$scope.food.Sweet_corn = $scope.food["Sweet corn"] == undefined ? false : $scope.food["Sweet corn"];
+		$scope.food.Sweet_potatoes = $scope.food["Sweet potato greens"] == undefined ? false : $scope.food["Sweet potato greens"];
+		$scope.food.Sweet_potato = $scope.food["Sweet potatoes"] == undefined ? false : $scope.food["Sweet potatoes"];
+		$scope.food.Turnip_greens = $scope.food["Turnip greens"] == undefined ? false : $scope.food["Turnip greens"];
+		
 
+		delete $scope.food["Honeydew melons"];
+		delete $scope.food["Asian pears"];
+		delete $scope.food["Canary melons"];
+		delete $scope.food["Beet green"];
+		delete $scope.food["Bok choy"];
+		delete $scope.food["Broccoli rabe"];
+		delete $scope.food["Brussels sprouts"];
+		delete $scope.food["Dandelion greens"];
+		delete $scope.food["Dry beans"];
+		delete $scope.food["Fava beans"];
+		delete $scope.food["Garlic bulb"];
+		delete $scope.food["Green beans"];
+		delete $scope.food["Herbs (fresh)"];
+		delete $scope.food["Lambs quarters"];
+		delete $scope.food["Lima Beans"];
+		delete $scope.food["Mustard greens"];
+		delete $scope.food["Pea shoots"];
+		delete $scope.food["Peppers (hot)"];
+		delete $scope.food["Peppers (sweet)"];
+		delete $scope.food["Squash (summer)"];
+		delete $scope.food["Squash (winter)"];
+		delete $scope.food["Sweet corn"];
+		delete $scope.food["Sweet potato greens"];
+		delete $scope.food["Turnip greens"];
+		delete $scope.food["Sweet potatoes"];
+
+
+		$scope.survey.food = $scope.food;
 		console.log($scope.survey);
 
 		$.ajax({
@@ -173,15 +279,14 @@ function visitorCtrl($scope){
 			},
 			error: function(data){
 				alert("Error Submitting Data");
-				location.href = '#successScreen';
 				$('.btn-danger').click();
-				setTimeout(ret, 1000);
 			}
 		});
 	};
 
 	$scope.reset = function(){
 		$scope.survey = {};
+		$scope.food = {};
 	}
 
 	function ret(){
