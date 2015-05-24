@@ -6,9 +6,13 @@
 	<%= render "shared/nav" %>
 	<div class="clearfix"></div>
 	<div row>
-		<div class="col-md-3">
-			<a id="profileDoc" class="btn btn-default">Export Profile</a>
-		</div>
+		<%=
+			if (@user.admin)
+				raw "<div class='col-md-3'>
+					<a id='profileDoc' class='btn btn-default'>Export Profile</a>
+				</div>"
+			end
+		%>
 		<div class="col-md-3">
 			<a id="visitor_survey" class="btn btn-default">Visitor Surveys</a>
 		</div>
@@ -104,8 +108,7 @@
 
 </div>
 <script type="text/javascript">
-//var host = "http://localhost:3000/"
-//var host = "https://fathomless-bayou-8856.herokuapp.com/";
+
 var profile = <%= raw(@profile.to_json) %>;
 var markets = <%= raw(@markets.to_json) %>;
 var management = <%= raw(@management.to_json) %>;

@@ -73,18 +73,22 @@ class UsersController < ApplicationController
     		@communities = @profile.community
 
     		#I did all of this because rails is too retarded for join queries
-    		@profiles = {}
-    		i = 0
-    		profs = Profile.all().order('id')
-    		profs.each do |p|
-    			prof = {:profile => p}
-    			prof[:markets] = p.markets
-    			prof[:management] = p.managements
-    			prof[:accessibility] = p.accessibility
-    			prof[:community] = p.community
-    			@profiles[i] = prof
-    			i += 1
-    		end
+        if(@user.admin)
+      		@profiles = {}
+      		i = 0
+      		profs = Profile.all().order('id')
+    	   	profs.each do |p|
+    		  	prof = {:profile => p}
+      			prof[:markets] = p.markets
+      			prof[:management] = p.managements
+      			prof[:accessibility] = p.accessibility
+    	   		prof[:community] = p.community
+    	 	   	@profiles[i] = prof
+    			   i += 1
+    		  end
+        else
+          @profiles = {}
+        end
 
     		@surveys = VisitorSurvey.where(profile_id: @profile.id)
 
