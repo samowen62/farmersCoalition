@@ -4,38 +4,21 @@
   <div id="summary" class="main">
 
 	<%= render "shared/nav" %>
-<div id="home">
-  	<h1>Welcome to FMmetrics!</h1>
-  	<div class="col-md-12">
-  		<div class="col-md-6">
-  			<img src="<%= asset_path('guy-on-computer-300x199.jpg') %>" style="padding: 20px 20px 0px 0px;" />
-  		</div>
-  		<div class="col-md-6">
-  			<p style="margin-top: 30px">
-  				We at <a href="http://farmersmarketcoalition.org/">Farmers Market Coalition</a> created this online tool to help markets like you collect and analyze data. Start by creating a profile <%= link_to "here", controller: "users", action: "show" %> and updating your list of desired metrics <%= link_to "here", controller: "users", action: "metrics" %>.
-  			</p>
-  		</div>
-  	</div>
-  	<div class="col-md-12" style="margin-top:30px">
-  		<div class="col-md-5">
-  			<p style="margin-top: 50px">
-  				A variety of tools are available for data analysis including <%= link_to "Visitor Survey", controller: "users", action: "visitor_survey" %>, <%= link_to "Visitor Count", controller: "users", action: "visitor_count" %> and <%= link_to "Sales Slip", controller: "users", action: "sales_slip" %>. Download csv files from your market data for excel  <%= link_to "here", controller: "users", action: "display" %>.
-  			</p>	
-  		</div>
-  		 <div class="col-md-7">
-  			<img src="<%= asset_path('boulder-farmers-market.jpg') %>" style="width: 100%; padding: 20px 20px 0px 0px;" />
-  		</div>
-	</div>
-	<div class="col-md-12">
-  		<div class="col-md-6">
-  			<img src="<%= asset_path('Computer-Code.jpg') %>" style="padding: 20px 20px 0px 0px; width: 300px" />
-  		</div>
-  		<div class="col-md-6">
-  			<p style="margin-top: 50px">
-  				This site is currently under development in its beta version. New features will be added in the future to analyze other types of metrics.
-  			</p>
-  		</div>
-  	</div>
+    <div id="home">
+    	<h1>Welcome to FMmetrics!</h1>
+    	<div class="col-md-12">
+    		<div class="col-md-6">
+    			<img src="<%= asset_path('guy-on-computer-300x199.jpg') %>" style="padding: 20px 20px 0px 0px;" />
+    		</div>
+    		<div class="col-md-6">
+    			<p style="margin-top: 30px">
+    				In order to collect and receive data about your farmers market start by: <br/><br/>
+            1) Completing a market <%= link_to "profile", controller: "users", action: "show" %>.<br /><br/>
+            2) Selecting a list of <%= link_to "metrics", controller: "users", action: "metrics" %> that you would like to receive data about.<br /><br/>
+            3) Begin collecting data by clicking on the Instruments tab and choosing from one of the <%= link_to "visitor survey", controller: "users", action: "visitor_survey" %>, <%= link_to "visitor count", controller: "users", action: "visitor_count" %> or <%= link_to "vendor sales slip", controller: "users", action: "sales_slip" %>.
+    			</p>
+    		</div>
+    	</div>
+    </div>
   </div>
-</div>
 </div>

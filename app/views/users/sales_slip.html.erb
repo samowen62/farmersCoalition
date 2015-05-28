@@ -4,7 +4,7 @@
   <div id="summary" class="main money">
 	<%= render "shared/nav" %>
 
-  	<h1>Sales Slip</h1>
+  	<h1>Vendor Sales Slip</h1>
   	<div class="col-md-6" ng-if="metrics[1]">
 		<div class="row">
 			<h2>Total Gross Sales: </h2>
@@ -82,7 +82,7 @@
 		</div>
 		<div class="col-md-6" ng-if="metrics[35]">
 			<label>Which three fresh vegetables or fruits did you sell most frequently on {{date}} at the market?</label>
-			<input type="text" ng-click="openOpt(1)" ng-model="survey.veg1"/>
+			<span ng-click="openOpt(1)"><input type="text" ng-model="survey.veg1" disabled /></span>
 			<div class="opt" id="ForV1">
 				<ul>
 					<li ng-click="selectLetter('f')">Fruit</li>
@@ -103,7 +103,7 @@
 					<li ng-repeat="n in foodList" ng-click="selectVeg(n)">{{n}}</li>
 				</ul>
 			</div>
-			<input type="text" ng-model="survey.veg2" ng-click="openOpt(2)"/>
+			<span ng-click="openOpt(2)"><input type="text" ng-model="survey.veg2" disabled /></span>
 			<div class="opt" id="ForV2" style="  top: 35px;">
 				<ul>
 					<li ng-click="selectLetter('f')">Fruit</li>
@@ -124,7 +124,7 @@
 					<li ng-repeat="n in foodList" ng-click="selectVeg(n)">{{n}}</li>
 				</ul>
 			</div>
-			<input type="text" ng-model="survey.veg3" ng-click="openOpt(3)"/>
+			<span  ng-click="openOpt(3)"><input type="text" ng-model="survey.veg3" disabled /></span>
 			<div class="opt" id="ForV3" style="top:70px">
 				<ul>
 					<li ng-click="selectLetter('f')">Fruit</li>
@@ -196,7 +196,7 @@ function surveyCtrl($scope){
 	var items = {};
 
 	items['f'] = {};
-	items['f']['a'] = ['Apples','Apricots','Apriums','Asian pears','Avocados','Blackberries','Blueberries','Boysenberries','Canary melons','Cantaloupes','Cherimoyas','Cherries','Chestnuts','Currants','Dates'];
+	items['f']['a'] = ['Apples','Apricots','Apriums','Asian pears','Avocados','Blackberries','Blueberries','Boysenberries','Canary melons','Cantaloupes','Cherimoyas','Cherries','Currants','Dates'];
 	items['f']['f'] = ['Fejioas','Figs','Gooseberries','Grapefruit','Grapes','Honeydew melons','Jujubes'];
 	items['f']['k'] =['Kumquats','Lemons','Limes','Mulberries','Oranges'];
 
@@ -240,8 +240,10 @@ function surveyCtrl($scope){
 			//$scope.foodList = //based on type then box
 		}
 	}
+	var date = '';
 
 	$scope.setdate = function(){
+		date = $('input')[0].value;
 		$scope.day = $('input')[0].value;
 	}
 
@@ -258,6 +260,11 @@ function surveyCtrl($scope){
 		if($scope.survey.day10 != null)
 			$scope.survey['spent_'+$scope.survey.day10] = $scope.survey.spent;
 		$scope.survey.date = $('input')[0].value;
+
+		if($scope.survey.date = ''){
+			alert("Please Enter a Valid Date");
+			return;
+		}
 
 		console.log($scope.date);
 

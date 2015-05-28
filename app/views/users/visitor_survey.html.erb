@@ -68,29 +68,34 @@
 			</div>
 			<div class="row" ng-show="survey.yes36 == 'true'">
 				<div class="row">
-					<label>Which ones did you purchase?</label>
+					<label>Can you tell me the three fresh fruits or vegetables that you purchased the most of? Please list in alphabetical order.</label>
 				</div>
 				<div class="row">
 					<select ng-model="type" ng-change="selectLetter(type)">
 						<option value="f">Fruit</option>
 						<option value="v">Vegetable</option>
 					</select>
-					<select ng-model="filter" ng-change="selectGroup(filter)" id="alpha" style="display:none; margin-top:15px">
+					<select ng-model="filter" ng-change="selectGroup(filter)" id="alpha" style="display:none; margin-top:15px;  margin-left: 30px;width: 320px;">
 						<option value="a">A - E</option>
 						<option value="f">F - J</option>
 						<option value="k">K - O</option>
 						<option value="p">P - T</option>
 						<option value="u">U - Z</option>
 					</select>
-					<div id="food" style="display:none; background-color: #eee; border-radius: 4px; position:absolute; z-index: 2;margin-top: 10px;overflow-y: scroll;max-height: 130px;">
-						<div ng-repeat="n in foodList" class="col-md-12">
-							<label>{{n}}</label>
-							<input ng-model="food[n]" type="checkbox" style="float:right" />
+					<div style="display:none;  margin-top: 15px; margin-left: 60px;width: 290px;" id ="food">
+						<select ng-model="survey.veg1"  >
+							<option ng-repeat=" n in foodList" value="{{n}}">{{n}}</option>
+						</select>
+					</div>
+					<!--div id="food" style="display:none; background-color: #eee; border-radius: 4px; position:absolute; z-index: 2;margin-top: 10px;overflow-y: scroll;max-height: 130px;" ng-repeat="n in foodList" class="col-md-12">
+						<div >
+							<div class="l-item">{{n}}</div>
+							<!--input ng-model="food[n]" type="checkbox" style="float:right" />
 						</div>
 						<div>
 							<span style="float:right"><a href="javascript:void(0)" style="  color: red;text-decoration: none;padding: 0px 18px;" ng-click="hideList()">X</a></span>
 						</div>
-					</div>
+					</div-->
 				</div>
 			</div>
 		</div>
@@ -159,6 +164,7 @@ function visitorCtrl($scope){
 
 	$scope.metrics = <%= raw(@metrics.to_json) %>;
 	$scope.survey = {};
+	$scope.foodList = [];
 	//$scope.day6 = 'day';
 
 	$scope.selectLetter = function(type){
@@ -170,7 +176,7 @@ function visitorCtrl($scope){
 	var items = {};
 
 	items['f'] = {};
-	items['f']['a'] = ['Apples','Apricots','Apriums','Asian pears','Avocados','Blackberries','Blueberries','Boysenberries','Canary melons','Cantaloupes','Cherimoyas','Cherries','Chestnuts','Currants','Dates'];
+	items['f']['a'] = ['Apples','Apricots','Apriums','Asian pears','Avocados','Blackberries','Blueberries','Boysenberries','Canary melons','Cantaloupes','Cherimoyas','Cherries','Currants','Dates'];
 	items['f']['f'] = ['Fejioas','Figs','Gooseberries','Grapefruit','Grapes','Honeydew melons','Jujubes'];
 	items['f']['k'] =['Kumquats','Lemons','Limes','Mulberries','Oranges'];
 	items['f']['p'] = ['PawPaws','Peaches','Pears','Plums','Quince','Raspberries','Strawberries','Tangerines','Tayberries'];
@@ -186,7 +192,7 @@ function visitorCtrl($scope){
 	$scope.selectGroup = function(filter){
 		$('#food').hide();
 		$scope.foodList = items[$scope.type][filter];
-		console.log(items[$scope.type][filter],$scope.type,filter);
+		console.log($scope.foodList);
 		$('#food').show();
 	}
 
@@ -195,6 +201,7 @@ function visitorCtrl($scope){
 	}
 
 	$scope.food = {};
+	$scope.date = '';
 
 	$scope.submitSurvey = function(){
 		if($scope.survey.frequency != '')
@@ -203,10 +210,14 @@ function visitorCtrl($scope){
 		if($scope.survey.method != '')
 			$scope.survey[$scope.survey.method] = true;
 
-		if($('input')[0].value == ""){
+		
+
+		if(($scope.date = $('input')[0].value) == ""){
 			alert("Please Enter a Date");
 			return;
 		}
+		console.log($scope.date);
+
 		$scope.survey.date = $('input')[0].value;
 		$scope.food.Honeydew_melons = $scope.food["Honeydew melons"] == undefined ? false : $scope.food["Honeydew melons"] ;
 		$scope.food.Asian_pears = $scope.food["Asian pears"] == undefined ? false : $scope.food["Asian pears"];
@@ -291,7 +302,7 @@ function visitorCtrl($scope){
 
 	function ret(){
 		location.href = "#";
-
+		$('input')[0].value = $scope.date;
 	}
 }
 
