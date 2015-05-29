@@ -71,31 +71,61 @@
 					<label>Can you tell me the three fresh fruits or vegetables that you purchased the most of? Please list in alphabetical order.</label>
 				</div>
 				<div class="row">
-					<select ng-model="type" ng-change="selectLetter(type)">
+					<select ng-model="type1" ng-change="selectLetter(type1,1)">
 						<option value="f">Fruit</option>
 						<option value="v">Vegetable</option>
 					</select>
-					<select ng-model="filter" ng-change="selectGroup(filter)" id="alpha" style="display:none; margin-top:15px;  margin-left: 30px;width: 320px;">
+					<select ng-model="filter1" ng-change="selectGroup(filter1,1)" id="alpha1" style="display:none; margin-top:15px;  margin-left: 30px;width: 320px;">
 						<option value="a">A - E</option>
 						<option value="f">F - J</option>
 						<option value="k">K - O</option>
 						<option value="p">P - T</option>
 						<option value="u">U - Z</option>
 					</select>
-					<div style="display:none;  margin-top: 15px; margin-left: 60px;width: 290px;" id ="food">
+					<div style="display:none;  margin-top: 15px; margin-left: 60px;width: 290px;" id ="food1">
 						<select ng-model="survey.veg1"  >
-							<option ng-repeat=" n in foodList" value="{{n}}">{{n}}</option>
+							<option ng-repeat=" n in foodList1" value="{{n}}">{{n}}</option>
 						</select>
 					</div>
-					<!--div id="food" style="display:none; background-color: #eee; border-radius: 4px; position:absolute; z-index: 2;margin-top: 10px;overflow-y: scroll;max-height: 130px;" ng-repeat="n in foodList" class="col-md-12">
-						<div >
-							<div class="l-item">{{n}}</div>
-							<!--input ng-model="food[n]" type="checkbox" style="float:right" />
-						</div>
-						<div>
-							<span style="float:right"><a href="javascript:void(0)" style="  color: red;text-decoration: none;padding: 0px 18px;" ng-click="hideList()">X</a></span>
-						</div>
-					</div-->
+					
+				</div>
+				<div class="row">
+					<select ng-model="type2" ng-change="selectLetter(type2,2)">
+						<option value="f">Fruit</option>
+						<option value="v">Vegetable</option>
+					</select>
+					<select ng-model="filter2" ng-change="selectGroup(filter2,2)" id="alpha2" style="display:none; margin-top:15px;  margin-left: 30px;width: 320px;">
+						<option value="a">A - E</option>
+						<option value="f">F - J</option>
+						<option value="k">K - O</option>
+						<option value="p">P - T</option>
+						<option value="u">U - Z</option>
+					</select>
+					<div style="display:none;  margin-top: 15px; margin-left: 60px;width: 290px;" id ="food2">
+						<select ng-model="survey.veg2"  >
+							<option ng-repeat=" n in foodList2" value="{{n}}">{{n}}</option>
+						</select>
+					</div>
+					
+				</div>
+				<div class="row">
+					<select ng-model="type3" ng-change="selectLetter(type3,3)">
+						<option value="f">Fruit</option>
+						<option value="v">Vegetable</option>
+					</select>
+					<select ng-model="filter3" ng-change="selectGroup(filter3,3)" id="alpha3" style="display:none; margin-top:15px;  margin-left: 30px;width: 320px;">
+						<option value="a">A - E</option>
+						<option value="f">F - J</option>
+						<option value="k">K - O</option>
+						<option value="p">P - T</option>
+						<option value="u">U - Z</option>
+					</select>
+					<div style="display:none;  margin-top: 15px; margin-left: 60px;width: 290px;" id ="food3">
+						<select ng-model="survey.veg3"  >
+							<option ng-repeat=" n in foodList3" value="{{n}}">{{n}}</option>
+						</select>
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -167,10 +197,10 @@ function visitorCtrl($scope){
 	$scope.foodList = [];
 	//$scope.day6 = 'day';
 
-	$scope.selectLetter = function(type){
-		$scope.type = type;
-		$('#alpha').show();
-		$('#food').hide();
+	$scope.selectLetter = function(type,num){
+		$scope['type' +num] = type;
+		$('#alpha' + num).show();
+		$('#food' + num).hide();
 	}
 
 	var items = {};
@@ -189,15 +219,15 @@ function visitorCtrl($scope){
 	items['v']['p'] = ['Parsnips','Peas','Pea shoots','Peppers (hot)','Peppers (sweet)','Pumpkins','Potatoes','Purslane','Squash (summer)','Squash (winter)','Radishes','Rhubarb','Rutabagas','Salsify','Scallions','Shallots','Spinach','Sprout','Sunchokes','Sweet corn','Sweet potatoes','Sweet potato greens','Tomatillos','Tomatoes','Turnip','Turnip greens'];
 	items['v']['u'] = ['Yacon'];
 
-	$scope.selectGroup = function(filter){
-		$('#food').hide();
-		$scope.foodList = items[$scope.type][filter];
+	$scope.selectGroup = function(filter,num){
+		$('#food'+num).hide();
+		$scope['foodList' + num] = items[$scope['type'+num]][filter];
 		console.log($scope.foodList);
-		$('#food').show();
+		$('#food'+num).show();
 	}
 
-	$scope.hideList = function(){
-		$('#food').hide();
+	$scope.hideList = function(num){
+		$('#food'+num).hide();
 	}
 
 	$scope.food = {};
@@ -210,7 +240,9 @@ function visitorCtrl($scope){
 		if($scope.survey.method != '')
 			$scope.survey[$scope.survey.method] = true;
 
-		
+		if($scope.survey.veg1) $scope.food[$scope.survey.veg1] = true;
+		if($scope.survey.veg2) $scope.food[$scope.survey.veg2] = true;
+		if($scope.survey.veg3) $scope.food[$scope.survey.veg3] = true;
 
 		if(($scope.date = $('input')[0].value) == ""){
 			alert("Please Enter a Date");

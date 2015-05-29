@@ -122,7 +122,6 @@ class ProfileController < ApplicationController
   def update_sales_slip
 
     if user_is_logged_in?
-      #slip = SalesSlip.new(sales_params)
       #render plain: params.inspect
       #return
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?

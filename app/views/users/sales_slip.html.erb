@@ -261,12 +261,12 @@ function surveyCtrl($scope){
 			$scope.survey['spent_'+$scope.survey.day10] = $scope.survey.spent;
 		$scope.survey.date = $('input')[0].value;
 
-		if($scope.survey.date = ''){
+		if($scope.survey.date == ''){
 			alert("Please Enter a Valid Date");
 			return;
 		}
 
-		console.log($scope.date);
+		console.log($scope.survey.date);
 
 		$.ajax({
 			type: "POST",
