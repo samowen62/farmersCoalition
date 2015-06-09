@@ -72,6 +72,26 @@ class UsersController < ApplicationController
     		@accessibility = @profile.accessibility
     		@communities = @profile.community
 
+        @visitor_surveys = []
+        if(@user.admin)
+          i = 0
+          len = Profile.all().length
+          while i < len do
+            i += 1
+            unless(Profile.where(:id => i).present?)   
+              len += 1
+            else
+              if Profile.find(i).visitor_survey.length != 0
+                @visitor_surveys << Profile.find(i).visitor_survey.order(:date)
+              end
+            end
+          end
+        end
+
+        #@visitor_surveys = @visitor_surveys[@visitor_surveys.length - 1]
+       #render plain: @visitor_surveys.inspect
+        #return
+
     		#I did all of this because rails is too retarded for join queries
         if(@user.admin)
       		@profiles = {}

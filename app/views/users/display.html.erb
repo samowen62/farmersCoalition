@@ -12,6 +12,12 @@
 					<a id='profileDoc' class='btn btn-default'>Export Profile</a>
 				</div>"
 			end
+
+			if (@user.admin)
+				raw "<div class='col-md-3'>
+					<a id='visitor_surveys' class='btn btn-default'>Export All Surveys</a>
+				</div>"
+			end
 		%>
 		<div class="col-md-3">
 			<a id="visitor_survey" class="btn btn-default">Visitor Surveys</a>
@@ -115,11 +121,40 @@ var management = <%= raw(@management.to_json) %>;
 var accessibility = <%= raw(@accessibility.to_json) %>;
 var communities = <%= raw(@communities.to_json) %>;
 
-var profiles = <%= raw(@profiles.to_json) %>;
-console.log(profiles);
+
 
 var surveys = <%= raw(@surveys.to_json) %>;
 
+var profiles = <%= raw(@profiles.to_json) %>;
+var visitor_surveys = <%= raw(@visitor_surveys.to_json) %>;
+console.log(visitor_surveys);
+var visitor_survey_sheet = '';
+
+for (var key in visitor_surveys[0][0]) {if (visitor_surveys[0][0].hasOwnProperty(key) && key != 'profile_id' && key != 'id')
+ {key = '"' + titleTrans(key) + '",';visitor_survey_sheet += key;}}
+visitor_survey_sheet += '\n"';// + visitor_surveys[0][0].date + '",';
+
+for (var s = 0; s < visitor_surveys.length; s++){
+	for(var t = 0; t < visitor_surveys[s].length; t++){
+		var survey = visitor_surveys[s][t];
+		//console.log(survey,s,t);
+		for (var key in survey) {
+			k = '';
+			if (survey.hasOwnProperty(key) && key != 'profile_id' && key != 'id') {
+				k = '"' + survey[key] + '",';
+				visitor_survey_sheet += k;
+			}
+		}
+		visitor_survey_sheet += '\n"';
+	}
+	visitor_survey_sheet += '\n"';// + (s != visitor_surveys.length - 1 ? visitor_surveys[s + 1][0].date : '' )+'",';
+}
+
+var csv1 = document.getElementById('visitor_surveys');
+csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_survey_sheet));
+csv1.setAttribute('download', 'VisitorSurveys.csv');
+
+//console.log(visitor_surveys);
 var finalVal = '';
 
 for (var key in profile) {if (profile.hasOwnProperty(key)) {key = '"' + key + '",';finalVal += key;}}
