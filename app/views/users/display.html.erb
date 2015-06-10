@@ -6,22 +6,22 @@
 	<%= render "shared/nav" %>
 	<div class="clearfix"></div>
 	<div row>
-		<%=
-			if (@user.admin)
-				raw "<div class='col-md-3'>
-					<a id='profileDoc' class='btn btn-default'>Export Profile</a>
-				</div>"
-			end
 
-			if (@user.admin)
-				raw "<div class='col-md-3'>
+				<div class='col-md-3'>
+					<a id='profileDoc' class='btn btn-default'>Export Profiles</a>
+				</div>
+
+				<div class='col-md-3'>
 					<a id='visitor_surveys' class='btn btn-default'>Export All Surveys</a>
-				</div>"
-			end
-		%>
-		<div class="col-md-3">
+				</div>
+
+				<div class='col-md-3'>
+					<a id='sales_slips' class='btn btn-default'>Export All Sales Slips</a>
+				</div>
+
+		<!--div class="col-md-3">
 			<a id="visitor_survey" class="btn btn-default">Visitor Surveys</a>
-		</div>
+		</div-->
 	</div>
 	<div class="clearfix"></div>
 	<div class="profile-header">
@@ -127,8 +127,10 @@ var surveys = <%= raw(@surveys.to_json) %>;
 
 var profiles = <%= raw(@profiles.to_json) %>;
 var visitor_surveys = <%= raw(@visitor_surveys.to_json) %>;
-console.log(visitor_surveys);
+var sales_slips = <%= raw(@sales_slips.to_json) %>;
+
 var visitor_survey_sheet = '';
+var sales_slip_sheet = '';
 
 for (var key in visitor_surveys[0][0]) {if (visitor_surveys[0][0].hasOwnProperty(key) && key != 'profile_id' && key != 'id')
  {key = '"' + titleTrans(key) + '",';visitor_survey_sheet += key;}}
@@ -153,6 +155,29 @@ for (var s = 0; s < visitor_surveys.length; s++){
 var csv1 = document.getElementById('visitor_surveys');
 csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_survey_sheet));
 csv1.setAttribute('download', 'VisitorSurveys.csv');
+
+for (var key in sales_slips[0][0]) {if (sales_slips[0][0].hasOwnProperty(key) && key != 'profile_id' && key != 'id')
+ {key = '"' + titleTrans(key) + '",';sales_slip_sheet += key;}}
+sales_slip_sheet += '\n"';
+
+for (var s = 0; s < sales_slips.length; s++){
+	for(var t = 0; t < sales_slips[s].length; t++){
+		var survey = sales_slips[s][t];
+		for (var key in survey) {
+			k = '';
+			if (survey.hasOwnProperty(key) && key != 'profile_id' && key != 'id') {
+				k = '"' + survey[key] + '",';
+				sales_slip_sheet += k;
+			}
+		}
+		sales_slip_sheet += '\n"';
+	}
+	sales_slip_sheet += '\n"';
+}
+
+var csv1 = document.getElementById('sales_slips');
+csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(sales_slip_sheet));
+csv1.setAttribute('download', 'SalesSlips.csv');
 
 //console.log(visitor_surveys);
 var finalVal = '';

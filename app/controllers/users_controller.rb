@@ -73,6 +73,7 @@ class UsersController < ApplicationController
     		@communities = @profile.community
 
         @visitor_surveys = []
+        @sales_slips = []
         if(@user.admin)
           i = 0
           len = Profile.all().length
@@ -82,7 +83,13 @@ class UsersController < ApplicationController
               len += 1
             else
               if Profile.find(i).visitor_survey.length != 0
-                @visitor_surveys << Profile.find(i).visitor_survey.order(:date)
+                p = Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).order("profiles.id ASC").order("visitor_surveys.date ASC")
+                @visitor_surveys << p
+              end
+
+              if Profile.find(i).sales_slip.length != 0
+                p = Profile.select("profiles.name, sales_slips.*").joins(:sales_slip).order("profiles.id ASC").order("sales_slips.date ASC")
+                @sales_slips << p
               end
             end
           end
