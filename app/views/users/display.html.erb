@@ -5,23 +5,18 @@
 	<% if !@profile.nil? && !@profile.new_record? %>
 	<%= render "shared/nav" %>
 	<div class="clearfix"></div>
-	<div row>
+	<div class="row" ng-show="user.admin">
+		<div class='col-md-3'>
+			<a id='profileDoc' class='btn btn-default'>Export Profiles</a>
+		</div>
 
-				<div class='col-md-3'>
-					<a id='profileDoc' class='btn btn-default'>Export Profiles</a>
-				</div>
+		<div class='col-md-3'>
+			<a id='visitor_surveys' class='btn btn-default'>Export All Surveys</a>
+		</div>
 
-				<div class='col-md-3'>
-					<a id='visitor_surveys' class='btn btn-default'>Export All Surveys</a>
-				</div>
-
-				<div class='col-md-3'>
-					<a id='sales_slips' class='btn btn-default'>Export All Sales Slips</a>
-				</div>
-
-		<!--div class="col-md-3">
-			<a id="visitor_survey" class="btn btn-default">Visitor Surveys</a>
-		</div-->
+		<div class='col-md-3'>
+			<a id='sales_slips' class='btn btn-default'>Export All Sales Slips</a>
+		</div>
 	</div>
 	<div class="clearfix"></div>
 	<div class="profile-header">
@@ -114,6 +109,7 @@
 
 </div>
 <script type="text/javascript">
+
 
 var profile = <%= raw(@profile.to_json) %>;
 var markets = <%= raw(@markets.to_json) %>;
@@ -259,8 +255,7 @@ function displayCtrl($scope){
 
 	$scope.profile = <%= raw(@profile.to_json) %>;
 	$scope.mars = <%= raw(@markets.to_json) %>;
-	//console.log($scope.profile);
-	//console.log($scope.mars);
+	$scope.user = <%= raw(@user.to_json) %>;
 
 	var seasonalArr = [1,1,1];
 	var num;
