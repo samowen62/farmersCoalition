@@ -74,6 +74,7 @@ class UsersController < ApplicationController
 
         @visitor_surveys = []
         @sales_slips = []
+        @visitor_counts = []
         if(@user.admin)
           i = 0
           len = Profile.all().length
@@ -91,8 +92,28 @@ class UsersController < ApplicationController
                 p = Profile.select("profiles.name, sales_slips.*").joins(:sales_slip).order("profiles.id ASC").order("sales_slips.date ASC")
                 @sales_slips << p
               end
+=begin
+              points = Profile.find(i).entry_points.order(ptNum: :asc)
+
+              @points = []
+              day = []
+              for i in 0..3 do
+                for j in 0..7 do
+                  day.push([])
+                end
+                @points.push(day)
+                day = []
+              end
+
+              for p in points do
+                @points[p.int_day][p.period].push(p)
+              end 
+=end
             end
           end
+
+
+
         end
 
         #@visitor_surveys = @visitor_surveys[@visitor_surveys.length - 1]

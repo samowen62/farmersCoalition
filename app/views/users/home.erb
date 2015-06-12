@@ -3,22 +3,22 @@
 <div id="survey" class="col-md-12">
   <div id="summary" class="main">
 
-	<%= render "shared/nav" %>
-    <div id="home">
-    	<h1>Welcome to FMmetrics!</h1>
-    	<div class="col-md-12">
-    		<div class="col-md-6">
-    			<img src="<%= asset_path('guy-on-computer-300x199.jpg') %>" style="padding: 20px 20px 0px 0px;" />
-    		</div>
-    		<div class="col-md-6">
-    			<p style="margin-top: 30px">
-    				In order to collect and receive data about your farmers market start by: <br/><br/>
-            1) Completing a market <%= link_to "profile", controller: "users", action: "show" %>.<br /><br/>
-            2) Selecting a list of <%= link_to "metrics", controller: "users", action: "metrics" %> that you would like to receive data about.<br /><br/>
-            3) Begin collecting data by clicking on the Instruments tab and choosing from one of the <%= link_to "visitor survey", controller: "users", action: "visitor_survey" %>, <%= link_to "visitor count", controller: "users", action: "visitor_count" %> or <%= link_to "vendor sales slip", controller: "users", action: "sales_slip" %>.
-    			</p>
-    		</div>
-    	</div>
+   <%= render "shared/nav" %>
+   <div id="home">
+       <h1>Welcome to Farmers Market Metrics!</h1>
+       <div class="col-md-12">
+          <div class="col-md-6">
+             <img src="<%= asset_path('FARMERS MARKET.jpg') %>" style="padding: 20px 20px 0px 0px;  width: 350px;" />
+         </div>
+         <div class="col-md-6">
+             <div id="home-page">
+             In order to collect and receive data about your farmers market start by: 
+                <div class="item"><span class="num">1</span> Completing a market <%= link_to "profile", controller: "users", action: "show" %>.</div>
+                <div class="item"><span class="num">2</span> Selecting a list of <%= link_to "metrics", controller: "users", action: "metrics" %> that you would like to receive data about.</div>
+                <div class="item"><span class="num">3</span> Begin collecting data by clicking on the Instruments tab and choosing from one of the <%= link_to "visitor survey", controller: "users", action: "visitor_survey" %>, <%= link_to "visitor count", controller: "users", action: "visitor_count" %> or <%= link_to "vendor sales slip", controller: "users", action: "sales_slip" %>.</div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+</div>
 </div>

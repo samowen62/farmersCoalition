@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
 			flash[:notice] = "Wow Welcome again, you logged in as #{authorized_user.email}"
 
 			@user = User.find(authorized_user.id)
-			redirect_to(@user)
+			render "users/home"
 
 		else
 			flash[:notice] = "Invalid Username or Password"

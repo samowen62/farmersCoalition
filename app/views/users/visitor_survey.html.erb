@@ -7,21 +7,19 @@
 
   	<h1>Visitor Survey</h1>
   	<div class="col-md-12">
-  		<div class="col-md-6">
+  		<div class="col-md-6" style="height: 65px;">
   			<div class="col-md-8">
 	  			<label>Sample Date</label>
-				<input type="text" ng-model="survey.date" class="tcal">
+				<input type="text" ng-model="date" class="tcal "  />
   			</div>
   		</div>
 		<div class="col-md-6" ng-if="metrics[27]">
 			<div class="row">
-				<div class="row">
-					<label>Did you arrive at the market today in a personal vehicle?</label>
-				</div>
-				<div class="row">
-					<label class="yes">Yes <input type="radio" ng-model="survey.yes28" value="true" /></label>
-					<label class="no">No <input type="radio" ng-model="survey.yes28" value="false" /></label>
-				</div>
+				<label>Did you arrive at the market today in a personal vehicle?</label>
+			</div>
+			<div class="row">
+				<label class="yes">Yes <input type="radio" ng-model="survey.yes28" value="true" /></label>
+				<label class="no">No <input type="radio" ng-model="survey.yes28" value="false" /></label>
 			</div>
 			<div class="row" ng-show="survey.yes28 == 'false'">
 				<label>What method did you use to get to the market today?</label>
@@ -195,7 +193,7 @@ function visitorCtrl($scope){
 	$scope.metrics = <%= raw(@metrics.to_json) %>;
 	$scope.survey = {};
 	$scope.foodList = [];
-	//$scope.day6 = 'day';
+	$scope.small = $(window).width() <= 991;
 
 	$scope.selectLetter = function(type,num){
 		$scope['type' +num] = type;

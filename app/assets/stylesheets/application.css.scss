@@ -53,6 +53,21 @@ label{
 		font-family: $font-clean;
 	}
 }
+#home-page{
+	margin-top: 30px;
+	.item{
+		background-color: #eee;
+		padding: 4px 10px;
+		border-radius: 10px;
+		margin-top: 14px;
+		.num{
+			background-color: $btn-color;
+			color: #eee;
+  			padding: 1px 5px;
+  			border-radius: 10px;
+		}
+	}
+}
 #sidebar{
 	.progress-bar-success{
 		background-color:$btn-color;
