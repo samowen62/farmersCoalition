@@ -76,29 +76,29 @@ class UsersController < ApplicationController
         @sales_slips = []
         @visitor_counts = []
         if(@user.admin)
-          i = 0
-          len = Profile.all().length
-          while i < len do
-            i += 1
-            unless(Profile.where(:id => i).present?)   
-              len += 1
-            else
-              if Profile.find(i).visitor_survey.length != 0
+#          i = 0
+#          len = Profile.all().length
+#          while i < len do
+#            i += 1
+#            unless(Profile.where(:id => i).present?)   
+#              len += 1
+#            else
+#              if Profile.find(i).visitor_survey.length != 0
                 p = Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).order("profiles.id ASC").order("visitor_surveys.date ASC")
                 @visitor_surveys << p
-              end
+#              end
 
-              if Profile.find(i).sales_slip.length != 0
+#              if Profile.find(i).sales_slip.length != 0
                 p = Profile.select("profiles.name, sales_slips.*").joins(:sales_slip).order("profiles.id ASC").order("sales_slips.date ASC")
                 @sales_slips << p
-              end
+#              end
 
-              if Profile.find(i).entry_points.count != 0
+#              if Profile.find(i).entry_points.count != 0
                 points = Profile.select("profiles.name, entry_points.*").joins(:entry_points).order("profiles.id ASC").order("entry_points.int_day ASC").order("entry_points.period ASC")
                 @visitor_counts << points
-              end
-            end
-          end
+#              end
+#            end
+#          end
         end
 
         if(@user.admin)
