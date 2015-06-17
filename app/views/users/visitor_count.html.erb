@@ -42,10 +42,10 @@
 				<div class="row">
 					<div class="btn-list">
 						<ul>
-							<li ng-click="changeDay(0)" ng-class="{'active' : day == 0}">1</li>
-							<li ng-click="changeDay(1)" ng-class="{'active' : day == 1}">2</li>
-							<li ng-click="changeDay(2)" ng-class="{'active' : day == 2}">3</li>
-							<li ng-click="changeDay(3)" ng-class="{'active' : day == 3}">4</li>
+							<li ng-click="changeDay(0)" ng-class="{'active' : day == 0}">1<input class="tcal" ng-model="day0"/></li>
+							<li ng-click="changeDay(1)" ng-class="{'active' : day == 1}">2<input class="tcal" ng-model="day1"/></li>
+							<li ng-click="changeDay(2)" ng-class="{'active' : day == 2}">3<input class="tcal" ng-model="day2"/></li>
+							<li ng-click="changeDay(3)" ng-class="{'active' : day == 3}">4<input class="tcal" ng-model="day3"/></li>
 						</ul>
 					</div>
 				</div>
@@ -119,6 +119,10 @@ function visitorCtrl($scope){
 			$scope.points[$scope.day][$scope.period].pop();
 			//setTimeout(function(){ $('body input').ptTimeSelect();} ,250);
 		}
+	}
+
+	$scope.setdate = function(ind){
+		$scope['day'+ind] = $('.tcal')[ind].value;
 	}
 
 	$scope.submitSurvey = function(){

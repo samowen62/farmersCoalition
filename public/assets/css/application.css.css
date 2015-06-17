@@ -262,28 +262,37 @@ nav a .navbar-brand {
 .btn-list ul {
   background-color: #eee;
   list-style: none;
-  width: 35px;
   border-radius: 5px;
   padding: 0px;
+  width: 148px;
 }
 /* line 234, ../../../app/assets/stylesheets/application.css.scss */
 .btn-list ul li {
   padding: 6px 13px;
 }
-/* line 237, ../../../app/assets/stylesheets/application.css.scss */
+/* line 236, ../../../app/assets/stylesheets/application.css.scss */
+.btn-list ul li input {
+  width: 100px;
+  margin-left: 10px;
+}
+/* line 241, ../../../app/assets/stylesheets/application.css.scss */
 .btn-list ul li.active {
   background-color: #e7540c;
   border-radius: 20px;
-  width: 46px;
-  padding: 13px 18px;
+  padding: 13px;
   height: 46px;
+  width: 160px;
   position: relative;
   right: 6px;
   bottom: 6px;
   color: white;
 }
+/* line 251, ../../../app/assets/stylesheets/application.css.scss */
+.btn-list ul li.active input {
+  color: black;
+}
 
-/* line 250, ../../../app/assets/stylesheets/application.css.scss */
+/* line 257, ../../../app/assets/stylesheets/application.css.scss */
 .period-list {
   cursor: pointer;
   width: 100%;
@@ -291,14 +300,14 @@ nav a .navbar-brand {
   border-radius: 5px;
   height: 30px;
 }
-/* line 256, ../../../app/assets/stylesheets/application.css.scss */
+/* line 263, ../../../app/assets/stylesheets/application.css.scss */
 .period-list .item {
   width: 11%;
   float: left;
   padding: 4px 20px 4px 10px;
   height: 30px;
 }
-/* line 262, ../../../app/assets/stylesheets/application.css.scss */
+/* line 269, ../../../app/assets/stylesheets/application.css.scss */
 .period-list .active {
   background-color: #e7540c;
   border-radius: 20px;
@@ -310,7 +319,7 @@ nav a .navbar-brand {
   bottom: 10px;
   color: white;
 }
-/* line 273, ../../../app/assets/stylesheets/application.css.scss */
+/* line 280, ../../../app/assets/stylesheets/application.css.scss */
 .period-list .ear-active {
   background-color: #e7540c;
   border-radius: 20px;
@@ -323,7 +332,7 @@ nav a .navbar-brand {
   color: white;
 }
 
-/* line 285, ../../../app/assets/stylesheets/application.css.scss */
+/* line 292, ../../../app/assets/stylesheets/application.css.scss */
 #rem {
   float: left;
   width: 240px !important;
@@ -333,7 +342,7 @@ nav a .navbar-brand {
   text-decoration: none;
 }
 
-/* line 293, ../../../app/assets/stylesheets/application.css.scss */
+/* line 300, ../../../app/assets/stylesheets/application.css.scss */
 #add {
   float: left;
   width: 240px !important;
@@ -343,11 +352,11 @@ nav a .navbar-brand {
   text-decoration: none;
 }
 
-/* line 301, ../../../app/assets/stylesheets/application.css.scss */
+/* line 308, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list {
   margin-top: 20px;
 }
-/* line 302, ../../../app/assets/stylesheets/application.css.scss */
+/* line 309, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list h1 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
@@ -359,39 +368,39 @@ nav a .navbar-brand {
   margin: 0 auto;
   margin-left: 130px;
 }
-/* line 314, ../../../app/assets/stylesheets/application.css.scss */
+/* line 321, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list ul {
   max-height: 45vh;
   overflow-y: auto;
   width: 600px;
   margin: 0 auto;
 }
-/* line 319, ../../../app/assets/stylesheets/application.css.scss */
+/* line 326, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list ul li {
   background-color: #e2e2e2;
   padding: 3px;
   border: 1px solid #333;
   list-style-type: none;
 }
-/* line 324, ../../../app/assets/stylesheets/application.css.scss */
+/* line 331, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list ul li input {
   float: left;
   margin: 3px;
   padding: 3px;
 }
 
-/* line 333, ../../../app/assets/stylesheets/application.css.scss */
+/* line 340, ../../../app/assets/stylesheets/application.css.scss */
 #summary a {
   width: 100%;
   margin: 15px 0px;
 }
-/* line 337, ../../../app/assets/stylesheets/application.css.scss */
+/* line 344, ../../../app/assets/stylesheets/application.css.scss */
 #summary label {
   float: left;
   margin: 2px;
   font-size: 13px;
 }
-/* line 342, ../../../app/assets/stylesheets/application.css.scss */
+/* line 349, ../../../app/assets/stylesheets/application.css.scss */
 #summary input[type="text"] {
   float: left;
   margin: 2px;
@@ -400,27 +409,27 @@ nav a .navbar-brand {
   border: 1px solid #eee;
   padding: 3px;
 }
-/* line 350, ../../../app/assets/stylesheets/application.css.scss */
+/* line 357, ../../../app/assets/stylesheets/application.css.scss */
 #summary .loc-drop {
   display: none;
 }
-/* line 352, ../../../app/assets/stylesheets/application.css.scss */
+/* line 359, ../../../app/assets/stylesheets/application.css.scss */
 #summary .loc-drop .col-md-12 {
   border-radius: 0px 0px 7px 7px;
   background-color: #e2e2e2;
   padding: 10px;
 }
-/* line 359, ../../../app/assets/stylesheets/application.css.scss */
+/* line 366, ../../../app/assets/stylesheets/application.css.scss */
 #summary .skinny label {
   width: 70%;
   font-size: 11px;
   padding: 3px;
 }
-/* line 364, ../../../app/assets/stylesheets/application.css.scss */
+/* line 371, ../../../app/assets/stylesheets/application.css.scss */
 #summary .skinny input {
   width: 24%;
 }
-/* line 368, ../../../app/assets/stylesheets/application.css.scss */
+/* line 375, ../../../app/assets/stylesheets/application.css.scss */
 #summary h4.drop-but {
   font-size: 15px;
   font-family: "Droid Sans", sans-serif;
@@ -430,62 +439,62 @@ nav a .navbar-brand {
   border-radius: 8px;
   height: 30px;
 }
-/* line 378, ../../../app/assets/stylesheets/application.css.scss */
+/* line 385, ../../../app/assets/stylesheets/application.css.scss */
 #summary table th {
   padding: 5px;
 }
-/* line 381, ../../../app/assets/stylesheets/application.css.scss */
+/* line 388, ../../../app/assets/stylesheets/application.css.scss */
 #summary table tr {
   background-color: #e2e2e2;
   border: 1px solid grey;
 }
-/* line 384, ../../../app/assets/stylesheets/application.css.scss */
+/* line 391, ../../../app/assets/stylesheets/application.css.scss */
 #summary table tr td {
   font-weight: 600;
   font-size: 13px;
   font-family: "Droid Sans", sans-serif;
   padding: 3px;
 }
-/* line 390, ../../../app/assets/stylesheets/application.css.scss */
+/* line 397, ../../../app/assets/stylesheets/application.css.scss */
 #summary table tr td.first {
   width: 200px;
 }
-/* line 396, ../../../app/assets/stylesheets/application.css.scss */
+/* line 403, ../../../app/assets/stylesheets/application.css.scss */
 #summary table.plain-table tr {
   background-color: transparent;
   border: 0;
 }
-/* line 399, ../../../app/assets/stylesheets/application.css.scss */
+/* line 406, ../../../app/assets/stylesheets/application.css.scss */
 #summary table.plain-table tr td.first {
   width: 200px;
 }
 
-/* line 406, ../../../app/assets/stylesheets/application.css.scss */
+/* line 413, ../../../app/assets/stylesheets/application.css.scss */
 .profile-info h2 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
   color: #e2e2e2;
 }
-/* line 411, ../../../app/assets/stylesheets/application.css.scss */
+/* line 418, ../../../app/assets/stylesheets/application.css.scss */
 .profile-info .profile-group {
   background-color: white;
   padding: 20px;
   border-radius: 20px;
 }
 
-/* line 418, ../../../app/assets/stylesheets/application.css.scss */
+/* line 425, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #info, .profile-header #impact {
   display: none;
 }
-/* line 421, ../../../app/assets/stylesheets/application.css.scss */
+/* line 428, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #markets {
   display: none;
 }
-/* line 423, ../../../app/assets/stylesheets/application.css.scss */
+/* line 430, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #markets .date {
   font-size: 12px;
 }
-/* line 427, ../../../app/assets/stylesheets/application.css.scss */
+/* line 434, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header h2 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
@@ -495,17 +504,17 @@ nav a .navbar-brand {
   background-color: #e7540c;
   border-radius: 8px;
 }
-/* line 436, ../../../app/assets/stylesheets/application.css.scss */
+/* line 443, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group {
   background-color: white;
   padding: 20px;
   font-size: 12px;
 }
-/* line 440, ../../../app/assets/stylesheets/application.css.scss */
+/* line 447, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group h3 {
   margin: 10px 5px;
 }
-/* line 442, ../../../app/assets/stylesheets/application.css.scss */
+/* line 449, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group h3 span {
   font-family: "Droid Sans", sans-serif;
   font-size: 20px;
@@ -514,16 +523,16 @@ nav a .navbar-brand {
   padding: 4px;
   border-radius: 8px;
 }
-/* line 451, ../../../app/assets/stylesheets/application.css.scss */
+/* line 458, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group .val {
   padding: 5px;
 }
-/* line 454, ../../../app/assets/stylesheets/application.css.scss */
+/* line 461, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group .row {
   margin-bottom: 15px;
 }
 
-/* line 459, ../../../app/assets/stylesheets/application.css.scss */
+/* line 466, ../../../app/assets/stylesheets/application.css.scss */
 label.yes {
   cursor: pointer;
   background-color: #33CC33;
@@ -532,7 +541,7 @@ label.yes {
   margin: 5px 10px !important;
 }
 
-/* line 466, ../../../app/assets/stylesheets/application.css.scss */
+/* line 473, ../../../app/assets/stylesheets/application.css.scss */
 label.no {
   cursor: pointer;
   background-color: #FF1919;
@@ -541,7 +550,7 @@ label.no {
   margin: 5px 10px !important;
 }
 
-/* line 473, ../../../app/assets/stylesheets/application.css.scss */
+/* line 480, ../../../app/assets/stylesheets/application.css.scss */
 label.day {
   padding: 1px 4px;
   background-color: #eee;
@@ -549,7 +558,7 @@ label.day {
   float: none !important;
 }
 
-/* line 479, ../../../app/assets/stylesheets/application.css.scss */
+/* line 486, ../../../app/assets/stylesheets/application.css.scss */
 .opt {
   position: absolute;
   display: none;
@@ -559,7 +568,7 @@ label.day {
   border-radius: 4px;
   z-index: 2;
 }
-/* line 487, ../../../app/assets/stylesheets/application.css.scss */
+/* line 494, ../../../app/assets/stylesheets/application.css.scss */
 .opt ul {
   cursor: pointer;
   list-style: none;
@@ -567,7 +576,7 @@ label.day {
   margin-bottom: 5px;
 }
 
-/* line 495, ../../../app/assets/stylesheets/application.css.scss */
+/* line 502, ../../../app/assets/stylesheets/application.css.scss */
 .money .dollars {
   background-color: #eee;
   padding: 4px;
@@ -575,17 +584,17 @@ label.day {
   text-align: right;
   border-radius: 6px 0px 0px 6px;
 }
-/* line 502, ../../../app/assets/stylesheets/application.css.scss */
+/* line 509, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3, .money .col-xs-10 {
   padding-left: 0px !important;
 }
-/* line 504, ../../../app/assets/stylesheets/application.css.scss */
+/* line 511, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3 input[type="text"], .money .col-xs-10 input[type="text"] {
   border-radius: 0px 6px 6px 0px !important;
   margin-left: 0px !important;
 }
 
-/* line 510, ../../../app/assets/stylesheets/application.css.scss */
+/* line 517, ../../../app/assets/stylesheets/application.css.scss */
 #cover {
   position: fixed;
   top: 0;
@@ -597,7 +606,7 @@ label.day {
   display: none;
 }
 
-/* line 520, ../../../app/assets/stylesheets/application.css.scss */
+/* line 527, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen {
   height: 80px;
   width: 340px;
@@ -611,13 +620,13 @@ label.day {
   border-radius: 10px;
 }
 
-/* line 532, ../../../app/assets/stylesheets/application.css.scss */
+/* line 539, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen:target, #successScreen:target + #cover {
   display: block;
   opacity: 2;
 }
 
-/* line 535, ../../../app/assets/stylesheets/application.css.scss */
+/* line 542, ../../../app/assets/stylesheets/application.css.scss */
 .suc-text {
   display: block;
   position: absolute;
@@ -627,15 +636,15 @@ label.day {
   color: green;
 }
 
-/* line 544, ../../../app/assets/stylesheets/application.css.scss */
+/* line 551, ../../../app/assets/stylesheets/application.css.scss */
 #home p {
   font-size: 15px;
 }
-/* line 546, ../../../app/assets/stylesheets/application.css.scss */
+/* line 553, ../../../app/assets/stylesheets/application.css.scss */
 #home p a {
   color: #eee;
 }
-/* line 548, ../../../app/assets/stylesheets/application.css.scss */
+/* line 555, ../../../app/assets/stylesheets/application.css.scss */
 #home p a:hover {
   text-decoration: none;
 }

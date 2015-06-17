@@ -228,22 +228,29 @@ nav{
 	ul{
   		background-color: #eee;
   		list-style: none;
-  		width: 35px;
   		border-radius: 5px;
   		padding: 0px;
+  		width:148px;
   		li{
   			padding: 6px 13px;
+  			input{
+  				width:100px;
+  				margin-left: 10px;
+  			}
   		}
   		li.active{
   			background-color: $btn-color;
   			border-radius: 20px;
-  			width: 46px;
-  			padding: 13px 18px;
+  			padding: 13px;
   			height: 46px;
+  			width: 160px;
   			position: relative;
   			right: 6px;
   			bottom: 6px;
   			color: white;
+  			input{
+  				color:black;
+  			}
   		}
   	}
 }
