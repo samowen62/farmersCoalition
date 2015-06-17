@@ -54,15 +54,11 @@
 				<div class="row">
 					<table style="  margin-top: 20px;">
 						<tr data-ng-repeat="i in points[day][period] track by $index">
-							<td><label>{{(period == 0 ? 'In the Market #' : 'Entry Point #') + ($index + 1)}}</label></td>
-							<!--td><label>Start</label></td>
-							<td><input type="text" class="t" ng-model="points[day][period][$index].start"></td>
-							<td><label>End</label></td>
-							<td><input type="text" class="t" ng-model="points[day][period][$index].end"></td-->
-							<td><label>Count</label></td>
-							<td><input type="text" style="width: 35px;" ng-model="points[day][period][$index].count" class="hasPtTimeSelect"></td>
+							<td style="width:252px"><label>{{(period == 0 ? 'In the Market #' : 'Entry Point #') + ($index + 1)}}</label></td>
+							<td style="width:121px"><label>Count</label></td>
+							<td style="width:114px"><input type="text" style="width: 35px;" ng-model="points[day][period][$index].count" class="hasPtTimeSelect"></td>
 						</tr>
-						<tr>
+						<tr ng-show="period != 0">
 							<td colspan="3"><a id="add" href="javascript:void(0)" ng-click="addPoint()">+</a><a href="javascript:void(0)" ng-click="removePoint()" id="rem">-</a></td>
 						</tr>
 					</table>
@@ -82,16 +78,13 @@
 
 <script type="text/javascript">
 
-$(document).ready(function(){
-	//window.setInterval(function(){
-  		$('body input').ptTimeSelect();
-	//}, 500);
-});
+/*$(document).ready(function(){
+  	$('body input').ptTimeSelect();
+});*/
 
-function check(){
-	//because I guess angular is too slow or something?
+/*function check(){
 	$('body input').ptTimeSelect();
-}
+}*/
 
 function visitorCtrl($scope){
 	$scope.points = <%= raw(@points.to_json) %>;
@@ -100,29 +93,31 @@ function visitorCtrl($scope){
 	$scope.day = 1;
 	$scope.period = 1;
 
+	console.log($scope.points);
+	if($scope.points[0][0].length == 0) $scope.points[0][0] = [{}];
+	if($scope.points[1][0].length == 0) $scope.points[1][0] = [{}]; 
+	if($scope.points[2][0].length == 0) $scope.points[2][0] = [{}];
+	if($scope.points[3][0].length == 0) $scope.points[3][0] = [{}];
 
 
 	$scope.changeDay = function(i){
 		$scope.day = i;
-		setTimeout(function(){ $('body input').ptTimeSelect();} ,250);
 	}
 
 	$scope.changePeriod= function(i){
 		$scope.period = i;
-		setTimeout(function(){ $('body input').ptTimeSelect();} ,250);
 	}
 
 	$scope.addPoint = function(){
 		if($scope.points[$scope.day][$scope.period].length < 10){
 			$scope.points[$scope.day][$scope.period].push({});
-			setTimeout(function(){ $('body input').ptTimeSelect();} ,250);
 		}
 	}
 
 	$scope.removePoint = function(){
 		if($scope.points[$scope.day][$scope.period].length > 0){
 			$scope.points[$scope.day][$scope.period].pop();
-			setTimeout(function(){ $('body input').ptTimeSelect();} ,250);
+			//setTimeout(function(){ $('body input').ptTimeSelect();} ,250);
 		}
 	}
 

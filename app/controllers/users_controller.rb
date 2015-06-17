@@ -40,26 +40,26 @@ class UsersController < ApplicationController
 		#render plain: user_is_logged_in?
 		#return
 		if user_is_logged_in?
-    		@user = User.find(session[:user_id])
-    		@profile = Profile.where(user_id: session[:user_id]).first
-    		unless @profile.nil?
-	    		@markets = @profile.markets
-    			@management = @profile.managements
-    			@accessibility = @profile.accessibility
-    			@positions = Array.new
-    			@communities = @profile.community
+  		@user = User.find(session[:user_id])
+  		@profile = Profile.where(user_id: session[:user_id]).first
+  		unless @profile.nil?
+    		@markets = @profile.markets
+  			@management = @profile.managements
+  			@accessibility = @profile.accessibility
+  			@positions = Array.new
+  			@communities = @profile.community
 
-    			unless  @management.nil?
-	    			for i in 0..11
-	    				@positions.push(@management.pos(i))
-	    			end
-	    		end
-	    	end
-    		return
-    	else 
-    		redirect_to root_path
+  			unless  @management.nil?
+    			for i in 0..11
+    				@positions.push(@management.pos(i))
+    			end
+    		end
     	end
+  		return
+  	else 
+  		redirect_to root_path
   	end
+	end
 
   	def display
   		if user_is_logged_in?
@@ -92,35 +92,15 @@ class UsersController < ApplicationController
                 p = Profile.select("profiles.name, sales_slips.*").joins(:sales_slip).order("profiles.id ASC").order("sales_slips.date ASC")
                 @sales_slips << p
               end
-=begin
-              points = Profile.find(i).entry_points.order(ptNum: :asc)
 
-              @points = []
-              day = []
-              for i in 0..3 do
-                for j in 0..7 do
-                  day.push([])
-                end
-                @points.push(day)
-                day = []
+              if Profile.find(i).entry_points.count != 0
+                points = Profile.select("profiles.name, entry_points.*").joins(:entry_points).order("profiles.id ASC").order("entry_points.int_day ASC").order("entry_points.period ASC")
+                @visitor_counts << points
               end
-
-              for p in points do
-                @points[p.int_day][p.period].push(p)
-              end 
-=end
             end
           end
-
-
-
         end
 
-        #@visitor_surveys = @visitor_surveys[@visitor_surveys.length - 1]
-       #render plain: @visitor_surveys.inspect
-        #return
-
-    		#I did all of this because rails is too retarded for join queries
         if(@user.admin)
       		@profiles = {}
       		i = 0

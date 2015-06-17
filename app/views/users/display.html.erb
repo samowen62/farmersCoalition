@@ -13,6 +13,10 @@
 		<div class='col-md-3'>
 			<a id='visitor_surveys' class='btn btn-default'>Export All Surveys</a>
 		</div>
+		
+		<div class='col-md-3'>
+			<a id='visitor_counts' class='btn btn-default'>Export All Visitor Counts</a>
+		</div>
 
 		<div class='col-md-3'>
 			<a id='sales_slips' class='btn btn-default'>Export All Sales Slips</a>
@@ -116,21 +120,45 @@ var markets = <%= raw(@markets.to_json) %>;
 var management = <%= raw(@management.to_json) %>;
 var accessibility = <%= raw(@accessibility.to_json) %>;
 var communities = <%= raw(@communities.to_json) %>;
-
-
-
 var surveys = <%= raw(@surveys.to_json) %>;
 
 var profiles = <%= raw(@profiles.to_json) %>;
 var visitor_surveys = <%= raw(@visitor_surveys.to_json) %>;
 var sales_slips = <%= raw(@sales_slips.to_json) %>;
+var visitor_counts = <%= raw(@visitor_counts.to_json) %>;
 
 var visitor_survey_sheet = '';
+var visitor_count_sheet = '';
 var sales_slip_sheet = '';
+
+for (var key in visitor_counts[0][0]) {if (visitor_counts[0][0].hasOwnProperty(key) && key != 'profile_id' && key != 'id')
+ {key = '"' + titleTrans(key) + '",';visitor_count_sheet += key;}}
+visitor_count_sheet += '\n';
+
+for (var s = 0; s < visitor_counts.length; s++){
+	for(var t = 0; t < visitor_counts[s].length; t++){
+		var survey = visitor_counts[s][t];
+		for (var key in survey) {
+			k = '';
+			if (survey.hasOwnProperty(key) && key != 'profile_id' && key != 'id') {
+				k = '"' + survey[key] + '",';
+				visitor_count_sheet += k;
+			}
+		}
+		visitor_count_sheet += '\n';
+	}
+	visitor_count_sheet += '\n';// + (s != visitor_surveys.length - 1 ? visitor_surveys[s + 1][0].date : '' )+'",';
+}
+
+var csv1 = document.getElementById('visitor_counts');
+csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_count_sheet));
+csv1.setAttribute('download', 'VisitorCounts.csv');
+
+
 
 for (var key in visitor_surveys[0][0]) {if (visitor_surveys[0][0].hasOwnProperty(key) && key != 'profile_id' && key != 'id')
  {key = '"' + titleTrans(key) + '",';visitor_survey_sheet += key;}}
-visitor_survey_sheet += '\n"';// + visitor_surveys[0][0].date + '",';
+visitor_survey_sheet += '\n';
 
 for (var s = 0; s < visitor_surveys.length; s++){
 	for(var t = 0; t < visitor_surveys[s].length; t++){
@@ -143,9 +171,9 @@ for (var s = 0; s < visitor_surveys.length; s++){
 				visitor_survey_sheet += k;
 			}
 		}
-		visitor_survey_sheet += '\n"';
+		visitor_survey_sheet += '\n';
 	}
-	visitor_survey_sheet += '\n"';// + (s != visitor_surveys.length - 1 ? visitor_surveys[s + 1][0].date : '' )+'",';
+	visitor_survey_sheet += '\n';// + (s != visitor_surveys.length - 1 ? visitor_surveys[s + 1][0].date : '' )+'",';
 }
 
 var csv1 = document.getElementById('visitor_surveys');
@@ -154,7 +182,7 @@ csv1.setAttribute('download', 'VisitorSurveys.csv');
 
 for (var key in sales_slips[0][0]) {if (sales_slips[0][0].hasOwnProperty(key) && key != 'profile_id' && key != 'id')
  {key = '"' + titleTrans(key) + '",';sales_slip_sheet += key;}}
-sales_slip_sheet += '\n"';
+sales_slip_sheet += '\n';
 
 for (var s = 0; s < sales_slips.length; s++){
 	for(var t = 0; t < sales_slips[s].length; t++){
@@ -166,9 +194,9 @@ for (var s = 0; s < sales_slips.length; s++){
 				sales_slip_sheet += k;
 			}
 		}
-		sales_slip_sheet += '\n"';
+		sales_slip_sheet += '\n';
 	}
-	sales_slip_sheet += '\n"';
+	sales_slip_sheet += '\n';
 }
 
 var csv1 = document.getElementById('sales_slips');
@@ -210,7 +238,7 @@ pom.setAttribute('download', 'profile.csv');
 var visitor_survey = '"Date",';
 
 for (var key in surveys[0]) {if (surveys[0].hasOwnProperty(key) && key != 'profile_id' && key != 'id' && key != 'date') {key = '"' + titleTrans(key) + '",';visitor_survey += key;}}
-visitor_survey += '\n"' + surveys[0].date + '",';
+visitor_survey += '\n' + surveys[0].date + '",';
 
 for (var s = 0; s < surveys.length; s++){
 	var survey = surveys[s];
@@ -221,7 +249,7 @@ for (var s = 0; s < surveys.length; s++){
 			visitor_survey += k;
 		}
 	}
-	visitor_survey += '\n"' + (s != surveys.length - 1 ? surveys[s + 1].date : '' )+'",';
+	visitor_survey += '\n' + (s != surveys.length - 1 ? surveys[s + 1].date : '' )+'",';
 }
 
 //turn this into hash when we want better descriptions
