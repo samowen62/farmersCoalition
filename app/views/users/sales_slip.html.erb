@@ -82,7 +82,61 @@
 		</div>
 		<div class="col-md-6" ng-if="metrics[35]">
 			<label>Which three fresh vegetables or fruits did you sell most frequently on {{date}} at the market?</label>
-			<span ng-click="openOpt(1)"><input type="text" ng-model="survey.veg1" disabled /></span>
+			<div class="row selectGroup">
+				<select ng-model="type1" ng-change="selectLetter(type1,1)">
+					<option value="f">Fruit</option>
+					<option value="v">Vegetable</option>
+				</select>
+				<select ng-model="filter1" ng-change="selectGroup(filter1,1)" id="alpha1" class="level1">
+					<option value="a">A - E</option>
+					<option value="f">F - J</option>
+					<option value="k">K - O</option>
+					<option value="p">P - T</option>
+					<option value="u">U - Z</option>
+				</select>
+				<div class="level2" id ="food1">
+					<select ng-model="survey.veg1"  >
+						<option ng-repeat=" n in foodList1" value="{{n}}">{{n}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row selectGroup">
+				<select ng-model="type2" ng-change="selectLetter(type2,2)">
+					<option value="f">Fruit</option>
+					<option value="v">Vegetable</option>
+				</select>
+				<select ng-model="filter2" ng-change="selectGroup(filter2,2)" id="alpha2" class="level1">
+					<option value="a">A - E</option>
+					<option value="f">F - J</option>
+					<option value="k">K - O</option>
+					<option value="p">P - T</option>
+					<option value="u">U - Z</option>
+				</select>
+				<div class="level2" id ="food2">
+					<select ng-model="survey.veg2"  >
+						<option ng-repeat=" n in foodList2" value="{{n}}">{{n}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row selectGroup">
+				<select ng-model="type3" ng-change="selectLetter(type3,3)">
+					<option value="f">Fruit</option>
+					<option value="v">Vegetable</option>
+				</select>
+				<select ng-model="filter3" ng-change="selectGroup(filter3,3)" id="alpha3" class="level1">
+					<option value="a">A - E</option>
+					<option value="f">F - J</option>
+					<option value="k">K - O</option>
+					<option value="p">P - T</option>
+					<option value="u">U - Z</option>
+				</select>
+				<div class="level2" id ="food3">
+					<select ng-model="survey.veg3"  >
+						<option ng-repeat=" n in foodList3" value="{{n}}">{{n}}</option>
+					</select>
+				</div>
+			</div>
+			<!--span ng-click="openOpt(1)"><input type="text" ng-model="survey.veg1" disabled /></span>
 			<div class="opt" id="ForV1">
 				<ul>
 					<li ng-click="selectLetter('f')">Fruit</li>
@@ -144,7 +198,7 @@
 				<ul>
 					<li ng-repeat="n in foodList" ng-click="selectVeg(n)">{{n}}</li>
 				</ul>
-			</div>
+			</div-->
 		</div>
 	</div>
 	<div class="col-md-12">
@@ -188,7 +242,43 @@ function surveyCtrl($scope){
 	$scope.today = mm+'/'+dd+'/'+yyyy;
 	$scope.box = 0;
 
-	$scope.selectLetter = function(type){
+	$scope.foodList = [];
+	$scope.small = $(window).width() <= 991;
+
+	$scope.selectLetter = function(type,num){
+		$scope['type' +num] = type;
+		$('#alpha' + num).show();
+		$('#food' + num).hide();
+	}
+
+	var items = {};
+
+	items['f'] = {};
+	items['f']['a'] = ['Apples','Apricots','Apriums','Asian pears','Avocados','Blackberries','Blueberries','Boysenberries','Canary melons','Cantaloupes','Cherimoyas','Cherries','Currants','Dates'];
+	items['f']['f'] = ['Fejioas','Figs','Gooseberries','Grapefruit','Grapes','Honeydew melons','Jujubes'];
+	items['f']['k'] =['Kumquats','Lemons','Limes','Mulberries','Oranges'];
+	items['f']['p'] = ['PawPaws','Peaches','Pears','Plums','Quince','Raspberries','Strawberries','Tangerines','Tayberries'];
+	items['f']['u'] = ['Watermelons','Wineberries'];
+
+	items['v'] = {};
+	items['v']['a'] = ['Artichokes','Arugula','Asparagus','Beets','Beet green','Bok choy','Broccoli','Broccoli rabe','Brussels sprouts','Cabbage','Cardoons','Carrots','Cauliflower','Celeriac','Celery','Chard','Chicory','Chipilín','Collards','Cress','Cucumbers','Dandelion greens','Dry beans','Eggplant'];
+	items['v']['f'] = ['Fava beans','Fennel','Garlic bulb','Garlic scapes','Green beans','Herbs (fresh)','Hierbamora','Horseradish','Jicama'];
+	items['v']['k'] =['Kale','Kohlrabi','Lambs quarters','Leeks','Lettuce','Lima Beans','Mushrooms','Mustard greens','Okra','Onions'];
+	items['v']['p'] = ['Parsnips','Peas','Pea shoots','Peppers (hot)','Peppers (sweet)','Pumpkins','Potatoes','Purslane','Squash (summer)','Squash (winter)','Radishes','Rhubarb','Rutabagas','Salsify','Scallions','Shallots','Spinach','Sprout','Sunchokes','Sweet corn','Sweet potatoes','Sweet potato greens','Tomatillos','Tomatoes','Turnip','Turnip greens'];
+	items['v']['u'] = ['Yacon'];
+
+	$scope.selectGroup = function(filter,num){
+		$('#food'+num).hide();
+		$scope['foodList' + num] = items[$scope['type'+num]][filter];
+		console.log($scope.foodList);
+		$('#food'+num).show();
+	}
+
+	$scope.hideList = function(num){
+		$('#food'+num).hide();
+	}
+
+	/*$scope.selectLetter = function(type){
 		$scope.type = type;
 		$('#alpha'+$scope.box).show();
 	}
@@ -240,6 +330,7 @@ function surveyCtrl($scope){
 			//$scope.foodList = //based on type then box
 		}
 	}
+	*/
 	var date = '';
 
 	$scope.setdate = function(){

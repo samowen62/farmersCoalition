@@ -336,6 +336,22 @@ nav{
 		}
 	}
 }
+.selectGroup{
+	  padding: 5px 0px;
+	  .level1{
+	  	display:none; 
+	  	margin-top:15px;  
+	  	margin-left: 30px;
+	  	width: 310px !important;
+
+	  }
+	  .level2{
+	  		display:none;  
+	  		margin-top: 15px; 
+	  		margin-left: 60px;
+	  		width: 280px;
+	  	}
+}
 #summary{
 	a{
 		width: 100%;
