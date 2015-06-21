@@ -1,0 +1,60 @@
+<%= render "shared/menu" %>
+
+<div id="survey" class="col-md-12" ng-app ng-controller="surveyCtrl">
+  <div id="summary" class="main money">
+	<%= render "shared/nav" %>
+
+  	<h1>Metric 3 Miscellaneous Research</h1>
+	<div class="col-md-6">
+		<iframe
+			id="map"
+		    width="100%"
+		    height="250"
+		    frameborder="0" style="border:0"
+		    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCrNAIWXwdlONA1Z3r6UHgpzBv5BYq_sEs&q=Butchart+Gardens+Victoria+BC">
+		  </iframe>	
+	</div>
+	<div class="col-md-6">
+		<div class="row">
+			<label>Source</label>
+			<input ng-model="origin" style="  float: right;"/>
+		</div>
+		<div class="row">
+			<label>Destination</label>
+			<input ng-model="dest" style="  float: right;"/>
+		</div>
+		<a href="javascript:void(0)" class="btn btn-primary" ng-click="query()">Find</a>
+	</div>
+  </div>
+</div>
+<div id="successScreen"> 
+	<a href="#" class="suc-text">Success!</a>
+</div> 
+<div id="cover" ></div>
+
+<script type="text/javascript">
+
+function surveyCtrl($scope){
+	
+	$scope.metrics = <%= raw(@metrics.to_json) %>;
+
+	$scope.query = function(){
+		if($scope.origin == '' || $scope.dest == '')
+			return
+
+		var origin = $scope.origin.replace(' ', '+');
+		var dest = $scope.dest.replace(' ', '+');
+
+		$('#map')[0].src = 'https://www.google.com/maps/embed/v1/directions?origin='+origin+'&destination='+dest+'&key=AIzaSyCrNAIWXwdlONA1Z3r6UHgpzBv5BYq_sEs';
+	}
+
+	$scope.reset = function(){
+		$scope.survey = {};
+	}
+
+	function ret(){
+		location.href = "#";
+	}
+}
+
+</script>

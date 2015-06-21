@@ -32,7 +32,8 @@ Rails.application.routes.draw do
   get "visitor_survey", :to => "users#visitor_survey"
   get "sales_slip", :to => "users#sales_slip"
   get "visitor_count", :to => "users#visitor_count"
-
+  get "metric3", :to => "users#metric3"
+  get "visitor_application", :to => "users#visitor_application"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

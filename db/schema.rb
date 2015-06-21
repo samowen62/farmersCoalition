@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616233831) do
+ActiveRecord::Schema.define(version: 20150621133022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -259,6 +259,49 @@ ActiveRecord::Schema.define(version: 20150616233831) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "visitor_applications", force: true do |t|
+    t.float   "farm_sales"
+    t.float   "value_sales"
+    t.float   "ready_sales"
+    t.float   "other_sales"
+    t.string  "level_of_sales"
+    t.text    "primary_loc"
+    t.text    "secondary_loc"
+    t.float   "acres_owned"
+    t.float   "acres_leased"
+    t.float   "acres_cultivated"
+    t.string  "level_of_acres"
+    t.integer "workers_seasonal",             default: 0
+    t.integer "workers_yearly",               default: 0
+    t.string  "level_of_worker_anticipation"
+    t.integer "owner1_years"
+    t.integer "owner2_years"
+    t.string  "owned_by_women"
+    t.string  "primary_operators"
+    t.string  "primary_operators_other"
+    t.boolean "certified_organic"
+    t.boolean "certified_natural"
+    t.boolean "certified_biodynamic"
+    t.boolean "certified_food_alliance"
+    t.boolean "certified_other"
+    t.string  "certified_other_name"
+    t.boolean "certified_none"
+    t.integer "num_certified"
+    t.integer "under_35"
+    t.float   "total_distance"
+    t.integer "num_locations"
+    t.integer "profile_id"
+    t.boolean "operators_white"
+    t.boolean "operators_mexican"
+    t.boolean "operators_black"
+    t.boolean "operators_indian"
+    t.boolean "operators_asian"
+    t.text    "unique_crops"
+    t.boolean "operators_other"
+  end
+
+  add_index "visitor_applications", ["profile_id"], name: "index_visitor_applications_on_profile_id", using: :btree
 
   create_table "visitor_surveys", force: true do |t|
     t.integer  "profile_id"
