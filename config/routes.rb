@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   post "post_visitor_survey", :to => "profile#update_visitor_survey"
   post "post_sales_slip", :to => "profile#update_sales_slip"
   post "post_visitor_count", :to => "profile#update_visitor_count"
+  post "post_visitor_application", :to => "profile#update_visitor_app"
 
   get "user_metrics", :to => "users#metrics"
   get "user_instruments", :to => "users#instruments"

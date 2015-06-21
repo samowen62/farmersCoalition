@@ -122,8 +122,6 @@ class ProfileController < ApplicationController
   def update_sales_slip
 
     if user_is_logged_in?
-      #render plain: params.inspect
-      #return
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
         if (slip = SalesSlip.where(date: params[:date]).where(profile_id: profile.id).first).nil?
           slip = SalesSlip.new(sales_params)
@@ -145,9 +143,30 @@ class ProfileController < ApplicationController
     render plain: "error"
   end
 
+  def update_visitor_app
+    if user_is_logged_in?
+      unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
+        if (application = VisitorApplication.where(profile_id: profile.id).first).nil?
+          application = VisitorApplication.new(app_params)
+          application[:profile_id] = profile.id
+          application.save!
+
+          render plain: application.inspect
+          return
+        else
+          application.update_attributes!(app_params)
+          application.save!
+
+          render plain: application.inspect
+          return
+        end
+      end
+    end
+    render plain: "error"
+  end
+
   def create_man
-    #render plain: "#{session[:_csrf_token]} | #{params[:authenticity_token]}"
-    #return
+   
     if user_is_logged_in?
       #could do it with find but an exeption will be thrown if not found
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
@@ -274,9 +293,10 @@ class ProfileController < ApplicationController
     def sales_params
       params.permit(:date, :total_sales,:farm_sales,:value_sales,:ready_sales, :WIC_FMNP_sales,:WIC_sales,:Senior_FMNP_sales,:Debt_sales,:SNAP_sales,:SNAP_transactions,:pounds_donated, :values_donated, :veg1, :veg2, :veg3)
     end
-  #private
-   # def survey_params
-    #  params.permit(
-     #   )
-    #end
+
+  private
+    def app_params
+      params.permit(:farm_sales, :value_sales, :ready_sales, :other_sales, :level_of_sales, :primary_loc, :secondary_loc, :acres_owned, :acres_leased, :acres_cultivated, :level_of_acres, :workers_seasonal, :workers_yearly, :level_of_worker_anticipation, :owner1_years, :owner2_years, :owned_by_women, :primary_operators, :primary_operators_other, :certified_organic, :certified_natural, :certified_biodynamic, :certified_food_alliance, :certified_other, :certified_other_name, :certified_none, :num_certified, :under_35, :total_distance, :num_locations, :profile_id, :operators_white, :operators_mexican, :operators_black, :operators_indian, :operators_asian, :unique_crops, :operators_other)
+    end
+  
 end

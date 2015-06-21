@@ -275,21 +275,20 @@
 
 	$scope.submitSurvey = function(){
 		
+		console.log($scope.survey);
 
 		$.ajax({
 			type: "POST",
-			url: "/post_visitor_survey",
+			url: "/post_visitor_application",
 			data: JSON.stringify($scope.survey),
 			contentType: "application/json",
 			success: function(data){
 				console.log(data);
 				location.href = '#successScreen';
-				$('.btn-danger').click();//for some fucking reason
 				setTimeout(ret, 1000);
 			},
 			error: function(data){
 				alert("Error Submitting Data");
-				$('.btn-danger').click();
 			}
 		});
 	};
@@ -301,7 +300,6 @@
 
 	function ret(){
 		location.href = "#";
-		$('input')[0].value = $scope.date;
 	}
 }
 
