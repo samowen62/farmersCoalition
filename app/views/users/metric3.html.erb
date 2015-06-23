@@ -5,25 +5,33 @@
 	<%= render "shared/nav" %>
 
   	<h1>Metric 3 Miscellaneous Research</h1>
-	<div class="col-md-6">
+	<div class="col-md-12">
 		<iframe
 			id="map"
 		    width="100%"
-		    height="250"
+		    height="400"
 		    frameborder="0" style="border:0"
-		    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCrNAIWXwdlONA1Z3r6UHgpzBv5BYq_sEs&q=Butchart+Gardens+Victoria+BC">
+		    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCrNAIWXwdlONA1Z3r6UHgpzBv5BYq_sEs&q=Wisconsin+State+Capitol">
 		  </iframe>	
 	</div>
-	<div class="col-md-6">
-		<div class="row">
-			<label>Source</label>
-			<input ng-model="origin" style="  float: right;"/>
+	<div class="col-md-12">
+		<div class="col-md-6">
+			<div class="row">
+				<label>Source</label>
+				<input ng-model="origin" style="  float: right;"/>		
+			</div>
+			<div class="row">
+				<label>Destination</label>
+				<input ng-model="dest" style="  float: right;"/>
+			</div>
+			<div class="row">
+				<a href="javascript:void(0)" class="btn btn-primary" ng-click="query()">Find</a>
+			</div>
 		</div>
-		<div class="row">
-			<label>Destination</label>
-			<input ng-model="dest" style="  float: right;"/>
+		<div class="col-md-6">
+
+
 		</div>
-		<a href="javascript:void(0)" class="btn btn-primary" ng-click="query()">Find</a>
 	</div>
   </div>
 </div>

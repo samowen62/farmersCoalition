@@ -420,7 +420,11 @@ nav a .navbar-brand {
   border-radius: 15px;
   margin: 5px 10px !important;
 }
-/* line 366, ../../../app/assets/stylesheets/application.css.scss */
+/* line 365, ../../../app/assets/stylesheets/application.css.scss */
+.radioGroup .radio .loc {
+  font-size: 12px !important;
+}
+/* line 369, ../../../app/assets/stylesheets/application.css.scss */
 .radioGroup .active {
   cursor: pointer;
   background-color: #333;
@@ -430,19 +434,23 @@ nav a .navbar-brand {
   color: white;
   font-size: 14px !important;
 }
-
 /* line 377, ../../../app/assets/stylesheets/application.css.scss */
+.radioGroup .active .loc {
+  font-size: 13px !important;
+}
+
+/* line 383, ../../../app/assets/stylesheets/application.css.scss */
 #summary a {
   width: 100%;
   margin: 15px 0px;
 }
-/* line 381, ../../../app/assets/stylesheets/application.css.scss */
+/* line 387, ../../../app/assets/stylesheets/application.css.scss */
 #summary label {
   float: left;
   margin: 2px;
   font-size: 13px;
 }
-/* line 386, ../../../app/assets/stylesheets/application.css.scss */
+/* line 392, ../../../app/assets/stylesheets/application.css.scss */
 #summary input[type="text"] {
   float: left;
   margin: 2px;
@@ -451,27 +459,27 @@ nav a .navbar-brand {
   border: 1px solid #eee;
   padding: 3px;
 }
-/* line 394, ../../../app/assets/stylesheets/application.css.scss */
+/* line 400, ../../../app/assets/stylesheets/application.css.scss */
 #summary .loc-drop {
   display: none;
 }
-/* line 396, ../../../app/assets/stylesheets/application.css.scss */
+/* line 402, ../../../app/assets/stylesheets/application.css.scss */
 #summary .loc-drop .col-md-12 {
   border-radius: 0px 0px 7px 7px;
   background-color: #e2e2e2;
   padding: 10px;
 }
-/* line 403, ../../../app/assets/stylesheets/application.css.scss */
+/* line 409, ../../../app/assets/stylesheets/application.css.scss */
 #summary .skinny label {
   width: 70%;
   font-size: 11px;
   padding: 3px;
 }
-/* line 408, ../../../app/assets/stylesheets/application.css.scss */
+/* line 414, ../../../app/assets/stylesheets/application.css.scss */
 #summary .skinny input {
   width: 24%;
 }
-/* line 412, ../../../app/assets/stylesheets/application.css.scss */
+/* line 418, ../../../app/assets/stylesheets/application.css.scss */
 #summary h4.drop-but {
   font-size: 15px;
   font-family: "Droid Sans", sans-serif;
@@ -481,62 +489,62 @@ nav a .navbar-brand {
   border-radius: 8px;
   height: 30px;
 }
-/* line 422, ../../../app/assets/stylesheets/application.css.scss */
+/* line 428, ../../../app/assets/stylesheets/application.css.scss */
 #summary table th {
   padding: 5px;
 }
-/* line 425, ../../../app/assets/stylesheets/application.css.scss */
+/* line 431, ../../../app/assets/stylesheets/application.css.scss */
 #summary table tr {
   background-color: #e2e2e2;
   border: 1px solid grey;
 }
-/* line 428, ../../../app/assets/stylesheets/application.css.scss */
+/* line 434, ../../../app/assets/stylesheets/application.css.scss */
 #summary table tr td {
   font-weight: 600;
   font-size: 13px;
   font-family: "Droid Sans", sans-serif;
   padding: 3px;
 }
-/* line 434, ../../../app/assets/stylesheets/application.css.scss */
+/* line 440, ../../../app/assets/stylesheets/application.css.scss */
 #summary table tr td.first {
   width: 200px;
 }
-/* line 440, ../../../app/assets/stylesheets/application.css.scss */
+/* line 446, ../../../app/assets/stylesheets/application.css.scss */
 #summary table.plain-table tr {
   background-color: transparent;
   border: 0;
 }
-/* line 443, ../../../app/assets/stylesheets/application.css.scss */
+/* line 449, ../../../app/assets/stylesheets/application.css.scss */
 #summary table.plain-table tr td.first {
   width: 200px;
 }
 
-/* line 450, ../../../app/assets/stylesheets/application.css.scss */
+/* line 456, ../../../app/assets/stylesheets/application.css.scss */
 .profile-info h2 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
   color: #e2e2e2;
 }
-/* line 455, ../../../app/assets/stylesheets/application.css.scss */
+/* line 461, ../../../app/assets/stylesheets/application.css.scss */
 .profile-info .profile-group {
   background-color: white;
   padding: 20px;
   border-radius: 20px;
 }
 
-/* line 462, ../../../app/assets/stylesheets/application.css.scss */
+/* line 468, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #info, .profile-header #impact {
   display: none;
 }
-/* line 465, ../../../app/assets/stylesheets/application.css.scss */
+/* line 471, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #markets {
   display: none;
 }
-/* line 467, ../../../app/assets/stylesheets/application.css.scss */
+/* line 473, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #markets .date {
   font-size: 12px;
 }
-/* line 471, ../../../app/assets/stylesheets/application.css.scss */
+/* line 477, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header h2 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
@@ -546,17 +554,17 @@ nav a .navbar-brand {
   background-color: #e7540c;
   border-radius: 8px;
 }
-/* line 480, ../../../app/assets/stylesheets/application.css.scss */
+/* line 486, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group {
   background-color: white;
   padding: 20px;
   font-size: 12px;
 }
-/* line 484, ../../../app/assets/stylesheets/application.css.scss */
+/* line 490, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group h3 {
   margin: 10px 5px;
 }
-/* line 486, ../../../app/assets/stylesheets/application.css.scss */
+/* line 492, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group h3 span {
   font-family: "Droid Sans", sans-serif;
   font-size: 20px;
@@ -565,16 +573,16 @@ nav a .navbar-brand {
   padding: 4px;
   border-radius: 8px;
 }
-/* line 495, ../../../app/assets/stylesheets/application.css.scss */
+/* line 501, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group .val {
   padding: 5px;
 }
-/* line 498, ../../../app/assets/stylesheets/application.css.scss */
+/* line 504, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group .row {
   margin-bottom: 15px;
 }
 
-/* line 503, ../../../app/assets/stylesheets/application.css.scss */
+/* line 509, ../../../app/assets/stylesheets/application.css.scss */
 label.yes {
   cursor: pointer;
   background-color: #33CC33;
@@ -583,7 +591,7 @@ label.yes {
   margin: 5px 10px !important;
 }
 
-/* line 510, ../../../app/assets/stylesheets/application.css.scss */
+/* line 516, ../../../app/assets/stylesheets/application.css.scss */
 label.no {
   cursor: pointer;
   background-color: #FF1919;
@@ -592,7 +600,7 @@ label.no {
   margin: 5px 10px !important;
 }
 
-/* line 517, ../../../app/assets/stylesheets/application.css.scss */
+/* line 523, ../../../app/assets/stylesheets/application.css.scss */
 label.day {
   padding: 1px 4px;
   background-color: #eee;
@@ -600,7 +608,7 @@ label.day {
   float: none !important;
 }
 
-/* line 523, ../../../app/assets/stylesheets/application.css.scss */
+/* line 529, ../../../app/assets/stylesheets/application.css.scss */
 .opt {
   position: absolute;
   display: none;
@@ -610,7 +618,7 @@ label.day {
   border-radius: 4px;
   z-index: 2;
 }
-/* line 531, ../../../app/assets/stylesheets/application.css.scss */
+/* line 537, ../../../app/assets/stylesheets/application.css.scss */
 .opt ul {
   cursor: pointer;
   list-style: none;
@@ -618,7 +626,7 @@ label.day {
   margin-bottom: 5px;
 }
 
-/* line 539, ../../../app/assets/stylesheets/application.css.scss */
+/* line 545, ../../../app/assets/stylesheets/application.css.scss */
 .money .dollars {
   background-color: #eee;
   padding: 4px;
@@ -626,17 +634,17 @@ label.day {
   text-align: right;
   border-radius: 6px 0px 0px 6px;
 }
-/* line 546, ../../../app/assets/stylesheets/application.css.scss */
+/* line 552, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3, .money .col-xs-10 {
   padding-left: 0px !important;
 }
-/* line 548, ../../../app/assets/stylesheets/application.css.scss */
+/* line 554, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3 input[type="text"], .money .col-xs-10 input[type="text"] {
   border-radius: 0px 6px 6px 0px !important;
   margin-left: 0px !important;
 }
 
-/* line 554, ../../../app/assets/stylesheets/application.css.scss */
+/* line 560, ../../../app/assets/stylesheets/application.css.scss */
 #cover {
   position: fixed;
   top: 0;
@@ -648,7 +656,7 @@ label.day {
   display: none;
 }
 
-/* line 564, ../../../app/assets/stylesheets/application.css.scss */
+/* line 570, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen {
   height: 80px;
   width: 340px;
@@ -662,13 +670,13 @@ label.day {
   border-radius: 10px;
 }
 
-/* line 576, ../../../app/assets/stylesheets/application.css.scss */
+/* line 582, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen:target, #successScreen:target + #cover {
   display: block;
   opacity: 2;
 }
 
-/* line 579, ../../../app/assets/stylesheets/application.css.scss */
+/* line 585, ../../../app/assets/stylesheets/application.css.scss */
 .suc-text {
   display: block;
   position: absolute;
@@ -678,15 +686,15 @@ label.day {
   color: green;
 }
 
-/* line 588, ../../../app/assets/stylesheets/application.css.scss */
+/* line 594, ../../../app/assets/stylesheets/application.css.scss */
 #home p {
   font-size: 15px;
 }
-/* line 590, ../../../app/assets/stylesheets/application.css.scss */
+/* line 596, ../../../app/assets/stylesheets/application.css.scss */
 #home p a {
   color: #eee;
 }
-/* line 592, ../../../app/assets/stylesheets/application.css.scss */
+/* line 598, ../../../app/assets/stylesheets/application.css.scss */
 #home p a:hover {
   text-decoration: none;
 }

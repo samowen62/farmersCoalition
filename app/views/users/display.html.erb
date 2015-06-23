@@ -238,6 +238,18 @@ pom.setAttribute('download', 'profile.csv');
 //pom.click();
 
 var visitor_survey = '"Date",';
+var visitor_survey_heading = {
+	name: "Market Name",
+	yes7: "dwtn_activities_yes",
+	no7: "dwtn_activities_no",
+	downtown_spent_morning: "dwtn_spending_total",////?!!!!!!!!!!!
+	downtown_spent_afternoon: "dwtn_spending_avg",
+	name: "Market Name",
+	name: "Market Name",
+	name: "Market Name",
+	name: "Market Name",
+
+};
 
 for (var key in surveys[0]) {if (surveys[0].hasOwnProperty(key) && key != 'profile_id' && key != 'id' && key != 'date') {key = '"' + titleTrans(key) + '",';visitor_survey += key;}}
 visitor_survey += '\n' + surveys[0].date + '",';
@@ -247,7 +259,12 @@ for (var s = 0; s < surveys.length; s++){
 	for (var key in survey) {
 		k = '';
 		if (survey.hasOwnProperty(key) && key != 'profile_id' && key != 'id' && key != 'date') {
-			k = '"' + survey[key] + '",';
+			if(key == "downtown_spent_morning"){
+				k = '"' + (survey[key] + survey['downtown_spent_afternoon']) + '",';
+			}else if(key == "downtown_spent_afternoon"){
+				k = '"' + (survey[key] + survey['downtown_spent_morning'])/2 + '",';
+			}else
+				k = '"' + survey[key] + '",';
 			visitor_survey += k;
 		}
 	}
@@ -255,7 +272,7 @@ for (var s = 0; s < surveys.length; s++){
 }
 
 //turn this into hash when we want better descriptions
-function titleTrans(key){
+/*function titleTrans(key){
 	if(key == 'yes28'){
 		return 'Arrived in Personal Vehicle';
 	}else if(key == 'no28'){
@@ -274,7 +291,7 @@ function titleTrans(key){
 		return 'Does not Plan on Other Activities';
 	}else
 		return key;
-}
+}*/
 
 
 var csv1 = document.getElementById('visitor_survey');
