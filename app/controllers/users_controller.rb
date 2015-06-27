@@ -45,6 +45,18 @@ class UsersController < ApplicationController
       end
     end
 
+    def food_assistance
+      if user_is_logged_in?
+          @user = User.find(session[:user_id])
+          @profile = Profile.where(user_id: session[:user_id]).first
+          @accessibility = @profile.accessibility
+          @metrics = metric_calc(@profile)
+          @foods = FoodAssistance.where(profile_id: @profile.id)
+      else 
+          redirect_to root_path
+      end
+    end
+
 =begin
   	def instruments
     	if user_is_logged_in?

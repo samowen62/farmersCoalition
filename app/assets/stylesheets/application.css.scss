@@ -68,6 +68,14 @@ label{
 		}
 	}
 }
+#food-assistance{
+	td.fixed{
+		max-width: 100px;
+		input{
+			width: 90px;
+		}
+	}
+}
 #sidebar{
 	.progress-bar-success{
 		background-color:$btn-color;

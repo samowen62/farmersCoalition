@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150621133022) do
+ActiveRecord::Schema.define(version: 20150627162508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,18 @@ ActiveRecord::Schema.define(version: 20150621133022) do
   end
 
   add_index "entry_points", ["profile_id"], name: "index_entry_points_on_profile_id", using: :btree
+
+  create_table "food_assistance", force: true do |t|
+    t.integer "profile_id"
+    t.date    "transaction_date"
+    t.string  "type_of_assistance"
+    t.string  "digits_of_snap"
+    t.float   "redeemed"
+    t.string  "zip_code"
+    t.boolean "first_name"
+  end
+
+  add_index "food_assistance", ["profile_id"], name: "index_food_assistance_on_profile_id", using: :btree
 
   create_table "managements", force: true do |t|
     t.integer "num_staff"

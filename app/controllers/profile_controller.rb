@@ -27,6 +27,8 @@ class ProfileController < ApplicationController
   end
 
   def update_visitor_count
+    profile = nil
+
     if user_is_logged_in?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
         EntryPoint.where(profile_id: profile.id, period: params[:period], int_day: params[:day]).destroy_all
@@ -39,10 +41,16 @@ class ProfileController < ApplicationController
           p[:ptNum] = d[:ptNum]
           p.save!
         end
+
+        profile.day1 = params[:day1]
+        profile.day2 = params[:day2]
+        profile.day3 = params[:day3]
+        profile.day4 = params[:day4]
+        profile.save!
       end
     end
     
-    render plain: "done"
+    render plain: profile.to_json
   end
 
   def update_visitor_survey
@@ -136,6 +144,29 @@ class ProfileController < ApplicationController
           slip.save!
 
           render plain: slip.inspect
+          return
+        end
+      end
+    end
+    render plain: "error"
+  end
+
+  def update_food_assistance
+    if user_is_logged_in?
+      unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
+        if params[:id] == -1
+          food = FoodAssistance.new(food_params)
+          food[:profile_id] = profile.id
+          food.save!
+
+          render plain: FoodAssistance.where(profile_id: profile.id).to_json
+          return
+        else
+          food = FoodAssistance.where(profile_id: profile.id).where(id: params[:id]).first
+          food.update_attributes!(food_params)
+          food.save!
+
+          render plain: FoodAssistance.where(profile_id: profile.id).to_json
           return
         end
       end
@@ -297,6 +328,11 @@ class ProfileController < ApplicationController
   private
     def app_params
       params.permit(:farm_sales, :value_sales, :ready_sales, :other_sales, :level_of_sales, :primary_loc, :secondary_loc, :acres_owned, :acres_leased, :acres_cultivated, :level_of_acres, :workers_seasonal, :workers_yearly, :level_of_worker_anticipation, :owner1_years, :owner2_years, :owned_by_women, :primary_operators, :primary_operators_other, :certified_organic, :certified_natural, :certified_biodynamic, :certified_food_alliance, :certified_other, :certified_other_name, :certified_none, :num_certified, :under_35, :total_distance, :num_locations, :profile_id, :operators_white, :operators_mexican, :operators_black, :operators_indian, :operators_asian, :unique_crops, :operators_other)
+    end
+
+  private
+    def food_params
+      params.permit(:profile_id, :transaction_date, :type_of_assistance, :digits_of_snap, :redeemed, :zip_code, :first_name)
     end
   
 end
