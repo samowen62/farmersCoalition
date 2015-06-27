@@ -42,10 +42,10 @@
 				<div class="row">
 					<div class="btn-list">
 						<ul>
-							<li ng-click="changeDay(0)" ng-class="{'active' : day == 0}">1<input class="tcal" ng-model="day0"/></li>
-							<li ng-click="changeDay(1)" ng-class="{'active' : day == 1}">2<input class="tcal" ng-model="day1"/></li>
-							<li ng-click="changeDay(2)" ng-class="{'active' : day == 2}">3<input class="tcal" ng-model="day2"/></li>
-							<li ng-click="changeDay(3)" ng-class="{'active' : day == 3}">4<input class="tcal" ng-model="day3"/></li>
+							<li ng-click="changeDay(0)" ng-class="{'active' : day == 0}">1<input class="tcal" ng-model="day1"/></li>
+							<li ng-click="changeDay(1)" ng-class="{'active' : day == 1}">2<input class="tcal" ng-model="day2"/></li>
+							<li ng-click="changeDay(2)" ng-class="{'active' : day == 2}">3<input class="tcal" ng-model="day3"/></li>
+							<li ng-click="changeDay(3)" ng-class="{'active' : day == 3}">4<input class="tcal" ng-model="day4"/></li>
 						</ul>
 					</div>
 				</div>
@@ -54,7 +54,7 @@
 				<div class="row">
 					<table style="  margin-top: 20px;">
 						<tr data-ng-repeat="i in points[day][period] track by $index">
-							<td style="width:252px"><label>{{(period == 0 ? 'In the Market #' : 'Entry Point #') + ($index + 1)}}</label></td>
+							<td style="width:252px"><label>{{(period == 0 ? 'In the Market' : 'Entry Point #'+$index + 1)}}</label></td>
 							<td style="width:121px"><label>Count</label></td>
 							<td style="width:114px"><input type="text" style="width: 35px;" ng-model="points[day][period][$index].count" class="hasPtTimeSelect"></td>
 						</tr>
@@ -89,6 +89,12 @@
 function visitorCtrl($scope){
 	$scope.points = <%= raw(@points.to_json) %>;
 	$scope.small = $(window).width() <= 976;
+
+	var profile = <%= raw(@profile.to_json) %>;
+	$scope.day1 = profile.day1;
+	$scope.day2 = profile.day2;
+	$scope.day3 = profile.day3;
+	$scope.day4 = profile.day4;
 
 	$scope.day = 1;
 	$scope.period = 1;
@@ -137,7 +143,14 @@ function visitorCtrl($scope){
 		$.ajax({
 			type: "POST",
 			url: "/post_visitor_count",
-			data: JSON.stringify({points: $scope.points[$scope.day][$scope.period], day: $scope.day, period: $scope.period}),
+			data: JSON.stringify({
+				points: $scope.points[$scope.day][$scope.period], 
+				day: $scope.day, period: $scope.period,
+				day1 : $('.tcal')[0].value,
+				day2 : $('.tcal')[1].value,
+				day3 : $('.tcal')[2].value,
+				day4 : $('.tcal')[3].value
+			}),
 			contentType: "application/json",
 			success: function(data){
 				console.log(data);
