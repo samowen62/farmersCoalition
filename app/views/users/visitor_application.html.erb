@@ -266,27 +266,55 @@
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-6">
-						<div class="row">
+						<!--div class="row">
 							<div class="col-md-12 radioGroup">
 								<label class="radio" ng-click="setRad('origin',survey.primary_loc)" ng-class="{active : origin == survey.primary_loc}"><span class="loc">Primary Location</span></label>
 								<label class="radio" ng-click="setRad('origin',survey.secondary_loc)" ng-class="{active : origin == survey.secondary_loc}"><span class="loc">Secondary Location</span></label>
-							</div>
+							</div>miles_prim
+      t.float	:miles_second
+      t.string	:source_prim
+      t.string	:dest_prim
+      t.string	:source_second
+      t.string	:dest_second
+						</div-->
+						<div class="row">
+							<h3>Primary Location</h3>
 						</div>
 						<div class="row">
-							<label>Source</label>
-							<input ng-model="origin" style="  float: right;" disabled />		
+							<label>Starting Point</label>
+							<input ng-model="survey.source_prim" style="  float: right;"  />		
 						</div>
 						<div class="row">
 							<label>Destination</label>
-							<input ng-model="dest" style="  float: right;"/>
+							<input ng-model="survey.dest_prim" style="  float: right;"/>
+						</div>
+						<div class="row">
+							<label>Miles</label>
+							<input ng-model="survey.miles_prim" style="  float: right;"/>
 						</div>
 						<div class="row">
 							<a href="javascript:void(0)" class="btn btn-primary" ng-click="query()">Find</a>
 						</div>
 					</div>
 					<div class="col-md-6">
-
-
+						<div class="row">
+							<h3>Secondary Location</h3>
+						</div>
+						<div class="row">
+							<label>Starting Point</label>
+							<input ng-model="survey.source_second" style="  float: right;"  />		
+						</div>
+						<div class="row">
+							<label>Destination</label>
+							<input ng-model="survey.dest_second" style="  float: right;"/>
+						</div>
+						<div class="row">
+							<label>Miles</label>
+							<input ng-model="survey.miles_second" style="  float: right;"/>
+						</div>
+						<div class="row">
+							<a href="javascript:void(0)" class="btn btn-primary" ng-click="query()">Find</a>
+						</div>
 					</div>
 				</div>
 				<div class="col-md-12">

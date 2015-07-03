@@ -4,10 +4,11 @@ class Profile < ActiveRecord::Base
   has_one :managements
   has_one :accessibility
   has_one :community
-  has_one :visitor_application
-
+  
+  has_many :visitor_application
   has_many :visitor_survey
   has_many :sales_slip
   has_many :entry_points
   has_many :food_assistance
+  has_many :credit_sales
 end

@@ -39,7 +39,8 @@ class UsersController < ApplicationController
           @user = User.find(session[:user_id])
           @profile = Profile.where(user_id: session[:user_id]).first
           @metrics = metric_calc(@profile)
-          @application = @profile.visitor_application
+          #@application = @profile.visitor_application
+          @application = []
       else 
           redirect_to root_path
       end
@@ -57,6 +58,16 @@ class UsersController < ApplicationController
       end
     end
 
+    def credit_sales
+      if user_is_logged_in?
+          @user = User.find(session[:user_id])
+          @profile = Profile.where(user_id: session[:user_id]).first
+          @metrics = metric_calc(@profile)
+          @sales = CreditSales.where(profile_id: @profile.id)
+      else 
+          redirect_to root_path
+      end
+    end
 =begin
   	def instruments
     	if user_is_logged_in?

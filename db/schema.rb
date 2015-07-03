@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150627162508) do
+ActiveRecord::Schema.define(version: 20150703204020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,15 @@ ActiveRecord::Schema.define(version: 20150627162508) do
   end
 
   add_index "communities", ["profile_id"], name: "index_communities_on_profile_id", using: :btree
+
+  create_table "credit_sales", force: true do |t|
+    t.integer "profile_id"
+    t.date    "transaction_sales"
+    t.float   "credit_sales"
+    t.float   "debit_sales"
+  end
+
+  add_index "credit_sales", ["profile_id"], name: "index_credit_sales_on_profile_id", using: :btree
 
   create_table "entry_points", force: true do |t|
     t.integer "profile_id"
@@ -311,6 +320,12 @@ ActiveRecord::Schema.define(version: 20150627162508) do
     t.boolean "operators_asian"
     t.text    "unique_crops"
     t.boolean "operators_other"
+    t.float   "miles_prim"
+    t.float   "miles_second"
+    t.string  "source_prim"
+    t.string  "dest_prim"
+    t.string  "source_second"
+    t.string  "dest_second"
   end
 
   add_index "visitor_applications", ["profile_id"], name: "index_visitor_applications_on_profile_id", using: :btree

@@ -1,0 +1,96 @@
+<%= render "shared/menu" %>
+
+<div id="survey" class="col-md-12" ng-app ng-controller="surveyCtrl">
+  <div id="summary" class="main money">
+	<%= render "shared/nav" %>
+
+  	<h1>Credit/Debit Sales</h1>
+	<div class="col-md-12">
+		<table id="food-assistance">
+			<thead>
+				<tr>
+					<th><label>Transaction Date</label></th>
+					<th><label>Credit Sales</label></th>
+					<th><label>Debit Sales</label></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="f in sales">
+					<td><input ng-model="f.transaction_sales" class="tcal" /></td>
+					<td><input ng-model="f.credit_sales" placeholder="0.00" /></td>
+					<td><input ng-model="f.debit_sales" placeholder="0.00" /></td>
+					<td><a ng-click="editRow(f, $index)" class="btn btn-default" href="javascript:void(0)">Edit</a></td>
+				</tr>
+				<tr>
+					<td><input ng-model="newSale.transaction_sales" class="tcal" /></td>
+					<td><input ng-model="newSale.credit_sales" placeholder="0.00" /></td>
+					<td><input ng-model="newSale.debit_sales" placeholder="0.00" /></td>
+					<td><a ng-click="addRow()" class="btn btn-success" href="javascript:void(0)">Add</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+  </div>
+</div>
+<div id="successScreen"> 
+	<a href="#" class="suc-text">Success!</a>
+</div> 
+<div id="cover" ></div>
+
+<script type="text/javascript">
+
+function surveyCtrl($scope){
+	
+	$scope.metrics = <%= raw(@metrics.to_json) %>;
+	$scope.sales = <%= raw(@sales.to_json) %>;
+	$scope.newSale = {id: -1};
+
+	$scope.editRow = function(row, ind){
+		row.transaction_sales = $('.tcal')[ind].value;
+
+		$.ajax({
+			type: "POST",
+			url: "/post_credit_sales",
+			data: JSON.stringify(row),
+			contentType: "application/json",
+			success: function(data){
+				console.log(data);
+				$scope.sales = JSON.parse(data);
+				location.href = '#successScreen';
+				setTimeout(ret, 1000);
+				$scope.newSale = {id: -1};
+			},
+			error: function(data){
+				alert("Error Submitting Data");
+			}
+		});
+	}
+
+	$scope.addRow = function(){
+		$scope.newSale.transaction_sales = $('.tcal')[$('.tcal').length - 1].value;
+
+		$.ajax({
+			type: "POST",
+			url: "/post_credit_sales",
+			data: JSON.stringify($scope.newSale),
+			contentType: "application/json",
+			success: function(data){
+				console.log(data);
+				$scope.sales = JSON.parse(data);
+				location.href = '#successScreen';
+				setTimeout(ret, 1000);
+				$scope.newSale = {id: -1};
+			},
+			error: function(data){
+				alert("Error Submitting Data");
+			}
+		});
+	}
+
+	function ret(){
+		window.location.href = "#";
+	}
+}
+
+</script>

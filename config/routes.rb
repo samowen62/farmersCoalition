@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   post "post_visitor_count", :to => "profile#update_visitor_count"
   post "post_visitor_application", :to => "profile#update_visitor_app"
   post "post_food_assistance", :to => "profile#update_food_assistance"
+  post "post_credit_sales", :to => "profile#post_credit_sales"
 
   get "user_metrics", :to => "users#metrics"
   get "user_instruments", :to => "users#instruments"
@@ -37,6 +38,7 @@ Rails.application.routes.draw do
   get "metric3", :to => "users#metric3"
   get "visitor_application", :to => "users#visitor_application"
   get "food_assistance", :to => "users#food_assistance"
+  get "credit_sales", :to => "users#credit_sales"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

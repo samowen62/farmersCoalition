@@ -174,6 +174,29 @@ class ProfileController < ApplicationController
     render plain: "error"
   end
 
+  def post_credit_sales
+    if user_is_logged_in?
+      unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
+        if params[:id] == -1
+          sale = CreditSales.new(credit_params)
+          sale[:profile_id] = profile.id
+          sale.save!
+
+          render plain: CreditSales.where(profile_id: profile.id).to_json
+          return
+        else
+          sale = CreditSales.where(profile_id: profile.id).where(id: params[:id]).first
+          sale.update_attributes!(credit_params)
+          sale.save!
+
+          render plain: CreditSales.where(profile_id: profile.id).to_json
+          return
+        end
+      end
+    end
+    render plain: "error"
+  end
+
   def update_visitor_app
     if user_is_logged_in?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
@@ -327,12 +350,17 @@ class ProfileController < ApplicationController
 
   private
     def app_params
-      params.permit(:farm_sales, :value_sales, :ready_sales, :other_sales, :level_of_sales, :primary_loc, :secondary_loc, :acres_owned, :acres_leased, :acres_cultivated, :level_of_acres, :workers_seasonal, :workers_yearly, :level_of_worker_anticipation, :owner1_years, :owner2_years, :owned_by_women, :primary_operators, :primary_operators_other, :certified_organic, :certified_natural, :certified_biodynamic, :certified_food_alliance, :certified_other, :certified_other_name, :certified_none, :num_certified, :under_35, :total_distance, :num_locations, :profile_id, :operators_white, :operators_mexican, :operators_black, :operators_indian, :operators_asian, :unique_crops, :operators_other)
+      params.permit(:farm_sales, :value_sales, :ready_sales, :other_sales, :level_of_sales, :primary_loc, :secondary_loc, :acres_owned, :acres_leased, :acres_cultivated, :level_of_acres, :workers_seasonal, :workers_yearly, :level_of_worker_anticipation, :owner1_years, :owner2_years, :owned_by_women, :primary_operators, :primary_operators_other, :certified_organic, :certified_natural, :certified_biodynamic, :certified_food_alliance, :certified_other, :certified_other_name, :certified_none, :num_certified, :under_35, :total_distance, :num_locations, :profile_id, :operators_white, :operators_mexican, :operators_black, :operators_indian, :operators_asian, :unique_crops, :operators_other,:miles_prim,  :miles_second, :source_prim, :dest_prim, :source_second, :dest_second)
     end
 
   private
     def food_params
       params.permit(:profile_id, :transaction_date, :type_of_assistance, :digits_of_snap, :redeemed, :zip_code, :first_name)
+    end
+
+  private
+    def credit_params
+      params.permit(:profile_id, :transaction_sales, :debit_sales, :credit_sales)
     end
   
 end
