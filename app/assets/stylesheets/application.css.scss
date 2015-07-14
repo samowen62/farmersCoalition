@@ -69,10 +69,19 @@ label{
 	}
 }
 #food-assistance{
+	th.fixed{
+		max-width: 100px;
+	}
 	td.fixed{
 		max-width: 100px;
 		input{
 			width: 90px;
+		}
+	}
+	td.dollar{
+		max-width: 100px;
+		input{
+			width: 80px;
 		}
 	}
 }
@@ -114,7 +123,12 @@ label{
 		}
 	}
 }
-
+.hours{
+	width:50px;
+	input{
+		width: 45px;
+	}
+}
 .hvr-sweep-to-right {
   display: inline-block;
   vertical-align: middle;
@@ -157,7 +171,11 @@ label{
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
 }
-
+#survey{
+	[type='radio'] {
+		display: none; 
+	}
+}
 #newUser, #showUser, #survey{
 	display: table;
 	background-color: $background-prim;	
@@ -194,6 +212,7 @@ label{
 		    display: inline-block;
 		    width: calc(92% / 4);
 		    a{
+		    	cursor:pointer;
 		    	float: right;
 		    	z-index: 4;
 		    	background-color: $background-prim;
@@ -315,6 +334,19 @@ nav{
   color: green;
   font-size: 30px;
   text-decoration: none;
+}
+#add-span{
+	  float: left;
+  width: 100% !important;
+  text-align: center;
+  color: green;
+  font-size: 30px;
+  text-decoration: none;
+}
+#metrics{
+	li{
+		cursor:default;
+		}
 }
 .metrics-list{
 	h1{
@@ -473,6 +505,7 @@ nav{
 	}
 }
 .profile-header{
+	cursor:pointer;
 	#info, #impact{
 		display:none;
 	}
@@ -520,6 +553,18 @@ label.yes{
   	padding: 5px 10px;
   	border-radius: 15px;
   	margin: 5px 10px !important;
+}
+.label-sel{
+	color: white;
+}
+.hasPtTimeSelect{
+	  border: 1px solid;
+}
+select{
+	cursor:pointer;
+}
+input[type='checkbox']{
+	cursor:pointer;
 }
 label.no{
 	cursor: pointer;

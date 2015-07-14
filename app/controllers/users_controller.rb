@@ -40,7 +40,7 @@ class UsersController < ApplicationController
           @profile = Profile.where(user_id: session[:user_id]).first
           @metrics = metric_calc(@profile)
           #@application = @profile.visitor_application
-          @application = []
+          #@application = []
       else 
           redirect_to root_path
       end
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
           @profile = Profile.where(user_id: session[:user_id]).first
           @accessibility = @profile.accessibility
           @metrics = metric_calc(@profile)
-          @foods = FoodAssistance.where(profile_id: @profile.id)
+          @foods = FoodAssistance.where(profile_id: @profile.id).order(:transaction_date)
       else 
           redirect_to root_path
       end
@@ -90,6 +90,18 @@ class UsersController < ApplicationController
     		@markets = @profile.markets
   			@management = @profile.managements
   			@accessibility = @profile.accessibility
+        if @accessibility == {}
+          @accessibility = {
+            'accept_SNAP' => false,
+            'accept_FMNP' => false,
+            'FMNP_available' => false,
+            'accept_FMNP_senior' => false,
+            'FMNP_senior_available' => false,
+            'accept_CVV' => false,
+            'CVV_available' => false,
+            'other_vouchers' => false
+          }
+        end
   			@positions = Array.new
   			@communities = @profile.community
 

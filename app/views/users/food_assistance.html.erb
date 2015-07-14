@@ -9,49 +9,52 @@
 		<table id="food-assistance">
 			<thead>
 				<tr>
-					<th><label>Transaction Date</label></th>
+					<th class="fixed"><label>Transaction Date</label></th>
 					<th class="fixed"><label>Benefit Type</label></th>
 					<th class="fixed"><label>Last 8 Digits on SNAP Card</label></th>
 					<th class="fixed"><label>Amount Redeemed</label></th>
 					<th class="fixed"><label>Zip Code</label></th>
-					<th><label>First time?</label></th>
+					<th class="fixed"><label>First time using benefits?</label></th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="f in foods">
-					<td><input ng-model="f.transaction_date" class="tcal" /></td>
+					<td class="fixed"><input ng-model="f.transaction_date" class="tcal" /></td>
 					<td class="fixed"><select ng-model="f.type_of_assistance" >
 						<option value="SNAP" ng-if="accessibility.accept_SNAP">SNAP</option>
 						<option value="WIC FMNP" ng-if="accessibility.accept_FMNP">WIC FMNP</option>
 						<option value="WIC CVV" ng-if="accessibility.accept_CVV">WIC CVV</option>
 						<option value="Senior FMNP" ng-if="accessibility.accept_FMNP_senior">Senior FMNP</option>
 					</select></td>
-					<td class="fixed"><input ng-model="f.digits_of_snap" /></td>
-					<td class="fixed"><input ng-model="f.redeemed" /></td>
+					<td class="fixed"><input ng-model="f.digits_of_snap" maxlength="8" /></td>
+					<td class="dollar">$ <input ng-model="f.redeemed" placeholder="0.00"/></td>
 					<td class="fixed"><input ng-model="f.zip_code" /></td>
-					<td><select ng-model="f.first_name" >
+					<td class="fixed"><select ng-model="f.first_name" >
 						<option value="0">Y</option>
 						<option value="1">N</option>
 					</select></td>
 					<td><a ng-click="editRow(f, $index)" class="btn btn-default" href="javascript:void(0)">Edit</a></td>
 				</tr>
 				<tr>
-					<td><input ng-model="newFood.transaction_date"  class="tcal" /></td>
+					<td colspan="7" ng-style="{'padding' : adding ? '0px' : '3px'}"><a href="javascript:void(0)" id="add-span" ng-click="toggleAdd()" ng-show="!adding">+</a></td>
+				</tr>
+				<tr ng-show="adding">
+					<td class="fixed"><input ng-model="newFood.transaction_date"  class="tcal" /></td>
 					<td class="fixed"><select ng-model="newFood.type_of_assistance" >
 						<option value="SNAP" ng-if="accessibility.accept_SNAP">SNAP</option>
 						<option value="WIC FMNP" ng-if="accessibility.accept_FMNP">WIC FMNP</option>
 						<option value="WIC CVV" ng-if="accessibility.accept_CVV">WIC CVV</option>
 						<option value="Senior FMNP" ng-if="accessibility.accept_FMNP_senior">Senior FMNP</option>
 					</select></td>
-					<td class="fixed"><input ng-model="newFood.digits_of_snap" /></td>
-					<td class="fixed"><input ng-model="newFood.redeemed" /></td>
+					<td class="fixed"><input ng-model="newFood.digits_of_snap" maxlength="8" /></td>
+					<td class="dollar">$ <input ng-model="newFood.redeemed" placeholder="0.00" /></td>
 					<td class="fixed"><input ng-model="newFood.zip_code" /></td>
-					<td><select ng-model="newFood.first_name" >
+					<td class="fixed"><select ng-model="newFood.first_name" >
 						<option value="0">Y</option>
 						<option value="1">N</option>
 					</select></td>
-					<td><a ng-click="addRow()" class="btn btn-success" href="javascript:void(0)">Add</a></td>
+					<td><a ng-click="addRow()" class="btn btn-success" href="javascript:void(0)">Submit</a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -71,6 +74,15 @@ function surveyCtrl($scope){
 	$scope.foods = <%= raw(@foods.to_json) %>;
 	$scope.accessibility = <%= raw(@accessibility.to_json) %>;
 	$scope.newFood = {id: -1};
+	$scope.adding = false;
+
+	$scope.toggleAdd = function(){
+		$scope.adding = !$scope.adding;
+	}
+
+	$.each($scope.foods, function(k,v){
+		v.first_name = v.first_name ? 1 : 0;
+	});
 
 	$scope.editRow = function(row, ind){
 		row.transaction_date = $('.tcal')[ind].value;
@@ -115,7 +127,7 @@ function surveyCtrl($scope){
 	}
 
 	function ret(){
-		location.href = "#";
+		window.location.reload();
 	}
 }
 

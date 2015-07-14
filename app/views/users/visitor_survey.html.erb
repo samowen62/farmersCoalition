@@ -18,8 +18,8 @@
 				<label>Did you arrive at the market today in a personal vehicle?</label>
 			</div>
 			<div class="row">
-				<label class="yes">Yes <input type="radio" ng-model="survey.yes28" value="true" /></label>
-				<label class="no">No <input type="radio" ng-model="survey.yes28" value="false" /></label>
+				<label class="yes" ng-class="{ 'label-sel' : survey.yes28 == 'true'}">Yes <input type="radio" ng-model="survey.yes28" value="true" /></label>
+				<label class="no" ng-class="{ 'label-sel' : survey.yes28 == 'false'}">No <input type="radio" ng-model="survey.yes28" value="false" /></label>
 			</div>
 			<div class="row" ng-show="survey.yes28 == 'false'">
 				<label>What method did you use to get to the market today?</label>
@@ -38,8 +38,8 @@
 					<label>Is this your first time visiting the market?</label>
 				</div>
 				<div class="row">
-					<label class="yes">Yes <input type="radio" ng-model="survey.yes13" value="true" /></label>
-					<label class="no">No <input type="radio" ng-model="survey.yes13" value="false" /></label>
+					<label class="yes" ng-class="{ 'label-sel' : survey.yes13 == 'true'}">Yes <input type="radio" ng-model="survey.yes13" value="true" /></label>
+					<label class="no" ng-class="{ 'label-sel' : survey.yes13 == 'false'}">No <input type="radio" ng-model="survey.yes13" value="false" /></label>
 				</div>
 			</div>
 			<div class="row" ng-show="survey.yes13 == 'false'">
@@ -60,8 +60,8 @@
 					<label>Did you or do you plan to purchase fruits or vegetables at this market today?</label>
 				</div>
 				<div class="row">
-					<label class="yes">Yes <input type="radio" ng-model="survey.yes36" value="true" /></label>
-					<label class="no">No <input type="radio" ng-model="survey.yes36" value="false" /></label>
+					<label class="yes" ng-class="{ 'label-sel' : survey.yes36 == 'true'}">Yes <input type="radio" ng-model="survey.yes36" value="true" /></label>
+					<label class="no" ng-class="{ 'label-sel' : survey.yes36 == 'false'}">No <input type="radio" ng-model="survey.yes36" value="false" /></label>
 				</div>
 			</div>
 			<div class="row" ng-show="survey.yes36 == 'true'">
@@ -134,8 +134,8 @@
 					</span>
 				</div>
 				<div class="row">
-					<label class="yes">Yes <input type="radio" ng-model="survey.yes7" value="true" /></label>
-					<label class="no">No <input type="radio" ng-model="survey.yes7" value="false" /></label>
+					<label class="yes" ng-class="{ 'label-sel' : survey.yes7 == 'true'}">Yes <input type="radio" ng-model="survey.yes7" value="true" /></label>
+					<label class="no" ng-class="{ 'label-sel' : survey.yes7 == 'false'}">No <input type="radio" ng-model="survey.yes7" value="false" /></label>
 				</div>
 			</div>
 			<div class="row money" ng-show="survey.yes7 == 'true'">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150703204020) do
+ActiveRecord::Schema.define(version: 20150711204855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -326,6 +326,21 @@ ActiveRecord::Schema.define(version: 20150703204020) do
     t.string  "dest_prim"
     t.string  "source_second"
     t.string  "dest_second"
+    t.string  "acres_anticipation"
+    t.string  "certified_organic_number"
+    t.string  "certified_naturaly_number"
+    t.string  "certified_biodynamic_number"
+    t.string  "food_alliance_number"
+    t.string  "other_certification_number"
+    t.float   "hours_brassica"
+    t.float   "hours_sprouts"
+    t.float   "hours_lettuce"
+    t.float   "hours_beans"
+    t.float   "hours_carrots"
+    t.float   "hours_tomatoes"
+    t.float   "hours_corn"
+    t.float   "hours_melons"
+    t.float   "hours_berries"
   end
 
   add_index "visitor_applications", ["profile_id"], name: "index_visitor_applications_on_profile_id", using: :btree

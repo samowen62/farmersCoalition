@@ -36,7 +36,7 @@
 					 </ul>
 				</div>
 					<div class="row">
-						<h2>Total {{year}} gross sales at {{profile.name}}</h2>
+						<h2>Total {{year}} gross sales at {{profile.name}}:</h2>
 					</div>
 					<div class="row">
 						<label class="col-xs-7">Farm product sales:</label>
@@ -68,7 +68,7 @@
 					</div>				
 				</div>
 				<div class="col-md-6" ng-if="metrics[2]">
-					<label>Please provide up to two physical addresses for your business’ primary point(s) of production.  No P.O. Boxes, please</label>
+					<label>Please provide up to two physical addresses for your business’ primary point(s) of production.  No P.O. Boxes, please.</label>
 					<div class="row">
 						<label>Primary production location:</label><div class="clearfix"></div>
 						<input style="width: 100%;" ng-model="survey.primary_loc" />
@@ -97,7 +97,7 @@
 	<!--Percent of total cultivated or grazed acres devoted to 2014 farmers market production (please estimate to the best of your ability):-->
 
 					<div class="row" ng-if="metrics[8] && ! metrics[2]">
-						<label>Do you anticipate fewer, the same, or more acres devoted to production for the {{profile.name}} in {{year + 1}}?:</label>
+						<label>Do you anticipate fewer, the same, or more acres devoted to production for the {{profile.name}} in {{year + 1}}? (please select one):</label>
 						<div class="col-md-12 radioGroup">
 							<label class="radio" ng-click="setRad('level_of_worker_anticipation','less')" ng-class="{active : survey.level_of_worker_anticipation == 'less'}">Less</label>
 							<label class="radio" ng-click="setRad('level_of_worker_anticipation','same')" ng-class="{active : survey.level_of_worker_anticipation == 'same'}">Same</label>
@@ -118,7 +118,7 @@
 		   				<input ng-model="survey.workers_yearly" />
 		   			</div>
 					<div class="row">
-						<label>Do you anticipate fewer, the same, or more workers devoted to production and marketing for this market in {{year + 1}}?</label>    
+						<label>Do you anticipate fewer, the same, or more workers devoted to production and marketing for this market in {{year + 1}}? (Please select one):</label>    
 						<div class="col-md-12 radioGroup">
 							<label class="radio" ng-click="setRad('level_of_worker_anticipation','less')" ng-class="{active : survey.level_of_worker_anticipation == 'less'}">Less</label>
 							<label class="radio" ng-click="setRad('level_of_worker_anticipation','same')" ng-class="{active : survey.level_of_worker_anticipation == 'same'}">Same</label>
@@ -135,7 +135,7 @@
 			<div ng-show="tab == 2">
 				<div class="col-md-6" ng-if="metrics[11]">
 					<div class="col-md-12">
-						<label>Please think about all individuals chiefly responsible for day-to-day decisions in your farm business, including yourself.  As of December 31, {{year}}, for how many years have these owner/operators been farming?  (Please respond for all chief owners/operators as applicable.)</label>
+						<label>Please think about all individuals chiefly responsible for day-to-day decisions in your farm business, including yourself.  As of December 31, {{year}}, for how many years have these owner/operators been farming?  (Please respond for all chief owners/operators as applicable. If there is only one owner, enter "N/A" for Owner #2. Non-agricultural enterprises* should enter "N/A" for both lines.)</label>
 						<div class="row">
 							<label>Owner 1</label>
 							<input ng-model="owner1_years" />
@@ -144,16 +144,21 @@
 							<label>Owner 2</label>
 							<input ng-model="owner2_years" />
 						</div>
+						<div class="row">
+							<label>
+								*Non-Agricultural enterprises are businesses not involved in the production of raw agricultural products as their primary enterprise, but who are actively involved and invested in the processing of value-added foods, baked goods, hot foods product sold at the market.
+							</label>
+						</div>
 					</div>
 					<div class="col-md-12" ng-if="metrics[23]">
 						<div style="background-color: #eee;padding: 5px;border-radius: 5px;">
-							Please think about foods or crops that are unique to your state or region. In the last market season ({{year}}), did you plan to sell any crops or value-added food items that are unique to your egion? If so, please list, and include variety name:<!--ask about regions-->
+							Please think about foods or crops that are unique to your state or region. In the last market season ({{year}}), did you plan to sell any crops or value-added food items that are unique to your region? If so, please list, and include variety name:<!--ask about regions-->
 						</div>
 						<textarea ng-model="survey.unique_crops" style="margin-top: 15px;"></textarea>
 					</div>
 				</div>
 				<div class="col-md-6" ng-if="metrics[21]">
-					<label>Is more than 50% of your farmers market business owned and operated on a daily basis by one or more women?</label>
+					<label>Is more than 50% of your farmers market business owned and operated on a daily basis by one or more women? (Please select one):</label>
 					<div class="col-md-12 radioGroup">
 						<label class="radio" ng-click="setRad('owned_by_women','yes')" ng-class="{active : survey.owned_by_women == 'yes'}">Yes</label>
 						<label class="radio" ng-click="setRad('owned_by_women','no')" ng-class="{active : survey.owned_by_women == 'no'}">No</label>
@@ -245,6 +250,51 @@
 					</table>
 					<!-- ask how to do 34 as well-->
 				</div>
+				<div class="col-md-6" ng-if="metrics[33]">
+					<div class="row">
+						<label>For all fresh produce items you sold at {X Farmers Market} in 2014, what was the average number of hours between harvest and the start of market. If you do not sell a product listed below, please write “N/A.”</label>
+					</div>
+					<div class="row">
+						<table>
+							<tr>
+								<td>Brassicas (broccoli, kale, collards, brussels sprouts, mustard greens, etc.)</td>
+								<td class="hours"><input ng-model="survey.hours_brassica"/></td>
+							</tr>
+							<tr>
+								<td>sprouts, mustard greens, etc.)</td>
+								<td class="hours"><input ng-model="survey.hours_sprouts"/></td>
+							</tr>
+							<tr>
+								<td>Lettuce, spinach, and mixed greens</td>
+								<td class="hours"><input ng-model="survey.hours_lettuce"/></td>
+							</tr>
+							<tr>
+								<td>Fresh beans and peas</td>
+								<td class="hours"><input ng-model="survey.hours_beans"/></td>
+							</tr>
+							<tr>
+								<td>Carrots and root crops sold with greens attached</td>
+								<td class="hours"><input ng-model="survey.hours_carrots"/></td>
+							</tr>
+							<tr>
+								<td>Tomatoes</td>
+								<td class="hours"><input ng-model="survey.hours_tomatoes"/></td>
+							</tr>
+							<tr>
+								<td>Fresh corn</td>
+								<td class="hours"><input ng-model="survey.hours_corn"/></td>
+							</tr>
+							<tr>
+								<td>Melons</td>
+								<td class="hours"><input ng-model="survey.hours_melons"/></td>
+							</tr>
+							<tr>
+								<td>Berries and soft fruits</td>
+								<td class="hours"><input ng-model="survey.hours_berries"/></td>
+							</tr>
+						</table>
+					</div>
+				</div>
 				<div class="col-md-12">
 					<div class="col-md-offset-2 col-md-4">
 						<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(2)" style="margin-top: 20px; width: 100%;">Previous</a>
@@ -266,26 +316,12 @@
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-6">
-						<!--div class="row">
-							<div class="col-md-12 radioGroup">
-								<label class="radio" ng-click="setRad('origin',survey.primary_loc)" ng-class="{active : origin == survey.primary_loc}"><span class="loc">Primary Location</span></label>
-								<label class="radio" ng-click="setRad('origin',survey.secondary_loc)" ng-class="{active : origin == survey.secondary_loc}"><span class="loc">Secondary Location</span></label>
-							</div>miles_prim
-      t.float	:miles_second
-      t.string	:source_prim
-      t.string	:dest_prim
-      t.string	:source_second
-      t.string	:dest_second
-						</div-->
 						<div class="row">
-							<h3>Primary Location</h3>
-						</div>
-						<div class="row">
-							<label>Starting Point</label>
+							<label>Product Location</label>
 							<input ng-model="survey.source_prim" style="  float: right;"  />		
 						</div>
 						<div class="row">
-							<label>Destination</label>
+							<label>Farmers Market Address</label>
 							<input ng-model="survey.dest_prim" style="  float: right;"/>
 						</div>
 						<div class="row">
@@ -298,14 +334,11 @@
 					</div>
 					<div class="col-md-6">
 						<div class="row">
-							<h3>Secondary Location</h3>
-						</div>
-						<div class="row">
-							<label>Starting Point</label>
+							<label>Product Location</label>
 							<input ng-model="survey.source_second" style="  float: right;"  />		
 						</div>
 						<div class="row">
-							<label>Destination</label>
+							<label>Farmers Market Address</label>
 							<input ng-model="survey.dest_second" style="  float: right;"/>
 						</div>
 						<div class="row">
@@ -348,9 +381,9 @@
 
 	$scope.metrics = <%= raw(@metrics.to_json) %>;
 	$scope.profile = <%= raw(@profile.to_json) %>;
-	$scope.survey = <%= raw(@application.to_json) %>;
+	//$scope.survey = <%= raw(@application.to_json) %>;
 
-	if($scope.survey == null)
+	//if($scope.survey == null)
 		$scope.survey = {};
 	
 	var d = new Date();
