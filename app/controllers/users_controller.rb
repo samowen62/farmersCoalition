@@ -189,7 +189,7 @@ class UsersController < ApplicationController
         @points = []
         day = []
         for i in 0..3 do
-          for j in 0..7 do
+          for j in 0..8 do
             day.push([])
           end
           @points.push(day)

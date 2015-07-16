@@ -18,14 +18,14 @@
 			<tbody>
 				<tr ng-repeat="f in sales">
 					<td><input ng-model="f.transaction_sales" class="tcal" /></td>
-					<td><input ng-model="f.credit_sales" placeholder="0.00" /></td>
-					<td><input ng-model="f.debit_sales" placeholder="0.00" /></td>
+					<td>$<input ng-model="f.credit_sales" placeholder="0.00" class="fixed"/></td>
+					<td>$<input ng-model="f.debit_sales" placeholder="0.00"  class="fixed"/></td>
 					<td><a ng-click="editRow(f, $index)" class="btn btn-default" href="javascript:void(0)">Edit</a></td>
 				</tr>
 				<tr>
 					<td><input ng-model="newSale.transaction_sales" class="tcal" /></td>
-					<td><input ng-model="newSale.credit_sales" placeholder="0.00" /></td>
-					<td><input ng-model="newSale.debit_sales" placeholder="0.00" /></td>
+					<td>$<input ng-model="newSale.credit_sales" placeholder="0.00" class="fixed" /></td>
+					<td>$<input ng-model="newSale.debit_sales" placeholder="0.00" class="fixed" /></td>
 					<td><a ng-click="addRow()" class="btn btn-success" href="javascript:void(0)">Add</a></td>
 				</tr>
 			</tbody>
