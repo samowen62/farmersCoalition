@@ -54,7 +54,7 @@
 				<div class="row">
 					<table style="  margin-top: 20px;">
 						<tr data-ng-repeat="i in points[day][period] track by $index">
-							<td style="width:252px"><label>{{(period == 0 ? 'In the Market' : 'Entry Point #'+$index + 1)}}</label></td>
+							<td style="width:252px"><label>{{(period == 0 ? 'In the Market' : 'Entry Point #'+($index + 1))}}</label></td>
 							<td style="width:121px"><label>Count</label></td>
 							<td style="width:114px"><input type="text" style="width: 35px;" ng-model="points[day][period][$index].count" class="hasPtTimeSelect"></td>
 						</tr>
@@ -136,6 +136,13 @@ function visitorCtrl($scope){
 			$scope.points[$scope.day][$scope.period][parseInt(k/2)][k % 2 == 0 ? 'start' : 'end'] = e.value;
 			$scope.points[$scope.day][$scope.period][parseInt(k/2)]['ptNum'] = parseInt(k/2);
 		});*/
+		var points = [];
+		var i = 1;
+
+		$.each($scope.points[$scope.day][$scope.period], function(k,v){
+			$scope.points[$scope.day][$scope.period][k].ptNum = i;
+			i++;
+		});
 
 
 		console.log($scope.points[$scope.day][$scope.period]);
