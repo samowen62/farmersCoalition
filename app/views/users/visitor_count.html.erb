@@ -56,7 +56,7 @@
 						<tr data-ng-repeat="i in points[day][period] track by $index">
 							<td style="width:252px"><label>{{(period == 0 ? 'In the Market' : 'Entry Point #'+($index + 1))}}</label></td>
 							<td style="width:121px"><label>Count</label></td>
-							<td style="width:114px"><input type="text" style="width: 35px;" ng-model="points[day][period][$index].count" class="hasPtTimeSelect"></td>
+							<td style="width:114px"><input type="text" style="width: 35px;  border: 1px solid #444" ng-model="points[day][period][$index].count" class="hasPtTimeSelect"></td>
 						</tr>
 						<tr ng-show="period != 0">
 							<td colspan="3"><a id="add" href="javascript:void(0)" ng-click="addPoint()">+</a><a href="javascript:void(0)" ng-click="removePoint()" id="rem">-</a></td>

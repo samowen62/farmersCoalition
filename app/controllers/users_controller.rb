@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
 	before_filter :save_login_state, :only => [:new, :create]
+#User.select(:email).each do |i| puts "#{i.id} #{i.email}" end
 
 	def new
 		@user = User.new

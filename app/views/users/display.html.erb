@@ -133,7 +133,7 @@ var visitor_survey_sheet = '';
 var visitor_count_sheet = '';
 var sales_slip_sheet = '';
 
-for (var key in visitor_counts[0][0]) {if (visitor_counts[0][0].hasOwnProperty(key) && key != 'profile_id' && key != 'id')
+/*for (var key in visitor_counts[0][0]) {if (visitor_counts[0][0].hasOwnProperty(key) && key != 'profile_id' && key != 'id')
  {key = '"' + titleTrans(key) + '",';visitor_count_sheet += key;}}
 visitor_count_sheet += '\n';
 
@@ -154,35 +154,11 @@ for (var s = 0; s < visitor_counts.length; s++){
 
 var csv1 = document.getElementById('visitor_counts');
 csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_count_sheet));
-csv1.setAttribute('download', 'VisitorCounts.csv');
+csv1.setAttribute('download', 'VisitorCounts.csv');*/
 
 
 
-for (var key in visitor_surveys[0][0]) {if (visitor_surveys[0][0].hasOwnProperty(key) && key != 'profile_id' && key != 'id')
- {key = '"' + titleTrans(key) + '",';visitor_survey_sheet += key;}}
-visitor_survey_sheet += '\n';
-
-for (var s = 0; s < visitor_surveys.length; s++){
-	for(var t = 0; t < visitor_surveys[s].length; t++){
-		var survey = visitor_surveys[s][t];
-		//console.log(survey,s,t);
-		for (var key in survey) {
-			k = '';
-			if (survey.hasOwnProperty(key) && key != 'profile_id' && key != 'id') {
-				k = '"' + survey[key] + '",';
-				visitor_survey_sheet += k;
-			}
-		}
-		visitor_survey_sheet += '\n';
-	}
-	visitor_survey_sheet += '\n';// + (s != visitor_surveys.length - 1 ? visitor_surveys[s + 1][0].date : '' )+'",';
-}
-
-var csv1 = document.getElementById('visitor_surveys');
-csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_survey_sheet));
-csv1.setAttribute('download', 'VisitorSurveys.csv');
-
-for (var key in sales_slips[0][0]) {if (sales_slips[0][0].hasOwnProperty(key) && key != 'profile_id' && key != 'id')
+/*for (var key in sales_slips[0][0]) {if (sales_slips[0][0].hasOwnProperty(key) && key != 'profile_id' && key != 'id')
  {key = '"' + titleTrans(key) + '",';sales_slip_sheet += key;}}
 sales_slip_sheet += '\n';
 
@@ -203,7 +179,7 @@ for (var s = 0; s < sales_slips.length; s++){
 
 var csv1 = document.getElementById('sales_slips');
 csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(sales_slip_sheet));
-csv1.setAttribute('download', 'SalesSlips.csv');
+csv1.setAttribute('download', 'SalesSlips.csv');*/
 
 //console.log(visitor_surveys);
 var finalVal = '';
@@ -240,61 +216,164 @@ pom.setAttribute('download', 'profile.csv');
 var visitor_survey = '"Date",';
 var visitor_survey_heading = {
 	name: "Market Name",
-	yes7: "dwtn_activities_yes",
-	no7: "dwtn_activities_no",
-	downtown_spent_morning: "dwtn_spending_total",////?!!!!!!!!!!!
-	downtown_spent_afternoon: "dwtn_spending_avg",
-	name: "Market Name",
-	name: "Market Name",
-	name: "Market Name",
-	name: "Market Name",
+	yes7: "Dwtn Activities Yes",
+	no7: "Dwtn Activities No",
+	downtown_spent_morning: "Dwtn Spending Total",////?!!!!!!!!!!!
+	downtown_spent_afternoon: "Dwtn Spending Avg",
+	spent_morning: "Mkt Spending Morning",
+	spent_afternoon: "Mkt Spending Afternoon",
+	yes13: "First Visit Yes",
+	no13: "First Visit No",
+	every_week: "Every Week",
+	every_other_week: "Every Other Week",
+	every_month: "Every Month",
+	less_than_month: "Less Than Month",
+	bikes: "Bike",
+	bus: "Bus",
+	walking: "Walking",
+	taxi: "Taxi",
+	other_method: "Other Method",
+	home_zip: "Zip Codes"//probs delete
 
 };
 
-for (var key in surveys[0]) {if (surveys[0].hasOwnProperty(key) && key != 'profile_id' && key != 'id' && key != 'date') {key = '"' + titleTrans(key) + '",';visitor_survey += key;}}
-visitor_survey += '\n' + surveys[0].date + '",';
+var foot_list_heading = {
+	Watermelons: "Watermelons",
+    Wineberries: "Wineberries",
+    PawPaws: "PawPaws",                  
+    Peaches: "Peaches",                  
+    Pears: "Pears",                    
+    Plums: "Plums",                    
+    Quince: "Quince",                   
+    Raspberries: "Raspberries",
+    Strawberries: "Strawberries",             
+    Tangerines: "Tangerines",               
+    Tayberries: "Tayberries",               
+    Kumquats: "Kumquats",                 
+    Lemons: "Lemons",                   
+    Limes: "Limes",                    
+    Mulberries: "Mulberries",               
+    Oranges: "Oranges",                  
+    Fejioas: "Fejioas",                  
+    Figs: "Figs",                     
+    Gooseberries: "Gooseberries",             
+    Grapefruit: "Grapefruit",               
+    Grapes: "Grapes",                   
+    Honeydew_melons: "Honeydew Melons",          
+    Apricots: "Apricots",                 
+    Apriums: "Apriums",                  
+    Asian_pears: "Asian Pears",
+    Avocados: "Avocados",                 
+    Blackberries: "Blackberries",             
+    Blueberries: "Blueberries",
+    Boysenberries: "Boysenberries",            
+    Canary_melons: "Canary Melons",            
+    Cantaloupes: "Cantaloupes",
+    Cherimoyas: "Cherimoyas",               
+    Cherries: "Cherries",                 
+    Chestnuts: "Chestnuts",                
+    Currants: "Currants",                 
+    Dates: "Dates",                    
+    Artichokes: "Artichokes",               
+    Arugula: "Arugula",                  
+    Asparagus: "Asparagus",                
+    Beets: "Beets",                    
+    Beet_greens: "Beet Greens",
+    Bok_choy: "Bok Choy",                 
+    Broccoli: "Broccoli",                 
+    Broccoli_rabe: "Broccoli Rabe",            
+    Brussels_sprouts: "Brussels Sprouts",         
+    Cabbage: "Cabbage",                  
+    Cardoons: "Cardoons",                 
+    Carrots: "Carrots",                  
+    Cauliflower: "Cauliflower",
+    Celeriac: "Celeriac",                 
+    Celery: "Celery",                   
+    Chard: "Chard",                    
+    Chicory: "Chicory",                  
+    Chipilín: "Chipilín",                 
+    Collards: "Collards",                 
+    Cress: "Cress",                    
+    Cucumbers: "Cucumbers",                
+    Dandelion_greens: "Dandelion Greens",         
+    Dry_beans: "Dry_beans",                
+    Eggplant: "Eggplant",                 
+    Fennel: "Fennel",                   
+    Garlic_bulb: "Garlic Bulb",
+    Garlic_scapes: "Garlic Scapes",            
+    Green_beans: "Green Beans",
+    Herbs_fresh: "Herbs Fresh",
+    Hierbamora: "Hierbamora",               
+    Horseradish: "Horseradish",
+    Jicama: "Jicama",                   
+    Kale: "Kale",                     
+    Kohlrabi: "Kohlrabi",                 
+    Lambs_quarters: "Lambs Quarters",           
+    Leeks: "Leeks",                    
+    Lettuce: "Lettuce",                  
+    Lima_Beans: "Lima Beans",               
+    Mushrooms: "Mushrooms",                
+    Mustard_greens: "Mustard Greens",           
+    Okra: "Okra",                     
+    Onions: "Onions",                   
+    Parsnips: "Parsnips",                 
+    Peas: "Peas",                     
+    Pea_shoots: "Pea Shoots",               
+    Peppers_hot: "Peppers (hot)",
+    Peppers_sweet: "Peppers (sweet)",            
+    Pumpkins: "Pumpkins",                 
+    Potatoes: "Potatoes",                 
+    Purslane: "Purslane",                 
+    Squash_summer: "Squash (summer)",            
+    Squash_winter: "Squash (winter)",            
+    Radishes: "Radishes",                 
+    Rhubarb: "Rhubarb",                  
+    Rutabagas: "Rutabagas",                
+    Salsify: "Salsify",                  
+    Scallions: "Scallions",                
+    Shallots: "Shallots",                 
+    Spinach: "Spinach",                  
+    Sprouts: "Sprouts",                  
+    Sunchokes: "Sunchokes",                
+    Sweet_corn: "Sweet Corn",               
+    Sweet_potatoes: "Sweet Potatoes",           
+    Sweet_potato: "Sweet Potato",             
+    Tomatillos: "Tomatillos",               
+    Tomatoes: "Tomatoes",                 
+    Turnips: "Turnips",                  
+    Turnip_greens: "Turnip Greens",            
+    Yacon: "Yacon",                    
+    Fava_beans: "Fava Beans",               
+    Jujubes: "Jujubes",                  
+    Apples: "Apples"
+};
+
+for (var key in surveys[0]) {
+	if(key != 'profile_id' && key != 'id' && key != 'date'){
+		if(key in foot_list_heading) {
+			key = '"' + foot_list_heading[key] + '",';
+			visitor_survey += key;
+		}else if(key in visitor_survey_heading) {
+			key = '"' + visitor_survey_heading[key] + '",';
+			visitor_survey += key;
+		}
+	}
+}
+visitor_survey += '\n' + surveys[0].date + ',';
 
 for (var s = 0; s < surveys.length; s++){
 	var survey = surveys[s];
 	for (var key in survey) {
 		k = '';
-		if (survey.hasOwnProperty(key) && key != 'profile_id' && key != 'id' && key != 'date') {
-			if(key == "downtown_spent_morning"){
-				k = '"' + (survey[key] + survey['downtown_spent_afternoon']) + '",';
-			}else if(key == "downtown_spent_afternoon"){
-				k = '"' + (survey[key] + survey['downtown_spent_morning'])/2 + '",';
-			}else
+		if ((foot_list_heading.hasOwnProperty(key) || visitor_survey_heading.hasOwnProperty(key)) && key != 'profile_id' && key != 'id' && key != 'date') {
 				k = '"' + survey[key] + '",';
 			visitor_survey += k;
 		}
 	}
-	visitor_survey += '\n' + (s != surveys.length - 1 ? surveys[s + 1].date : '' )+'",';
+	visitor_survey += '\n' + (s != surveys.length - 1 ? surveys[s + 1].date : '' )+',';
 }
 
-//turn this into hash when we want better descriptions
-function titleTrans(key){
-	if(key == 'yes28'){
-		return 'Arrived in Personal Vehicle';
-	}else if(key == 'no28'){
-		return 'Did not arrive in Personal Vehicle';
-	}else if(key == 'yes13'){
-		return 'First Time';
-	}else if(key == 'no13'){
-		return 'Not First Time';
-	}else if(key == 'yes36'){
-		return 'Plan to Purchase Fruits';
-	}else if(key == 'no36'){
-		return 'Does not Plan to Purchase Fruits';
-	}else if(key == 'yes7'){
-		return 'Plan on Other Activities';
-	}else if(key == 'no7'){
-		return 'Does not Plan on Other Activities';
-	}else
-		return key;
-}
-
-
-var csv1 = document.getElementById('visitor_survey');
+var csv1 = document.getElementById('visitor_surveys');
 csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_survey));
 csv1.setAttribute('download', 'VisitorSurveys.csv');
 

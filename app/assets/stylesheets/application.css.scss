@@ -573,6 +573,9 @@ select{
 input[type='checkbox']{
 	cursor:pointer;
 }
+input[type='radio']{
+	cursor:pointer;
+}
 label.no{
 	cursor: pointer;
   	background-color: #FF1919;

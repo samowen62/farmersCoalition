@@ -672,6 +672,11 @@ input[type='checkbox'] {
 }
 
 /* line 576, ../../../app/assets/stylesheets/application.css.scss */
+input[type='radio'] {
+  cursor: pointer;
+}
+
+/* line 579, ../../../app/assets/stylesheets/application.css.scss */
 label.no {
   cursor: pointer;
   background-color: #FF1919;
@@ -680,7 +685,7 @@ label.no {
   margin: 5px 10px !important;
 }
 
-/* line 583, ../../../app/assets/stylesheets/application.css.scss */
+/* line 586, ../../../app/assets/stylesheets/application.css.scss */
 label.day {
   padding: 1px 4px;
   background-color: #eee;
@@ -688,7 +693,7 @@ label.day {
   float: none !important;
 }
 
-/* line 589, ../../../app/assets/stylesheets/application.css.scss */
+/* line 592, ../../../app/assets/stylesheets/application.css.scss */
 .opt {
   position: absolute;
   display: none;
@@ -698,7 +703,7 @@ label.day {
   border-radius: 4px;
   z-index: 2;
 }
-/* line 597, ../../../app/assets/stylesheets/application.css.scss */
+/* line 600, ../../../app/assets/stylesheets/application.css.scss */
 .opt ul {
   cursor: pointer;
   list-style: none;
@@ -706,7 +711,7 @@ label.day {
   margin-bottom: 5px;
 }
 
-/* line 605, ../../../app/assets/stylesheets/application.css.scss */
+/* line 608, ../../../app/assets/stylesheets/application.css.scss */
 .money .dollars {
   background-color: #eee;
   padding: 4px;
@@ -714,17 +719,17 @@ label.day {
   text-align: right;
   border-radius: 6px 0px 0px 6px;
 }
-/* line 612, ../../../app/assets/stylesheets/application.css.scss */
+/* line 615, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3, .money .col-xs-10 {
   padding-left: 0px !important;
 }
-/* line 614, ../../../app/assets/stylesheets/application.css.scss */
+/* line 617, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3 input[type="text"], .money .col-xs-10 input[type="text"] {
   border-radius: 0px 6px 6px 0px !important;
   margin-left: 0px !important;
 }
 
-/* line 620, ../../../app/assets/stylesheets/application.css.scss */
+/* line 623, ../../../app/assets/stylesheets/application.css.scss */
 #cover {
   position: fixed;
   top: 0;
@@ -736,7 +741,7 @@ label.day {
   display: none;
 }
 
-/* line 630, ../../../app/assets/stylesheets/application.css.scss */
+/* line 633, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen {
   height: 80px;
   width: 340px;
@@ -750,13 +755,13 @@ label.day {
   border-radius: 10px;
 }
 
-/* line 642, ../../../app/assets/stylesheets/application.css.scss */
+/* line 645, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen:target, #successScreen:target + #cover {
   display: block;
   opacity: 2;
 }
 
-/* line 645, ../../../app/assets/stylesheets/application.css.scss */
+/* line 648, ../../../app/assets/stylesheets/application.css.scss */
 .suc-text {
   display: block;
   position: absolute;
@@ -766,15 +771,15 @@ label.day {
   color: green;
 }
 
-/* line 654, ../../../app/assets/stylesheets/application.css.scss */
+/* line 657, ../../../app/assets/stylesheets/application.css.scss */
 #home p {
   font-size: 15px;
 }
-/* line 656, ../../../app/assets/stylesheets/application.css.scss */
+/* line 659, ../../../app/assets/stylesheets/application.css.scss */
 #home p a {
   color: #eee;
 }
-/* line 658, ../../../app/assets/stylesheets/application.css.scss */
+/* line 661, ../../../app/assets/stylesheets/application.css.scss */
 #home p a:hover {
   text-decoration: none;
 }
