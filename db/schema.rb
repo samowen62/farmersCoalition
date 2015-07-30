@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150711204855) do
+ActiveRecord::Schema.define(version: 20150728143942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,6 +194,50 @@ ActiveRecord::Schema.define(version: 20150711204855) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "misc_researches", force: true do |t|
+    t.string  "farm_name"
+    t.string  "owner_last"
+    t.integer "week1"
+    t.integer "week2"
+    t.integer "week3"
+    t.integer "week4"
+    t.integer "week5"
+    t.integer "week6"
+    t.integer "week7"
+    t.integer "week8"
+    t.integer "week9"
+    t.integer "week10"
+    t.integer "week11"
+    t.integer "week12"
+    t.integer "week13"
+    t.integer "week14"
+    t.integer "week15"
+    t.integer "week16"
+    t.integer "week17"
+    t.integer "week18"
+    t.integer "week19"
+    t.integer "week20"
+    t.integer "week21"
+    t.integer "week22"
+    t.integer "week23"
+    t.integer "week24"
+    t.integer "week25"
+    t.integer "week26"
+    t.integer "week27"
+    t.integer "week28"
+    t.integer "week29"
+    t.integer "week30"
+    t.integer "week31"
+    t.integer "week32"
+    t.integer "week33"
+    t.integer "week34"
+    t.integer "week35"
+    t.integer "week36"
+    t.integer "profile_id"
+  end
+
+  add_index "misc_researches", ["profile_id"], name: "index_misc_researches_on_profile_id", using: :btree
 
   create_table "profiles", force: true do |t|
     t.string   "name"

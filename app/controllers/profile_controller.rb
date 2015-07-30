@@ -197,6 +197,36 @@ class ProfileController < ApplicationController
     render plain: "error"
   end
 
+  def post_misc_research
+    if user_is_logged_in?
+
+      #  params[:_json].each do |d|
+      #    d.delete("$$hashKey")
+      #    render plain: d.inspect
+      #    return
+      #  end
+
+      unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
+        params[:_json].each do |d|
+          unless d.has_key?("id")
+            #mr = MiscResearch.new(misc_research_params)
+            mr = MiscResearch.new()
+            d.delete("$$hashKey")
+            d.each { |key, value| mr[key] = value }
+            mr[:profile_id] = profile.id
+            mr.save!
+          else
+            mr = MiscResearch.where(profile_id: profile.id).where(id: d[:id]).first
+            d.delete("$$hashKey")
+            d.each { |key, value| mr[key] = value }
+            mr.save!
+          end
+        end
+      end
+    end
+    render plain: "error"
+  end
+
   def update_visitor_app
     if user_is_logged_in?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
@@ -363,4 +393,8 @@ class ProfileController < ApplicationController
       params.permit(:profile_id, :transaction_sales, :debit_sales, :credit_sales)
     end
   
+  private
+    def misc_research_params
+      params.permit(:farm_name, :owner_last, :week1, :week2, :week3, :week4, :week5, :week6, :week7, :week8, :week9, :week10, :week11, :week12, :week13, :week14, :week15, :week16, :week17, :week18, :week19, :week20, :week21, :week22, :week23, :week24, :week25, :week26, :week27, :week28, :week29, :week30, :week31, :week32, :week33, :week34, :week35, :week36)
+    end
 end

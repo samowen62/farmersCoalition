@@ -1,0 +1,130 @@
+<%= render "shared/menu" %>
+
+<div id="survey" class="col-md-12" ng-app ng-controller="surveyCtrl">
+  <div id="summary" class="main money">
+	<%= render "shared/nav" %>
+
+  	<h1>Metric 5 Miscellaneous Research</h1>
+  	<div class="row">
+		<div class="col-md-offset-1 col-md-3">
+			<labels style="  margin-top: 12px;">Weeks</label>
+			<a class="plus" href="javascript:void(0)" ng-click="addCol()">+</a>
+			<a class="minus" href="javascript:void(0)" ng-click="removeCol()">-</a>
+		</div>
+		<div class="col-md-offset-1 col-md-3">
+			<label style="  margin-top: 12px;">Vendors</label>
+			<a class="plus" href="javascript:void(0)" ng-click="addRow()">+</a>
+			<a class="minus" href="javascript:void(0)" ng-click="removeRow()">-</a>
+		</div>
+		<div class="col-md-3">
+			<a class="btn btn-success" href="javascript:void(0)" ng-click="submit()">Save</a>
+		</div>
+  	</div>
+	<div class="col-md-12">
+		<table>
+			<tbody style="  overflow-x: auto;width: 720px;height:580px;display: block;">
+				<tr>
+					<td><label>Business/Farm Name</label></td>
+					<td><label>Owner Last Name</label></td>
+					<td ng-repeat="col in cLen track by $index" >{{($index + 1)}}</td>
+				</tr>
+				<tr ng-repeat="r in research">
+					<td><input ng-model="r.farm_name" /></td>
+					<td><input style="  width: 130px;" ng-model="r.owner_last"  /></td>
+					<td ng-repeat="c in cLen track by $index"><input class="int-input" ng-model="r['week'+($index + 1)]"/></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+  </div>
+</div>
+<div id="successScreen"> 
+	<a href="#" class="suc-text">Success!</a>
+</div> 
+<div id="cover" ></div>
+
+<script type="text/javascript">
+
+function surveyCtrl($scope){
+	
+	$scope.metrics = <%= raw(@metrics.to_json) %>;
+	$scope.research = <%= raw(@research.to_json) %>;
+
+	if($scope.research == [])
+		$scope.research [{}];
+
+	$scope.columns = 0;
+	$.each($scope.research, function(k,v){
+		for(var i = 1; i < 37; i++){
+			//if(i < 3)
+			//console.log(v['week'+i] && v['week'+i] != null, i, $scope.columns);
+			if(v['week'+i] && v['week'+i] != null && i > $scope.columns){
+				console.log(i);
+				$scope.columns = i;
+			}
+			else if(!(v['week'+i]))
+				break;
+		}
+	});
+	$scope.cLen = range(1,$scope.columns);
+
+	$scope.addCol = function(){
+		if($scope.columns < 36)
+			$scope.columns++;
+		$scope.cLen = range(1,$scope.columns);
+	}
+
+	$scope.removeCol = function(){
+		if($scope.columns > 0)
+			$scope.columns--;
+		$scope.cLen = range(1,$scope.columns);
+	}
+
+	$scope.addRow = function(){
+		if($scope.research.length < 150)
+			$scope.research.push({});
+	}
+
+	$scope.removeRow = function(){
+		if($scope.research.length > 0)
+			$scope.research.pop();
+	}
+
+	function range(min, max, step){
+		if(max < min) return [];
+	    step = step || 1;
+	    var input = [];
+	    for (var i = min; i <= max; i += step) input.push(i);
+	    return input;
+	  };
+
+	$scope.submit = function(){
+		console.log($scope.research);
+		$.ajax({
+			type: "POST",
+			url: "/post_misc_research",
+			data: JSON.stringify($scope.research),
+			contentType: "application/json",
+			success: function(data){
+				console.log(data);
+				location.href = '#successScreen';
+				setTimeout(ret, 1000);
+			},
+			error: function(data){
+				alert("Error Submitting Data");
+				location.href = '#successScreen';
+				setTimeout(ret, 1000);
+			}
+		});
+	}
+
+	$scope.reset = function(){
+		$scope.survey = {};
+	}
+
+	function ret(){
+		location.href = "#";
+	}
+}
+
+</script>

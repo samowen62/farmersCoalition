@@ -41,7 +41,37 @@ label{
 	padding: 5px 20px;
 	color: white !important;;
 }
-
+.int-input{
+	width:40px;
+}
+.plus{
+	font-size: 32px;
+  	padding: 0px 10px;
+  	color: green;
+  	text-shadow: 0 0 9px whitesmoke;
+  	&:hover{
+  		color: green;
+  		text-decoration:none;
+  	}
+  	&:active{
+  		color: green;
+  		text-decoration:none;
+  	}
+}
+.minus{
+	font-size: 32px;
+  	padding: 0px 10px;
+  	color: red;
+  	text-shadow: 0 0 9px whitesmoke;
+  	&:hover{
+  		color: red;
+  		text-decoration:none;
+  	}
+  	&:active{
+  		color: red;
+  		text-decoration:none;
+  	}
+}
 #menu{
 	border-top: 4px solid $background-main;
 	min-height:160px;

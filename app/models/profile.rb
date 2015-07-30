@@ -11,4 +11,5 @@ class Profile < ActiveRecord::Base
   has_many :entry_points
   has_many :food_assistance
   has_many :credit_sales
+  has_many :misc_research
 end
