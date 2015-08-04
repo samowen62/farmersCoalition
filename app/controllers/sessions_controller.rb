@@ -38,7 +38,7 @@ class SessionsController < ApplicationController
 
 	def pass_reset
 		@user = User.find(session[:user_id])
-   		UserMailer.password_email(@user).deliver_now
+   		UserMailer.password_email(@user)
    		render plain: "death"
    		return
 	end
