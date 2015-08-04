@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "signup", :to => "users#new"
   get "login", :to => "sessions#login"
   get "logout", :to => "sessions#logout"
+  get "pass_reset", :to => "sessions#pass_reset"
   get "display", :to => "users#display"
   get "show", :to => "users#show"
   get "home", :to => "users#home"
