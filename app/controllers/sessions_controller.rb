@@ -36,6 +36,12 @@ class SessionsController < ApplicationController
 		end
 	end
 
+	def pass_reset
+   		UserMailer.welcome_email(@user).deliver_now
+   		render plain: "death"
+   		return
+	end
+
 	def logout
 		session[:user_id] = nil
 		redirect_to :action => 'login'
