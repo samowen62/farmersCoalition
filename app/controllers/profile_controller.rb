@@ -14,14 +14,16 @@ class ProfileController < ApplicationController
         profile.update_attributes!(profile_params)
         profile.save!
         
-        redirect_to "/display"
+        render plain: "done"
         return
       end
       
-      redirect_to user_path(@user)
-
+      render plain: "done"
+      return
     else 
-   		redirect_to root_path
+      render plain: "done"
+      return
+   		#redirect_to root_path
     end
 
   end

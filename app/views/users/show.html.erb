@@ -25,7 +25,6 @@
 			</li>
 		</ul>
 	</div>
-	<%= form_for :profile, url: "/post_info" do |f| %>
 	<div ng-show="tab == 1" class="col-md-12">
 		<div class="row">
 			<h1>Profile Summary</h1>
@@ -34,46 +33,46 @@
 		<div class="row">
 			<div class="col-md-9">
 				<label>Name of Market</label>
-				<%= f.text_field :name %>
+				<input ng-model="profile.name" class="form-control" />
 			</div>
 			<div class="col-md-3">
 				<label>County</label>
-				<%= f.text_field :county %>
+				<input ng-model="profile.county" class="form-control" />
 			</div>
 		</div>
 		<div class="clearfix"></div>
 		<div class="row">
 			<div class="col-md-6">
 				<label>Address</label>
-				<%= f.text_field :address %>
+				<input ng-model="profile.address" class="form-control" />
 			</div>
 			<div class="col-md-3">
 				<label>City</label>
-				<%= f.text_field :city %>
+				<input ng-model="profile.city" class="form-control" />
 			</div>
 			<div class="col-md-1">
 				<label>State</label>
-				<%= f.text_field :state %>
+				<input ng-model="profile.state" class="form-control" />
 			</div>
 			<div class="col-md-2">
 				<label>Zip</label>
-				<%= f.text_field :zip %>
+				<input ng-model="profile.zip" class="form-control" />
 			</div>
 		</div>
 		<div class="clearfix"></div>
 		<div class="row">
 			<div class="col-md-2">
 				<label class="col-md-6">Year</label>
-				<%= f.text_field :year, "class" => "col-md-6" %>
+				<input ng-model="profile.year" class="col-md-6 form-control" />
 			</div>
 			<div class="col-md-4" style="margin-top:20px">
-				<label>Multiple Locations</label><%= f.check_box :multiple_locs, "ng-model" => "profile.multiple_locs" %>
+				<label>Multiple Locations</label><input type="checkbox" ng-model="profile.multiple_locs" />
 			</div>
 			<div class="col-md-3" style="margin-top:20px">
-				<label>Year Round</label><%= f.check_box :year_round %>
+				<label>Year Round</label><input type="checkbox" ng-model="profile.year_round" />
 			</div>
 			<div class="col-md-3" style="margin-top:20px">
-				<label>FMC Member</label><%= f.check_box :FMC_member, "ng-model" => "profile.FMC_member" %>
+				<label>FMC Member</label><input type="checkbox" ng-model="profile.FMC_member" />
 			</div>
 		</div>
 		<div class="clearfix"></div>
@@ -85,30 +84,30 @@
 						<div class="col-md-4">
 							<h5>Primary Seasonal Market</h5>
 							<label>Opening Date</label>
-							<input type="text" ng-model="market1.start" class="tcal" >
+							<input type="text" ng-model="market1.start" class="tcal form-control" >
 
 							<label>Closing Date</label>
-							<input type="text" ng-model="market1.end" class="tcal">
+							<input type="text" ng-model="market1.end" class="tcal form-control" >
 
 							<a ng-click="addMarket('market1','m',1)" href="javascript:void" class="btn btn-default">Add Market</a>
 						</div>
 						<div class="col-md-4">
 							<h5>Seperate Seasonal Market #1</h5>
 							<label>Opening Date</label>
-							<input type="text" ng-model="market11.start" class="tcal">
+							<input type="text" ng-model="market11.start" class="tcal form-control"  >
 
 							<label>Closing Date</label>
-							<input type="text" ng-model="market11.end" class="tcal">
+							<input type="text" ng-model="market11.end" class="tcal form-control" >
 
 							<a ng-click="addMarket('market11','s',1)" href="javascript:void" class="btn btn-default">Add Market</a>
 						</div>
 						<div class="col-md-4">
 							<h5>Seperate Seasonal Market #2</h5>
 							<label>Opening Date</label>
-							<input type="text" ng-model="market12.start" class="tcal">
+							<input type="text" ng-model="market12.start" class="tcal form-control" >
 
 							<label>Closing Date</label>
-							<input type="text" ng-model="market12.end" class="tcal">
+							<input type="text" ng-model="market12.end" class="tcal form-control" >
 
 							<a ng-click="addMarket('market12','s',1)" href="javascript:void" class="btn btn-default">Add Market</a>
 						</div>
@@ -123,30 +122,30 @@
 							<div class="col-md-4">
 								<h5>Primary Seasonal Market</h5>
 								<label>Opening Date</label>
-								<input type="text" ng-model="market2.start" class="tcal">
+								<input type="text" ng-model="market2.start" class="tcal form-control" >
 
 								<label>Closing Date</label>
-								<input type="text" ng-model="market2.end" class="tcal">
+								<input type="text" ng-model="market2.end" class="tcal form-control" >
 
 								<a ng-click="addMarket('market2','m',2)" href="javascript:void" class="btn btn-default">Add Market</a>
 							</div>
 							<div class="col-md-4">
 								<h5>Seperate Seasonal Market #1</h5>
 								<label>Opening Date</label>
-								<input type="text" ng-model="market21.start" class="tcal">
+								<input type="text" ng-model="market21.start" class="tcal form-control" >
 
 								<label>Closing Date</label>
-								<input type="text" ng-model="market21.end" class="tcal">
+								<input type="text" ng-model="market21.end" class="tcal form-control" >
 
 								<a ng-click="addMarket('market21','s',2)" href="javascript:void" class="btn btn-default">Add Market</a>
 							</div>
 							<div class="col-md-4">
 								<h5>Seperate Seasonal Market #2</h5>
 								<label>Opening Date</label>
-								<input type="text" ng-model="market22.start" class="tcal">
+								<input type="text" ng-model="market22.start" class="tcal form-control" >
 
 								<label>Closing Date</label>
-								<input type="text" ng-model="market22.end" class="tcal">
+								<input type="text" ng-model="market22.end" class="tcal form-control" >
 
 								<a ng-click="addMarket('market22','s',2)" href="javascript:void" class="btn btn-default">Add Market</a>
 							</div>
@@ -162,30 +161,30 @@
 							<div class="col-md-4">
 								<h5>Primary Seasonal Market</h5>
 								<label>Opening Date</label>
-								<input type="text" ng-model="market3.start" class="tcal">
+								<input type="text" ng-model="market3.start" class="tcal form-control" >
 
 								<label>Closing Date</label>
-								<input type="text" ng-model="market3.end" class="tcal">
+								<input type="text" ng-model="market3.end" class="tcal form-control" >
 
 								<a ng-click="addMarket('market3','m',3)" href="javascript:void" class="btn btn-default">Add Market</a>
 							</div>
 							<div class="col-md-4">
 								<h5>Seperate Seasonal Market #1</h5>
 								<label>Opening Date</label>
-								<input type="text" ng-model="market31.start" class="tcal">
+								<input type="text" ng-model="market31.start" class="tcal form-control" >
 
 								<label>Closing Date</label>
-								<input type="text" ng-model="market31.end" class="tcal">
+								<input type="text" ng-model="market31.end" class="tcal form-control" >
 
 								<a ng-click="addMarket('market31','s',3)" href="javascript:void" class="btn btn-default">Add Market</a>
 							</div>
 							<div class="col-md-4">
 								<h5>Seperate Seasonal Market #2</h5>
 								<label>Opening Date</label>
-								<input type="text" ng-model="market32.start" class="tcal">
+								<input type="text" ng-model="market32.start" class="tcal form-control" >
 
 								<label>Closing Date</label>
-								<input type="text" ng-model="market32.end" class="tcal">
+								<input type="text" ng-model="market32.end" class="tcal form-control" >
 
 								<a ng-click="addMarket('market32','s',3)" href="javascript:void" class="btn btn-default">Add Market</a>
 							</div>
@@ -198,14 +197,23 @@
 		<div class="row">
 			<div class="col-md-6">
 				<label>Host organization name (if different from market name)</label>
-				<%= f.text_field :host_name %>
+				<input ng-model="profile.host_name" class="form-control"  />
 			</div>
 			<div class="col-md-6">
 				<label>How is the market incorporated?</label>
-				<%= select_tag "profile[incorporated]", options_for_select(["LLC","501(c)(3)", "501(c)(5)","501(c)(6)","Sole proprietorship","Cooperative","Don’t know","Other"]), "ng-model" => "profile.incorporated" %>
+				<select ng-model="profile.incorporated">
+				 <option value="LLC">LLC</option>
+				 <option value="501(c)(3)">501(c)(3)</option>
+				 <option value="501(c)(5)">501(c)(5)</option>
+				 <option value="501(c)(6)">501(c)(6)</option>
+				 <option value="Sole proprietorship">Sole proprietorship</option>
+				 <option value="Cooperative">Cooperative</option>
+				 <option value="Don’t know">Don’t know</option>
+				 <option value="Other">Other</option>
+				 </select>
 				<div ng-show ="profile.incorporated == 'Other'">
 					<label>Please Explain...</label>
-					<%= f.text_field :incorporated_other %>
+					<input ng-model="profile.incorporated_other" class="form-control" />
 				</div>
 			</div>
 		</div>
@@ -213,7 +221,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<label>Please list any other local, regional, state, or national associations of which your organization is a dues-paying member:</label>
-				<%= f.text_field :other_associations %>
+				<input ng-model="profile.other_associations" class="form-control" />
 			</div>		
 		</div>
 		<div class="clearfix"></div>
@@ -223,7 +231,7 @@
 					<label>Does your market have a mission statement?</label>
 				</div>
 				<div class="col-md-2">
-					<%= f.check_box :mission_statement, "ng-model" => "profile.mission_statement", "ng-click" => "locSlide('#mission_statement')" %>
+					<input type="checkbox" ng-model="profile.mission_statement" ng-click="locSlide('#mission_statement')" />
 				</div>
 				<div class="col-md-12">
 					<div id="mission_statement">
@@ -233,27 +241,27 @@
 									Where is the mission statement located? Select all that apply.
 								</div>
 								<div class="full">
-									<label>Website</label><%= f.check_box :ms_website %>
+									<label>Website</label><input type="checkbox" ng-model="profile.ms_website" />
 								</div>
 								<div class="full">
-									<label>Manual</label><%= f.check_box :ms_manual %>
+									<label>Manual</label><input type="checkbox" ng-model="profile.ms_manual" />
 								</div>
 								<div class="full">
-									<label>Market promotional materials</label><%= f.check_box :ms_market_promos %>
+									<label>Market promotional materials</label><input type="checkbox" ng-model="profile.ms_market_promos" />
 								</div>
 								<div class="full">
-									<label>None of the above</label><%= f.check_box :ms_none %>
+									<label>None of the above</label><input type="checkbox" ng-model="profile.ms_none" />
 								</div>
 								<div class="full">
-									<label>Other (please explain):</label><%= f.check_box :ms_other, "ng-model" => "profile.ms_other" %>
+									<label>Other (please explain):</label><input type="checkbox" ng-model="profile.ms_other" />
 								</div>
 								<div class="full">
-									<%= f.text_field :ms_other_text, "ng-show" => "profile.ms_other" %>
+									<input ng-model="profile.ms_other_text" ng-show="profile.ms_other" class="form-control" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<label>When was the mission statement written or last updated?</label>
-								<%= f.text_field :when_ms, "placeholder" => "yyyy-mm-dd" %>
+								<input ng-model="profile.when_ms" placeholder="yyyy-mm-dd" class="form-control" />
 							</div>
 						</div>
 					</div>
@@ -264,11 +272,12 @@
 		<div class="row">
 			<div class="col-md-12">
 				<label>Who makes decisions on market day about changes or exceptions to market policy?</label>
-				<%= f.text_field :person_decisions %>
+				<input ng-model="profile.person_decisions" class="form-control" />
 			</div>
 			<div class="col-md-12">
 				<label>List the entity or person(s) that responds to project partners, funders, or municipal requests for information about the market</label>
-				<%= f.text_area :list_of_persons %>
+				<textarea ng-model="profile.list_of_persons"  class="form-control" >
+				</textarea>
 			</div>
 		</div>
 		<div class="clearfix"></div>
@@ -288,19 +297,19 @@
 				<h4>Total average hours worked by...</h4>
 				<div class="col-md-12">
 					<label>Unpaid/volunteer staff on market day:</label>
-					<input type="text" ng-model="management.ave_unpaid_market"/>
+					<input type="text" ng-model="management.ave_unpaid_market" class="form-control" />
 				</div>
 				<div class="col-md-12">
 					<label>Unpaid/volunteer staff on NON market days:</label>
-					<input type="text" ng-model="management.ave_unpaid_non_market"/>
+					<input type="text" ng-model="management.ave_unpaid_non_market" class="form-control" />
 				</div>
 				<div class="col-md-12">
 					<label>Paid staff on market day:</label>
-					<input type="text" ng-model="management.ave_paid_market"/>
+					<input type="text" ng-model="management.ave_paid_market"/ class="form-control" >
 				</div>
 				<div class="col-md-12">
 					<label>Paid staff on NON market days:</label>
-					<input type="text" ng-model="management.ave_paid_non_market"/>
+					<input type="text" ng-model="management.ave_paid_non_market" class="form-control" />
 				</div>
 			</div>
 			<div class="col-md-8">
@@ -749,11 +758,10 @@
 				<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(3)" style="margin-top: 20px; width: 100%;">Previous</a>
 			</div>
 			<div class="col-md-4">
-				<a href="javascript:void" class="btn btn-default button" ng-click="addCommunity()" style="margin-top: 20px; width: 100%;">Update Profile</a>
+				<a href="javascript:void" class="btn btn-default button" ng-click="addProfile()" style="margin-top: 20px; width: 100%;">Update Profile</a>
 			</div>
 		</div>
 	</div>
-	<% end %>
   </div>
 
 </div>
@@ -770,6 +778,8 @@ function profileCtrl($scope){
 	$scope.positions = <%= raw(@positions.to_json) %>;
 	$scope.accessibility = <%= raw(@accessibility.to_json) %>;
 	$scope.communities = <%= raw(@communities.to_json) %>;
+	if($scope.profile == null)
+		$scope.profile = {};
 
 	$scope.positions = $scope.positions != null ? $scope.positions : [false, false, false, false, false, false, false, false, false, false, false, false];
 
@@ -853,12 +863,11 @@ function profileCtrl($scope){
 	  	}
 	};
 
-	if($scope.profile.mission_statement)
+	if($scope.profile && $scope.profile.mission_statement)
 		$scope.locSlide('#mission_statement');
 
 	$scope.addMarket = function(m,type,market_num){
 		market = {};
-		market.profile_id = <%= @profile.id %>
 		market.market_type = type == 'm' ? 'market' : 'seasonal';
 		market.market_num = market_num;
 		var charr = (parseInt(m[6]) - 1) * 6;
@@ -881,6 +890,21 @@ function profileCtrl($scope){
 		});
 	};
 
+	$scope.addProfile = function(){
+		$.ajax({
+			type: "POST",
+			url: "/post_info",		
+			data: JSON.stringify($scope.profile),
+			contentType: "application/json",
+			success: function(data){
+				$scope.addCommunity()
+			},
+			error: function(data){
+				alert("Failed Submitting Page 2");
+			}
+		});
+	};
+
 	$scope.addMan = function(){
 		$scope.management = $scope.management != null ? $scope.management : {};
 		$scope.management.pos = $scope.positions;
@@ -892,7 +916,7 @@ function profileCtrl($scope){
 			data: JSON.stringify($scope.management),
 			contentType: "application/json",
 			success: function(data){
-				$('form').submit();
+				window.location.href = "/display";
 			},
 			error: function(data){
 				alert("Failed Submitting Page 2");

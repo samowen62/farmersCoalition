@@ -2,11 +2,7 @@ class MarketsController < ApplicationController
 
 	def create
 
-	    profile = Profile.find(params[:profile_id])
-	    unless profile.user_id == session[:user_id]
-	    	render plain: "Nice try sucker"
-	    	return
-	    end
+	    profile = Profile.where(user_id: session[:user_id])
 
 	    old = Market.where(profile_id: profile.id, market_type: params[:market_type], market_num: params[:market_num]).first
 
