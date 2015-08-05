@@ -7,7 +7,7 @@ class UserMailer < ActionMailer::Base
   	user = User.where(email: email).first
   	unless user.nil?
   		hash = (0...8).map { (65 + rand(26)).chr }.join
-  		u = User.where(email: email)[0]
+  		u = User.where(email: email).first
   		u.reset_hash = hash
   		u.save
 
