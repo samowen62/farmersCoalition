@@ -36,12 +36,6 @@ class SessionsController < ApplicationController
 		end
 	end
 
-	def pass_reset
-		@user = User.find(session[:user_id])
-   		UserMailer.password_email(@user)
-   		render plain: "death"
-   		return
-	end
 
 	def logout
 		session[:user_id] = nil

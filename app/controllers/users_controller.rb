@@ -15,6 +15,20 @@ class UsersController < ApplicationController
     	end
 	end
 
+  def pass_page
+    
+  end 
+
+  def reset
+
+  end
+
+  def pass_reset
+      UserMailer.password_email(params[:email])
+      render plain: "death"
+      return
+  end
+
 	def metrics
     	if user_is_logged_in?
       		@user = User.find(session[:user_id])
