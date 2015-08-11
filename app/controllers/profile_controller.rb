@@ -229,6 +229,30 @@ class ProfileController < ApplicationController
     render plain: "error"
   end
 
+  def post_market_program
+    if user_is_logged_in?
+      unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
+
+        if params[:id] == -1
+          sale = MarketProgram.new(program_params)
+          sale[:profile_id] = profile.id
+          sale.save!
+
+          render plain: MarketProgram.where(profile_id: profile.id).to_json
+          return
+        else
+          sale = MarketProgram.where(profile_id: profile.id).where(id: params[:id]).first
+          sale.update_attributes!(program_params)
+          sale.save!
+
+          render plain: MarketProgram.where(profile_id: profile.id).to_json
+          return
+        end
+      end
+    end
+    render plain: "error"
+  end
+
   def update_visitor_app
     if user_is_logged_in?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
@@ -382,7 +406,7 @@ class ProfileController < ApplicationController
 
   private
     def app_params
-      params.permit(:farm_sales, :value_sales, :ready_sales, :other_sales, :level_of_sales, :primary_loc, :secondary_loc, :acres_owned, :acres_leased, :acres_cultivated, :level_of_acres, :workers_seasonal, :workers_yearly, :level_of_worker_anticipation, :owner1_years, :owner2_years, :owned_by_women, :primary_operators, :primary_operators_other, :certified_organic, :certified_natural, :certified_biodynamic, :certified_food_alliance, :certified_other, :certified_other_name, :certified_none, :num_certified, :under_35, :total_distance, :num_locations, :profile_id, :operators_white, :operators_mexican, :operators_black, :operators_indian, :operators_asian, :unique_crops, :operators_other,:miles_prim,  :miles_second, :source_prim, :dest_prim, :source_second, :dest_second, :hours_brassica, :hours_sprouts, :hours_lettuce, :hours_beans, :hours_carrots, :hours_tomatoes, :hours_corn, :hours_melons, :hours_berries)
+      params.permit(:vendor_name, :farm_sales, :value_sales, :ready_sales, :other_sales, :level_of_sales, :primary_loc, :secondary_loc, :acres_owned, :acres_leased, :acres_cultivated, :level_of_acres, :workers_seasonal, :workers_yearly, :level_of_worker_anticipation, :owner1_years, :owner2_years, :owned_by_women, :primary_operators, :primary_operators_other, :certified_organic, :certified_natural, :certified_biodynamic, :certified_food_alliance, :certified_other, :certified_other_name, :certified_none, :num_certified, :under_35, :total_distance, :num_locations, :profile_id, :operators_white, :operators_mexican, :operators_black, :operators_indian, :operators_asian, :unique_crops, :operators_other,:miles_prim,  :miles_second, :source_prim, :dest_prim, :source_second, :dest_second, :hours_brassica, :hours_sprouts, :hours_lettuce, :hours_beans, :hours_carrots, :hours_tomatoes, :hours_corn, :hours_melons, :hours_berries)
     end
 
   private
@@ -399,4 +423,9 @@ class ProfileController < ApplicationController
     def misc_research_params
       params.permit(:farm_name, :owner_last, :week1, :week2, :week3, :week4, :week5, :week6, :week7, :week8, :week9, :week10, :week11, :week12, :week13, :week14, :week15, :week16, :week17, :week18, :week19, :week20, :week21, :week22, :week23, :week24, :week25, :week26, :week27, :week28, :week29, :week30, :week31, :week32, :week33, :week34, :week35, :week36)
     end
+
+  private
+    def program_params
+      params.permit(:profile_id, :event_type, :event_date, :youth_specific, :participants, :under_18)
+    end  
 end

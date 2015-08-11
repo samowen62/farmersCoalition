@@ -12,4 +12,5 @@ class Profile < ActiveRecord::Base
   has_many :food_assistance
   has_many :credit_sales
   has_many :misc_research
+  has_many :market_program
 end

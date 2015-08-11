@@ -87,6 +87,13 @@ function displayCtrl($scope){
 	$scope.profile = <%= raw(@profile.to_json) %>;
 	$scope.metrics = <%= raw(@metrics.to_json) %>;
 	
+	if($scope.metrics == null)
+		$scope.metrics = [];
+	$scope.metrics[0] = true;
+	$scope.metrics[1] = true;
+	$scope.metrics[2] = true;
+	$scope.metrics[3] = true;
+
 	var trueArr = [];
 	var falseArr = [];
 	for(var i = 0; i < 37; i++){

@@ -94,6 +94,18 @@ class UsersController < ApplicationController
           redirect_to root_path
       end
     end
+
+    def programs
+      if user_is_logged_in?
+          @user = User.find(session[:user_id])
+          @profile = Profile.where(user_id: session[:user_id]).first
+          @metrics = metric_calc(@profile)
+          @program = MarketProgram.where(profile_id: @profile.id).order(:id)
+      else 
+          redirect_to root_path
+      end
+    end
+
 =begin
   	def instruments
     	if user_is_logged_in?

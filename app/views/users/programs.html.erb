@@ -1,0 +1,134 @@
+<%= render "shared/menu" %>
+
+<div id="survey" class="col-md-12" ng-app ng-controller="surveyCtrl">
+  <div id="summary" class="main money">
+	<%= render "shared/nav" %>
+
+  	<h1>Market Program</h1>
+	<div class="col-md-12">
+		<table id="market-program">
+			<thead>
+				<tr>
+					<th class="fixed"><label>Event Type</label></th>
+					<th class="fixed"><label>Date of Event</label></th>
+					<th class="fixed"><label>Youth Specific</label></th>
+					<th class="fixed"><label>Total Participants (#)</label></th>
+					<th class="fixed"><label>Number of Particpants under 18</label></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="f in programs">
+					<td class="fixed">
+						<select style="width: 100px;" ng-model="f.event_type" >
+							<option value="Demonstrations">Demonstrations</option>
+							<option value="Contests">Contests</option>
+							<option value="Skills workshops">Skills workshops</option>
+							<option value="Field Tips to the Market">Field Tips to the Market</option>
+							<option value="Other Activities">Other Activities</option>
+						</selct>
+					</td>
+					<td class="fixed"><input ng-model="f.event_date" class="tcal" /></td>
+					<td class="fixed" style="  min-width: 100px;">
+						<label>Y</label><input ng-model="f.youth_specific" value="true" type="radio" name="{{youth + '' + $index}}"/>
+						<label>N</label><input ng-model="f.youth_specific" value="false" type="radio" name="{{youth + '' + $index}}"/>
+					</td>
+					<td class="fixed"><input ng-model="f.participants" /></td>
+					<td class="fixed"><input ng-model="f.under_18" /></td>
+					<td><a ng-click="editRow(f, $index)" class="btn btn-default" href="javascript:void(0)">Edit</a></td>
+				</tr>
+				<tr ng-show="!adding">
+					<td colspan="7" ng-style="{'padding' : adding ? '0px' : '3px'}"><a href="javascript:void(0)" id="add-span" ng-click="toggleAdd()" >+</a></td>
+				</tr>
+				<tr ng-show="adding">
+					<td class="fixed">
+						<select style="width: 100px;" ng-model="newProgram.event_type">
+							<option value="Demonstrations">Demonstrations</option>
+							<option value="Contests">Contests</option>
+							<option value="Skills workshops">Skills workshops</option>
+							<option value="Field Tips to the Market">Field Tips to the Market</option>
+							<option value="Other Activities">Other Activities</option>
+						</select>
+					</td>
+					<td class="fixed"><input ng-model="newProgram.event_date" class="tcal" /></td>
+					<td class="fixed" style="  min-width: 100px;">
+						<label>Y</label><input ng-model="newProgram.youth_specific" value="true" type="radio" name="youthNew"/>
+						<label>N</label><input ng-model="newProgram.youth_specific" value="false" type="radio" name="youthNew"/>
+					</td>
+					<td class="fixed"><input ng-model="newProgram.participants" /></td>
+					<td class="fixed"><input ng-model="newProgram.under_18" /></td>
+					<td><a ng-click="addRow()" class="btn btn-success" href="javascript:void(0)">Submit</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+  </div>
+</div>
+<div id="successScreen"> 
+	<a href="#" class="suc-text">Success!</a>
+</div> 
+<div id="cover" ></div>
+
+<script type="text/javascript">
+
+function surveyCtrl($scope){
+	
+	$scope.metrics = <%= raw(@metrics.to_json) %>;
+	$scope.programs = <%= raw(@program.to_json) %>;
+	$scope.newProgram = {id: -1};
+	$scope.adding = false;
+
+	$scope.toggleAdd = function(){
+		$scope.adding = !$scope.adding;
+	}
+
+	$.each($scope.programs, function(k,v){
+		$scope.programs[k].youth_specific = v.youth_specific ? 'true' : 'false';
+	});
+
+	$scope.editRow = function(row, ind){
+		row.event_date = $('.tcal')[ind].value;
+
+		$.ajax({
+			type: "POST",
+			url: "/post_market_program",
+			data: JSON.stringify(row),
+			contentType: "application/json",
+			success: function(data){
+				console.log(data);
+				location.href = '#successScreen';
+				setTimeout(ret, 1000);
+				$scope.newProgram = {id: -1};
+			},
+			error: function(data){
+				alert("Error Submitting Data");
+			}
+		});
+	}
+
+	$scope.addRow = function(){
+		$scope.newProgram.event_date = $('.tcal')[$scope.programs.length].value;
+
+		$.ajax({
+			type: "POST",
+			url: "/post_market_program",
+			data: JSON.stringify($scope.newProgram),
+			contentType: "application/json",
+			success: function(data){
+				console.log(data);
+				location.href = '#successScreen';
+				setTimeout(ret, 1000);
+				$scope.newProgram = {id: -1};
+			},
+			error: function(data){
+				alert("Error Submitting Data");
+			}
+		});
+	}
+
+	function ret(){
+		window.location.reload();
+	}
+}
+
+</script>

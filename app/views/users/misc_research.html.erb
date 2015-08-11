@@ -2,10 +2,11 @@
 
 <div id="survey" class="col-md-12" ng-app ng-controller="surveyCtrl">
   <div id="summary" class="main money">
+
 	<%= render "shared/nav" %>
 
-  	<h1>Metric 5 Miscellaneous Research</h1>
-  	<div class="row">
+  	<h1>Vendor Attendance (Metric 5)</h1>
+  	<!--div class="row">
 		<div class="col-md-offset-1 col-md-3">
 			<labels style="  margin-top: 12px;">Weeks</label>
 			<a class="plus" href="javascript:void(0)" ng-click="addCol()">+</a>
@@ -19,6 +20,32 @@
 		<div class="col-md-3">
 			<a class="btn btn-success" href="javascript:void(0)" ng-click="submit()">Save</a>
 		</div>
+  	</div-->
+  	<div class="row">
+  		<div class="col-md-7">
+			<span class="step">Step 1</span> Add your vendor information 
+		</div>
+		<div class="col-md-5">
+			<a class="plus" href="javascript:void(0)" ng-click="addRow()">+</a>
+			<a class="minus" href="javascript:void(0)" ng-click="removeRow()">-</a>
+		</div>
+  	</div>
+  	<div class="row">
+  		<div class="col-md-7">
+			<span class="step">Step 2</span> Add the number of days that your market is open
+		</div>
+		<div class="col-md-5">
+			<a class="plus" href="javascript:void(0)" ng-click="addCol()">+</a>
+			<a class="minus" href="javascript:void(0)" ng-click="removeCol()">-</a>
+		</div>
+  	</div>
+  	<div class="row">
+	  	<div class="col-md-7">
+	  		<span class="step">Step 3</span> Save the page after every data entry
+	  	</div> 
+	  	<div class="col-md-3">
+			<a class="btn btn-success" href="javascript:void(0)" ng-click="submit()">Save</a>
+		</div>
   	</div>
 	<div class="col-md-12">
 		<table>
@@ -26,12 +53,12 @@
 				<tr>
 					<td><label>Business/Farm Name</label></td>
 					<td><label>Owner Last Name</label></td>
-					<td ng-repeat="col in cLen track by $index" >{{($index + 1)}}</td>
+					<td ng-repeat="col in cLen track by $index" style="padding: 0px 10px;" >{{($index + 1)}}</td>
 				</tr>
 				<tr ng-repeat="r in research">
 					<td><input ng-model="r.farm_name" /></td>
 					<td><input style="  width: 130px;" ng-model="r.owner_last"  /></td>
-					<td ng-repeat="c in cLen track by $index"><input class="int-input" ng-model="r['week'+($index + 1)]"/></td>
+					<td ng-repeat="c in cLen track by $index"><input class="int-input" ng-model="r['week'+($index + 1)]" type="checkbox" /></td>
 				</tr>
 			</tbody>
 		</table>
@@ -56,10 +83,10 @@ function surveyCtrl($scope){
 	$scope.columns = 0;
 	$.each($scope.research, function(k,v){
 		for(var i = 1; i < 37; i++){
-			//if(i < 3)
-			//console.log(v['week'+i] && v['week'+i] != null, i, $scope.columns);
-			if(v['week'+i] && v['week'+i] != null && i > $scope.columns){
-				console.log(i);
+			if(v['week'+i] && v['week'+i] != null)
+				$scope.research[k]['week'+i] = true;
+
+			if(v['week'+i] && v['week'+i] != null && i > $scope.columns){	
 				$scope.columns = i;
 			}
 			else if(!(v['week'+i]))

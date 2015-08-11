@@ -59,7 +59,7 @@
 						<div  class="col-xs-3"><input type="text" ng-model="survey.other_sales" placeholder="0.00" /></div>
 					</div>
 					<div class="row">
-						<label>Do you anticipate less, the same, or higher total gross sales at this market in {{year  + 1}}?:</label>
+						<label>Do you anticipate less, the same, or higher total gross sales at this market in {{year  + 1}}? (Please select one):</label>
 						<div class="col-md-12 radioGroup">
 							<label class="radio" ng-click="setRad('level_of_sales','less')" ng-class="{active : survey.level_of_sales == 'less'}">Less</label>
 							<label class="radio" ng-click="setRad('level_of_sales','same')" ng-class="{active : survey.level_of_sales == 'same'}">Same</label>
@@ -68,7 +68,13 @@
 					</div>				
 				</div>
 				<div class="col-md-6" >
-					<label>Please provide up to two physical addresses for your business’ primary point(s) of production.  No P.O. Boxes, please.</label>
+					<div class="row">
+						<label>Vendor Name</label>
+						<input style="width:100%" ng-model="survey.vendor_name" />
+					</div>
+					<div class="row">
+						<label>Please provide up to two physical addresses for your business’ primary point(s) of production.  No P.O. Boxes, please.</label>
+					</div>
 					<div class="row">
 						<label>Primary production location:</label><div class="clearfix"></div>
 						<input style="width: 100%;" ng-model="survey.primary_loc" />
@@ -218,7 +224,7 @@
 					</div>
 				</div>
 				<div class="col-md-6" ng-if="metrics[24]">
-					<label>Please select from any certifications your business presently holds (please include certification number if applicable):</label>
+					<label>Please select from any certifications your business presently holds:</label>
 					<table>
 						<tr>
 							<td>Certified Organic</td>
@@ -317,7 +323,7 @@
 				<div class="col-md-12">
 					<div class="col-md-6">
 						<div class="row">
-							<label>Product Location</label>
+							<label>Primary Location</label>
 							<input ng-model="survey.source_prim" style="  float: right;"  />		
 						</div>
 						<div class="row">
@@ -334,7 +340,7 @@
 					</div>
 					<div class="col-md-6">
 						<div class="row">
-							<label>Product Location</label>
+							<label>Secondary Location</label>
 							<input ng-model="survey.source_second" style="  float: right;"  />		
 						</div>
 						<div class="row">

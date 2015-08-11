@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804224929) do
+ActiveRecord::Schema.define(version: 20150809181137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,17 @@ ActiveRecord::Schema.define(version: 20150804224929) do
   end
 
   add_index "managements", ["profile_id"], name: "index_managements_on_profile_id", using: :btree
+
+  create_table "market_programs", force: true do |t|
+    t.integer "profile_id"
+    t.string  "event_type"
+    t.date    "event_date"
+    t.boolean "youth_specific"
+    t.integer "participants"
+    t.integer "under_18"
+  end
+
+  add_index "market_programs", ["profile_id"], name: "index_market_programs_on_profile_id", using: :btree
 
   create_table "markets", force: true do |t|
     t.date     "start"
@@ -386,6 +397,7 @@ ActiveRecord::Schema.define(version: 20150804224929) do
     t.float   "hours_corn"
     t.float   "hours_melons"
     t.float   "hours_berries"
+    t.string  "vendor_name"
   end
 
   add_index "visitor_applications", ["profile_id"], name: "index_visitor_applications_on_profile_id", using: :btree
