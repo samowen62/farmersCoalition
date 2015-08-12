@@ -378,6 +378,79 @@ var csv1 = document.getElementById('visitor_surveys');
 csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_survey));
 csv1.setAttribute('download', 'VisitorSurveys.csv');
 
+var sales_slip_heading = {
+	Debt_sales: "Debit/credit Sales",
+	SNAP_sales: "SNAP/EBT Sales",
+	SNAP_transactions: "EBT transactions",
+	Senior_FMNP_sales: "Senior FMNP Sales",
+	WIC_FMNP_sales: "WIC FNMP Sales",
+	WIC_sales: "WIC CVV Sales",
+	farm_sales: "Farm Product Sales",
+	pounds_donated: "Donated Food (lbs)",
+	ready_sales: "Ready-to-eat Sales",
+	total_sales: "Total Sales",
+	value_sales: "Value-added Sales",
+	values_donated: "Donated Food ($)",
+	//don't forget vegetables, date, name and count
+
+};
+
+var sales_slips_csv = 'Profile, Date, Surveys completed, Total Sales,Farm Product Sales,Value-added sales,Ready-to-eat sales,Debit/credit sales,WIC FMNP sales,WIC CVV sales,Senior FMNP sales,SNAP/EBT sales,EBT transactions (#),Donated food (pounds),Donated food ($), Most common vegetables\n';
+
+for(var i = 0; i < sales_slips.length; i++){
+	var prof = sales_slips[i];
+	if(!prof.slips && prof.slips.length == 0)
+		continue;
+
+	sales_slips_csv += prof.name + '\n';
+	for(var j = 0; j < prof.slips.length; j++){
+		var day = prof.slips[j];
+		if(day.length == 0)
+			continue;
+
+		sales_slips_csv += ','+day[0].date+','+day.length;
+		for(var k = 0; k < day.length; k++){
+			var slip = day[k];
+			sales_slips_csv += ','+( k > 0 ? ',,': '')+slip.total_sales+','+slip.farm_sales+','+slip.value_sales+','+slip.ready_sales+','+slip.Debt_sales+','+slip.WIC_FMNP_sales+','+slip.WIC_sales+','+slip.Senior_FMNP_sales+','+slip.SNAP_sales+','+slip.SNAP_transactions+','+slip.pounds_donated+','+slip.values_donated+',"'+slip.veg1+ ','+slip.veg2+','+slip.veg3+'"\n'
+		}
+	}
+
+}
+
+var csv1 = document.getElementById('sales_slips');
+csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(sales_slips_csv));
+csv1.setAttribute('download', 'SalesSlips.csv');
+
+var visitor_count_csv = '';
+
+for(var i = 0; i < visitor_counts.length; i++){
+	var vci = visitor_counts[i];
+	if(vci.name == null)
+		continue;
+	visitor_count_csv += vci.name + ',\n';
+	for(var j = 0; j < vci.points.length; j ++){
+		var vcj = vci.points[j];
+		if(vcj == undefined)
+			break;
+		visitor_count_csv += '"",Day: '+vci['day'+j] + ',\n';
+		visitor_count_csv += '"","","",Entry Point 1,Entry Point 2,Entry Point 3,Entry Point 4,'+
+									'Entry Point 5,Entry Point 6,Entry Point 7,Entry Point 8,\n';
+		for(var k = 0; k < vcj.length; k++){
+			visitor_count_csv += '"","",'+(k == 0 ? 'Early Visitors' : ('Sample period: '+k))+ ',';
+			for(var l = 0; l < vcj[k].length; l++){
+				visitor_count_csv += vcj[k][l].count + ',';
+			}
+			visitor_count_csv += '\n';
+		}
+	}
+	visitor_count_csv += '\n';
+}
+
+var csv1 = document.getElementById('visitor_counts');
+csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_count_csv));
+csv1.setAttribute('download', 'VisitorCounts.csv');
+
+
 function displayCtrl($scope){
 
 	$scope.profile = <%= raw(@profile.to_json) %>;

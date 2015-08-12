@@ -174,15 +174,53 @@ class UsersController < ApplicationController
           p = Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).order("profiles.id ASC").order("visitor_surveys.date ASC")
           @visitor_surveys << p
 
-          p = Profile.select("profiles.name, sales_slips.*").joins(:sales_slip).order("profiles.id ASC").order("sales_slips.date ASC")
-          @sales_slips << p
+          sales_p = Profile.select('profiles.*').joins(:sales_slip).uniq
+          slips = []
 
-          points = Profile.select("profiles.name, entry_points.*").joins(:entry_points).order("profiles.id ASC").order("entry_points.int_day ASC").order("entry_points.period ASC")
-          @visitor_counts << points
+          for sp in sales_p do
+            dates = sp.sales_slip.select(:date).order(:date).uniq
+            prof = Hash.new
+            s = []
+            for d in dates
+              s.push(SalesSlip.select("*").where(profile_id: sp.id, date: d.date))
+            end
+            prof[:slips] = s
+            prof[:name] = sp.name
 
-        end
+            slips.push(prof)
+          end
 
-        if(@user.admin)
+          @sales_slips = slips
+
+          profiles = Profile.select("name", "id", "day1", "day2", "day3", "day4")
+
+          for prof in profiles do
+            points = prof.entry_points.order(ptNum: :asc)
+            profile = Hash.new
+
+            prof_points = []
+            day = []
+            for i in 0..3 do
+              for j in 0..8 do
+                day.push([])
+              end
+              prof_points.push(day)
+              day = []
+            end
+
+            for p in points do
+              prof_points[p.int_day][p.period].push(p)
+            end 
+            profile["points"] = prof_points
+            profile["name"] = prof.name
+            profile["day0"] = prof.day1
+            profile["day1"] = prof.day2
+            profile["day2"] = prof.day3
+            profile["day3"] = prof.day4
+
+            @visitor_counts.push(profile)
+          end
+
       		@profiles = {}
       		i = 0
       		profs = Profile.all().order('id')
