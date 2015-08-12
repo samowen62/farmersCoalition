@@ -84,13 +84,21 @@ label {
   float: left;
 }
 /* line 79, ../../../app/assets/stylesheets/application.css.scss */
+#market-program .table-sm {
+  max-width: 150px;
+}
+/* line 81, ../../../app/assets/stylesheets/application.css.scss */
+#market-program .table-sm input {
+  width: 90%;
+}
+/* line 85, ../../../app/assets/stylesheets/application.css.scss */
 #market-program input[type='radio'] {
   display: block;
   float: left;
   width: 25%;
 }
 
-/* line 85, ../../../app/assets/stylesheets/application.css.scss */
+/* line 91, ../../../app/assets/stylesheets/application.css.scss */
 .step {
   background-color: #e7540c;
   color: #eee;
@@ -98,12 +106,12 @@ label {
   border-radius: 18px;
 }
 
-/* line 91, ../../../app/assets/stylesheets/application.css.scss */
+/* line 97, ../../../app/assets/stylesheets/application.css.scss */
 #menu {
   border-top: 4px solid #55873A;
   min-height: 160px;
 }
-/* line 94, ../../../app/assets/stylesheets/application.css.scss */
+/* line 100, ../../../app/assets/stylesheets/application.css.scss */
 #menu #title {
   color: #333;
   font-size: 35px;
@@ -112,18 +120,18 @@ label {
   font-family: "Droid Sans", sans-serif;
 }
 
-/* line 102, ../../../app/assets/stylesheets/application.css.scss */
+/* line 108, ../../../app/assets/stylesheets/application.css.scss */
 #home-page {
   margin-top: 30px;
 }
-/* line 104, ../../../app/assets/stylesheets/application.css.scss */
+/* line 110, ../../../app/assets/stylesheets/application.css.scss */
 #home-page .item {
   background-color: #eee;
   padding: 4px 10px;
   border-radius: 10px;
   margin-top: 14px;
 }
-/* line 109, ../../../app/assets/stylesheets/application.css.scss */
+/* line 115, ../../../app/assets/stylesheets/application.css.scss */
 #home-page .item .num {
   background-color: #e7540c;
   color: #eee;
@@ -131,51 +139,65 @@ label {
   border-radius: 10px;
 }
 
-/* line 119, ../../../app/assets/stylesheets/application.css.scss */
+/* line 123, ../../../app/assets/stylesheets/application.css.scss */
+#footer {
+  background-color: #e2e2e2;
+}
+/* line 125, ../../../app/assets/stylesheets/application.css.scss */
+#footer .footer-text {
+  padding: 3px 25px;
+  background-color: #55873A;
+  width: 800px;
+  margin: auto;
+  display: table;
+  text-align: right;
+}
+
+/* line 136, ../../../app/assets/stylesheets/application.css.scss */
 #credit-sales td.fixed input {
   width: 160px;
 }
 
-/* line 125, ../../../app/assets/stylesheets/application.css.scss */
+/* line 142, ../../../app/assets/stylesheets/application.css.scss */
 #food-assistance th.fixed {
   max-width: 100px;
 }
-/* line 128, ../../../app/assets/stylesheets/application.css.scss */
+/* line 145, ../../../app/assets/stylesheets/application.css.scss */
 #food-assistance td.fixed {
   max-width: 100px;
 }
-/* line 130, ../../../app/assets/stylesheets/application.css.scss */
+/* line 147, ../../../app/assets/stylesheets/application.css.scss */
 #food-assistance td.fixed input {
   width: 90px;
 }
-/* line 134, ../../../app/assets/stylesheets/application.css.scss */
+/* line 151, ../../../app/assets/stylesheets/application.css.scss */
 #food-assistance td.dollar {
   max-width: 100px;
 }
-/* line 136, ../../../app/assets/stylesheets/application.css.scss */
+/* line 153, ../../../app/assets/stylesheets/application.css.scss */
 #food-assistance td.dollar input {
   width: 80px;
 }
 
-/* line 141, ../../../app/assets/stylesheets/application.css.scss */
+/* line 158, ../../../app/assets/stylesheets/application.css.scss */
 #sidebar {
   padding: 25px;
   font-family: "Droid Sans", sans-serif;
   color: #333;
 }
-/* line 142, ../../../app/assets/stylesheets/application.css.scss */
+/* line 159, ../../../app/assets/stylesheets/application.css.scss */
 #sidebar .progress-bar-success {
   background-color: #e7540c;
 }
-/* line 148, ../../../app/assets/stylesheets/application.css.scss */
+/* line 165, ../../../app/assets/stylesheets/application.css.scss */
 #sidebar .link {
   padding-top: 5px;
 }
-/* line 150, ../../../app/assets/stylesheets/application.css.scss */
+/* line 167, ../../../app/assets/stylesheets/application.css.scss */
 #sidebar .link a {
   color: #1E120D !important;
 }
-/* line 154, ../../../app/assets/stylesheets/application.css.scss */
+/* line 171, ../../../app/assets/stylesheets/application.css.scss */
 #sidebar ul {
   padding: 0px;
   width: 100%;
@@ -184,7 +206,7 @@ label {
   border-radius: 10px;
   margin: 0;
 }
-/* line 161, ../../../app/assets/stylesheets/application.css.scss */
+/* line 178, ../../../app/assets/stylesheets/application.css.scss */
 #sidebar ul li {
   background-color: #333;
   padding: 7px;
@@ -192,29 +214,29 @@ label {
   font-size: 12px;
   width: 100%;
 }
-/* line 167, ../../../app/assets/stylesheets/application.css.scss */
+/* line 184, ../../../app/assets/stylesheets/application.css.scss */
 #sidebar ul li a {
   color: #e2e2e2;
 }
-/* line 169, ../../../app/assets/stylesheets/application.css.scss */
+/* line 186, ../../../app/assets/stylesheets/application.css.scss */
 #sidebar ul li a:hover {
   text-decoration: none;
 }
-/* line 174, ../../../app/assets/stylesheets/application.css.scss */
+/* line 191, ../../../app/assets/stylesheets/application.css.scss */
 #sidebar ul li.active {
   background-color: #55873A !important;
 }
 
-/* line 179, ../../../app/assets/stylesheets/application.css.scss */
+/* line 196, ../../../app/assets/stylesheets/application.css.scss */
 .hours {
   width: 50px;
 }
-/* line 181, ../../../app/assets/stylesheets/application.css.scss */
+/* line 198, ../../../app/assets/stylesheets/application.css.scss */
 .hours input {
   width: 45px;
 }
 
-/* line 185, ../../../app/assets/stylesheets/application.css.scss */
+/* line 202, ../../../app/assets/stylesheets/application.css.scss */
 .hvr-sweep-to-right {
   display: inline-block;
   vertical-align: middle;
@@ -231,7 +253,7 @@ label {
   transition-duration: 0.4s;
 }
 
-/* line 200, ../../../app/assets/stylesheets/application.css.scss */
+/* line 217, ../../../app/assets/stylesheets/application.css.scss */
 .hvr-sweep-to-right:before {
   content: "";
   position: absolute;
@@ -253,28 +275,28 @@ label {
   transition-timing-function: ease-out;
 }
 
-/* line 220, ../../../app/assets/stylesheets/application.css.scss */
+/* line 237, ../../../app/assets/stylesheets/application.css.scss */
 .hvr-sweep-to-right:hover, .hvr-sweep-to-right:focus, .hvr-sweep-to-right:active {
   color: white;
 }
 
-/* line 223, ../../../app/assets/stylesheets/application.css.scss */
+/* line 240, ../../../app/assets/stylesheets/application.css.scss */
 .hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
 }
 
-/* line 228, ../../../app/assets/stylesheets/application.css.scss */
+/* line 245, ../../../app/assets/stylesheets/application.css.scss */
 #survey [type='radio'] {
   display: none;
 }
 
-/* line 232, ../../../app/assets/stylesheets/application.css.scss */
+/* line 249, ../../../app/assets/stylesheets/application.css.scss */
 #newUser, #showUser, #survey {
   display: table;
   background-color: #e2e2e2;
 }
-/* line 235, ../../../app/assets/stylesheets/application.css.scss */
+/* line 252, ../../../app/assets/stylesheets/application.css.scss */
 #newUser .main, #showUser .main, #survey .main {
   padding: 25px;
   background-color: #55873A;
@@ -282,39 +304,39 @@ label {
   margin: auto;
   display: table;
 }
-/* line 243, ../../../app/assets/stylesheets/application.css.scss */
+/* line 260, ../../../app/assets/stylesheets/application.css.scss */
 #newUser #mission_statement, #showUser #mission_statement, #survey #mission_statement {
   display: none;
 }
-/* line 245, ../../../app/assets/stylesheets/application.css.scss */
+/* line 262, ../../../app/assets/stylesheets/application.css.scss */
 #newUser #mission_statement .col-md-12, #showUser #mission_statement .col-md-12, #survey #mission_statement .col-md-12 {
   background-color: #e2e2e2;
   border-radius: 8px;
   padding: 10px;
 }
-/* line 249, ../../../app/assets/stylesheets/application.css.scss */
+/* line 266, ../../../app/assets/stylesheets/application.css.scss */
 #newUser #mission_statement .col-md-12 .full, #showUser #mission_statement .col-md-12 .full, #survey #mission_statement .col-md-12 .full {
   width: 100%;
   float: left;
 }
-/* line 252, ../../../app/assets/stylesheets/application.css.scss */
+/* line 269, ../../../app/assets/stylesheets/application.css.scss */
 #newUser #mission_statement .col-md-12 .full input[type="checkbox"], #showUser #mission_statement .col-md-12 .full input[type="checkbox"], #survey #mission_statement .col-md-12 .full input[type="checkbox"] {
   float: right;
 }
-/* line 258, ../../../app/assets/stylesheets/application.css.scss */
+/* line 275, ../../../app/assets/stylesheets/application.css.scss */
 #newUser ul.navig, #showUser ul.navig, #survey ul.navig {
   position: absolute;
   top: -20px;
   width: 100%;
 }
-/* line 262, ../../../app/assets/stylesheets/application.css.scss */
+/* line 279, ../../../app/assets/stylesheets/application.css.scss */
 #newUser ul.navig li, #showUser ul.navig li, #survey ul.navig li {
   text-align: center;
   overflow: visible;
   display: inline-block;
   width: calc(92% / 4);
 }
-/* line 267, ../../../app/assets/stylesheets/application.css.scss */
+/* line 284, ../../../app/assets/stylesheets/application.css.scss */
 #newUser ul.navig li a, #showUser ul.navig li a, #survey ul.navig li a {
   cursor: pointer;
   float: right;
@@ -325,18 +347,18 @@ label {
   color: black;
   padding: 4px;
 }
-/* line 278, ../../../app/assets/stylesheets/application.css.scss */
+/* line 295, ../../../app/assets/stylesheets/application.css.scss */
 #newUser ul.navig li.thirds, #showUser ul.navig li.thirds, #survey ul.navig li.thirds {
   width: calc(92% / 3);
 }
-/* line 282, ../../../app/assets/stylesheets/application.css.scss */
+/* line 299, ../../../app/assets/stylesheets/application.css.scss */
 #newUser textarea, #showUser textarea, #survey textarea {
   resize: none;
   width: 100%;
   float: left;
   border-radius: 8px;
 }
-/* line 288, ../../../app/assets/stylesheets/application.css.scss */
+/* line 305, ../../../app/assets/stylesheets/application.css.scss */
 #newUser select, #showUser select, #survey select {
   background-color: white;
   border-radius: 7px;
@@ -345,25 +367,25 @@ label {
   width: 100%;
 }
 
-/* line 297, ../../../app/assets/stylesheets/application.css.scss */
+/* line 314, ../../../app/assets/stylesheets/application.css.scss */
 #survey .row {
   padding: 2px 10px;
 }
 
-/* line 302, ../../../app/assets/stylesheets/application.css.scss */
+/* line 319, ../../../app/assets/stylesheets/application.css.scss */
 nav a {
   margin: 0 !important;
 }
-/* line 304, ../../../app/assets/stylesheets/application.css.scss */
+/* line 321, ../../../app/assets/stylesheets/application.css.scss */
 nav a .navbar-brand {
   margin: 0;
 }
 
-/* line 309, ../../../app/assets/stylesheets/application.css.scss */
+/* line 326, ../../../app/assets/stylesheets/application.css.scss */
 .btn-list {
   cursor: pointer;
 }
-/* line 311, ../../../app/assets/stylesheets/application.css.scss */
+/* line 328, ../../../app/assets/stylesheets/application.css.scss */
 .btn-list ul {
   background-color: #eee;
   list-style: none;
@@ -371,16 +393,16 @@ nav a .navbar-brand {
   padding: 0px;
   width: 148px;
 }
-/* line 317, ../../../app/assets/stylesheets/application.css.scss */
+/* line 334, ../../../app/assets/stylesheets/application.css.scss */
 .btn-list ul li {
   padding: 6px 13px;
 }
-/* line 319, ../../../app/assets/stylesheets/application.css.scss */
+/* line 336, ../../../app/assets/stylesheets/application.css.scss */
 .btn-list ul li input {
   width: 100px;
   margin-left: 10px;
 }
-/* line 324, ../../../app/assets/stylesheets/application.css.scss */
+/* line 341, ../../../app/assets/stylesheets/application.css.scss */
 .btn-list ul li.active {
   background-color: #e7540c;
   border-radius: 20px;
@@ -392,12 +414,12 @@ nav a .navbar-brand {
   bottom: 6px;
   color: white;
 }
-/* line 334, ../../../app/assets/stylesheets/application.css.scss */
+/* line 351, ../../../app/assets/stylesheets/application.css.scss */
 .btn-list ul li.active input {
   color: black;
 }
 
-/* line 340, ../../../app/assets/stylesheets/application.css.scss */
+/* line 357, ../../../app/assets/stylesheets/application.css.scss */
 .period-list {
   cursor: pointer;
   width: 100%;
@@ -405,14 +427,14 @@ nav a .navbar-brand {
   border-radius: 5px;
   height: 30px;
 }
-/* line 346, ../../../app/assets/stylesheets/application.css.scss */
+/* line 363, ../../../app/assets/stylesheets/application.css.scss */
 .period-list .item {
   width: 11%;
   float: left;
   padding: 4px 20px 4px 10px;
   height: 30px;
 }
-/* line 352, ../../../app/assets/stylesheets/application.css.scss */
+/* line 369, ../../../app/assets/stylesheets/application.css.scss */
 .period-list .active {
   background-color: #e7540c;
   border-radius: 20px;
@@ -424,7 +446,7 @@ nav a .navbar-brand {
   bottom: 10px;
   color: white;
 }
-/* line 363, ../../../app/assets/stylesheets/application.css.scss */
+/* line 380, ../../../app/assets/stylesheets/application.css.scss */
 .period-list .ear-active {
   background-color: #e7540c;
   border-radius: 20px;
@@ -437,7 +459,7 @@ nav a .navbar-brand {
   color: white;
 }
 
-/* line 375, ../../../app/assets/stylesheets/application.css.scss */
+/* line 392, ../../../app/assets/stylesheets/application.css.scss */
 #rem {
   float: left;
   width: 240px !important;
@@ -447,7 +469,7 @@ nav a .navbar-brand {
   text-decoration: none;
 }
 
-/* line 383, ../../../app/assets/stylesheets/application.css.scss */
+/* line 400, ../../../app/assets/stylesheets/application.css.scss */
 #add {
   float: left;
   width: 240px !important;
@@ -457,7 +479,7 @@ nav a .navbar-brand {
   text-decoration: none;
 }
 
-/* line 391, ../../../app/assets/stylesheets/application.css.scss */
+/* line 408, ../../../app/assets/stylesheets/application.css.scss */
 #add-span {
   float: left;
   width: 100% !important;
@@ -467,16 +489,16 @@ nav a .navbar-brand {
   text-decoration: none;
 }
 
-/* line 400, ../../../app/assets/stylesheets/application.css.scss */
+/* line 417, ../../../app/assets/stylesheets/application.css.scss */
 #metrics li {
   cursor: default;
 }
 
-/* line 404, ../../../app/assets/stylesheets/application.css.scss */
+/* line 421, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list {
   margin-top: 20px;
 }
-/* line 405, ../../../app/assets/stylesheets/application.css.scss */
+/* line 422, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list h1 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
@@ -488,39 +510,39 @@ nav a .navbar-brand {
   margin: 0 auto;
   margin-left: 130px;
 }
-/* line 417, ../../../app/assets/stylesheets/application.css.scss */
+/* line 434, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list ul {
   max-height: 45vh;
   overflow-y: auto;
   width: 600px;
   margin: 0 auto;
 }
-/* line 422, ../../../app/assets/stylesheets/application.css.scss */
+/* line 439, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list ul li {
   background-color: #e2e2e2;
   padding: 3px;
   border: 1px solid #333;
   list-style-type: none;
 }
-/* line 427, ../../../app/assets/stylesheets/application.css.scss */
+/* line 444, ../../../app/assets/stylesheets/application.css.scss */
 .metrics-list ul li input {
   float: left;
   margin: 3px;
   padding: 3px;
 }
 
-/* line 435, ../../../app/assets/stylesheets/application.css.scss */
+/* line 452, ../../../app/assets/stylesheets/application.css.scss */
 .selectGroup {
   padding: 5px 0px;
 }
-/* line 437, ../../../app/assets/stylesheets/application.css.scss */
+/* line 454, ../../../app/assets/stylesheets/application.css.scss */
 .selectGroup .level1 {
   display: none;
   margin-top: 15px;
   margin-left: 30px;
   width: 310px !important;
 }
-/* line 444, ../../../app/assets/stylesheets/application.css.scss */
+/* line 461, ../../../app/assets/stylesheets/application.css.scss */
 .selectGroup .level2 {
   display: none;
   margin-top: 15px;
@@ -528,7 +550,7 @@ nav a .navbar-brand {
   width: 280px;
 }
 
-/* line 452, ../../../app/assets/stylesheets/application.css.scss */
+/* line 469, ../../../app/assets/stylesheets/application.css.scss */
 .radioGroup .radio {
   cursor: pointer;
   background-color: #eee;
@@ -536,11 +558,11 @@ nav a .navbar-brand {
   border-radius: 15px;
   margin: 5px 10px !important;
 }
-/* line 458, ../../../app/assets/stylesheets/application.css.scss */
+/* line 475, ../../../app/assets/stylesheets/application.css.scss */
 .radioGroup .radio .loc {
   font-size: 12px !important;
 }
-/* line 462, ../../../app/assets/stylesheets/application.css.scss */
+/* line 479, ../../../app/assets/stylesheets/application.css.scss */
 .radioGroup .active {
   cursor: pointer;
   background-color: #333;
@@ -550,23 +572,23 @@ nav a .navbar-brand {
   color: white;
   font-size: 14px !important;
 }
-/* line 470, ../../../app/assets/stylesheets/application.css.scss */
+/* line 487, ../../../app/assets/stylesheets/application.css.scss */
 .radioGroup .active .loc {
   font-size: 13px !important;
 }
 
-/* line 476, ../../../app/assets/stylesheets/application.css.scss */
+/* line 493, ../../../app/assets/stylesheets/application.css.scss */
 #summary a {
   width: 100%;
   margin: 15px 0px;
 }
-/* line 480, ../../../app/assets/stylesheets/application.css.scss */
+/* line 497, ../../../app/assets/stylesheets/application.css.scss */
 #summary label {
   float: left;
   margin: 2px;
   font-size: 13px;
 }
-/* line 485, ../../../app/assets/stylesheets/application.css.scss */
+/* line 502, ../../../app/assets/stylesheets/application.css.scss */
 #summary input[type="text"] {
   float: left;
   margin: 2px;
@@ -575,27 +597,27 @@ nav a .navbar-brand {
   border: 1px solid #eee;
   padding: 3px;
 }
-/* line 493, ../../../app/assets/stylesheets/application.css.scss */
+/* line 510, ../../../app/assets/stylesheets/application.css.scss */
 #summary .loc-drop {
   display: none;
 }
-/* line 495, ../../../app/assets/stylesheets/application.css.scss */
+/* line 512, ../../../app/assets/stylesheets/application.css.scss */
 #summary .loc-drop .col-md-12 {
   border-radius: 0px 0px 7px 7px;
   background-color: #e2e2e2;
   padding: 10px;
 }
-/* line 502, ../../../app/assets/stylesheets/application.css.scss */
+/* line 519, ../../../app/assets/stylesheets/application.css.scss */
 #summary .skinny label {
   width: 70%;
   font-size: 11px;
   padding: 3px;
 }
-/* line 507, ../../../app/assets/stylesheets/application.css.scss */
+/* line 524, ../../../app/assets/stylesheets/application.css.scss */
 #summary .skinny input {
   width: 24%;
 }
-/* line 511, ../../../app/assets/stylesheets/application.css.scss */
+/* line 528, ../../../app/assets/stylesheets/application.css.scss */
 #summary h4.drop-but {
   font-size: 15px;
   font-family: "Droid Sans", sans-serif;
@@ -605,66 +627,66 @@ nav a .navbar-brand {
   border-radius: 8px;
   height: 30px;
 }
-/* line 521, ../../../app/assets/stylesheets/application.css.scss */
+/* line 538, ../../../app/assets/stylesheets/application.css.scss */
 #summary table th {
   padding: 5px;
 }
-/* line 524, ../../../app/assets/stylesheets/application.css.scss */
+/* line 541, ../../../app/assets/stylesheets/application.css.scss */
 #summary table tr {
   background-color: #e2e2e2;
   border: 1px solid grey;
 }
-/* line 527, ../../../app/assets/stylesheets/application.css.scss */
+/* line 544, ../../../app/assets/stylesheets/application.css.scss */
 #summary table tr td {
   font-weight: 600;
   font-size: 13px;
   font-family: "Droid Sans", sans-serif;
   padding: 3px;
 }
-/* line 533, ../../../app/assets/stylesheets/application.css.scss */
+/* line 550, ../../../app/assets/stylesheets/application.css.scss */
 #summary table tr td.first {
   width: 200px;
 }
-/* line 539, ../../../app/assets/stylesheets/application.css.scss */
+/* line 556, ../../../app/assets/stylesheets/application.css.scss */
 #summary table.plain-table tr {
   background-color: transparent;
   border: 0;
 }
-/* line 542, ../../../app/assets/stylesheets/application.css.scss */
+/* line 559, ../../../app/assets/stylesheets/application.css.scss */
 #summary table.plain-table tr td.first {
   width: 200px;
 }
 
-/* line 549, ../../../app/assets/stylesheets/application.css.scss */
+/* line 566, ../../../app/assets/stylesheets/application.css.scss */
 .profile-info h2 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
   color: #e2e2e2;
 }
-/* line 554, ../../../app/assets/stylesheets/application.css.scss */
+/* line 571, ../../../app/assets/stylesheets/application.css.scss */
 .profile-info .profile-group {
   background-color: white;
   padding: 20px;
   border-radius: 20px;
 }
 
-/* line 560, ../../../app/assets/stylesheets/application.css.scss */
+/* line 577, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header {
   cursor: pointer;
 }
-/* line 562, ../../../app/assets/stylesheets/application.css.scss */
+/* line 579, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #info, .profile-header #impact {
   display: none;
 }
-/* line 565, ../../../app/assets/stylesheets/application.css.scss */
+/* line 582, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #markets {
   display: none;
 }
-/* line 567, ../../../app/assets/stylesheets/application.css.scss */
+/* line 584, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #markets .date {
   font-size: 12px;
 }
-/* line 571, ../../../app/assets/stylesheets/application.css.scss */
+/* line 588, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header h2 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
@@ -674,17 +696,17 @@ nav a .navbar-brand {
   background-color: #e7540c;
   border-radius: 8px;
 }
-/* line 580, ../../../app/assets/stylesheets/application.css.scss */
+/* line 597, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group {
   background-color: white;
   padding: 20px;
   font-size: 12px;
 }
-/* line 584, ../../../app/assets/stylesheets/application.css.scss */
+/* line 601, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group h3 {
   margin: 10px 5px;
 }
-/* line 586, ../../../app/assets/stylesheets/application.css.scss */
+/* line 603, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group h3 span {
   font-family: "Droid Sans", sans-serif;
   font-size: 20px;
@@ -693,16 +715,16 @@ nav a .navbar-brand {
   padding: 4px;
   border-radius: 8px;
 }
-/* line 595, ../../../app/assets/stylesheets/application.css.scss */
+/* line 612, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group .val {
   padding: 5px;
 }
-/* line 598, ../../../app/assets/stylesheets/application.css.scss */
+/* line 615, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group .row {
   margin-bottom: 15px;
 }
 
-/* line 603, ../../../app/assets/stylesheets/application.css.scss */
+/* line 620, ../../../app/assets/stylesheets/application.css.scss */
 label.yes {
   cursor: pointer;
   background-color: #33CC33;
@@ -711,32 +733,32 @@ label.yes {
   margin: 5px 10px !important;
 }
 
-/* line 610, ../../../app/assets/stylesheets/application.css.scss */
+/* line 627, ../../../app/assets/stylesheets/application.css.scss */
 .label-sel {
   color: white;
 }
 
-/* line 613, ../../../app/assets/stylesheets/application.css.scss */
+/* line 630, ../../../app/assets/stylesheets/application.css.scss */
 .hasPtTimeSelect {
   border: 1px solid;
 }
 
-/* line 616, ../../../app/assets/stylesheets/application.css.scss */
+/* line 633, ../../../app/assets/stylesheets/application.css.scss */
 select {
   cursor: pointer;
 }
 
-/* line 619, ../../../app/assets/stylesheets/application.css.scss */
+/* line 636, ../../../app/assets/stylesheets/application.css.scss */
 input[type='checkbox'] {
   cursor: pointer;
 }
 
-/* line 622, ../../../app/assets/stylesheets/application.css.scss */
+/* line 639, ../../../app/assets/stylesheets/application.css.scss */
 input[type='radio'] {
   cursor: pointer;
 }
 
-/* line 625, ../../../app/assets/stylesheets/application.css.scss */
+/* line 642, ../../../app/assets/stylesheets/application.css.scss */
 label.no {
   cursor: pointer;
   background-color: #FF1919;
@@ -745,7 +767,7 @@ label.no {
   margin: 5px 10px !important;
 }
 
-/* line 632, ../../../app/assets/stylesheets/application.css.scss */
+/* line 649, ../../../app/assets/stylesheets/application.css.scss */
 label.day {
   padding: 1px 4px;
   background-color: #eee;
@@ -753,7 +775,7 @@ label.day {
   float: none !important;
 }
 
-/* line 638, ../../../app/assets/stylesheets/application.css.scss */
+/* line 655, ../../../app/assets/stylesheets/application.css.scss */
 .opt {
   position: absolute;
   display: none;
@@ -763,7 +785,7 @@ label.day {
   border-radius: 4px;
   z-index: 2;
 }
-/* line 646, ../../../app/assets/stylesheets/application.css.scss */
+/* line 663, ../../../app/assets/stylesheets/application.css.scss */
 .opt ul {
   cursor: pointer;
   list-style: none;
@@ -771,7 +793,7 @@ label.day {
   margin-bottom: 5px;
 }
 
-/* line 654, ../../../app/assets/stylesheets/application.css.scss */
+/* line 671, ../../../app/assets/stylesheets/application.css.scss */
 .money .dollars {
   background-color: #eee;
   padding: 4px;
@@ -779,17 +801,17 @@ label.day {
   text-align: right;
   border-radius: 6px 0px 0px 6px;
 }
-/* line 661, ../../../app/assets/stylesheets/application.css.scss */
+/* line 678, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3, .money .col-xs-10 {
   padding-left: 0px !important;
 }
-/* line 663, ../../../app/assets/stylesheets/application.css.scss */
+/* line 680, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3 input[type="text"], .money .col-xs-10 input[type="text"] {
   border-radius: 0px 6px 6px 0px !important;
   margin-left: 0px !important;
 }
 
-/* line 669, ../../../app/assets/stylesheets/application.css.scss */
+/* line 686, ../../../app/assets/stylesheets/application.css.scss */
 #cover {
   position: fixed;
   top: 0;
@@ -801,7 +823,7 @@ label.day {
   display: none;
 }
 
-/* line 679, ../../../app/assets/stylesheets/application.css.scss */
+/* line 696, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen {
   height: 80px;
   width: 340px;
@@ -815,13 +837,13 @@ label.day {
   border-radius: 10px;
 }
 
-/* line 691, ../../../app/assets/stylesheets/application.css.scss */
+/* line 708, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen:target, #successScreen:target + #cover {
   display: block;
   opacity: 2;
 }
 
-/* line 694, ../../../app/assets/stylesheets/application.css.scss */
+/* line 711, ../../../app/assets/stylesheets/application.css.scss */
 .suc-text {
   display: block;
   position: absolute;
@@ -831,15 +853,15 @@ label.day {
   color: green;
 }
 
-/* line 703, ../../../app/assets/stylesheets/application.css.scss */
+/* line 720, ../../../app/assets/stylesheets/application.css.scss */
 #home p {
   font-size: 15px;
 }
-/* line 705, ../../../app/assets/stylesheets/application.css.scss */
+/* line 722, ../../../app/assets/stylesheets/application.css.scss */
 #home p a {
   color: #eee;
 }
-/* line 707, ../../../app/assets/stylesheets/application.css.scss */
+/* line 724, ../../../app/assets/stylesheets/application.css.scss */
 #home p a:hover {
   text-decoration: none;
 }

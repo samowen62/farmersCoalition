@@ -10,10 +10,10 @@
 			<thead>
 				<tr>
 					<th class="fixed"><label>Event Type</label></th>
-					<th class="fixed"><label>Date of Event</label></th>
+					<th class="fixed table-sm"><label>Date of Event</label></th>
 					<th class="fixed"><label>Youth Specific</label></th>
-					<th class="fixed"><label>Total Participants (#)</label></th>
-					<th class="fixed"><label>Number of Particpants under 18</label></th>
+					<th class="fixed table-sm"><label>Total Participants (#)</label></th>
+					<th class="fixed table-sm"><label>Number of Particpants under 18</label></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -28,13 +28,13 @@
 							<option value="Other Activities">Other Activities</option>
 						</selct>
 					</td>
-					<td class="fixed"><input ng-model="f.event_date" class="tcal" /></td>
-					<td class="fixed" style="  min-width: 100px;">
+					<td class="fixed table-sm"><input ng-model="f.event_date" class="tcal" /></td>
+					<td class="fixed " style="  min-width: 100px;">
 						<label>Y</label><input ng-model="f.youth_specific" value="true" type="radio" name="{{youth + '' + $index}}"/>
 						<label>N</label><input ng-model="f.youth_specific" value="false" type="radio" name="{{youth + '' + $index}}"/>
 					</td>
-					<td class="fixed"><input ng-model="f.participants" /></td>
-					<td class="fixed"><input ng-model="f.under_18" /></td>
+					<td class="fixed table-sm"><input ng-model="f.participants" /></td>
+					<td class="fixed table-sm"><input ng-model="f.under_18" /></td>
 					<td><a ng-click="editRow(f, $index)" class="btn btn-default" href="javascript:void(0)">Edit</a></td>
 				</tr>
 				<tr ng-show="!adding">
@@ -50,13 +50,13 @@
 							<option value="Other Activities">Other Activities</option>
 						</select>
 					</td>
-					<td class="fixed"><input ng-model="newProgram.event_date" class="tcal" /></td>
+					<td class="fixed table-sm"><input ng-model="newProgram.event_date" class="tcal" /></td>
 					<td class="fixed" style="  min-width: 100px;">
 						<label>Y</label><input ng-model="newProgram.youth_specific" value="true" type="radio" name="youthNew"/>
 						<label>N</label><input ng-model="newProgram.youth_specific" value="false" type="radio" name="youthNew"/>
 					</td>
-					<td class="fixed"><input ng-model="newProgram.participants" /></td>
-					<td class="fixed"><input ng-model="newProgram.under_18" /></td>
+					<td class="fixed table-sm"><input ng-model="newProgram.participants" /></td>
+					<td class="fixed table-sm"><input ng-model="newProgram.under_18" /></td>
 					<td><a ng-click="addRow()" class="btn btn-success" href="javascript:void(0)">Submit</a></td>
 				</tr>
 			</tbody>
@@ -68,6 +68,7 @@
 	<a href="#" class="suc-text">Success!</a>
 </div> 
 <div id="cover" ></div>
+<%= render "shared/footer" %>
 
 <script type="text/javascript">
 

@@ -76,6 +76,12 @@ label{
 	.fixed label{
 		float:left;
 	}
+	.table-sm{
+		max-width:150px;
+		input{
+			width:90%;
+		}
+	}
 	input[type='radio']{
 		display: block;
 		float:left;
@@ -112,6 +118,17 @@ label{
   			padding: 1px 5px;
   			border-radius: 10px;
 		}
+	}
+}
+#footer{
+	background-color: $background-prim;
+	.footer-text{
+		padding: 3px 25px;
+	  	background-color: #55873A;
+	  	width: 800px;
+	  	margin: auto;
+	  	display: table;
+	  	text-align: right;
 	}
 }
 #credit-sales{
