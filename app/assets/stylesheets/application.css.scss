@@ -49,6 +49,8 @@ label{
   	padding: 0px 10px;
   	color: green;
   	text-shadow: 0 0 9px whitesmoke;
+  	position: relative;
+  	bottom: 10px;
   	&:hover{
   		color: green;
   		text-decoration:none;
@@ -63,6 +65,8 @@ label{
   	padding: 0px 10px;
   	color: red;
   	text-shadow: 0 0 9px whitesmoke;
+  	position: relative;
+  	bottom: 10px;
   	&:hover{
   		color: red;
   		text-decoration:none;

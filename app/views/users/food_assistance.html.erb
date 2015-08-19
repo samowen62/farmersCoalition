@@ -15,7 +15,7 @@
 					<th class="fixed"><label>Amount Redeemed</label></th>
 					<th class="fixed"><label>Zip Code</label></th>
 					<th class="fixed"><label>First time using benefits?</label></th>
-					<th></th>
+					<th colspan="2"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,10 +34,12 @@
 						<option value="0">Y</option>
 						<option value="1">N</option>
 					</select></td>
-					<td><a ng-click="editRow(f, $index)" class="btn btn-default" href="javascript:void(0)">Edit</a></td>
+					<td ng-show="!editmode[''+$index]"><a href="javascript:void(0)" class="btn btn-default" ng-click="editmode[''+$index] = true" >Edit</a></td>
+					<td ng-show="editmode[''+$index]"><a ng-click="editRow(f, $index)" class="btn btn-default" href="javascript:void(0)">Update</a></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td colspan="7" ng-style="{'padding' : adding ? '0px' : '3px'}"><a href="javascript:void(0)" id="add-span" ng-click="toggleAdd()" ng-show="!adding">+</a></td>
+					<td colspan="9" ng-style="{'padding' : adding ? '0px' : '3px'}"><a href="javascript:void(0)" id="add-span" ng-click="toggleAdd()" ng-show="!adding">+</a></td>
 				</tr>
 				<tr ng-show="adding">
 					<td class="fixed"><input ng-model="newFood.transaction_date"  class="tcal" /></td>
@@ -55,6 +57,7 @@
 						<option value="1">N</option>
 					</select></td>
 					<td><a ng-click="addRow()" class="btn btn-success" href="javascript:void(0)">Submit</a></td>
+					<td></td>
 				</tr>
 			</tbody>
 		</table>
@@ -75,6 +78,7 @@ function surveyCtrl($scope){
 	$scope.accessibility = <%= raw(@accessibility.to_json) %>;
 	$scope.newFood = {id: -1};
 	$scope.adding = false;
+	$scope.editmode = {};
 
 	$scope.toggleAdd = function(){
 		$scope.adding = !$scope.adding;

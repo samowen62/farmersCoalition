@@ -177,6 +177,19 @@ class UsersController < ApplicationController
           sales_p = Profile.select('profiles.*').joins(:sales_slip).uniq
           slips = []
 
+          profiles = Profile.select("name", "id", "day1", "day2", "day3", "day4")
+
+
+        else
+          p = Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).where("profiles.id = #{@profile.id}").order("visitor_surveys.date ASC")
+          @visitor_surveys << p
+
+          sales_p = Profile.select('profiles.*').where("profiles.id = #{@profile.id}").joins(:sales_slip).uniq
+          slips = []
+
+          profiles = Profile.select("name", "id", "day1", "day2", "day3", "day4").where("profiles.id = #{@profile.id}")
+
+        end
           for sp in sales_p do
             dates = sp.sales_slip.select(:date).order(:date).uniq
             prof = Hash.new
@@ -192,7 +205,7 @@ class UsersController < ApplicationController
 
           @sales_slips = slips
 
-          profiles = Profile.select("name", "id", "day1", "day2", "day3", "day4")
+          
 
           for prof in profiles do
             points = prof.entry_points.order(ptNum: :asc)
@@ -223,7 +236,13 @@ class UsersController < ApplicationController
 
       		@profiles = {}
       		i = 0
-      		profs = Profile.all().order('id')
+
+          if @user.admin
+        		profs = Profile.all().order('id')
+          else
+            profs = [Profile.find(@profile.id)]
+          end
+
     	   	profs.each do |p|
     		  	prof = {:profile => p}
       			prof[:markets] = p.markets
@@ -233,9 +252,9 @@ class UsersController < ApplicationController
     	 	   	@profiles[i] = prof
     			   i += 1
     		  end
-        else
-          @profiles = {}
-        end
+        #else
+        #  @profiles = {}
+        #end
 
     		@surveys = VisitorSurvey.where(profile_id: @profile.id)
 

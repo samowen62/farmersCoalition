@@ -20,7 +20,8 @@
 					<td><input ng-model="f.transaction_sales" class="tcal" /></td>
 					<td>$<input ng-model="f.credit_sales" placeholder="0.00" class="fixed"/></td>
 					<td>$<input ng-model="f.debit_sales" placeholder="0.00"  class="fixed"/></td>
-					<td><a ng-click="editRow(f, $index)" class="btn btn-default" href="javascript:void(0)">Edit</a></td>
+					<td ng-show="!editmode[''+ $index]"><a ng-click="editmode[''+$index] = true" class="btn btn-default" href="javascript:void(0)">Edit</a></td>
+					<td ng-show="editmode[''+ $index]"><a ng-click="editRow(f, $index)" class="btn btn-default" href="javascript:void(0)">Update</a></td>
 				</tr>
 				<tr>
 					<td><input ng-model="newSale.transaction_sales" class="tcal" /></td>
@@ -46,6 +47,7 @@ function surveyCtrl($scope){
 	$scope.metrics = <%= raw(@metrics.to_json) %>;
 	$scope.sales = <%= raw(@sales.to_json) %>;
 	$scope.newSale = {id: -1};
+	$scope.editmode = {};
 
 	$scope.editRow = function(row, ind){
 		row.transaction_sales = $('.tcal')[ind].value;
