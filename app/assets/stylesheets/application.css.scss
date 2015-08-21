@@ -155,7 +155,7 @@ label{
 	td.dollar{
 		max-width: 100px;
 		input{
-			width: 80px;
+			width: 72px;
 		}
 	}
 }
@@ -729,5 +729,11 @@ label.day{
 				text-decoration: none;
 			}
 		}
+	}
+}
+#myModal{
+	select{
+		width: 85px;
+  		border: 1px solid #333;
 	}
 }

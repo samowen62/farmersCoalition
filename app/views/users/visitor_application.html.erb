@@ -113,23 +113,29 @@
 
 
 				</div>
-				<div class="col-md-6" ng-if="metrics[10]">
-					<label>Including yourself, how many people worked for your business either seasonally or year-round in {{year}}? Please include family workers (paid and unpaid), hired production or office workers, people hired to sell at markets, contract or custom hire farm labor, and paid interns or apprentices. If zero, please enter 0.
-					<div class="row">
-		   				<label>Seasonal (worked 149 days or less):</label>
-		   				<input ng-model="survey.workers_seasonal" />
-		   			</div>
-		   			<div class="row">
-		   				<label>Year-round (worked 150 days or more):</label>
-		   				<input ng-model="survey.workers_yearly" />
-		   			</div>
-					<div class="row">
-						<label>Do you anticipate fewer, the same, or more workers devoted to production and marketing for this market in {{year + 1}}? (Please select one):</label>    
-						<div class="col-md-12 radioGroup">
-							<label class="radio" ng-click="setRad('level_of_worker_anticipation','less')" ng-class="{active : survey.level_of_worker_anticipation == 'less'}">Less</label>
-							<label class="radio" ng-click="setRad('level_of_worker_anticipation','same')" ng-class="{active : survey.level_of_worker_anticipation == 'same'}">Same</label>
-							<label class="radio" ng-click="setRad('level_of_worker_anticipation','higher')" ng-class="{active : survey.level_of_worker_anticipation == 'higher'}">Higher</label>
+				<div class="col-md-12">
+					<div class="col-md-6" ng-if="metrics[10]">
+						<label>Including yourself, how many people worked for your business either seasonally or year-round in {{year}}? Please include family workers (paid and unpaid), hired production or office workers, people hired to sell at markets, contract or custom hire farm labor, and paid interns or apprentices. If zero, please enter 0.
+						<div class="row">
+			   				<label>Seasonal (worked 149 days or less):</label>
+			   				<input ng-model="survey.workers_seasonal" />
+			   			</div>
+			   			<div class="row">
+			   				<label>Year-round (worked 150 days or more):</label>
+			   				<input ng-model="survey.workers_yearly" />
+			   			</div>
+						<div class="row">
+							<label>Do you anticipate fewer, the same, or more workers devoted to production and marketing for this market in {{year + 1}}? (Please select one):</label>    
+							<div class="col-md-12 radioGroup">
+								<label class="radio" ng-click="setRad('level_of_worker_anticipation','less')" ng-class="{active : survey.level_of_worker_anticipation == 'less'}">Less</label>
+								<label class="radio" ng-click="setRad('level_of_worker_anticipation','same')" ng-class="{active : survey.level_of_worker_anticipation == 'same'}">Same</label>
+								<label class="radio" ng-click="setRad('level_of_worker_anticipation','higher')" ng-class="{active : survey.level_of_worker_anticipation == 'higher'}">Higher</label>
+							</div>
 						</div>
+					</div>
+					<div class="col-md-6" ng-if="metrics[26]">
+						<label>Please help us understand the variety of farm products available at {{profile.name}} by completing the attached form below indicating the crops and varieties you sold at this market in {{year}}. (Please mark N/A at top if you did not grow or sell any vegetables, fruits, or nuts at this market in {{year}}).</label>
+						<a href="javascript:void(0)" class="btn btn-default" ng-click="openModal()">Open Form</a>
 					</div>
 				</div>
 				<div class="col-md-12">
@@ -366,11 +372,75 @@
 				</div>
 			</div>
 		</div>
+
+		<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Checklist for Vegetable, Fruit, & Nut Crops and Varieties </h4>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="row">
+	        	<p style="  margin: 10px 20px;">Check each Fruit, Vegetable or Nut sold by <span id="profName"></span> in 
+	        		<select ng-model="selectedYear.year">
+	        			<option value="{{year + 1}}">{{year + 1}}</option>
+	        			<option value="{{year}}">{{year}}</option>
+	        		</select>
+	        		<select ng-model="foodType">
+						<option value="Fruit">Fruit</option>
+						<option value="Vegetable">Vegetable</option>
+						<option value="Nut">Nut</option>
+	        		</select>
+	        		<a href="javascript:void(0)" class="btn btn-default" ng-click="showList()" ng-disabled="selectedYear.year == null || foodType == null">Display</a>
+	        	</p>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+  	  </div>
+	</div>
+
+	<div id="foodModal" class="modal fade" role="dialog" style="  top: -10px;">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content" style="width: 250px;margin: 0 auto;">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Select {{foodType}}s</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="row">
+	        	<table>
+	        		<tbody style="  max-height: 290px; overflow-y: scroll;display: block;">
+	        			<tr ng-repeat="l in listOfFood">
+							<td><input type="checkbox" ng-model="selectedYear[l.name]" /></td>
+							<td style=" padding-left: 10px;">{{l.value ? l.value : l.name}}</td>
+	        			</tr>
+					</tbody>
+	        	</table>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+  	  </div>
+	</div>
+
 	</div>
 	<div id="successScreen"> 
 		<a href="#" class="suc-text">Success!</a>
 	</div> 
 	<div id="cover" ></div>
+
+	
+
 <%= render "shared/footer" %>
 	<script type="text/javascript">
 
@@ -387,6 +457,132 @@
 
 	$scope.metrics = <%= raw(@metrics.to_json) %>;
 	$scope.profile = <%= raw(@profile.to_json) %>;
+
+	$scope.selectedYear = {};
+
+	//name and value should be switched
+	$scope.Vegetable = [
+		{ name : "Artichokes"},
+		{ name : "Arugula"},
+		{ name : "Asparagus"},
+		{ name : "Beans_green", value : "Beans (green)"},
+		{ name : "Beans_dry", value : "Beans (dry)"},
+		{ name : "Beets"},
+		{ name : "Beet_greens", value : "Beet Greens"},
+		{ name : "Bok_choy", value : "Bok Choy"},
+		{ name : "Broccoli"},
+		{ name : "Broccoli_rabe", value : "Broccoli Rabe"},
+		{ name : "Brussels_sprouts", value : "Broccoli Sprouts"},
+		{ name : "Cabbage_green", value : "Cabbage Green"},
+		{ name : "Cabbage_purple", value : "Cabbage Purple"},
+		{ name : "Cardoons"},
+		{ name : "Carrots"},
+		{ name : "Cauliflower"},
+		{ name : "Celeriac"},
+		{ name : "Celery"},
+		{ name : "Chard"},
+		{ name : "Chicory"},
+		{ name : "Chipilín"},
+		{ name : "Collards"},
+		{ name : "Corn_Sweet", value : "Corn Sweet"},
+		{ name : "Cress"},
+		{ name : "Cucumbers"},
+		{ name : "Dandelion_greens", value : "Dandelion Greens"},
+		{ name : "Eggplant"},
+		{ name : "Epazote"},
+		{ name : "Fava_beans", value : "Fava Beans"},
+		{ name : "Fennel"},
+		{ name : "Garlic_bulb", value : "Garlic Bulb"},
+		{ name : "Garlic_scapes", value : "Garlic Scapes"},
+		{ name : "Herbs_fresh", value : "Herbs (fresh)"},
+		{ name : "Hierbamora"},
+		{ name : "Horseradish"},
+		{ name : "Jicama"},
+		{ name : "Kale"},
+		{ name : "Kohlrabi"},
+		{ name : "Lambs_quarters", value : "Lambs Quarters"},
+		{ name : "Leeks"},
+		{ name : "Lettuce"},
+		{ name : "Lima_beans", value : "Lima Beans"},
+		{ name : "Mesclun_mixed_salad_greens", value : "Mesclun Mixed Salad Greens"},
+		{ name : "Mushrooms"},
+		{ name : "Mustard_greens", value : "Mustard Greens"},
+		{ name : "Okra"},
+		{ name : "Onions"},
+		{ name : "Parsnips"},
+		{ name : "Peas_english", value : "Peas English"},
+		{ name : "Peas_sugar_snap", value : "Peas Sugar Snap"},
+		{ name : "Peas_snow", value : "Peas Snow"},
+		{ name : "Pea_shoots", value : "Pea Shoots"},
+		{ name : "Peppers_hot", value : "Peppers (hot)"},
+		{ name : "Peppers_sweet_green", value : "Peppers (sweet green)"},
+		{ name : "Peppers_sweet_red", value : "Peppers (sweet red)"},
+		{ name : "Peppers_sweet_purple", value : "Peppers (sweet purple)"},
+		{ name : "Peppers_sweet_yellow", value : "Peppers (sweet yellow)"},
+		{ name : "Potatoes"},
+		{ name : "Pumpkins"},
+		{ name : "Purslane"},
+		{ name : "Radishes "},
+		{ name : "Rhubarb"},
+		{ name : "Rutabagas"},
+		{ name : "Salsify"},
+		{ name : "Scallions"},
+		{ name : "Shallots"},
+		{ name : "Spinach"},
+		{ name : "Sprouts"},
+		{ name : "Squash_aummer", value : "Squash (summer)"},
+		{ name : "Squash_winter", value : "Squash (winter)"},
+		{ name : "Sunchokes"},
+		{ name : "Sweet_potatoes", value : "Sweet Potatoes"},
+		{ name : "Sweet_potato_greens", value : "Sweet Potato Greens"},
+		{ name : "Tomatillos"},
+		{ name : "Tomatoes"},
+		{ name : "Turnips"},
+		{ name : "Turnip_greens", value : "Turnip Greens"},
+		{ name : "Yacon"}
+	];
+
+	$scope.Fruit = [
+		{ name : "Apples"},
+		{ name : "Apricots"},
+		{ name : "Apriums"},
+		{ name : "Asian_pears", value : "Asian Pears"},
+		{ name : "Blackberries"},
+		{ name : "Blueberries "},
+		{ name : "Boysenberries"},
+		{ name : "Canary_melons", value : "Canary Melons"},
+		{ name : "Cantaloupes"},
+		{ name : "Cherimoyas"},
+		{ name : "Cherries"},
+		{ name : "Currants"},
+		{ name : "Feijoas"},
+		{ name : "Figs"},
+		{ name : "Grapefruit"},
+		{ name : "Grapes"},
+		{ name : "Honeydew_melons", value : "Honeydew Melons"},
+		{ name : "Mulberries"},
+		{ name : "PawPaws"},
+		{ name : "Peaches"},
+		{ name : "Pears"},
+		{ name : "Plums"},
+		{ name : "Quince"},
+		{ name : "Raspberries_black", value : "Raspberries (black)"},
+		{ name : "Raspberries_red", value : "Raspberries (red)"},
+		{ name : "Strawberries"},
+		{ name : "Tayberries"},
+		{ name : "Watermelon"},
+		{ name : "Wineberries"}
+	];
+
+	$scope.Nut = [
+		{ name : "Chestnuts"},
+		{ name : "Dates"},
+		{ name : "Jujubes"},
+		{ name : "Peanuts"},
+		{ name : "Walnuts_black", value : "Walnuts (black)"},
+		{ name : "Walnuts_english", value : "Walnuts (english"}
+	];
+
 	//$scope.survey = <%= raw(@application.to_json) %>;
 
 	//if($scope.survey == null)
@@ -394,6 +590,19 @@
 	
 	var d = new Date();
 	$scope.year = d.getFullYear() - 1;
+
+	$scope.showList = function(){
+		$scope.listOfFood = $scope[$scope.foodType];
+		//set selectedYear here you queer
+
+		console.log($scope.listOfFood,$scope.foodType);
+
+		$('#foodModal').modal('show');
+	}
+
+	$scope.openModal = function(){
+		$('#myModal').modal('show');
+	}
 
 	$scope.setRad = function(model, val){
 		if(model == 'origin'){
@@ -415,7 +624,8 @@
 	}
 
 	$scope.submitSurvey = function(){
-		
+		$scope.survey.produce_list = $scope.selectedYear;
+
 		console.log($scope.survey);
 
 		$.ajax({

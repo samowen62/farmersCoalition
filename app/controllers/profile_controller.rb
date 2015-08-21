@@ -229,6 +229,10 @@ class ProfileController < ApplicationController
     render plain: "error"
   end
 
+  def post_food_list
+
+  end
+
   def post_market_program
     if user_is_logged_in?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
@@ -260,6 +264,11 @@ class ProfileController < ApplicationController
           application = VisitorApplication.new(app_params)
           application[:profile_id] = profile.id
           application.save!
+
+          p = ProduceList.new(produce_params)
+          p[:visitor_application_id] = application.id
+          p.save!
+
 
         #  render plain: application.inspect
         #  return
@@ -411,7 +420,7 @@ class ProfileController < ApplicationController
 
   private
     def food_params
-      params.permit(:profile_id, :transaction_date, :type_of_assistance, :digits_of_snap, :redeemed, :zip_code, :first_name)
+      params.permit(:profile_id, :transaction_date, :type_of_assistance, :digits_of_snap, :redeemed, :zip_code, :first_name, :incentive_campaign)
     end
 
   private
@@ -428,4 +437,9 @@ class ProfileController < ApplicationController
     def program_params
       params.permit(:profile_id, :event_type, :event_date, :youth_specific, :participants, :under_18)
     end  
+
+  private
+    def produce_params
+      params[:produce_list].permit(:year,:Artichokes,:Arugula ,:Asparagus ,:Beans_green ,:Beans_dry ,:Beets ,:Beet_greens ,:Bok_choy ,:Broccoli,:Broccoli_rabe  ,:Brussels_sprouts  ,:Cabbage_green  ,:Cabbage_purple   ,:Cardoons  ,:Carrots ,:Cauliflower  ,:Celeriac  ,:Celery  ,:Chard  ,:Chicory  ,:Chipilín  ,:Collards  ,:Corn_Sweet  ,:Cress  ,:Cucumbers  ,:Dandelion_greens  ,:Eggplant  ,:Epazote  ,:Fava_beans  ,:Fennel,:Garlic_bulb  ,:Garlic_scapes  ,:Herbs_fresh  ,:Hierbamora ,:Horseradish ,:Jicama,:Kale,:Kohlrabi,:Lambs_quarters,:Leeks,:Lettuce,:Lima_beans  ,:Mesclun_mixed_salad_greens   ,:Mushrooms  ,:Mustard_greens  ,:Okra  ,:Onions  ,:Parsnips  ,:Peas_english  ,:Peas_sugar_snap  ,:Peas_snow  ,:Pea_shoots ,:Peppers_hot  ,:Peppers_sweet_green ,:Peppers_sweet_red   ,:Peppers_sweet_purple  ,:Peppers_sweet_yellow  ,:Potatoes,:Pumpkins  ,:Purslane  ,:Radishes   ,:Rhubarb  ,:Rutabagas ,:Salsify  ,:Scallions  ,:Shallots  ,:Spinach  ,:Sprouts  ,:Squash_aummer  ,:Squash_winter   ,:Sunchokes  ,:Sweet_potatoes  ,:Sweet_potato_greens  ,:Tomatillos,:Tomatoes  ,:Turnips,:Turnip_greens ,:Yacon ,:Apples  ,:Apricots  ,:Apriums  ,:Asian_pears  ,:Blackberries  ,:Blueberries ,:Boysenberries  ,:Canary_melons   ,:Cantaloupes  ,:Cherimoyas  ,:Cherries  ,:Currants  ,:Feijoas  ,:Figs,:Grapefruit  ,:Grapes ,:Honeydew_melons  ,:Mulberries  ,:PawPaws  ,:Peaches  ,:Pears  ,:Plums  ,:Quince,:Raspberries_black  ,:Raspberries_red   ,:Strawberries  ,:Tayberries ,:Watermelon ,:Wineberries ,:Chestnuts ,:Dates,:Jujubes,:Peanuts,:Walnuts_black ,:Walnuts_english)
+    end
 end

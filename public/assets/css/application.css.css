@@ -180,7 +180,7 @@ label {
 }
 /* line 157, ../../../app/assets/stylesheets/application.css.scss */
 #food-assistance td.dollar input {
-  width: 80px;
+  width: 72px;
 }
 
 /* line 162, ../../../app/assets/stylesheets/application.css.scss */
@@ -868,4 +868,10 @@ label.day {
 /* line 728, ../../../app/assets/stylesheets/application.css.scss */
 #home p a:hover {
   text-decoration: none;
+}
+
+/* line 735, ../../../app/assets/stylesheets/application.css.scss */
+#myModal select {
+  width: 85px;
+  border: 1px solid #333;
 }

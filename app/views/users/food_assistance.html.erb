@@ -15,6 +15,7 @@
 					<th class="fixed"><label>Amount Redeemed</label></th>
 					<th class="fixed"><label>Zip Code</label></th>
 					<th class="fixed"><label>First time using benefits?</label></th>
+					<th class="fixed"><label>Part of Incentive Campaign?</label></th>
 					<th colspan="2"></th>
 				</tr>
 			</thead>
@@ -34,12 +35,16 @@
 						<option value="0">Y</option>
 						<option value="1">N</option>
 					</select></td>
+					<td class="fixed"><select ng-model="f.incentive_campaign">
+						<option value="Y">Y</option>
+						<option value="N">N</option>
+					</select></td>
 					<td ng-show="!editmode[''+$index]"><a href="javascript:void(0)" class="btn btn-default" ng-click="editmode[''+$index] = true" >Edit</a></td>
 					<td ng-show="editmode[''+$index]"><a ng-click="editRow(f, $index)" class="btn btn-default" href="javascript:void(0)">Update</a></td>
 					<td></td>
 				</tr>
 				<tr>
-					<td colspan="9" ng-style="{'padding' : adding ? '0px' : '3px'}"><a href="javascript:void(0)" id="add-span" ng-click="toggleAdd()" ng-show="!adding">+</a></td>
+					<td colspan="10" ng-style="{'padding' : adding ? '0px' : '3px'}"><a href="javascript:void(0)" id="add-span" ng-click="toggleAdd()" ng-show="!adding">+</a></td>
 				</tr>
 				<tr ng-show="adding">
 					<td class="fixed"><input ng-model="newFood.transaction_date"  class="tcal" /></td>
@@ -55,6 +60,10 @@
 					<td class="fixed"><select ng-model="newFood.first_name" >
 						<option value="0">Y</option>
 						<option value="1">N</option>
+					</select></td>
+					<td class="fixed"><select ng-model="newFood.incentive_campaign">
+						<option value="Y">Y</option>
+						<option value="N">N</option>
 					</select></td>
 					<td><a ng-click="addRow()" class="btn btn-success" href="javascript:void(0)">Submit</a></td>
 					<td></td>
