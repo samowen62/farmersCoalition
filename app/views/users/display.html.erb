@@ -11,15 +11,26 @@
 		</div>
 
 		<div class='col-md-3'>
-			<a id='visitor_surveys' class='btn btn-default'>Export{{user.admin ? ' All' : ''}} Surveys</a>
+			<a id='visitor_surveys' class='btn btn-default'>Export{{user.admin ? ' All' : ''}} Survey{{user.admin ? 's' : ''}}</a>
 		</div>
 		
 		<div class='col-md-3'>
-			<a id='visitor_counts' class='btn btn-default'>Export {{user.admin ? ' All' : ''}}  Visitor Counts</a>
+			<a id='visitor_counts' class='btn btn-default'>Export {{user.admin ? ' All' : ''}}  Visitor Count{{user.admin ? 's' : ''}}</a>
 		</div>
 
 		<div class='col-md-3'>
-			<a id='sales_slips' class='btn btn-default'>Export {{user.admin ? ' All' : ''}}  Sales Slips</a>
+			<a id='sales_slips' class='btn btn-default'>Export {{user.admin ? ' All' : ''}}  Sales Slip{{user.admin ? 's' : ''}}</a>
+		</div>
+	</div>
+	<div class="row" style="  margin-top: 15px;">
+		<div class='col-md-3'>
+			<a id='food_assistance' class='btn btn-default'>Export {{user.admin ? ' All' : ''}} Food Assistance</a>
+		</div>
+		<div class='col-md-3'>
+			<a id='credit_debit' class='btn btn-default'>Export {{user.admin ? ' All' : ''}} Debit/Credit</a>
+		</div>
+		<div class='col-md-3'>
+			<a id='visitor_application' class='btn btn-default'>Export {{user.admin ? ' All' : ''}} Application{{user.admin ? 's' : ''}}</a>
 		</div>
 	</div>
 	<div class="clearfix"></div>
@@ -127,8 +138,13 @@ var profiles = <%= raw(@profiles.to_json) %>;
 var visitor_surveys = <%= raw(@visitor_surveys.to_json) %>;
 var sales_slips = <%= raw(@sales_slips.to_json) %>;
 var visitor_counts = <%= raw(@visitor_counts.to_json) %>;
+var applications = <%= raw(@applications.to_json) %>;
+var assistances = <%= raw(@assistances.to_json) %>;
+var credits = <%= raw(@credit.to_json) %>;
 
-console.log(visitor_surveys);
+
+
+console.log(applications,assistances,credits);
 
 var visitor_survey_sheet = '';
 var visitor_count_sheet = '';
@@ -405,6 +421,45 @@ for(var i = 0; i < visitor_counts.length; i++){
 var csv1 = document.getElementById('visitor_counts');
 csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_count_csv));
 csv1.setAttribute('download', 'VisitorCounts.csv');
+
+var food_assistance_csv = 'Name,First Time Using Benefits?,First 8 Digits of SNAP,Incentive Campaign,Redeemed,Transaction Date,Type of Assistance,Zip Code\n';
+
+for(var i in assistances){
+	var a = assistances[i];
+	food_assistance_csv += a.name+","+(a.first_name ? 'Yes' : 'No')+","+a.digits_of_snap+","+a.incentive_campaign+","+a.redeemed+","+a.transaction_date+","+a.type_of_assistance+","+a.zip_code+"\n"
+} 
+
+var csv1 = document.getElementById('food_assistance');
+csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(food_assistance_csv));
+csv1.setAttribute('download', 'FoodAssistance.csv');
+
+var credit_debit_csv = 'Name,Transaction Date,Credit Sales,Debit Sales,\n';
+
+for(var i in credits){
+	var a = credits[i];
+	credit_debit_csv += a.name+","+a.transaction_sales+","+a.credit_sales+","+a.debit_sales+"\n"
+} 
+
+var csv1 = document.getElementById('credit_debit');
+csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(credit_debit_csv));
+csv1.setAttribute('download', 'DebitCredit.csv');
+
+var visitor_application_csv = '';
+
+for(var i in applications[0])
+	visitor_application_csv += i+',';
+visitor_application_csv += '\n';
+
+for(var i in applications){
+	for(var j in applications[i]){
+		visitor_application_csv += applications[i][j]+',';
+	}
+	visitor_application_csv += '\n';
+}
+
+var csv1 = document.getElementById('visitor_application');
+csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_application_csv));
+csv1.setAttribute('download', 'VisitorApplications.csv');
 
 
 function displayCtrl($scope){

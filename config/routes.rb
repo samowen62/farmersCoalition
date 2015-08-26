@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   post "post_credit_sales", :to => "profile#post_credit_sales"
   post "post_misc_research", :to => "profile#post_misc_research"
   post "post_market_program", :to => "profile#post_market_program"
+  post "post_food_list", :to => "profile#post_food_list"
 
   get "user_metrics", :to => "users#metrics"
   get "user_instruments", :to => "users#instruments"

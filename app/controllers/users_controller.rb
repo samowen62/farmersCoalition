@@ -169,6 +169,10 @@ class UsersController < ApplicationController
         @visitor_surveys = []
         @sales_slips = []
         @visitor_counts = []
+        @applications = []
+        @assistances = []
+        @credit = []
+
         if(@user.admin)
           
           p = Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).order("profiles.id ASC").order("visitor_surveys.date ASC")
@@ -179,7 +183,11 @@ class UsersController < ApplicationController
 
           profiles = Profile.select("name", "id", "day1", "day2", "day3", "day4")
 
+          @applications = VisitorApplication.select("profiles.name, visitor_applications.*, produce_list.*").joins(:profile).joins(:produce_list).order(:profile_id).order("visitor_applications.id ASC")
 
+          @assistances = FoodAssistance.select("food_assistance.*, profiles.name").joins(:profile).order("profile_id ASC").order("food_assistance.id ASC")
+
+          @credit = CreditSales.select("credit_sales.*, profiles.name").joins(:profile).order("profile_id ASC").order("credit_sales.id ASC")
         else
           p = Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).where("profiles.id = #{@profile.id}").order("visitor_surveys.date ASC")
           @visitor_surveys << p
