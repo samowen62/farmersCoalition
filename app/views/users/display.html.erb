@@ -430,7 +430,7 @@ for(var i in assistances){
 	food_assistance_csv += a.transaction_date+","+a.type_of_assistance+","+a.digits_of_snap+","+a.redeemed+","+a.zip_code+","+(a.first_name ? 'Yes' : 'No')+","+a.incentive_campaign+"\n"
 } 
 
-if(assistance_snap.length > 0){
+if(assistance_snap && assistance_snap.length > 0){
 	food_assistance_csv += '\n\n,,Metric #18, Metric#19\nMarket,Transaction Date,Unique SNAP Incentive IDs,Repeat SNAP IDs\n';
 
 	for(var i in assistance_snap){
