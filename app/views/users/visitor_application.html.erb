@@ -7,9 +7,9 @@
 
 		<h1>Vendor Application</h1>
 		<div class="col-md-10 col-md-offset-1">
-		  	<div class="progress" style="width:96%">
-			  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 26%">
-			  </div>
+			<div class="progress" style="width:96%">
+				<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 26%">
+				</div>
 			</div>
 			<ul class="navig">
 				<li>
@@ -27,14 +27,63 @@
 			</ul>
 		</div>
 		<div class="col-md-12" ng-show="tab == 1">
-			<div class="col-md-6">
-				<div style="background-color: #eee;padding: 5px;border-radius: 5px;">
-					In {{year}}, what were your business’ TOTAL gross sales at {{profile.name}}, by category?<br />
-					<ul>
-					  <li>Value-added (or “Processed”) Foods include baked goods, pickles, condiments, jams, charcuterie, etc.</li>
-					  <li>Ready-to-Eat (or “Hot”) Foods are freshly made foods available for immediate consumption on-site at market.)</li>
-					 </ul>
+			<div class="col-md-12">
+				<div class="col-md-6" >
+					<div class="row">
+						<label>Vendor Name</label>
+						<input style="width:100%" ng-model="survey.vendor_name" />
+					</div>
+					<div class="row">
+						<label>Please provide up to two physical addresses for your business’ primary point(s) of production.  No P.O. Boxes, please.</label>
+					</div>
+					<div class="row">
+						<label>Primary production location:</label><div class="clearfix"></div>
+						<input style="width: 100%;" ng-model="survey.primary_loc" />
+					</div>
+					<div class="row">
+						<label>Secondary production location:</label><div class="clearfix"></div>
+						<input style="width: 100%;" ng-model="survey.secondary_loc" />
+					</div>
 				</div>
+				<div class="col-md-6">
+					<label>Please use the table below to report your {{year}} farm acreage information.</label>
+					<h2>Total acres:</h2> 
+					<div class="row">
+						<label>Owned:</label>
+						<input ng-model="survey.acres_owned" style="  float: right;" />
+					</div>
+					<div class="row">
+						<label>Leased:</label>
+						<input ng-model="survey.acres_leased" style="  float: right;"/>
+					</div>
+					<div class="row">
+						<label>Cultivated or grazed in {{year}}:</label>
+						<input ng-model="survey.acres_cultivated" style="  float: right;"/>
+					</div>
+
+					<!--Percent of total cultivated or grazed acres devoted to 2014 farmers market production (please estimate to the best of your ability):-->
+
+					<div class="row" ng-if="metrics[8]">
+						<label>Do you anticipate fewer, the same, or more acres devoted to production for the {{profile.name}} in {{year + 1}}? (please select one):</label>
+						<div class="col-md-12 radioGroup">
+							<label class="radio" ng-click="setRad('level_of_worker_anticipation','less')" ng-class="{active : survey.level_of_worker_anticipation == 'less'}">Less</label>
+							<label class="radio" ng-click="setRad('level_of_worker_anticipation','same')" ng-class="{active : survey.level_of_worker_anticipation == 'same'}">Same</label>
+							<label class="radio" ng-click="setRad('level_of_worker_anticipation','higher')" ng-class="{active : survey.level_of_worker_anticipation == 'higher'}">Higher</label>
+						</div>
+					</div>    
+
+
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-6">
+					<div style="background-color: #eee;padding: 5px;border-radius: 5px;">
+						In {{year}}, what were your business’ TOTAL gross sales at {{profile.name}}, by category?<br />
+						<ul>
+							<li>Value-added (or “Processed”) Foods include baked goods, pickles, condiments, jams, charcuterie, etc.</li>
+							<li>Ready-to-Eat (or “Hot”) Foods are freshly made foods available for immediate consumption on-site at market.)</li>
+						</ul>
+					</div>
 					<div class="row">
 						<h2>Total {{year}} gross sales at {{profile.name}}:</h2>
 					</div>
@@ -66,168 +115,6 @@
 							<label class="radio" ng-click="setRad('level_of_sales','higher')" ng-class="{active : survey.level_of_sales == 'higher'}">Higher</label>
 						</div>
 					</div>				
-				</div>
-				<div class="col-md-6" >
-					<div class="row">
-						<label>Vendor Name</label>
-						<input style="width:100%" ng-model="survey.vendor_name" />
-					</div>
-					<div class="row">
-						<label>Please provide up to two physical addresses for your business’ primary point(s) of production.  No P.O. Boxes, please.</label>
-					</div>
-					<div class="row">
-						<label>Primary production location:</label><div class="clearfix"></div>
-						<input style="width: 100%;" ng-model="survey.primary_loc" />
-					</div>
-					<div class="row">
-						<label>Secondary production location:</label><div class="clearfix"></div>
-						<input style="width: 100%;" ng-model="survey.secondary_loc" />
-					</div>
-				</div>
-				<div class="col-md-6">
-					<label>Please use the table below to report your {{year}} farm acreage information.</label>
-					<h2>Total acres:</h2> 
-					<div class="row">
-		   				<label>Owned:</label>
-	   					<input ng-model="survey.acres_owned" style="  float: right;" />
-					</div>
-					<div class="row">
-		   				<label>Leased:</label>
-	   					<input ng-model="survey.acres_leased" style="  float: right;"/>
-					</div>
-					<div class="row">
-		   				<label>Cultivated or grazed in {{year}}:</label>
-	   					<input ng-model="survey.acres_cultivated" style="  float: right;"/>
-					</div>
-
-	<!--Percent of total cultivated or grazed acres devoted to 2014 farmers market production (please estimate to the best of your ability):-->
-
-					<div class="row" ng-if="metrics[8]">
-						<label>Do you anticipate fewer, the same, or more acres devoted to production for the {{profile.name}} in {{year + 1}}? (please select one):</label>
-						<div class="col-md-12 radioGroup">
-							<label class="radio" ng-click="setRad('level_of_worker_anticipation','less')" ng-class="{active : survey.level_of_worker_anticipation == 'less'}">Less</label>
-							<label class="radio" ng-click="setRad('level_of_worker_anticipation','same')" ng-class="{active : survey.level_of_worker_anticipation == 'same'}">Same</label>
-							<label class="radio" ng-click="setRad('level_of_worker_anticipation','higher')" ng-class="{active : survey.level_of_worker_anticipation == 'higher'}">Higher</label>
-						</div>
-					</div>    
-
-
-				</div>
-				<div class="col-md-12">
-					<div class="col-md-6" ng-if="metrics[10]">
-						<label>Including yourself, how many people worked for your business either seasonally or year-round in {{year}}? Please include family workers (paid and unpaid), hired production or office workers, people hired to sell at markets, contract or custom hire farm labor, and paid interns or apprentices. If zero, please enter 0.
-						<div class="row">
-			   				<label>Seasonal (worked 149 days or less):</label>
-			   				<input ng-model="survey.workers_seasonal" />
-			   			</div>
-			   			<div class="row">
-			   				<label>Year-round (worked 150 days or more):</label>
-			   				<input ng-model="survey.workers_yearly" />
-			   			</div>
-						<div class="row">
-							<label>Do you anticipate fewer, the same, or more workers devoted to production and marketing for this market in {{year + 1}}? (Please select one):</label>    
-							<div class="col-md-12 radioGroup">
-								<label class="radio" ng-click="setRad('level_of_worker_anticipation','less')" ng-class="{active : survey.level_of_worker_anticipation == 'less'}">Less</label>
-								<label class="radio" ng-click="setRad('level_of_worker_anticipation','same')" ng-class="{active : survey.level_of_worker_anticipation == 'same'}">Same</label>
-								<label class="radio" ng-click="setRad('level_of_worker_anticipation','higher')" ng-class="{active : survey.level_of_worker_anticipation == 'higher'}">Higher</label>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6" ng-if="metrics[26]">
-						<label>Please help us understand the variety of farm products available at {{profile.name}} by completing the attached form below indicating the crops and varieties you sold at this market in {{year}}. (Please mark N/A at top if you did not grow or sell any vegetables, fruits, or nuts at this market in {{year}}).</label>
-						<a href="javascript:void(0)" class="btn btn-default" ng-click="openModal()">Open Form</a>
-					</div>
-				</div>
-				<div class="col-md-12">
-					<div class="col-md-4 col-md-offset-6">
-						<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(2)" style="margin-top: 20px; width: 100%;">Next</a>
-					</div>
-				</div>
-			</div>
-			<div ng-show="tab == 2">
-				<div class="col-md-6" ng-if="metrics[11]">
-					<div class="col-md-12">
-						<label>Please think about all individuals chiefly responsible for day-to-day decisions in your farm business, including yourself.  As of December 31, {{year}}, for how many years have these owner/operators been farming?  (Please respond for all chief owners/operators as applicable. If there is only one owner, enter "N/A" for Owner #2. Non-agricultural enterprises* should enter "N/A" for both lines.)</label>
-						<div class="row">
-							<label>Owner 1</label>
-							<input ng-model="owner1_years" />
-						</div>
-						<div class="row">
-							<label>Owner 2</label>
-							<input ng-model="owner2_years" />
-						</div>
-						<div class="row">
-							<label>
-								*Non-Agricultural enterprises are businesses not involved in the production of raw agricultural products as their primary enterprise, but who are actively involved and invested in the processing of value-added foods, baked goods, hot foods product sold at the market.
-							</label>
-						</div>
-					</div>
-					<div class="col-md-12" ng-if="metrics[23]">
-						<div style="background-color: #eee;padding: 5px;border-radius: 5px;">
-							Please think about foods or crops that are unique to your state or region. In the last market season ({{year}}), did you plan to sell any crops or value-added food items that are unique to your region? If so, please list, and include variety name:<!--ask about regions-->
-						</div>
-						<textarea ng-model="survey.unique_crops" style="margin-top: 15px;"></textarea>
-					</div>
-				</div>
-				<div class="col-md-6" ng-if="metrics[21]">
-					<label>Is more than 50% of your farmers market business owned and operated on a daily basis by one or more women? (Please select one):</label>
-					<div class="col-md-12 radioGroup">
-						<label class="radio" ng-click="setRad('owned_by_women','yes')" ng-class="{active : survey.owned_by_women == 'yes'}">Yes</label>
-						<label class="radio" ng-click="setRad('owned_by_women','no')" ng-class="{active : survey.owned_by_women == 'no'}">No</label>
-						<label class="radio" ng-click="setRad('owned_by_women','not_applicable')" ng-class="{active : survey.owned_by_women == 'not_applicable'}">Prefer not to Respond</label>
-					</div>
-				</div>
-				<div class="col-md-6" ng-if="metrics[22]">
-					<label>Which of the following best describes the primary operator(s) of your farmers market business? (Please check all that apply):</label>
-					<table>
-						<tr>
-							<td>White (not Spanish, Hispanic, or Latino)</td>
-							<td><input type="checkbox" ng-model="survey.operators_white" /></td>
-						</tr>
-						<tr>
-							<td>Spanish, Hispanic, or Latino</td>
-							<td><input type="checkbox" ng-model="survey.operators_mexican" /></td>
-						</tr>
-						<tr>
-							<td>Black or African American</td>
-							<td><input type="checkbox" ng-model="survey.operators_black" /></td>
-						</tr>
-						<tr>
-							<td>American Indian or Alaska Native</td>
-							<td><input type="checkbox" ng-model="survey.operators_indian" /></td>
-						</tr>
-						<tr>
-							<td>Asian or Asian American</td>
-							<td><input type="checkbox" ng-model="survey.operators_asian" /></td>
-						</tr>
-						<tr>
-							<td>Other (Please describe):</td>
-							<td><input type="checkbox" ng-model="survey.operators_other" /></td>
-						</tr>
-						<tr>
-							<td colspan="2" ng-show="survey.operators_other"><input type="text" ng-model="survey.primary_operators_other" /></td>
-						</tr>
-					</table>
-				</div>
-				<div class="col-md-12">
-					<div class="col-md-offset-2 col-md-4">
-						<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(1)" style="margin-top: 20px; width: 100%;">Previous</a>
-					</div>
-					<div class="col-md-4">
-						<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(3)" style="margin-top: 20px; width: 100%;">Next</a>
-					</div>
-				</div>
-			</div>
-			<div ng-show="tab == 3">
-				<div class="col-md-6">
-					<div class="row" ng-if="metrics[25]">
-						<label>In the most recent market season (2014), how many different products did you sell under the certifications checked to the left?</label>
-						<input ng-model="survey.num_certified" />
-					</div>
-					<div class="row" ng-if="metrics[28]">
-						<label>How many primary business owners and chief operators of your farmers market business are younger than 35 years of age (as of the most recently completed calendar year)?</label>
-						<input ng-model="survey.under_35" />
-					</div>
 				</div>
 				<div class="col-md-6" ng-if="metrics[24]">
 					<label>Please select from any certifications your business presently holds:</label>
@@ -262,7 +149,141 @@
 					</table>
 					<!-- ask how to do 34 as well-->
 				</div>
-				<div class="col-md-6" ng-if="metrics[33]">
+			</div>
+
+				<div class="col-md-12">
+					<div class="col-md-4 col-md-offset-6">
+						<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(2)" style="margin-top: 20px; width: 100%;">Next</a>
+					</div>
+				</div>
+			</div>
+			<div ng-show="tab == 2">
+				<div class="col-md-12">
+					<div class="col-md-6" ng-if="metrics[10]">
+						<label>Including yourself, how many people worked for your business either seasonally or year-round in {{year}}? Please include family workers (paid and unpaid), hired production or office workers, people hired to sell at markets, contract or custom hire farm labor, and paid interns or apprentices. If zero, please enter 0.</label>
+						<div class="row">
+							<label>Seasonal (worked 149 days or less):</label>
+							<input ng-model="survey.workers_seasonal" />
+						</div>
+						<div class="row">
+							<label>Year-round (worked 150 days or more):</label>
+							<input ng-model="survey.workers_yearly" />
+						</div>
+						<div class="row">
+							<label>Do you anticipate fewer, the same, or more workers devoted to production and marketing for this market in {{year + 1}}? (Please select one):</label>    
+							<div class="col-md-12 radioGroup">
+								<label class="radio" ng-click="setRad('level_of_worker_anticipation','less')" ng-class="{active : survey.level_of_worker_anticipation == 'less'}">Less</label>
+								<label class="radio" ng-click="setRad('level_of_worker_anticipation','same')" ng-class="{active : survey.level_of_worker_anticipation == 'same'}">Same</label>
+								<label class="radio" ng-click="setRad('level_of_worker_anticipation','higher')" ng-class="{active : survey.level_of_worker_anticipation == 'higher'}">Higher</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6" ng-if="metrics[21]">
+						<label>Is more than 50% of your farmers market business owned and operated on a daily basis by one or more women? (Please select one):</label>
+						<div class="col-md-12 radioGroup">
+							<label class="radio" ng-click="setRad('owned_by_women','yes')" ng-class="{active : survey.owned_by_women == 'yes'}">Yes</label>
+							<label class="radio" ng-click="setRad('owned_by_women','no')" ng-class="{active : survey.owned_by_women == 'no'}">No</label>
+							<label class="radio" ng-click="setRad('owned_by_women','not_applicable')" ng-class="{active : survey.owned_by_women == 'not_applicable'}">Prefer not to Respond</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="col-md-6" ng-if="metrics[11]">
+						<div class="row">
+							<label>Please think about all individuals chiefly responsible for day-to-day decisions in your farm business, including yourself.  As of December 31, {{year}}, for how many years have these owner/operators been farming?  (Please respond for all chief owners/operators as applicable. If there is only one owner, enter "N/A" for Owner #2. Non-agricultural enterprises* should enter "N/A" for both lines.)</label>
+							<div class="row">
+								<label>Owner 1</label>
+								<input ng-model="owner1_years" />
+							</div>
+							<div class="row">
+								<label>Owner 2</label>
+								<input ng-model="owner2_years" />
+							</div>
+							<div class="row">
+								<label>
+									*Non-Agricultural enterprises are businesses not involved in the production of raw agricultural products as their primary enterprise, but who are actively involved and invested in the processing of value-added foods, baked goods, hot foods product sold at the market.
+								</label>
+							</div>
+						</div>
+						
+					</div>
+					<div class="col-md-6" ng-if="metrics[22]">
+						<label>Which of the following best describes the primary operator(s) of your farmers market business? (Please check all that apply):</label>
+						<table>
+							<tr>
+								<td>White (not Spanish, Hispanic, or Latino)</td>
+								<td><input type="checkbox" ng-model="survey.operators_white" /></td>
+							</tr>
+							<tr>
+								<td>Spanish, Hispanic, or Latino</td>
+								<td><input type="checkbox" ng-model="survey.operators_mexican" /></td>
+							</tr>
+							<tr>
+								<td>Black or African American</td>
+								<td><input type="checkbox" ng-model="survey.operators_black" /></td>
+							</tr>
+							<tr>
+								<td>American Indian or Alaska Native</td>
+								<td><input type="checkbox" ng-model="survey.operators_indian" /></td>
+							</tr>
+							<tr>
+								<td>Asian or Asian American</td>
+								<td><input type="checkbox" ng-model="survey.operators_asian" /></td>
+							</tr>
+							<tr>
+								<td>Other (Please describe):</td>
+								<td><input type="checkbox" ng-model="survey.operators_other" /></td>
+							</tr>
+							<tr>
+								<td colspan="2" ng-show="survey.operators_other"><input type="text" ng-model="survey.primary_operators_other" /></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-offset-6 col-md-6" ng-if="metrics[28]">
+						<label>How many primary business owners and chief operators of your farmers market business are younger than 35 years of age (as of the most recently completed calendar year)?</label>
+						<input ng-model="survey.under_35" />
+					</div>
+				</div>
+				
+				<div class="col-md-12">
+					<div class="col-md-offset-2 col-md-4">
+						<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(1)" style="margin-top: 20px; width: 100%;">Previous</a>
+					</div>
+					<div class="col-md-4">
+						<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(3)" style="margin-top: 20px; width: 100%;">Next</a>
+					</div>
+				</div>
+			</div>
+			<div ng-show="tab == 3">
+				<div class="col-md-12">
+					<div  class="col-md-6">
+						<div ng-if="metrics[26]">
+							<label>Please help us understand the variety of farm products available at {{profile.name}} by completing the attached form below indicating the crops and varieties you sold at this market in {{year}}. (Please mark N/A at top if you did not grow or sell any vegetables, fruits, or nuts at this market in {{year}}).</label>
+							<a href="javascript:void(0)" class="btn btn-default" ng-click="openModal()">Open Form</a>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="row" ng-if="metrics[25]">
+							<label>In the most recent market season (2014), how many different products did you sell under the certifications checked to the left?</label>
+							<input ng-model="survey.num_certified" />
+						</div>					
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<div class="row" ng-if="metrics[23]">
+							<div style="background-color: #eee;padding: 5px;border-radius: 5px;">
+									Please think about foods or crops that are unique to your state or region. In the last market season ({{year}}), did you plan to sell any crops or value-added food items that are unique to your region? If so, please list, and include variety name:<!--ask about regions-->
+							</div>
+							<textarea ng-model="survey.unique_crops" style="margin-top: 15px;"></textarea>
+						</div>
+					</div>
+				</div>
+				
+				<!--div class="col-md-6" ng-if="metrics[33]">
 					<div class="row">
 						<label>For all fresh produce items you sold at {X Farmers Market} in 2014, what was the average number of hours between harvest and the start of market. If you do not sell a product listed below, please write “N/A.”</label>
 					</div>
@@ -306,7 +327,7 @@
 							</tr>
 						</table>
 					</div>
-				</div>
+				</div-->
 				<div class="col-md-12">
 					<div class="col-md-offset-2 col-md-4">
 						<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(2)" style="margin-top: 20px; width: 100%;">Previous</a>
@@ -319,274 +340,294 @@
 			<div ng-show="tab == 4">
 				<div class="col-md-12">
 					<iframe
-						id="map"
-					    width="100%"
-					    height="400"
-					    frameborder="0" style="border:0"
-					    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCrNAIWXwdlONA1Z3r6UHgpzBv5BYq_sEs&q=Wisconsin+State+Capitol">
-					  </iframe>	
-				</div>
-				<div class="col-md-12">
-					<div class="col-md-6">
-						<div class="row">
-							<label>Primary Location</label>
-							<input ng-model="survey.source_prim" style="  float: right;"  />		
-						</div>
-						<div class="row">
-							<label>Farmers Market Address</label>
-							<input ng-model="survey.dest_prim" style="  float: right;"/>
-						</div>
-						<div class="row">
-							<label>Miles</label>
-							<input ng-model="survey.miles_prim" style="  float: right;"/>
-						</div>
-						<div class="row">
-							<a href="javascript:void(0)" class="btn btn-primary" ng-click="query()">Find</a>
-						</div>
+					id="map"
+					width="100%"
+					height="400"
+					frameborder="0" style="border:0"
+					src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCrNAIWXwdlONA1Z3r6UHgpzBv5BYq_sEs&q=Wisconsin+State+Capitol">
+				</iframe>	
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-6">
+					<h3>Primary Location</h3>
+					<div class="row">
+						<label>Product Address</label>
+						<input ng-model="survey.source_prim" style="  float: right;"  />		
 					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<label>Secondary Location</label>
-							<input ng-model="survey.source_second" style="  float: right;"  />		
-						</div>
-						<div class="row">
-							<label>Farmers Market Address</label>
-							<input ng-model="survey.dest_second" style="  float: right;"/>
-						</div>
-						<div class="row">
-							<label>Miles</label>
-							<input ng-model="survey.miles_second" style="  float: right;"/>
-						</div>
-						<div class="row">
-							<a href="javascript:void(0)" class="btn btn-primary" ng-click="query()">Find</a>
-						</div>
+					<div class="row">
+						<label>Farmers Market Address</label>
+						<input ng-model="survey.dest_prim" style="  float: right;"/>
+					</div>
+					<div class="row">
+						<label>Miles</label>
+						<input ng-model="survey.miles_prim" style="  float: right;"/>
+					</div>
+					<div class="row">
+						<a href="javascript:void(0)" class="btn btn-primary" ng-click="query()">Find</a>
 					</div>
 				</div>
-				<div class="col-md-12">
-					<div class="col-md-offset-2 col-md-4">
-						<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(3)" style="margin-top: 20px; width: 100%;">Previous</a>
+				<div class="col-md-6">
+					<h3>Secondary Location</h3>
+					<div class="row">
+						<label>Product Address</label>
+						<input ng-model="survey.source_second" style="  float: right;"  />		
 					</div>
-					<div class="col-md-offset-2 col-md-4">
-						<a class="btn btn-default" href="javascript:void" ng-click="submitSurvey()">Submit</a>
+					<div class="row">
+						<label>Farmers Market Address</label>
+						<input ng-model="survey.dest_second" style="  float: right;"/>
 					</div>
+					<div class="row">
+						<label>Miles</label>
+						<input ng-model="survey.miles_second" style="  float: right;"/>
+					</div>
+					<div class="row">
+						<a href="javascript:void(0)" class="btn btn-primary" ng-click="query()">Find</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-offset-2 col-md-4">
+					<a href="javascript:void" class="btn btn-default button" ng-click="changeTab(3)" style="margin-top: 20px; width: 100%;">Previous</a>
+				</div>
+				<div class="col-md-offset-2 col-md-4">
+					<a class="btn btn-default" href="javascript:void" ng-click="submitSurvey()">Submit</a>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<div id="myModal" class="modal fade" role="dialog">
-	  <div class="modal-dialog">
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
 
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Checklist for Vegetable, Fruit, & Nut Crops and Varieties </h4>
-	      </div>
-	      <div class="modal-body">
-	      	<div class="row">
-	        	<p style="  margin: 10px 20px;">Check each Fruit, Vegetable or Nut sold by <span id="profName"></span> in 
-	        		<select ng-model="selectedYear.year">
-	        			<option value="{{year + 1}}">{{year + 1}}</option>
-	        			<option value="{{year}}">{{year}}</option>
-	        		</select>
-	        		<select ng-model="foodType">
-						<option value="Fruit">Fruit</option>
-						<option value="Vegetable">Vegetable</option>
-						<option value="Nut">Nut</option>
-	        		</select>
-	        		<a href="javascript:void(0)" class="btn btn-default" ng-click="showList()" ng-disabled="selectedYear.year == null || foodType == null">Display</a>
-	        	</p>
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Checklist for Vegetable, Fruit, & Nut Crops and Varieties </h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<p style="  margin: 10px 20px;">Check each Fruit, Vegetable or Nut sold by <span id="profName"></span> in 
+							<select ng-model="selectedYear.year">
+								<option value="{{year + 1}}">{{year + 1}}</option>
+								<option value="{{year}}">{{year}}</option>
+							</select>
+							<select ng-model="foodType">
+								<option value="Fruit">Fruit</option>
+								<option value="Vegetable">Vegetable</option>
+								<option value="Nut">Nut</option>
+							</select>
+							<a href="javascript:void(0)" class="btn btn-default" ng-click="showList()" ng-disabled="selectedYear.year == null || foodType == null">Display</a>
+						</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+				</div>
 			</div>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-  	  </div>
+		</div>
 	</div>
 
 	<div id="foodModal" class="modal fade" role="dialog" style="  top: -10px;">
-	  <div class="modal-dialog">
+		<div class="modal-dialog">
 
-	    <!-- Modal content-->
-	    <div class="modal-content" style="width: 250px;margin: 0 auto;">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Select {{foodType}}s</h4>
-	      </div>
-	      <div class="modal-body">
-	      	<div class="row">
-	        	<table>
-	        		<tbody style="  max-height: 290px; overflow-y: scroll;display: block;">
-	        			<tr ng-repeat="l in listOfFood">
-							<td><input type="checkbox" ng-model="selectedYear[l.name]" /></td>
-							<td style=" padding-left: 10px;">{{l.value ? l.value : l.name}}</td>
-	        			</tr>
-					</tbody>
-	        	</table>
+			<!-- Modal content-->
+			<div class="modal-content" style="width: 250px;margin: 0 auto;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Select Foods</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<select ng-model="variety" style="border: 1px solid;" ng-change="setList()">
+							<option value="Fruit">Fruit</option>
+							<option value="Vegetable">Vegetable</option>
+							<option value="Nut">Nut</option>
+						</select>
+					</div>
+					<div class="row">
+						<table>
+							<tbody style="  max-height: 290px; overflow-y: scroll;display: block;">
+								<tr ng-show="variety != ''">
+						 			<th>Food</th>
+						 			<th style="  width: 40px;">2014</th>
+						 			<th style="  width: 40px;">2015</th>
+						 		</tr>
+								<tr ng-repeat="l in listOfFood">
+									<td style=" padding-right: 10px;">{{l.value ? l.value : l.name}}</td>
+									<td><input type="checkbox" ng-model="year2014[l.name]" /></td>
+									<td><input type="checkbox" ng-model="year2015[l.name]" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-  	  </div>
+		</div>
 	</div>
 
-	</div>
-	<div id="successScreen"> 
-		<a href="#" class="suc-text">Success!</a>
-	</div> 
-	<div id="cover" ></div>
+</div>
+<div id="successScreen"> 
+	<a href="#" class="suc-text">Success!</a>
+</div> 
+<div id="cover" ></div>
 
-	
+
 
 <%= render "shared/footer" %>
-	<script type="text/javascript">
+<script type="text/javascript">
 
-		function visitorCtrl($scope){
+	function visitorCtrl($scope){
 
-	$scope.changeTab = function(tab){
-		$scope.tab = tab;
-		$('.progress-bar-success').width((tab == 1 ? 26 : tab*25) + '%');
+		$scope.changeTab = function(tab){
+			$scope.tab = tab;
+			$('.progress-bar-success').width((tab == 1 ? 26 : tab*25) + '%');
 
-		window.location.href = '#summary';
-	};
+			window.location.href = '#summary';
+		};
 
-	$scope.tab = 1;
+		$scope.tab = 1;
 
-	$scope.metrics = <%= raw(@metrics.to_json) %>;
-	$scope.profile = <%= raw(@profile.to_json) %>;
+		$scope.metrics = <%= raw(@metrics.to_json) %>;
+		$scope.profile = <%= raw(@profile.to_json) %>;
 
-	$scope.selectedYear = {};
+		$scope.year2014 = { year : 2014};
+		$scope.year2015 = { year : 2015};
+
+		$scope.setList = function(){
+			$scope.listOfFood = $scope[$scope.variety];
+		}
 
 	//name and value should be switched
 	$scope.Vegetable = [
-		{ name : "Artichokes"},
-		{ name : "Arugula"},
-		{ name : "Asparagus"},
-		{ name : "Beans_green", value : "Beans (green)"},
-		{ name : "Beans_dry", value : "Beans (dry)"},
-		{ name : "Beets"},
-		{ name : "Beet_greens", value : "Beet Greens"},
-		{ name : "Bok_choy", value : "Bok Choy"},
-		{ name : "Broccoli"},
-		{ name : "Broccoli_rabe", value : "Broccoli Rabe"},
-		{ name : "Brussels_sprouts", value : "Broccoli Sprouts"},
-		{ name : "Cabbage_green", value : "Cabbage Green"},
-		{ name : "Cabbage_purple", value : "Cabbage Purple"},
-		{ name : "Cardoons"},
-		{ name : "Carrots"},
-		{ name : "Cauliflower"},
-		{ name : "Celeriac"},
-		{ name : "Celery"},
-		{ name : "Chard"},
-		{ name : "Chicory"},
-		{ name : "Chipilín"},
-		{ name : "Collards"},
-		{ name : "Corn_Sweet", value : "Corn Sweet"},
-		{ name : "Cress"},
-		{ name : "Cucumbers"},
-		{ name : "Dandelion_greens", value : "Dandelion Greens"},
-		{ name : "Eggplant"},
-		{ name : "Epazote"},
-		{ name : "Fava_beans", value : "Fava Beans"},
-		{ name : "Fennel"},
-		{ name : "Garlic_bulb", value : "Garlic Bulb"},
-		{ name : "Garlic_scapes", value : "Garlic Scapes"},
-		{ name : "Herbs_fresh", value : "Herbs (fresh)"},
-		{ name : "Hierbamora"},
-		{ name : "Horseradish"},
-		{ name : "Jicama"},
-		{ name : "Kale"},
-		{ name : "Kohlrabi"},
-		{ name : "Lambs_quarters", value : "Lambs Quarters"},
-		{ name : "Leeks"},
-		{ name : "Lettuce"},
-		{ name : "Lima_beans", value : "Lima Beans"},
-		{ name : "Mesclun_mixed_salad_greens", value : "Mesclun Mixed Salad Greens"},
-		{ name : "Mushrooms"},
-		{ name : "Mustard_greens", value : "Mustard Greens"},
-		{ name : "Okra"},
-		{ name : "Onions"},
-		{ name : "Parsnips"},
-		{ name : "Peas_english", value : "Peas English"},
-		{ name : "Peas_sugar_snap", value : "Peas Sugar Snap"},
-		{ name : "Peas_snow", value : "Peas Snow"},
-		{ name : "Pea_shoots", value : "Pea Shoots"},
-		{ name : "Peppers_hot", value : "Peppers (hot)"},
-		{ name : "Peppers_sweet_green", value : "Peppers (sweet green)"},
-		{ name : "Peppers_sweet_red", value : "Peppers (sweet red)"},
-		{ name : "Peppers_sweet_purple", value : "Peppers (sweet purple)"},
-		{ name : "Peppers_sweet_yellow", value : "Peppers (sweet yellow)"},
-		{ name : "Potatoes"},
-		{ name : "Pumpkins"},
-		{ name : "Purslane"},
-		{ name : "Radishes "},
-		{ name : "Rhubarb"},
-		{ name : "Rutabagas"},
-		{ name : "Salsify"},
-		{ name : "Scallions"},
-		{ name : "Shallots"},
-		{ name : "Spinach"},
-		{ name : "Sprouts"},
-		{ name : "Squash_aummer", value : "Squash (summer)"},
-		{ name : "Squash_winter", value : "Squash (winter)"},
-		{ name : "Sunchokes"},
-		{ name : "Sweet_potatoes", value : "Sweet Potatoes"},
-		{ name : "Sweet_potato_greens", value : "Sweet Potato Greens"},
-		{ name : "Tomatillos"},
-		{ name : "Tomatoes"},
-		{ name : "Turnips"},
-		{ name : "Turnip_greens", value : "Turnip Greens"},
-		{ name : "Yacon"}
+	{ name : "Artichokes"},
+	{ name : "Arugula"},
+	{ name : "Asparagus"},
+	{ name : "Beans_green", value : "Beans (green)"},
+	{ name : "Beans_dry", value : "Beans (dry)"},
+	{ name : "Beets"},
+	{ name : "Beet_greens", value : "Beet Greens"},
+	{ name : "Bok_choy", value : "Bok Choy"},
+	{ name : "Broccoli"},
+	{ name : "Broccoli_rabe", value : "Broccoli Rabe"},
+	{ name : "Brussels_sprouts", value : "Broccoli Sprouts"},
+	{ name : "Cabbage_green", value : "Cabbage Green"},
+	{ name : "Cabbage_purple", value : "Cabbage Purple"},
+	{ name : "Cardoons"},
+	{ name : "Carrots"},
+	{ name : "Cauliflower"},
+	{ name : "Celeriac"},
+	{ name : "Celery"},
+	{ name : "Chard"},
+	{ name : "Chicory"},
+	{ name : "Chipilín"},
+	{ name : "Collards"},
+	{ name : "Corn_Sweet", value : "Corn Sweet"},
+	{ name : "Cress"},
+	{ name : "Cucumbers"},
+	{ name : "Dandelion_greens", value : "Dandelion Greens"},
+	{ name : "Dates"},
+	{ name : "Eggplant"},
+	{ name : "Epazote"},
+	{ name : "Fava_beans", value : "Fava Beans"},
+	{ name : "Fennel"},
+	{ name : "Garlic_bulb", value : "Garlic Bulb"},
+	{ name : "Garlic_scapes", value : "Garlic Scapes"},
+	{ name : "Herbs_fresh", value : "Herbs (fresh)"},
+	{ name : "Hierbamora"},
+	{ name : "Horseradish"},
+	{ name : "Jicama"},
+	{ name : "Jujubes"},
+	{ name : "Kale"},
+	{ name : "Kohlrabi"},
+	{ name : "Lambs_quarters", value : "Lambs Quarters"},
+	{ name : "Leeks"},
+	{ name : "Lettuce"},
+	{ name : "Lima_beans", value : "Lima Beans"},
+	{ name : "Mesclun_mixed_salad_greens", value : "Mesclun Mixed Salad Greens"},
+	{ name : "Mushrooms"},
+	{ name : "Mustard_greens", value : "Mustard Greens"},
+	{ name : "Okra"},
+	{ name : "Onions"},
+	{ name : "Parsnips"},
+	{ name : "Peas_english", value : "Peas English"},
+	{ name : "Peas_sugar_snap", value : "Peas Sugar Snap"},
+	{ name : "Peas_snow", value : "Peas Snow"},
+	{ name : "Pea_shoots", value : "Pea Shoots"},
+	{ name : "Peppers_hot", value : "Peppers (hot)"},
+	{ name : "Peppers_sweet_green", value : "Peppers (sweet green)"},
+	{ name : "Peppers_sweet_red", value : "Peppers (sweet red)"},
+	{ name : "Peppers_sweet_purple", value : "Peppers (sweet purple)"},
+	{ name : "Peppers_sweet_yellow", value : "Peppers (sweet yellow)"},
+	{ name : "Potatoes"},
+	{ name : "Pumpkins"},
+	{ name : "Purslane"},
+	{ name : "Radishes "},
+	{ name : "Rhubarb"},
+	{ name : "Rutabagas"},
+	{ name : "Salsify"},
+	{ name : "Scallions"},
+	{ name : "Shallots"},
+	{ name : "Spinach"},
+	{ name : "Sprouts"},
+	{ name : "Squash_aummer", value : "Squash (summer)"},
+	{ name : "Squash_winter", value : "Squash (winter)"},
+	{ name : "Sunchokes"},
+	{ name : "Sweet_potatoes", value : "Sweet Potatoes"},
+	{ name : "Sweet_potato_greens", value : "Sweet Potato Greens"},
+	{ name : "Tomatillos"},
+	{ name : "Tomatoes"},
+	{ name : "Turnips"},
+	{ name : "Turnip_greens", value : "Turnip Greens"},
+	{ name : "Yacon"}
 	];
 
 	$scope.Fruit = [
-		{ name : "Apples"},
-		{ name : "Apricots"},
-		{ name : "Apriums"},
-		{ name : "Asian_pears", value : "Asian Pears"},
-		{ name : "Blackberries"},
-		{ name : "Blueberries "},
-		{ name : "Boysenberries"},
-		{ name : "Canary_melons", value : "Canary Melons"},
-		{ name : "Cantaloupes"},
-		{ name : "Cherimoyas"},
-		{ name : "Cherries"},
-		{ name : "Currants"},
-		{ name : "Feijoas"},
-		{ name : "Figs"},
-		{ name : "Grapefruit"},
-		{ name : "Grapes"},
-		{ name : "Honeydew_melons", value : "Honeydew Melons"},
-		{ name : "Mulberries"},
-		{ name : "PawPaws"},
-		{ name : "Peaches"},
-		{ name : "Pears"},
-		{ name : "Plums"},
-		{ name : "Quince"},
-		{ name : "Raspberries_black", value : "Raspberries (black)"},
-		{ name : "Raspberries_red", value : "Raspberries (red)"},
-		{ name : "Strawberries"},
-		{ name : "Tayberries"},
-		{ name : "Watermelon"},
-		{ name : "Wineberries"}
+	{ name : "Apples"},
+	{ name : "Apricots"},
+	{ name : "Apriums"},
+	{ name : "Asian_pears", value : "Asian Pears"},
+	{ name : "Blackberries"},
+	{ name : "Blueberries "},
+	{ name : "Boysenberries"},
+	{ name : "Canary_melons", value : "Canary Melons"},
+	{ name : "Cantaloupes"},
+	{ name : "Cherimoyas"},
+	{ name : "Cherries"},
+	{ name : "Currants"},
+	{ name : "Feijoas"},
+	{ name : "Figs"},
+	{ name : "Grapefruit"},
+	{ name : "Grapes"},
+	{ name : "Honeydew_melons", value : "Honeydew Melons"},
+	{ name : "Mulberries"},
+	{ name : "PawPaws"},
+	{ name : "Peaches"},
+	{ name : "Pears"},
+	{ name : "Plums"},
+	{ name : "Quince"},
+	{ name : "Raspberries_black", value : "Raspberries (black)"},
+	{ name : "Raspberries_red", value : "Raspberries (red)"},
+	{ name : "Strawberries"},
+	{ name : "Tayberries"},
+	{ name : "Watermelon"},
+	{ name : "Wineberries"}
 	];
 
 	$scope.Nut = [
-		{ name : "Chestnuts"},
-		{ name : "Dates"},
-		{ name : "Jujubes"},
-		{ name : "Peanuts"},
-		{ name : "Walnuts_black", value : "Walnuts (black)"},
-		{ name : "Walnuts_english", value : "Walnuts (english"}
-	];
+	{ name : "Chestnuts"},
+	{ name : "Peanuts"},
+	{ name : "Walnuts_black", value : "Walnuts (black)"},
+	{ name : "Walnuts_english", value : "Walnuts (english"}
+		];
 
 	//$scope.survey = <%= raw(@application.to_json) %>;
 
 	//if($scope.survey == null)
-		$scope.survey = {};
+	$scope.survey = {};
 	
 	var d = new Date();
 	$scope.year = d.getFullYear() - 1;
@@ -601,7 +642,7 @@
 	}
 
 	$scope.openModal = function(){
-		$('#myModal').modal('show');
+		$('#foodModal').modal('show');
 	}
 
 	$scope.setRad = function(model, val){
@@ -624,7 +665,8 @@
 	}
 
 	$scope.submitSurvey = function(){
-		$scope.survey.produce_list = $scope.selectedYear;
+		$scope.survey.year2014 = $scope.year2014;
+		$scope.survey.year2015 = $scope.year2015;
 
 		console.log($scope.survey);
 

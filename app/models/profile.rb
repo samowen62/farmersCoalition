@@ -13,4 +13,5 @@ class Profile < ActiveRecord::Base
   has_many :credit_sales
   has_many :misc_research
   has_many :market_program
+  has_many :volunteer
 end

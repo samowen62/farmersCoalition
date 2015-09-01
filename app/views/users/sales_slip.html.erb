@@ -5,81 +5,72 @@
 	<%= render "shared/nav" %>
 
   	<h1>Vendor Sales Slip</h1>
-  	<div class="col-md-6">
-		<div class="row">
-			<h2>Total Gross Sales: </h2>
-			<br />
-			<div class="col-md-7">
-		  		<label>Date</label>
-				<input type="text" ng-change="setdate()" ng-model="date" class="tcal">
-	  		</div>
-	  		<div style="margin-top:23px">
+  	<div class="col-md-12">
+	  	<div class="col-md-6">
+			<div class="row">
+				<h2>Total Gross Sales: </h2>
+				<br />
+				<div class="col-md-7">
+			  		<label>Date</label>
+					<input type="text" ng-change="setdate()" ng-model="date" class="tcal">
+		  		</div>
+		  		<div style="margin-top:23px">
+					<span class="col-xs-1 dollars">$</span>
+					<div  class="col-xs-3"><input type="text" ng-model="survey.total_sales" placeholder="0.00" /></div>
+				</div>
+			</div>
+			<div class="row">
+				<h3>Product Categories:</h3>
+				<label class="col-xs-7">Farm Product Sales: </label>
 				<span class="col-xs-1 dollars">$</span>
-				<div  class="col-xs-3"><input type="text" ng-model="survey.total_sales" placeholder="0.00" /></div>
+				<div  class="col-xs-3"><input type="text" ng-model="survey.farm_sales" placeholder="0.00" /></div>
+			</div>
+			<div class="row">
+				<label class="col-xs-7">Value-added Sales: </label>
+				<span class="col-xs-1 dollars">$</span>
+				<div  class="col-xs-3"><input type="text" ng-model="survey.value_sales" placeholder="0.00" /></div>
+			</div>
+			<div class="row">
+				<label class="col-xs-7">Ready-to-Eat (Prepared) food Sales: </label>
+				<span class="col-xs-1 dollars">$</span>
+				<div  class="col-xs-3"><input type="text" ng-model="survey.ready_sales" placeholder="0.00" /></div>
 			</div>
 		</div>
-		<div class="row">
-			<h3>Product Categories:</h3>
-			<label class="col-xs-7">Farm Product Sales: </label>
-			<span class="col-xs-1 dollars">$</span>
-			<div  class="col-xs-3"><input type="text" ng-model="survey.farm_sales" placeholder="0.00" /></div>
-		</div>
-		<div class="row">
-			<label class="col-xs-7">Value-added Sales: </label>
-			<span class="col-xs-1 dollars">$</span>
-			<div  class="col-xs-3"><input type="text" ng-model="survey.value_sales" placeholder="0.00" /></div>
-		</div>
-		<div class="row">
-			<label class="col-xs-7">Ready-to-Eat (Prepared) food Sales: </label>
-			<span class="col-xs-1 dollars">$</span>
-			<div  class="col-xs-3"><input type="text" ng-model="survey.ready_sales" placeholder="0.00" /></div>
-		</div>
-	</div>
-	<div class="col-md-6">
-		<h2>Payment Methods</h2>
-		<div class="row" ng-if="metrics[7]">
-			<label class="col-xs-7">Debit/Credit sales</label>
-			<span class="col-xs-1 dollars">$</span>
-			<div  class="col-xs-3"><input type="text" ng-model="survey.Debt_sales" placeholder="0.00" /></div>
-		</div>
-		<div class="row"  ng-if="metrics[15]">
-			<label class="col-xs-7">WIC FMNP sales</label>
-			<span class="col-xs-1 dollars">$</span>
-			<div  class="col-xs-3"><input type="text" ng-model="survey.WIC_FMNP_sales" placeholder="0.00" /></div>
-		</div>
-		<div class="row" ng-if="metrics[16]">
-			<label class="col-xs-7">WIC CVV sales</label>
-			<span class="col-xs-1 dollars">$</span>
-			<div  class="col-xs-3"><input type="text" ng-model="survey.WIC_sales" placeholder="0.00" /></div>
-		</div>
-		<div class="row" ng-if="metrics[20]">
-			<label class="col-xs-7">Senior FMNP sales</label>
-			<span class="col-xs-1 dollars">$</span>
-			<div  class="col-xs-3"><input type="text" ng-model="survey.Senior_FMNP_sales" placeholder="0.00" /></div>	
-		</div>		
-		<div class="row" ng-if="metrics[14]">
-			<label class="col-xs-7">SNAP/EBT sales</label>
-			<span class="col-xs-1 dollars">$</span>
-			<div  class="col-xs-3"><input type="text" ng-model="survey.SNAP_sales" placeholder="0.00" /></div>
-		</div>
-		<div class="row" ng-if="metrics[13]">
-			<label class="col-xs-7">Number of SNAP/EBT transactions</label>
-			<div  class="col-xs-4"><input type="text" ng-model="survey.SNAP_transactions"/></div>
+		<div class="col-md-6">
+			<h2>Payment Methods</h2>
+			<div class="row" ng-if="metrics[7]">
+				<label class="col-xs-7">Debit/Credit sales</label>
+				<span class="col-xs-1 dollars">$</span>
+				<div  class="col-xs-3"><input type="text" ng-model="survey.Debt_sales" placeholder="0.00" /></div>
+			</div>
+			<div class="row"  ng-if="metrics[15]">
+				<label class="col-xs-7">WIC FMNP sales</label>
+				<span class="col-xs-1 dollars">$</span>
+				<div  class="col-xs-3"><input type="text" ng-model="survey.WIC_FMNP_sales" placeholder="0.00" /></div>
+			</div>
+			<div class="row" ng-if="metrics[16]">
+				<label class="col-xs-7">WIC CVV sales</label>
+				<span class="col-xs-1 dollars">$</span>
+				<div  class="col-xs-3"><input type="text" ng-model="survey.WIC_sales" placeholder="0.00" /></div>
+			</div>
+			<div class="row" ng-if="metrics[20]">
+				<label class="col-xs-7">Senior FMNP sales</label>
+				<span class="col-xs-1 dollars">$</span>
+				<div  class="col-xs-3"><input type="text" ng-model="survey.Senior_FMNP_sales" placeholder="0.00" /></div>	
+			</div>		
+			<div class="row" ng-if="metrics[14]">
+				<label class="col-xs-7">SNAP/EBT sales</label>
+				<span class="col-xs-1 dollars">$</span>
+				<div  class="col-xs-3"><input type="text" ng-model="survey.SNAP_sales" placeholder="0.00" /></div>
+			</div>
+			<div class="row" ng-if="metrics[13]">
+				<label class="col-xs-7">Number of SNAP/EBT transactions</label>
+				<div  class="col-xs-4"><input type="text" ng-model="survey.SNAP_transactions"/></div>
+			</div>
 		</div>
 	</div>
 	<div class="col-md-12">
-		<div class="col-md-6" ng-if="metrics[31]">
-			<h3>Donated Food</h3>
-			<div class="row">
-				<label class="col-xs-7">Estimated Pounds of Donated Food: </label>
-				<div  class="col-xs-4"><input type="text" ng-model="survey.pounds_donated"/></div>
-			</div>
-			<div class="row">
-				<label class="col-xs-7">Estimated Retail Value of Donation: </label>
-				<span class="col-xs-1 dollars">$</span>
-				<div  class="col-xs-3"><input type="text" ng-model="survey.values_donated" placeholder="0.00" /></div>
-			</div>
-		</div>
+		
 		<div class="col-md-6" ng-if="metrics[35]">
 			<label>Which three fresh vegetables or fruits did you sell most frequently on {{date}} at the market?</label>
 			<div class="row selectGroup">
@@ -135,6 +126,18 @@
 						<option ng-repeat=" n in foodList3" value="{{n}}">{{n}}</option>
 					</select>
 				</div>
+			</div>
+		</div>
+		<div class="col-md-6" ng-if="metrics[31]">
+			<h3>Donated Food</h3>
+			<div class="row">
+				<label class="col-xs-7">Estimated Pounds of Donated Food: </label>
+				<div  class="col-xs-4"><input type="text" ng-model="survey.pounds_donated"/></div>
+			</div>
+			<div class="row">
+				<label class="col-xs-7">Estimated Retail Value of Donation: </label>
+				<span class="col-xs-1 dollars">$</span>
+				<div  class="col-xs-3"><input type="text" ng-model="survey.values_donated" placeholder="0.00" /></div>
 			</div>
 		</div>
 	</div>

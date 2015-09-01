@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821165534) do
+ActiveRecord::Schema.define(version: 20150827184047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -667,5 +667,21 @@ ActiveRecord::Schema.define(version: 20150821165534) do
   end
 
   add_index "visitor_surveys", ["profile_id"], name: "index_visitor_surveys_on_profile_id", using: :btree
+
+  create_table "volunteers", force: true do |t|
+    t.integer "profile_id"
+    t.date    "service_date"
+    t.string  "first"
+    t.string  "last"
+    t.integer "people_committed"
+    t.float   "hours_committed"
+    t.integer "people_attended"
+    t.string  "arrival"
+    t.string  "departure"
+    t.text    "completed_task"
+    t.string  "assigned_task"
+  end
+
+  add_index "volunteers", ["profile_id"], name: "index_volunteers_on_profile_id", using: :btree
 
 end

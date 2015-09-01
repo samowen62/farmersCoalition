@@ -126,7 +126,7 @@
 <%= render "shared/footer" %>
 <script type="text/javascript">
 
-
+var admin = <%= raw(@user.admin) %>;
 var profile = <%= raw(@profile.to_json) %>;
 var markets = <%= raw(@markets.to_json) %>;
 var management = <%= raw(@management.to_json) %>;
@@ -140,6 +140,7 @@ var sales_slips = <%= raw(@sales_slips.to_json) %>;
 var visitor_counts = <%= raw(@visitor_counts.to_json) %>;
 var applications = <%= raw(@applications.to_json) %>;
 var assistances = <%= raw(@assistances.to_json) %>;
+var assistance_snap = <%= raw(@assistance_snap.to_json) %>;
 var credits = <%= raw(@credit.to_json) %>;
 
 
@@ -422,39 +423,49 @@ var csv1 = document.getElementById('visitor_counts');
 csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_count_csv));
 csv1.setAttribute('download', 'VisitorCounts.csv');
 
-var food_assistance_csv = 'Name,First Time Using Benefits?,First 8 Digits of SNAP,Incentive Campaign,Redeemed,Transaction Date,Type of Assistance,Zip Code\n';
+var food_assistance_csv = 'Transaction Date,Benefit Type,Last 8 Digits,Amount Redeemed,Zip Code,First Time Using Benefits,Incentive Campaign\n';
 
 for(var i in assistances){
 	var a = assistances[i];
-	food_assistance_csv += a.name+","+(a.first_name ? 'Yes' : 'No')+","+a.digits_of_snap+","+a.incentive_campaign+","+a.redeemed+","+a.transaction_date+","+a.type_of_assistance+","+a.zip_code+"\n"
+	food_assistance_csv += a.transaction_date+","+a.type_of_assistance+","+a.digits_of_snap+","+a.redeemed+","+a.zip_code+","+(a.first_name ? 'Yes' : 'No')+","+a.incentive_campaign+"\n"
 } 
+
+if(assistance_snap.length > 0){
+	food_assistance_csv += '\n\n,,Metric #18, Metric#19\nMarket,Transaction Date,Unique SNAP Incentive IDs,Repeat SNAP IDs\n';
+
+	for(var i in assistance_snap){
+		var a = assistance_snap[i];
+		food_assistance_csv += a.name+','+a.transaction_date+','+a.array_length+','+(a.count-a.array_length)+'\n';
+	}
+}
 
 var csv1 = document.getElementById('food_assistance');
 csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(food_assistance_csv));
 csv1.setAttribute('download', 'FoodAssistance.csv');
 
-var credit_debit_csv = 'Name,Transaction Date,Credit Sales,Debit Sales,\n';
+var credit_debit_csv = admin ? 'Market Name,Transaction Date,Credit Sales,Debit Sales,\n' : 'Transaction Date,Credit Sales,Debit Sales,\n';
 
 for(var i in credits){
 	var a = credits[i];
-	credit_debit_csv += a.name+","+a.transaction_sales+","+a.credit_sales+","+a.debit_sales+"\n"
+	credit_debit_csv += (admin ? (a.name+",") : '')+a.transaction_sales+","+a.credit_sales+","+a.debit_sales+"\n"
 } 
+
 
 var csv1 = document.getElementById('credit_debit');
 csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(credit_debit_csv));
 csv1.setAttribute('download', 'DebitCredit.csv');
 
-var visitor_application_csv = '';
+var visitor_application_csv = ',,Metric 2 - Total annual vendor sales at market ($),,,,,,Metric 3 - Average distance from product origin to market (mi),,Metric 34 - Hours from harvest to POS,Metric 4 - Acres in agricultural production (#),Metric 9 - Individuals employed by market business annually (#),Metric 10 - Total annual farm vendor sales ($),Metric 12 - Farm vendors with <10 years farming experience (%),Metric 22 - Women-owned producers (#),Metric 23 - Socially disadv. vendors (#),Metric 29,Metric 25 - Farm vendors with organic certification (#),Metric 26 - Products sold as certified organic (#),Metric 24 - Unique regional products,Metric 27 - Fruit, vegetable, and nut crops available for sale annually (#),Nuts\n'+(admin ? 'Market Name' : '')+',Vendor name,Total Gross Sales,Farm Product	Value-added,Ready-to-eat food,Other product,Anticipated 2015 Sales,Primary Location,Secondary Location,Place holder,Total Acres,Owned,Leased,Cultivated/Grazed,Anticipated 2015 Acreage,Seasonal Workers,Year-round Workers,Anticipated 2015 Workers,Total Gross Sales,Farm Product,Value-added,Ready-to-eat food,Other product,Anticipated 2015 Sales,Products Sold,Place holder,Apples,Apricots,Apriums,Asian Pears,Blackberries,Blueberries,Boysenberries,Canary Melons,Cantaloupes,Cherimoyas,Cherries,Currants,Dates,Feijoas,Figs,Grapefruit,Grapes,Honeydew Melons,Jujubes,Mulberries,PawPaws,Peaches,Pears,Plums,Quince,"Raspberries, Black","Raspberries, Red",Strawberries,Tayberries,Watermelon,Wineberries,Artichokes,Arugula,Asparagus,"Beans, Green","Beans, Dry",Beets,Beet Greens,Bok Choy,Broccoli,Broccoli Rabe,Brussels Sprouts,"Cabbage, Green","Cabbage, Purple",Cardoons,Carrots,Cauliflower,Celeriac,Celery ,Chard,Chicory,Chipilin,Collards,"Corn, Sweet",Cress,Cucumbers,Dandelion Greens,Eggplant,Epazote,Fava Beans,Fennel ,Garlic Bulb,Garlic Scapes,"Herbs, Fresh",Hierbamora,Horseradish,Jicama,Kale,Kohlrabi,Lambs Quarters,Leeks,Lettuce,Lima Beans,Mesclun (mixed greens),Mushrooms,Mustard Greens,Okra,Onions,Parsnips,"Peas, English","Peas, Sugar Snap","Peas, Snow","Peppers, Hot","Peppers, Sweet Green","Peppers, Sweet Red","Peppers, Sweet Purple","Peppers, Sweet Yellow",Potatoes,Pumpkins,Purslane,Radishes,Rhubarb,Rutabagas,Salsify,Scallions,Shallots,Spinach,Sprouts,"Squash, Summer","Squash, Winter",Sunchokes,Sweet Potatoes,Sweet Potato Greens,Tomatillos,Tomatoes,Turnips,Turnip Greens,Yacon,Chestnuts,Peanuts,"Walnuts, Black","Walnuts, English"\n';
 
-for(var i in applications[0])
-	visitor_application_csv += i+',';
-visitor_application_csv += '\n';
+//for(var i in applications[0])
+//	visitor_application_csv += i+',';
+//visitor_application_csv += '\n';
+console.log(applications);
 
 for(var i in applications){
-	for(var j in applications[i]){
-		visitor_application_csv += applications[i][j]+',';
-	}
-	visitor_application_csv += '\n';
+	var a = applications[i];
+	visitor_application_csv += a.name+','+a.vendor_name+','+(a.farm_sales+a.value_sales+a.ready_sales+a.other_sales)+','+a.farm_sales+','+a.value_sales+','+a.ready_sales+','+a.other_sales+','+a.level_of_sales+','+a.primary_loc+','+a.secondary_loc+',,'+(a.acres_owned+a.acres_leased+a.acres_cultivated)+','+a.acres_owned+','+a.acres_leased+','+a.acres_cultivated+','+a.level_of_acres+','+a.workers_seasonal+','+a.workers_yearly+','+a.level_of_worker_anticipation+','+(a.farm_sales+a.value_sales+a.ready_sales+a.other_sales)+','+a.farm_sales+','+a.value_sales+','+a.ready_sales+','+a.other_sales+','+a.level_of_sales+','+a.owner1_years+',';//+a.owner2_years+','+a.owned_by_women+','+('White: '+a.operators_white+'Mexican: '+a.operators_mexican+'Black: '+a.operators_black+'Indian: '+a.operators_indian+'Asian: '+a.operators_asian)+','+a.under_35+','+a.certified_organic_number+','+a.certified_naturaly_number+','+a.certified_biodynamic_number+','+a.food_alliance_number+','+a.other_certification_number+','+a.certified_organic_number+',,'+
+	visitor_application_csv += a.Apples+','+a.Apricots+','+a.Apriums+','+a.Asian_pears+','+a.Blackberries+','+a.Blueberries+','+a.Boysenberries+','+a.Canary_melons+','+a.Cantaloupes+','+a.Cherimoyas+','+a.Cherries+','+a.Currants+','+a.Dates+','+a.Feijoas+','+a.Figs+','+a.Grapefruit+','+a.Grapes+','+a.Honeydew_melons+','+a.Mulberries+','+a.PawPaws+','+a.Peaches+','+a.Pears+','+a.Plums+','+a.Quince+','+a.Raspberries_black+','+a.Raspberries_red+','+a.Strawberries+','+a.Tayberries+','+a.Watermelon+','+a.Wineberries+','+a.Artichokes+','+a.Arugula+','+a.Asparagus+','+a.Beans_green+','+a.Beans_dry+','+a.Beets+','+a.Beet_greens+','+a.Bok_choy+','+a.Broccoli+','+a.Broccoli_rabe+','+a.Brussels_sprouts+','+a.Cabbage_green+','+a.Cabbage_purple+','+a.Cardoons+','+a.Carrots+','+a.Cauliflower+','+a.Celeriac+','+a.Celery+','+a.Chard+','+a.Chicory+','+a.Chipilín+','+a.Collards+','+a.Corn_Sweet+','+a.Cress+','+a.Cucumbers+','+a.Dandelion_greens+','+a.Eggplant+','+a.Epazote+','+a.Fava_beans+','+a.Fennel+','+a.Garlic_bulb+','+a.Garlic_scapes+','+a.Herbs_fresh+','+a.Hierbamora+','+a.Horseradish+','+a.Jicama+','+a.Jujubes+','+a.Kale+','+a.Kohlrabi+','+a.Lambs_quarters+','+a.Leeks+','+a.Lettuce+','+a.Lima_beans+','+a.Mesclun_mixed_salad_greens+','+a.Mushrooms+','+a.Mustard_greens+','+a.Okra+','+a.Onions+','+a.Parsnips+','+a.Peas_english+','+a.Peas_sugar_snap+','+a.Peas_snow+','+a.Pea_shoots+','+a.Peppers_hot+','+a.Peppers_sweet_green+','+a.Peppers_sweet_red+','+a.Peppers_sweet_purple+','+a.Peppers_sweet_yellow+','+a.Potatoes+','+a.Pumpkins+','+a.Purslane+','+a.Radishes+','+a.Rhubarb+','+a.Rutabagas+','+a.Salsify+','+a.Scallions+','+a.Shallots+','+a.Spinach+','+a.Sprouts+','+a.Squash_aummer+','+a.Squash_winter+','+a.Sunchokes+','+a.Sweet_potatoes+','+a.Sweet_potato_greens+','+a.Tomatillos+','+a.Tomatoes+','+a.Turnips+','+a.Turnip_greens+','+a.Yacon+','+a.Chestnuts+','+a.Peanuts+','+a.Walnuts_black+','+a.Walnuts_english+'\n';
 }
 
 var csv1 = document.getElementById('visitor_application');

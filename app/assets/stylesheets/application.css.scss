@@ -393,6 +393,24 @@ nav{
 		color: white;
   	}
 }
+#vol-table{
+	width:760px;
+	table{
+	  	overflow-y: scroll;
+		display: block;
+		th, td{
+			max-width: 90px;
+			min-width: 90px;
+			input{
+				width:90%;
+			}
+		}
+		.larger{
+			min-width: 130px; 
+			max-width: 130px;
+		}
+	}
+}
 #rem{
 	  float: left;
   width: 240px !important;

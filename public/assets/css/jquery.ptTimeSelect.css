@@ -14,6 +14,7 @@
 	position: absolute;
 	z-index: 10;
 	display: none;
+	background-color: #eee;
 }
 #ptTimeSelectCntr .ui-widget{
 	padding: .2em;
@@ -42,6 +43,7 @@
 }
 #ptTimeSelectCntr .ui-widget.ui-widget-content {
 	margin-top: 0;
+	border: 1px solid #bbb;
 }
 #ptTimeSelectCntr .ptTimeSelectLeftPane.ui-widget-content {
 	border-top:none;
@@ -57,10 +59,16 @@
 	display: block;
 	float: left;
 	padding: .2em;
-	width: 1.9em;
+	width: 29px;
 	margin: 1px;
 	text-align: center;
 	text-decoration: none;
+	border: 1px solid #777;
+}
+#ptTimeSelectCntr .ptTimeSelectHrCntr a:hover,
+#ptTimeSelectCntr .ptTimeSelectMinCntr a:hover {
+	background-color: steelblue;
+	color: white;
 }
 #ptTimeSelectCntr .ptTimeSelectHrAmPmCntr a {
 	text-align: center;
@@ -80,4 +88,6 @@
 	width: 30%;
 	text-align: center;
 	float: right;
+	background-color: steelblue;
+  	color: white;
 }

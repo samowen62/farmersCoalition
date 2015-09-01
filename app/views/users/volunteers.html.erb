@@ -1,0 +1,151 @@
+<%= render "shared/menu" %>
+
+<div id="survey" class="col-md-12" ng-app ng-controller="visitorCtrl">
+	<div id="summary" class="main money">
+
+		<%= render "shared/nav" %>
+
+		<h1>Volunteer Worksheet</h1>
+		<div class="row">
+			<label>If you are an organization please write your name in the field for first name</label>
+		</div>
+		<div class="row">
+			<div  id="vol-table">
+				<table>
+					<thead>
+						<tr>
+							<th style="text-align:center;border: 2px solid #222;" colspan="6">Before the Market</th>
+							<th style="text-align:center;border: 2px solid #222;" colspan="4">After the Market</th>
+							<th></th>
+						</tr>
+						<tr>
+							<th style="min-width: 120px; max-width: 120px;">Service date</th>
+							<th class="larger">First Name</th>
+							<th>Last Name</th>
+							<th>People committed (#)</th>
+							<th>Hours committed (.25)</th>
+							<th class="larger">Assigned task(s)</th>
+							<th>People attended (#)</th>
+							<th>Arrival time</th>
+							<th>Departure time</th>
+							<th class="larger">Completed Task(s)</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="v in volunteers">
+							<td style="min-width: 120px; max-width: 120px;"><input ng-disabled="!v.editmode" ng-model="v.service_date" class="tcal" /></td>
+							<td class="larger"><input ng-disabled="!v.editmode" ng-model="v.first"  /></td>
+							<td><input ng-disabled="!v.editmode" ng-model="v.last"  /></td>
+							<td><input ng-disabled="!v.editmode" ng-model="v.people_committed"  /></td>
+							<td><input ng-disabled="!v.editmode" ng-model="v.hours_committed"  /></td>
+							<td class="larger"><input ng-disabled="!v.editmode" ng-model="v.assigned_task" /></td>
+							<td><input ng-disabled="!v.editmode" ng-model="v.people_attended"  /></td>
+							<td><input ng-disabled="!v.editmode" ng-model="v.arrival" class="time" /></td>
+							<td><input ng-disabled="!v.editmode" ng-model="v.departure" class="time" /></td>
+							<td class="larger"><input ng-disabled="!v.editmode" ng-model="v.completed_task"  /></td>
+							<td>
+								<button ng-show="!v.editmode" class="btn btn-default" ng-click="v.editmode = true">Edit</button>
+								<button ng-show="v.editmode" class="btn btn-success" ng-click="updateVol(v, $index)">Update</button>
+							</td>
+						</tr>
+						<tr>
+							<td style="min-width: 120px; max-width: 120px;"><input ng-model="newVol.service_date" class="tcal" /></td>
+							<td class="larger"><input ng-model="newVol.first"  /></td>
+							<td><input ng-model="newVol.last"  /></td>
+							<td><input ng-model="newVol.people_committed"  /></td>
+							<td><input ng-model="newVol.hours_committed"  /></td>
+							<td class="larger"><input ng-model="newVol.assigned_task" /></td>
+							<td><input ng-model="newVol.people_attended"  /></td>
+							<td><input ng-model="newVol.arrival" class="time" /></td>
+							<td><input ng-model="newVol.departure" class="time" /></td>
+							<td class="larger"><input ng-model="newVol.completed_task"  /></td>
+							<td>
+								<button class="btn btn-success" ng-click="submitNew()">Submit</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="successScreen"> 
+	<a href="#" class="suc-text">Success!</a>
+</div> 
+<div id="cover" ></div>
+
+
+
+<%= render "shared/footer" %>
+<script type="text/javascript">
+	$(document).ready(function(){
+        $('.time').ptTimeSelect();
+    });
+
+	function visitorCtrl($scope){
+
+		$scope.volunteers = <%= raw(@vols.to_json) %>;
+		$scope.profile = <%= raw(@profile.to_json) %>;
+		$scope.newVol = {id : -1};
+
+		$scope.updateVol = function(volunteer, index){
+			volunteer.service_date = $('.tcal')[index].value;
+			volunteer.arrival = $('.time')[2 * index].value;
+			volunteer.departure = $('.time')[2 * index].value;
+
+			console.log(volunteer,index);
+
+			volunteer.editmode = false;
+
+			$.ajax({
+				type: "POST",
+				url: "/post_volunteer",
+				data: JSON.stringify(volunteer),
+				contentType: "application/json",
+				success: function(data){
+					location.href = '#successScreen';
+					$scope.volunteers = data;
+					setTimeout(ret, 1000);
+				},
+				error: function(data){
+					alert("Error Submitting Data");
+				}
+			});
+		}
+
+
+		$scope.submitNew = function(){
+			$scope.newVol.service_date = $('.tcal')[$('.tcal').length - 1].value;
+			$scope.newVol.arrival = $('.time')[$('.time').length - 2].value;
+			$scope.newVol.departure = $('.time')[$('.time').length - 1].value;
+
+			console.log($scope.newVol);
+
+			$.ajax({
+				type: "POST",
+				url: "/post_volunteer",
+				data: JSON.stringify($scope.newVol),
+				contentType: "application/json",
+				success: function(data){
+					$scope.volunteers = data;
+					location.href = '#successScreen';
+					$scope.newVol = {id : -1};
+					setTimeout(reload, 1000);
+				},
+				error: function(data){
+					alert("Error Submitting Data");
+				}
+			});
+		};
+
+		function reload(){
+			location.reload();
+		}
+
+		function ret(){
+			location.href = "#";
+		}
+	}
+
+</script>

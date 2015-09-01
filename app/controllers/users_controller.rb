@@ -186,6 +186,10 @@ class UsersController < ApplicationController
           @applications = VisitorApplication.select("profiles.name, visitor_applications.*, produce_list.*").joins(:profile).joins(:produce_list).order(:profile_id).order("visitor_applications.id ASC")
 
           @assistances = FoodAssistance.select("food_assistance.*, profiles.name").joins(:profile).order("profile_id ASC").order("food_assistance.id ASC")
+          
+          snap_sql = "select transaction_date, profiles.name, count(*), array_length(array_agg(distinct digits_of_snap),1) from food_assistance left join profiles on profiles.id = profile_id group by profiles.name, transaction_date order by profiles.name, transaction_date;"
+          @assistance_snap = ActiveRecord::Base.connection.execute(snap_sql);
+
 
           @credit = CreditSales.select("credit_sales.*, profiles.name").joins(:profile).order("profile_id ASC").order("credit_sales.id ASC")
         else
@@ -281,6 +285,17 @@ class UsersController < ApplicationController
   			redirect_to root_path
   		end
   	end
+
+    def volunteers
+      if user_is_logged_in?
+        @user = User.find(session[:user_id])
+        session[:user_id] = @user.id
+        @profile = Profile.where(user_id: session[:user_id]).first
+        @vols = Volunteer.where(profile_id: @profile.id).order(:id)
+      else
+        redirect_to root_path
+      end
+    end
 
 	def visitor_count
   		if user_is_logged_in?

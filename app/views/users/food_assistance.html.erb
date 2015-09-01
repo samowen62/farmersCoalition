@@ -21,21 +21,21 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="f in foods">
-					<td class="fixed"><input ng-model="f.transaction_date" class="tcal" /></td>
-					<td class="fixed"><select ng-model="f.type_of_assistance" >
+					<td class="fixed"><input ng-model="f.transaction_date" class="tcal" ng-disabled="!editmode[''+$index]" /></td>
+					<td class="fixed"><select ng-model="f.type_of_assistance" ng-disabled="!editmode[''+$index]">
 						<option value="SNAP" ng-if="metrics[13] || metrics[14] || metrics[17] || metrics[18]">SNAP</option>
 						<option value="WIC FMNP" ng-if="metrics[15]">WIC FMNP</option>
 						<option value="WIC CVV" ng-if="metrics[16]">WIC CVV</option>
 						<option value="Senior FMNP" ng-if="metrics[20]">Senior FMNP</option>
 					</select></td>
-					<td class="fixed"><input ng-model="f.digits_of_snap" maxlength="8" /></td>
-					<td class="dollar">$ <input ng-model="f.redeemed" placeholder="0.00"/></td>
-					<td class="fixed"><input ng-model="f.zip_code" /></td>
-					<td class="fixed"><select ng-model="f.first_name" >
+					<td class="fixed"><input ng-model="f.digits_of_snap" maxlength="8" ng-disabled="!editmode[''+$index]"/></td>
+					<td class="dollar">$ <input ng-model="f.redeemed" placeholder="0.00" ng-disabled="!editmode[''+$index]"/></td>
+					<td class="fixed"><input ng-model="f.zip_code" ng-disabled="!editmode[''+$index]"/></td>
+					<td class="fixed"><select ng-model="f.first_name" ng-disabled="!editmode[''+$index]">
 						<option value="0">Y</option>
 						<option value="1">N</option>
 					</select></td>
-					<td class="fixed"><select ng-model="f.incentive_campaign">
+					<td class="fixed"><select ng-model="f.incentive_campaign" ng-disabled="!editmode[''+$index]">
 						<option value="Y">Y</option>
 						<option value="N">N</option>
 					</select></td>

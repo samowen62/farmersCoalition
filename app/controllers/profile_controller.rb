@@ -133,7 +133,7 @@ class ProfileController < ApplicationController
 
     if user_is_logged_in?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
-        if (slip = SalesSlip.where(date: params[:date]).where(profile_id: profile.id).first).nil?
+        #if (slip = SalesSlip.where(date: params[:date]).where(profile_id: profile.id).first).nil?
           slip = SalesSlip.new(sales_params)
           slip[:date] = params[:date]
           slip[:profile_id] = profile.id
@@ -141,13 +141,13 @@ class ProfileController < ApplicationController
 
           render plain: slip.inspect
           return
-        else
-          slip.update_attributes!(sales_params)
-          slip.save!
+        #else
+        #  slip.update_attributes!(sales_params)
+        #  slip.save!
 
-          render plain: slip.inspect
-          return
-        end
+        #  render plain: slip.inspect
+        #  return
+        #end
       end
     end
     render plain: "error"
@@ -233,6 +233,30 @@ class ProfileController < ApplicationController
 
   end
 
+  def post_volunteer
+    if user_is_logged_in?
+      unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
+
+        if params[:id] == -1
+          vol = Volunteer.new(vol_params)
+          vol[:profile_id] = profile.id
+          vol.save!
+
+          render plain: Volunteer.where(profile_id: profile.id).order(:id).to_json
+          return
+        else
+          vol = Volunteer.where(profile_id: profile.id).where(id: params[:id]).first
+          vol.update_attributes!(vol_params)
+          vol.save!
+
+          render plain: Volunteer.where(profile_id: profile.id).order(:id).to_json
+          return
+        end
+      end
+    end
+    render plain: "error"
+  end
+
   def post_market_program
     if user_is_logged_in?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
@@ -265,10 +289,12 @@ class ProfileController < ApplicationController
           application[:profile_id] = profile.id
           application.save!
 
-          p = ProduceList.new(produce_params)
-          p[:visitor_application_id] = application.id
-          p.save!
-
+          p4 = ProduceList.new(year2014_params)
+          p5 = ProduceList.new(year2015_params)
+          p4[:visitor_application_id] = application.id
+          p5[:visitor_application_id] = application.id
+          p4.save!
+          p5.save!
 
         #  render plain: application.inspect
         #  return
@@ -439,7 +465,17 @@ class ProfileController < ApplicationController
     end  
 
   private
-    def produce_params
-      params[:produce_list].permit(:year,:Artichokes,:Arugula ,:Asparagus ,:Beans_green ,:Beans_dry ,:Beets ,:Beet_greens ,:Bok_choy ,:Broccoli,:Broccoli_rabe  ,:Brussels_sprouts  ,:Cabbage_green  ,:Cabbage_purple   ,:Cardoons  ,:Carrots ,:Cauliflower  ,:Celeriac  ,:Celery  ,:Chard  ,:Chicory  ,:Chipilín  ,:Collards  ,:Corn_Sweet  ,:Cress  ,:Cucumbers  ,:Dandelion_greens  ,:Eggplant  ,:Epazote  ,:Fava_beans  ,:Fennel,:Garlic_bulb  ,:Garlic_scapes  ,:Herbs_fresh  ,:Hierbamora ,:Horseradish ,:Jicama,:Kale,:Kohlrabi,:Lambs_quarters,:Leeks,:Lettuce,:Lima_beans  ,:Mesclun_mixed_salad_greens   ,:Mushrooms  ,:Mustard_greens  ,:Okra  ,:Onions  ,:Parsnips  ,:Peas_english  ,:Peas_sugar_snap  ,:Peas_snow  ,:Pea_shoots ,:Peppers_hot  ,:Peppers_sweet_green ,:Peppers_sweet_red   ,:Peppers_sweet_purple  ,:Peppers_sweet_yellow  ,:Potatoes,:Pumpkins  ,:Purslane  ,:Radishes   ,:Rhubarb  ,:Rutabagas ,:Salsify  ,:Scallions  ,:Shallots  ,:Spinach  ,:Sprouts  ,:Squash_aummer  ,:Squash_winter   ,:Sunchokes  ,:Sweet_potatoes  ,:Sweet_potato_greens  ,:Tomatillos,:Tomatoes  ,:Turnips,:Turnip_greens ,:Yacon ,:Apples  ,:Apricots  ,:Apriums  ,:Asian_pears  ,:Blackberries  ,:Blueberries ,:Boysenberries  ,:Canary_melons   ,:Cantaloupes  ,:Cherimoyas  ,:Cherries  ,:Currants  ,:Feijoas  ,:Figs,:Grapefruit  ,:Grapes ,:Honeydew_melons  ,:Mulberries  ,:PawPaws  ,:Peaches  ,:Pears  ,:Plums  ,:Quince,:Raspberries_black  ,:Raspberries_red   ,:Strawberries  ,:Tayberries ,:Watermelon ,:Wineberries ,:Chestnuts ,:Dates,:Jujubes,:Peanuts,:Walnuts_black ,:Walnuts_english)
+    def year2014_params
+      params[:year2014].permit(:year,:Artichokes,:Arugula ,:Asparagus ,:Beans_green ,:Beans_dry ,:Beets ,:Beet_greens ,:Bok_choy ,:Broccoli,:Broccoli_rabe  ,:Brussels_sprouts  ,:Cabbage_green  ,:Cabbage_purple   ,:Cardoons  ,:Carrots ,:Cauliflower  ,:Celeriac  ,:Celery  ,:Chard  ,:Chicory  ,:Chipilín  ,:Collards  ,:Corn_Sweet  ,:Cress  ,:Cucumbers  ,:Dandelion_greens  ,:Eggplant  ,:Epazote  ,:Fava_beans  ,:Fennel,:Garlic_bulb  ,:Garlic_scapes  ,:Herbs_fresh  ,:Hierbamora ,:Horseradish ,:Jicama,:Kale,:Kohlrabi,:Lambs_quarters,:Leeks,:Lettuce,:Lima_beans  ,:Mesclun_mixed_salad_greens   ,:Mushrooms  ,:Mustard_greens  ,:Okra  ,:Onions  ,:Parsnips  ,:Peas_english  ,:Peas_sugar_snap  ,:Peas_snow  ,:Pea_shoots ,:Peppers_hot  ,:Peppers_sweet_green ,:Peppers_sweet_red   ,:Peppers_sweet_purple  ,:Peppers_sweet_yellow  ,:Potatoes,:Pumpkins  ,:Purslane  ,:Radishes   ,:Rhubarb  ,:Rutabagas ,:Salsify  ,:Scallions  ,:Shallots  ,:Spinach  ,:Sprouts  ,:Squash_aummer  ,:Squash_winter   ,:Sunchokes  ,:Sweet_potatoes  ,:Sweet_potato_greens  ,:Tomatillos,:Tomatoes  ,:Turnips,:Turnip_greens ,:Yacon ,:Apples  ,:Apricots  ,:Apriums  ,:Asian_pears  ,:Blackberries  ,:Blueberries ,:Boysenberries  ,:Canary_melons   ,:Cantaloupes  ,:Cherimoyas  ,:Cherries  ,:Currants  ,:Feijoas  ,:Figs,:Grapefruit  ,:Grapes ,:Honeydew_melons  ,:Mulberries  ,:PawPaws  ,:Peaches  ,:Pears  ,:Plums  ,:Quince,:Raspberries_black  ,:Raspberries_red   ,:Strawberries  ,:Tayberries ,:Watermelon ,:Wineberries ,:Chestnuts ,:Dates,:Jujubes,:Peanuts,:Walnuts_black ,:Walnuts_english)
+    end
+
+  private
+    def year2015_params
+      params[:year2015].permit(:year,:Artichokes,:Arugula ,:Asparagus ,:Beans_green ,:Beans_dry ,:Beets ,:Beet_greens ,:Bok_choy ,:Broccoli,:Broccoli_rabe  ,:Brussels_sprouts  ,:Cabbage_green  ,:Cabbage_purple   ,:Cardoons  ,:Carrots ,:Cauliflower  ,:Celeriac  ,:Celery  ,:Chard  ,:Chicory  ,:Chipilín  ,:Collards  ,:Corn_Sweet  ,:Cress  ,:Cucumbers  ,:Dandelion_greens  ,:Eggplant  ,:Epazote  ,:Fava_beans  ,:Fennel,:Garlic_bulb  ,:Garlic_scapes  ,:Herbs_fresh  ,:Hierbamora ,:Horseradish ,:Jicama,:Kale,:Kohlrabi,:Lambs_quarters,:Leeks,:Lettuce,:Lima_beans  ,:Mesclun_mixed_salad_greens   ,:Mushrooms  ,:Mustard_greens  ,:Okra  ,:Onions  ,:Parsnips  ,:Peas_english  ,:Peas_sugar_snap  ,:Peas_snow  ,:Pea_shoots ,:Peppers_hot  ,:Peppers_sweet_green ,:Peppers_sweet_red   ,:Peppers_sweet_purple  ,:Peppers_sweet_yellow  ,:Potatoes,:Pumpkins  ,:Purslane  ,:Radishes   ,:Rhubarb  ,:Rutabagas ,:Salsify  ,:Scallions  ,:Shallots  ,:Spinach  ,:Sprouts  ,:Squash_aummer  ,:Squash_winter   ,:Sunchokes  ,:Sweet_potatoes  ,:Sweet_potato_greens  ,:Tomatillos,:Tomatoes  ,:Turnips,:Turnip_greens ,:Yacon ,:Apples  ,:Apricots  ,:Apriums  ,:Asian_pears  ,:Blackberries  ,:Blueberries ,:Boysenberries  ,:Canary_melons   ,:Cantaloupes  ,:Cherimoyas  ,:Cherries  ,:Currants  ,:Feijoas  ,:Figs,:Grapefruit  ,:Grapes ,:Honeydew_melons  ,:Mulberries  ,:PawPaws  ,:Peaches  ,:Pears  ,:Plums  ,:Quince,:Raspberries_black  ,:Raspberries_red   ,:Strawberries  ,:Tayberries ,:Watermelon ,:Wineberries ,:Chestnuts ,:Dates,:Jujubes,:Peanuts,:Walnuts_black ,:Walnuts_english)
+    end
+
+  private
+    def vol_params
+      params.permit(:service_date,:first,:last,:people_committed,:hours_committed,:people_attended,:arrival,:departure,:completed_task,:assigned_task)
     end
 end

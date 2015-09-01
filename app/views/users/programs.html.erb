@@ -20,7 +20,7 @@
 			<tbody>
 				<tr ng-repeat="f in programs">
 					<td class="fixed">
-						<select style="width: 100px;" ng-model="f.event_type" >
+						<select style="width: 100px;" ng-model="f.event_type" ng-disabled="!f.editmode" >
 							<option value="Demonstrations">Demonstrations</option>
 							<option value="Contests">Contests</option>
 							<option value="Skills workshops">Skills workshops</option>
@@ -28,14 +28,15 @@
 							<option value="Other Activities">Other Activities</option>
 						</selct>
 					</td>
-					<td class="fixed table-sm"><input ng-model="f.event_date" class="tcal" /></td>
+					<td class="fixed table-sm"><input ng-model="f.event_date" class="tcal" ng-disabled="!f.editmode" /></td>
 					<td class="fixed " style="  min-width: 100px;">
-						<label>Y</label><input ng-model="f.youth_specific" value="true" type="radio" name="{{youth + '' + $index}}"/>
-						<label>N</label><input ng-model="f.youth_specific" value="false" type="radio" name="{{youth + '' + $index}}"/>
+						<label>Y</label><input ng-model="f.youth_specific" value="true" type="radio" ng-disabled="!f.editmode" name="{{youth + '' + $index}}"/>
+						<label>N</label><input ng-model="f.youth_specific" value="false" type="radio" ng-disabled="!f.editmode" name="{{youth + '' + $index}}"/>
 					</td>
-					<td class="fixed table-sm"><input ng-model="f.participants" /></td>
-					<td class="fixed table-sm"><input ng-model="f.under_18" /></td>
-					<td><a ng-click="editRow(f, $index)" class="btn btn-default" href="javascript:void(0)">Edit</a></td>
+					<td class="fixed table-sm"><input ng-model="f.participants" ng-disabled="!f.editmode"/></td>
+					<td class="fixed table-sm"><input ng-model="f.under_18" ng-disabled="!f.editmode" /></td>
+					<td ng-show="!f.editmode"><a ng-click="f.editmode = true" class="btn btn-default" href="javascript:void(0)">Edit</a></td>
+					<td ng-show="f.editmode"><a ng-click="editRow(f, $index)" class="btn btn-default" href="javascript:void(0)">Update</a></td>
 				</tr>
 				<tr ng-show="!adding">
 					<td colspan="7" ng-style="{'padding' : adding ? '0px' : '3px'}"><a href="javascript:void(0)" id="add-span" ng-click="toggleAdd()" >+</a></td>
