@@ -5,7 +5,7 @@
 
 		<%= render "shared/nav" %>
 
-		<h1>Volunteer Worksheet</h1>
+		<h1>Volunteers</h1>
 		<div class="row">
 			<label>If you are an organization please write your name in the field for first name</label>
 		</div>
@@ -24,7 +24,7 @@
 							<th>Last Name</th>
 							<th>People committed (#)</th>
 							<th>Hours committed (.25)</th>
-							<th class="larger">Assigned task(s)</th>
+							<th class="larger" style="border-right:2px solid black;">Assigned task(s)</th>
 							<th>People attended (#)</th>
 							<th>Arrival time</th>
 							<th>Departure time</th>
@@ -39,7 +39,7 @@
 							<td><input ng-disabled="!v.editmode" ng-model="v.last"  /></td>
 							<td><input ng-disabled="!v.editmode" ng-model="v.people_committed"  /></td>
 							<td><input ng-disabled="!v.editmode" ng-model="v.hours_committed"  /></td>
-							<td class="larger"><input ng-disabled="!v.editmode" ng-model="v.assigned_task" /></td>
+							<td class="larger" style="border-right:2px solid black;"><input ng-disabled="!v.editmode" ng-model="v.assigned_task" /></td>
 							<td><input ng-disabled="!v.editmode" ng-model="v.people_attended"  /></td>
 							<td><input ng-disabled="!v.editmode" ng-model="v.arrival" class="time" /></td>
 							<td><input ng-disabled="!v.editmode" ng-model="v.departure" class="time" /></td>
@@ -49,13 +49,16 @@
 								<button ng-show="v.editmode" class="btn btn-success" ng-click="updateVol(v, $index)">Update</button>
 							</td>
 						</tr>
-						<tr>
+						<tr ng-show="!adding">
+							<td colspan="10" ng-style="{'padding' : adding ? '0px' : '3px'}"><a href="javascript:void(0)" id="add-span" ng-click="toggleAdd()" ng-show="!adding">+</a></td>
+						</tr>
+						<tr ng-show="adding">
 							<td style="min-width: 120px; max-width: 120px;"><input ng-model="newVol.service_date" class="tcal" /></td>
 							<td class="larger"><input ng-model="newVol.first"  /></td>
 							<td><input ng-model="newVol.last"  /></td>
 							<td><input ng-model="newVol.people_committed"  /></td>
 							<td><input ng-model="newVol.hours_committed"  /></td>
-							<td class="larger"><input ng-model="newVol.assigned_task" /></td>
+							<td class="larger" style="border-right:2px solid black;"><input ng-model="newVol.assigned_task" /></td>
 							<td><input ng-model="newVol.people_attended"  /></td>
 							<td><input ng-model="newVol.arrival" class="time" /></td>
 							<td><input ng-model="newVol.departure" class="time" /></td>
@@ -88,6 +91,11 @@
 		$scope.volunteers = <%= raw(@vols.to_json) %>;
 		$scope.profile = <%= raw(@profile.to_json) %>;
 		$scope.newVol = {id : -1};
+		$scope.adding = false;
+
+		$scope.toggleAdd = function(){
+			$scope.adding = !$scope.adding;
+		}
 
 		$scope.updateVol = function(volunteer, index){
 			volunteer.service_date = $('.tcal')[index].value;
