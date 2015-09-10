@@ -32,7 +32,18 @@
 		<div class='col-md-3'>
 			<a id='visitor_application' class='btn btn-default'>Export {{user.admin ? ' All' : ''}} Application{{user.admin ? 's' : ''}}</a>
 		</div>
+		<div class='col-md-3'>
+			<a id='vendor_attendance' class='btn btn-default'>{{user.admin ? ' All ' : ''}}Attendance Slip{{user.admin ? 's' : ''}}</a>
+		</div>
 	</div>
+	<div class="row" style="  margin-top: 15px;">
+		<div class='col-md-3'>
+			<a id='market_events' class='btn btn-default'>Export {{user.admin ? ' All' : ''}} Market Event{{user.admin ? 's' : ''}}</a>
+		</div>
+		<div class='col-md-3'>
+			<a id='volunteers' class='btn btn-default'>Export {{user.admin ? ' All' : ''}} Volunteer{{user.admin ? 's' : ''}}</a>
+		</div>
+	</div><!-- change this to a select-->
 	<div class="clearfix"></div>
 	<div class="profile-header">
 		<h2 ng-click="slide('#info')" class="title" >Profile Info <span ng-if="profile.FMC_member">FMC Member!</span></h2>
@@ -142,7 +153,9 @@ var applications = <%= raw(@applications.to_json) %>;
 var assistances = <%= raw(@assistances.to_json) %>;
 var assistance_snap = <%= raw(@assistance_snap.to_json) %>;
 var credits = <%= raw(@credit.to_json) %>;
-
+var attendance = <%= raw(@research.to_json) %>;
+var events = <%= raw(@events.to_json) %>;
+var volunteers = <%= raw(@volunteers.to_json) %>;
 
 
 console.log(applications,assistances,credits);
@@ -447,7 +460,7 @@ var credit_debit_csv = admin ? 'Market Name,Transaction Date,Credit Sales,Debit 
 
 for(var i in credits){
 	var a = credits[i];
-	credit_debit_csv += (admin ? (a.name+",") : '')+a.transaction_sales+","+a.credit_sales+","+a.debit_sales+"\n"
+	credit_debit_csv += (admin ? (a.name+",") : '')+a.transaction_sales+","+(a.credit_sales ?'$'+a.credit_sales:'')+","+(a.debit_sales ?'$'+a.debit_sales:'')+"\n"
 } 
 
 
@@ -470,8 +483,39 @@ for(var i in applications){
 
 var csv1 = document.getElementById('visitor_application');
 csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_application_csv));
-csv1.setAttribute('download', 'VisitorApplications.csv');
+csv1.setAttribute('download', 'VendorApplications.csv');
 
+var attendance_csv = "Market,Business/Farm Name,Owner Last Name,Week 1,Week 2,Week 3,Week 4,Week 5,Week 6,Week 7,Week 8,Week 9,Week 10,Week 11,Week 12,Week 13,Week 14,Week 15,Week 16,Week 17,Week 18,Week 19,Week 20,Week 21,Week 22,Week 23,Week 24,Week 25,Week 26,Week 27,Week 28,Week 29,Week 30,Week 31,Week 32,Week 33,Week 34,Week 35,Week 36\n";
+for(var i in attendance){
+	var a = attendance[i];
+	attendance_csv += "'"+a.name+"','"+a.farm_name+"',"+a.owner_last+","+(a.week1 ?'Yes':'No')+","+(a.week2 ?'Yes':'No')+","+(a.week3 ?'Yes':'No')+","+(a.week4 ?'Yes':'No')+","+(a.week5 ?'Yes':'No')+","+(a.week6 ?'Yes':'No')+","+(a.week7 ?'Yes':'No')+","+(a.week8 ?'Yes':'No')+","+(a.week9 ?'Yes':'No')+","+(a.week10 ?'Yes':'No')+","+(a.week11 ?'Yes':'No')+","+(a.week12 ?'Yes':'No')+","+(a.week13 ?'Yes':'No')+","+(a.week14 ?'Yes':'No')+","+(a.week15 ?'Yes':'No')+","+(a.week16 ?'Yes':'No')+","+(a.week17 ?'Yes':'No')+","+(a.week18 ?'Yes':'No')+","+(a.week19 ?'Yes':'No')+","+(a.week20 ?'Yes':'No')+","+(a.week21 ?'Yes':'No')+","+(a.week22 ?'Yes':'No')+","+(a.week23 ?'Yes':'No')+","+(a.week24 ?'Yes':'No')+","+(a.week25 ?'Yes':'No')+","+(a.week26 ?'Yes':'No')+","+(a.week27 ?'Yes':'No')+","+(a.week28 ?'Yes':'No')+","+(a.week29 ?'Yes':'No')+","+(a.week30 ?'Yes':'No')+","+(a.week31 ?'Yes':'No')+","+(a.week32 ?'Yes':'No')+","+(a.week33 ?'Yes':'No')+","+(a.week34 ?'Yes':'No')+","+(a.week35 ?'Yes':'No')+","+(a.week36 ?'Yes':'No')+"\n";
+}
+
+var csv1 = document.getElementById('vendor_attendance'); 
+csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(attendance_csv));
+csv1.setAttribute('download', 'VendorAttendance.csv');
+
+var events_csv = 'Market,Event Date,Youth Specific?, Total Participants,Number of Participants under 18\n';
+
+for(var i in events){
+	var a = events[i];
+	events_csv += '"'+a.name+'",'+a.event_date+','+(a.youth_specific ? 'Yes' : 'No')+','+a.participants+','+a.under_18+'\n';
+}
+
+var csv1 = document.getElementById('market_events'); 
+csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(events_csv));
+csv1.setAttribute('download', 'MarketEvents.csv');
+
+var vol_csv = 'Market,Service Date,First Name,Last Name,People Committed,Hours Committed,Assigned Task,People Attended,Arrival Time,Departure Time,Completed Task\n';
+
+for(var i in volunteers){
+	var a = volunteers[i];
+	vol_csv += '"'+a.name+'",'+a.service_date+','+a.first+','+a.last+','+a.people_committed+','+a.hours_committed+','+a.assigned_task+','+a.people_attended+','+a.arrival+','+a.departure+','+a.completed_task+'\n';
+}
+
+var csv1 = document.getElementById('volunteers'); 
+csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(vol_csv));
+csv1.setAttribute('download', 'VolunteerSales.csv');
 
 function displayCtrl($scope){
 

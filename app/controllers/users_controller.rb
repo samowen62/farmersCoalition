@@ -172,26 +172,29 @@ class UsersController < ApplicationController
         @applications = []
         @assistances = []
         @credit = []
+        @research = []
+        @events = []
+        @volunteers = []
 
         if(@user.admin)
           
           p = Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).order("profiles.id ASC").order("visitor_surveys.date ASC")
           @visitor_surveys << p
-
           sales_p = Profile.select('profiles.*').joins(:sales_slip).uniq
           slips = []
 
           profiles = Profile.select("name", "id", "day1", "day2", "day3", "day4")
 
           @applications = VisitorApplication.select("profiles.name, visitor_applications.*, produce_list.*").joins(:profile).joins(:produce_list).order(:profile_id).order("visitor_applications.id ASC")
-
           @assistances = FoodAssistance.select("food_assistance.*, profiles.name").joins(:profile).order("profile_id ASC").order("food_assistance.id ASC")
           
           snap_sql = "select transaction_date, profiles.name, count(*), array_length(array_agg(distinct digits_of_snap),1) from food_assistance left join profiles on profiles.id = profile_id group by profiles.name, transaction_date order by profiles.name, transaction_date;"
-          @assistance_snap = ActiveRecord::Base.connection.execute(snap_sql);
+          @assistance_snap = ActiveRecord::Base.connection.execute(snap_sql)
 
-
+          @research = MiscResearch.select("profiles.name, misc_researches.*").joins(:profile).order("profile_id, misc_researches.id")
           @credit = CreditSales.select("credit_sales.*, profiles.name").joins(:profile).order("profile_id ASC").order("credit_sales.id ASC")
+          @events = MarketProgram.select("market_programs.*, profiles.name").joins(:profile).order("profile_id ASC").order("market_programs.id ASC")
+          @volunteers = Volunteer.select("volunteers.*, profiles.name").joins(:profile).order("profile_id ASC").order("volunteers.id ASC")
         else
           p = Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).where("profiles.id = #{@profile.id}").order("visitor_surveys.date ASC")
           @visitor_surveys << p
@@ -200,7 +203,9 @@ class UsersController < ApplicationController
           slips = []
 
           profiles = Profile.select("name", "id", "day1", "day2", "day3", "day4").where("profiles.id = #{@profile.id}")
-
+          @research = MiscResearch.select("profiles.name, misc_research.*").joins(:profile).order("misc_research.id").where(:id => @profile.id)
+          @events = MarketProgram.select("profiles.name, market_programs.*").joins(:profile).order("market_programs.id").where(:id => @profile.id)
+          @volunteers = Volunteer.select("profiles.name, volunteers.*").joins(:profile).order("volunteers.id").where(:id => @profile.id)
         end
           for sp in sales_p do
             dates = sp.sales_slip.select(:date).order(:date).uniq
