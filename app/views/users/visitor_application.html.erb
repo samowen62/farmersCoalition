@@ -352,36 +352,36 @@
 					<h3>Primary Location</h3>
 					<div class="row">
 						<label>Product Address</label>
-						<input ng-model="survey.source_prim" style="  float: right;"  />		
+						<input ng-model="survey.primary_loc" style="  float: right;"  />		
 					</div>
 					<div class="row">
 						<label>Farmers Market Address</label>
-						<input ng-model="survey.dest_prim" style="  float: right;"/>
+						<input ng-model="profile.address" style="  float: right;"/>
 					</div>
 					<div class="row">
 						<label>Miles</label>
 						<input ng-model="survey.miles_prim" style="  float: right;"/>
 					</div>
 					<div class="row">
-						<a href="javascript:void(0)" class="btn btn-primary" ng-click="query()">Find</a>
+						<a href="javascript:void(0)" class="btn btn-primary" ng-click="query('primary_loc')">Find</a>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<h3>Secondary Location</h3>
 					<div class="row">
 						<label>Product Address</label>
-						<input ng-model="survey.source_second" style="  float: right;"  />		
+						<input ng-model="survey.secondary_loc" style="  float: right;"  />		
 					</div>
 					<div class="row">
 						<label>Farmers Market Address</label>
-						<input ng-model="survey.dest_second" style="  float: right;"/>
+						<input ng-model="profile.address" style="  float: right;"/>
 					</div>
 					<div class="row">
 						<label>Miles</label>
 						<input ng-model="survey.miles_second" style="  float: right;"/>
 					</div>
 					<div class="row">
-						<a href="javascript:void(0)" class="btn btn-primary" ng-click="query()">Find</a>
+						<a href="javascript:void(0)" class="btn btn-primary" ng-click="query('secondary_loc')">Find</a>
 					</div>
 				</div>
 			</div>
@@ -432,13 +432,39 @@
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
-			<div class="modal-content" style="width: 250px;margin: 0 auto;">
+			<div class="modal-content" style="width: 350px;margin: 0 auto;">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Select Foods</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
+						<table>
+							<tbody>
+								<tr>
+									<td></td>
+									<td style="padding:3px">2014</td>
+									<td style="padding:3px">2015</td>
+								</tr>
+								<tr>
+									<td style="padding:3px">Vegetables</td>
+									<td style="padding:3px"><a href="javascript:void(0)" class="btn btn-default" ng-click="displayList(2014,'Vegetable')">Display List</a></td>
+									<td style="padding:3px"><a href="javascript:void(0)" class="btn btn-default" ng-click="displayList(2015,'Vegetable')">Display List</a></td>
+								</tr>
+								<tr>
+									<td>Fruits</td>
+									<td style="padding:3px"><a href="javascript:void(0)" class="btn btn-default" ng-click="displayList(2014,'Fruit')">Display List</a></td>
+									<td style="padding:3px"><a href="javascript:void(0)" class="btn btn-default" ng-click="displayList(2015,'Fruit')">Display List</a></td>
+								</tr>
+								<tr>
+									<td>Nuts</td>
+									<td style="padding:3px"><a href="javascript:void(0)" class="btn btn-default" ng-click="displayList(2014,'Nut')">Display List</a></td>
+									<td style="padding:3px"><a href="javascript:void(0)" class="btn btn-default" ng-click="displayList(2015,'Nut')">Display List</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!--div class="row">
 						<select ng-model="variety" style="border: 1px solid;" ng-change="setList()">
 							<option value="Fruit">Fruit</option>
 							<option value="Vegetable">Vegetable</option>
@@ -460,16 +486,48 @@
 								</tr>
 							</tbody>
 						</table>
-					</div>
+					</div-->
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-success" data-dismiss="modal">Save</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div id="choiceModal" class="modal fade" role="dialog" style="  top: -10px;">
+		<div class="modal-dialog">
 
+			<!-- Modal content-->
+			<div class="modal-content" style="width: 250px;margin: 0 auto;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Select {{foodTypeNname}}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<table>
+							<tbody style="  max-height: 290px; overflow-y: scroll;display: block;">
+								<tr ng-show="variety != ''">
+						 			<th>Food</th>
+						 			<th style="  width: 40px;">{{foodYear}}</th>
+						 		</tr>
+								<tr ng-repeat="l in foodList">
+									<td style=" padding-right: 10px;">{{l.value ? l.value : l.name}}</td>
+									<td><input type="checkbox" ng-model="foodYearCheck[l.name]" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+
 <div id="successScreen"> 
 	<a href="#" class="suc-text">Success!</a>
 </div> 
@@ -499,6 +557,14 @@
 
 		$scope.setList = function(){
 			$scope.listOfFood = $scope[$scope.variety];
+		}
+
+		$scope.displayList = function(year, list){
+			$scope.foodTypeNname = list + 's';
+			$scope.foodList = $scope[list];
+			$scope.foodYear = year;
+			$scope.foodYearCheck = $scope['year' + year];
+			$("#choiceModal").modal('show');
 		}
 
 	//name and value should be switched
@@ -654,12 +720,12 @@
 		console.log($scope.survey);
 	}
 
-	$scope.query = function(){
-		if($scope.origin == '' || $scope.dest == '')
+	$scope.query = function(key){
+		if($scope.survey[key] == '')
 			return
 
-		var origin = $scope.origin.replace(' ', '+');
-		var dest = $scope.dest.replace(' ', '+');
+		var origin = $scope.survey[key].replace(' ', '+');
+		var dest = $scope.profile.address.replace(' ', '+');
 
 		$('#map')[0].src = 'https://www.google.com/maps/embed/v1/directions?origin='+origin+'&destination='+dest+'&key=AIzaSyCrNAIWXwdlONA1Z3r6UHgpzBv5BYq_sEs';
 	}
