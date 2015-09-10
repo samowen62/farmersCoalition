@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827184047) do
+ActiveRecord::Schema.define(version: 20150910001038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -519,6 +519,7 @@ ActiveRecord::Schema.define(version: 20150827184047) do
     t.float   "hours_melons"
     t.float   "hours_berries"
     t.string  "vendor_name"
+    t.float   "total_gross"
   end
 
   add_index "visitor_applications", ["profile_id"], name: "index_visitor_applications_on_profile_id", using: :btree
