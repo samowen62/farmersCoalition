@@ -62,7 +62,7 @@ class ProfileController < ApplicationController
 
     if user_is_logged_in?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
-
+=begin
         unless (survey = VisitorSurvey.where(date: params[:date]).where(profile_id: profile.id).first).nil?
           for i in list
             if doubleList.include?(i)
@@ -92,8 +92,8 @@ class ProfileController < ApplicationController
             end
           end
           survey.save!
-
-        else
+=end
+     #   else
           survey = VisitorSurvey.new
           survey[:date] = params[:date]
           survey[:profile_id] = profile.id
@@ -121,7 +121,7 @@ class ProfileController < ApplicationController
           end
 
           survey.save!
-        end
+      #  end
         render plain: survey.inspect
         return
       end
