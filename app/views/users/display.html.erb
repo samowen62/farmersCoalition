@@ -454,11 +454,11 @@ for(var i in events){
 	events_csv += (admin ? '"'+a.name+'",' : '')+''+a.event_date+','+(a.youth_specific ? 1 : 0)+','+a.participants+','+a.under_18+'\n';
 }
 
-var vol_csv = 'Market,Service Date,First Name/Org Name,Last Name,People Committed,Hours Committed (.25),Assigned Task,# People Attended,Arrival Time,Departure Time,Completed Task,#Hours Volunteered\n';
+var vol_csv = admin ? 'Market Name,Service Date,First Name/Org Name,Last Name,People Committed,Hours Committed (.25),Assigned Task,# People Attended,Arrival Time,Departure Time,Completed Task,#Hours Volunteered\n' : 'Service Date,First Name/Org Name,Last Name,People Committed,Hours Committed (.25),Assigned Task,# People Attended,Arrival Time,Departure Time,Completed Task,#Hours Volunteered\n';
 
 for(var i in volunteers){
 	var a = volunteers[i];
-	vol_csv += '"'+a.name+'",'+a.service_date+','+a.first+','+a.last+','+a.people_committed+','+a.hours_committed+','+a.assigned_task+','+a.people_attended+','+a.arrival+','+a.departure+','+a.completed_task+'\n';
+	vol_csv += (admin ? '"'+a.name+'",' : '')+a.service_date+','+a.first+','+a.last+','+a.people_committed+','+a.hours_committed+','+a.assigned_task+','+a.people_attended+','+a.arrival+','+a.departure+','+a.completed_task+','+(a.address * a.hours_committed)+'\n';
 }
 
 var csvs = {

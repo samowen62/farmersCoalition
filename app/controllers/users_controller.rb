@@ -194,9 +194,7 @@ class UsersController < ApplicationController
           @research = MiscResearch.select("profiles.name, misc_researches.*").joins(:profile).order("profile_id, misc_researches.id")
           @credit = CreditSales.select("credit_sales.*, profiles.name").joins(:profile).order("profile_id ASC").order("credit_sales.id ASC")
           @events = MarketProgram.select("market_programs.*, profiles.name").joins(:profile).order("profile_id ASC").order("market_programs.id ASC")
-          @volunteers = Volunteer.select("volunteers.*, profiles.name").joins(:profile).order("profile_id ASC").order("volunteers.id ASC")
-          #for each volunteers ((Time.parse(v.departure).to_i - Time.parse(v.arrival).to_i)/3600.0) * v.hours_committed
-
+          @volunteers = Volunteer.select("volunteers.*, profiles.name, profiles.address").joins(:profile).order("profile_id ASC").order("volunteers.id ASC")
         else
           p = Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).where("profiles.id = #{@profile.id}").order("visitor_surveys.date ASC")
           @visitor_surveys << p
@@ -209,6 +207,12 @@ class UsersController < ApplicationController
           @events = MarketProgram.select("profiles.name, market_programs.*").joins(:profile).order("market_programs.id").where(:id => @profile.id)
           @volunteers = Volunteer.select("profiles.name, volunteers.*").joins(:profile).order("volunteers.id").where(:id => @profile.id)
         end
+          for v in @volunteers do 
+            #address is used so we can replace it
+            num = (v.departure.length > 0 ? Time.parse(v.departure).to_i : 0) - (v.arrival.length > 0 ? Time.parse(v.arrival).to_i : 0)
+            v.address = ((num * 1.0)/3600.0)
+          end
+          
           for sp in sales_p do
             dates = sp.sales_slip.select(:date).order(:date).uniq
             prof = Hash.new

@@ -100,7 +100,7 @@
 		$scope.updateVol = function(volunteer, index){
 			volunteer.service_date = $('.tcal')[index].value;
 			volunteer.arrival = $('.time')[2 * index].value;
-			volunteer.departure = $('.time')[2 * index].value;
+			volunteer.departure = $('.time')[2 * index + 1].value;
 
 			console.log(volunteer,index);
 
