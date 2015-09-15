@@ -226,6 +226,9 @@ class UsersController < ApplicationController
 
           for prof in profiles do
             points = prof.entry_points.order(ptNum: :asc)
+            if points.count() == 0
+              next
+            end
             profile = Hash.new
 
             prof_points = []

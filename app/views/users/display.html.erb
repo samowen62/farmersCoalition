@@ -5,7 +5,7 @@
 	<% if !@profile.nil? && !@profile.new_record? %>
 	<%= render "shared/nav" %>
 	<div class="clearfix"></div>
-	<div class="row">
+	<!--div class="row">
 		<div class='col-md-3'>
 			<a id='profileDoc' class='btn btn-default'>Export Profile{{user.admin ? 's' : ''}} </a>
 		</div>
@@ -43,7 +43,28 @@
 		<div class='col-md-3'>
 			<a id='volunteers' class='btn btn-default'>Export {{user.admin ? ' All' : ''}} Volunteer{{user.admin ? 's' : ''}}</a>
 		</div>
-	</div><!-- change this to a select-->
+	</div>
+	<div class="clearfix"></div-->
+	<div class="row">
+		<label class="col-md-5">Choose the data you want to export: </label>
+		<div class="col-md-3">
+			<select ng-model="csv">
+				<option value="profileDoc">Profiles</option>
+				<option value="visitor_surveys">Visitor Surveys</option>
+				<option value="visitor_counts">Visitor Counts</option>
+				<option value="sales_slips">Sales Slips</option>
+				<option value="food_assistance">Food Assistance</option>
+				<option value="credit_debit">Credit/Debit Sales</option>
+				<option value="visitor_application">Visitor Applications</option>
+				<option value="vendor_attendance">Vendor Attendance</option>
+				<option value="market_events">Market Events</option>
+				<option value="volunteers">Volunteers</option>
+			</select>
+		</div>
+		<div class="col-md-3">
+			<a href="javascript:void(0)" ng-click="selectFile()" class="btn btn-default" id="file">Export</a>
+		</div>
+	</div>
 	<div class="clearfix"></div>
 	<div class="profile-header">
 		<h2 ng-click="slide('#info')" class="title" >Profile Info <span ng-if="profile.FMC_member">FMC Member!</span></h2>
@@ -189,10 +210,6 @@ for (var i in profiles){
 	finalVal += '\n';
 }
 
-var pom = document.getElementById('profileDoc');
-pom.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(finalVal));
-pom.setAttribute('download', 'profile.csv');
-//pom.click();
 
 var visitor_survey = '"Date",';
 var visitor_survey_heading = {
@@ -360,10 +377,6 @@ if(visitor_surveys[0] && visitor_surveys[0][0]){
 	}
 }
 
-var csv1 = document.getElementById('visitor_surveys');
-csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_survey));
-csv1.setAttribute('download', 'VisitorSurveys.csv');
-
 var sales_slip_heading = {
 	Debt_sales: "Debit/credit Sales",
 	SNAP_sales: "SNAP/EBT Sales",
@@ -381,31 +394,30 @@ var sales_slip_heading = {
 
 };
 
-var sales_slips_csv = 'Profile, Date, Surveys completed, Total Sales,Farm Product Sales,Value-added sales,Ready-to-eat sales,Debit/credit sales,WIC FMNP sales,WIC CVV sales,Senior FMNP sales,SNAP/EBT sales,EBT transactions (#),Donated food (pounds),Donated food ($), Most common vegetables\n';
+//var sales_slips_csv = 'Profile, Date, Surveys completed, Total Sales,Farm Product Sales,Value-added sales,Ready-to-eat sales,Debit/credit sales,WIC FMNP sales,WIC CVV sales,Senior FMNP sales,SNAP/EBT sales,EBT transactions (#),Donated food (pounds),Donated food ($), Most common vegetables\n';
+var sales_slips_csv = 'Profile, Date, Total Sales,Farm Product Sales,Value-added sales,Ready-to-eat sales,Debit/credit sales,WIC FMNP sales,WIC CVV sales,Senior FMNP sales,SNAP/EBT sales,EBT transactions (#),Donated food (pounds),Donated food ($), Most common vegetables\n';
 
 for(var i = 0; i < sales_slips.length; i++){
 	var prof = sales_slips[i];
 	if(!prof.slips && prof.slips.length == 0)
 		continue;
 
-	sales_slips_csv += prof.name + '\n';
+	//sales_slips_csv += prof.name + '\n';
 	for(var j = 0; j < prof.slips.length; j++){
 		var day = prof.slips[j];
 		if(day.length == 0)
 			continue;
 
-		sales_slips_csv += ','+day[0].date+','+day.length;
+		//sales_slips_csv += ','+day[0].date+','+day.length;
 		for(var k = 0; k < day.length; k++){
 			var slip = day[k];
-			sales_slips_csv += ','+( k > 0 ? ',,': '')+slip.total_sales+','+slip.farm_sales+','+slip.value_sales+','+slip.ready_sales+','+slip.Debt_sales+','+slip.WIC_FMNP_sales+','+slip.WIC_sales+','+slip.Senior_FMNP_sales+','+slip.SNAP_sales+','+slip.SNAP_transactions+','+slip.pounds_donated+','+slip.values_donated+',"'+slip.veg1+ ','+slip.veg2+','+slip.veg3+'"\n'
+			sales_slips_csv += prof.name+','+day[0].date+','+slip.total_sales+','+slip.farm_sales+','+slip.value_sales+','+slip.ready_sales+','+slip.Debt_sales+','+slip.WIC_FMNP_sales+','+slip.WIC_sales+','+slip.Senior_FMNP_sales+','+slip.SNAP_sales+','+slip.SNAP_transactions+','+slip.pounds_donated+','+slip.values_donated+',"'+slip.veg1+ ','+slip.veg2+','+slip.veg3+'"\n'
+
+			//sales_slips_csv += ','+( k > 0 ? ',,': '')+slip.total_sales+','+slip.farm_sales+','+slip.value_sales+','+slip.ready_sales+','+slip.Debt_sales+','+slip.WIC_FMNP_sales+','+slip.WIC_sales+','+slip.Senior_FMNP_sales+','+slip.SNAP_sales+','+slip.SNAP_transactions+','+slip.pounds_donated+','+slip.values_donated+',"'+slip.veg1+ ','+slip.veg2+','+slip.veg3+'"\n'
 		}
 	}
 
 }
-
-var csv1 = document.getElementById('sales_slips');
-csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(sales_slips_csv));
-csv1.setAttribute('download', 'SalesSlips.csv');
 
 var visitor_count_csv = '';
 
@@ -432,15 +444,11 @@ for(var i = 0; i < visitor_counts.length; i++){
 	visitor_count_csv += '\n';
 }
 
-var csv1 = document.getElementById('visitor_counts');
-csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_count_csv));
-csv1.setAttribute('download', 'VisitorCounts.csv');
-
 var food_assistance_csv = 'Transaction Date,Benefit Type,Last 8 Digits,Amount Redeemed,Zip Code,First Time Using Benefits,Incentive Campaign\n';
 
 for(var i in assistances){
 	var a = assistances[i];
-	food_assistance_csv += a.transaction_date+","+a.type_of_assistance+","+a.digits_of_snap+","+a.redeemed+","+a.zip_code+","+(a.first_name ? 'Yes' : 'No')+","+a.incentive_campaign+"\n"
+	food_assistance_csv += a.transaction_date+","+a.type_of_assistance+","+a.digits_of_snap+","+(a.redeemed ? '$'+a.redeemed : '')+","+a.zip_code+","+(a.first_name ? 'Yes' : 'No')+","+a.incentive_campaign+"\n"
 } 
 
 if(assistance_snap && assistance_snap.length > 0){
@@ -452,10 +460,6 @@ if(assistance_snap && assistance_snap.length > 0){
 	}
 }
 
-var csv1 = document.getElementById('food_assistance');
-csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(food_assistance_csv));
-csv1.setAttribute('download', 'FoodAssistance.csv');
-
 var credit_debit_csv = admin ? 'Market Name,Transaction Date,Credit Sales,Debit Sales,\n' : 'Transaction Date,Credit Sales,Debit Sales,\n';
 
 for(var i in credits){
@@ -464,11 +468,7 @@ for(var i in credits){
 } 
 
 
-var csv1 = document.getElementById('credit_debit');
-csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(credit_debit_csv));
-csv1.setAttribute('download', 'DebitCredit.csv');
-
-var visitor_application_csv = ',,Metric 2 - Total annual vendor sales at market ($),,,,,,Metric 3 - Average distance from product origin to market (mi),,Metric 34 - Hours from harvest to POS,Metric 4 - Acres in agricultural production (#),Metric 9 - Individuals employed by market business annually (#),Metric 10 - Total annual farm vendor sales ($),Metric 12 - Farm vendors with <10 years farming experience (%),Metric 22 - Women-owned producers (#),Metric 23 - Socially disadv. vendors (#),Metric 29,Metric 25 - Farm vendors with organic certification (#),Metric 26 - Products sold as certified organic (#),Metric 24 - Unique regional products,Metric 27 - Fruit, vegetable, and nut crops available for sale annually (#),Nuts\n'+(admin ? 'Market Name' : '')+',Vendor name,Total Gross Sales,Farm Product	Value-added,Ready-to-eat food,Other product,Anticipated 2015 Sales,Primary Location,Secondary Location,Place holder,Total Acres,Owned,Leased,Cultivated/Grazed,Anticipated 2015 Acreage,Seasonal Workers,Year-round Workers,Anticipated 2015 Workers,Total Gross Sales,Farm Product,Value-added,Ready-to-eat food,Other product,Anticipated 2015 Sales,Products Sold,Place holder,Apples,Apricots,Apriums,Asian Pears,Blackberries,Blueberries,Boysenberries,Canary Melons,Cantaloupes,Cherimoyas,Cherries,Currants,Dates,Feijoas,Figs,Grapefruit,Grapes,Honeydew Melons,Jujubes,Mulberries,PawPaws,Peaches,Pears,Plums,Quince,"Raspberries, Black","Raspberries, Red",Strawberries,Tayberries,Watermelon,Wineberries,Artichokes,Arugula,Asparagus,"Beans, Green","Beans, Dry",Beets,Beet Greens,Bok Choy,Broccoli,Broccoli Rabe,Brussels Sprouts,"Cabbage, Green","Cabbage, Purple",Cardoons,Carrots,Cauliflower,Celeriac,Celery ,Chard,Chicory,Chipilin,Collards,"Corn, Sweet",Cress,Cucumbers,Dandelion Greens,Eggplant,Epazote,Fava Beans,Fennel ,Garlic Bulb,Garlic Scapes,"Herbs, Fresh",Hierbamora,Horseradish,Jicama,Kale,Kohlrabi,Lambs Quarters,Leeks,Lettuce,Lima Beans,Mesclun (mixed greens),Mushrooms,Mustard Greens,Okra,Onions,Parsnips,"Peas, English","Peas, Sugar Snap","Peas, Snow","Peppers, Hot","Peppers, Sweet Green","Peppers, Sweet Red","Peppers, Sweet Purple","Peppers, Sweet Yellow",Potatoes,Pumpkins,Purslane,Radishes,Rhubarb,Rutabagas,Salsify,Scallions,Shallots,Spinach,Sprouts,"Squash, Summer","Squash, Winter",Sunchokes,Sweet Potatoes,Sweet Potato Greens,Tomatillos,Tomatoes,Turnips,Turnip Greens,Yacon,Chestnuts,Peanuts,"Walnuts, Black","Walnuts, English"\n';
+var visitor_application_csv = (admin ? 'Market Name' : '')+',Vendor name,Total Gross Sales,Farm Product	Value-added,Ready-to-eat food,Other product,Anticipated 2015 Sales,Primary Location,Secondary Location,Place holder,Total Acres,Owned,Leased,Cultivated/Grazed,Anticipated 2015 Acreage,Seasonal Workers,Year-round Workers,Anticipated 2015 Workers,Total Gross Sales,Farm Product,Value-added,Ready-to-eat food,Other product,Anticipated 2015 Sales,Products Sold,Place holder,Apples,Apricots,Apriums,Asian Pears,Blackberries,Blueberries,Boysenberries,Canary Melons,Cantaloupes,Cherimoyas,Cherries,Currants,Dates,Feijoas,Figs,Grapefruit,Grapes,Honeydew Melons,Jujubes,Mulberries,PawPaws,Peaches,Pears,Plums,Quince,"Raspberries, Black","Raspberries, Red",Strawberries,Tayberries,Watermelon,Wineberries,Artichokes,Arugula,Asparagus,"Beans, Green","Beans, Dry",Beets,Beet Greens,Bok Choy,Broccoli,Broccoli Rabe,Brussels Sprouts,"Cabbage, Green","Cabbage, Purple",Cardoons,Carrots,Cauliflower,Celeriac,Celery ,Chard,Chicory,Chipilin,Collards,"Corn, Sweet",Cress,Cucumbers,Dandelion Greens,Eggplant,Epazote,Fava Beans,Fennel ,Garlic Bulb,Garlic Scapes,"Herbs, Fresh",Hierbamora,Horseradish,Jicama,Kale,Kohlrabi,Lambs Quarters,Leeks,Lettuce,Lima Beans,Mesclun (mixed greens),Mushrooms,Mustard Greens,Okra,Onions,Parsnips,"Peas, English","Peas, Sugar Snap","Peas, Snow","Peppers, Hot","Peppers, Sweet Green","Peppers, Sweet Red","Peppers, Sweet Purple","Peppers, Sweet Yellow",Potatoes,Pumpkins,Purslane,Radishes,Rhubarb,Rutabagas,Salsify,Scallions,Shallots,Spinach,Sprouts,"Squash, Summer","Squash, Winter",Sunchokes,Sweet Potatoes,Sweet Potato Greens,Tomatillos,Tomatoes,Turnips,Turnip Greens,Yacon,Chestnuts,Peanuts,"Walnuts, Black","Walnuts, English"\n';
 
 //for(var i in applications[0])
 //	visitor_application_csv += i+',';
@@ -481,19 +481,11 @@ for(var i in applications){
 	visitor_application_csv += a.Apples+','+a.Apricots+','+a.Apriums+','+a.Asian_pears+','+a.Blackberries+','+a.Blueberries+','+a.Boysenberries+','+a.Canary_melons+','+a.Cantaloupes+','+a.Cherimoyas+','+a.Cherries+','+a.Currants+','+a.Dates+','+a.Feijoas+','+a.Figs+','+a.Grapefruit+','+a.Grapes+','+a.Honeydew_melons+','+a.Mulberries+','+a.PawPaws+','+a.Peaches+','+a.Pears+','+a.Plums+','+a.Quince+','+a.Raspberries_black+','+a.Raspberries_red+','+a.Strawberries+','+a.Tayberries+','+a.Watermelon+','+a.Wineberries+','+a.Artichokes+','+a.Arugula+','+a.Asparagus+','+a.Beans_green+','+a.Beans_dry+','+a.Beets+','+a.Beet_greens+','+a.Bok_choy+','+a.Broccoli+','+a.Broccoli_rabe+','+a.Brussels_sprouts+','+a.Cabbage_green+','+a.Cabbage_purple+','+a.Cardoons+','+a.Carrots+','+a.Cauliflower+','+a.Celeriac+','+a.Celery+','+a.Chard+','+a.Chicory+','+a.Chipilín+','+a.Collards+','+a.Corn_Sweet+','+a.Cress+','+a.Cucumbers+','+a.Dandelion_greens+','+a.Eggplant+','+a.Epazote+','+a.Fava_beans+','+a.Fennel+','+a.Garlic_bulb+','+a.Garlic_scapes+','+a.Herbs_fresh+','+a.Hierbamora+','+a.Horseradish+','+a.Jicama+','+a.Jujubes+','+a.Kale+','+a.Kohlrabi+','+a.Lambs_quarters+','+a.Leeks+','+a.Lettuce+','+a.Lima_beans+','+a.Mesclun_mixed_salad_greens+','+a.Mushrooms+','+a.Mustard_greens+','+a.Okra+','+a.Onions+','+a.Parsnips+','+a.Peas_english+','+a.Peas_sugar_snap+','+a.Peas_snow+','+a.Pea_shoots+','+a.Peppers_hot+','+a.Peppers_sweet_green+','+a.Peppers_sweet_red+','+a.Peppers_sweet_purple+','+a.Peppers_sweet_yellow+','+a.Potatoes+','+a.Pumpkins+','+a.Purslane+','+a.Radishes+','+a.Rhubarb+','+a.Rutabagas+','+a.Salsify+','+a.Scallions+','+a.Shallots+','+a.Spinach+','+a.Sprouts+','+a.Squash_aummer+','+a.Squash_winter+','+a.Sunchokes+','+a.Sweet_potatoes+','+a.Sweet_potato_greens+','+a.Tomatillos+','+a.Tomatoes+','+a.Turnips+','+a.Turnip_greens+','+a.Yacon+','+a.Chestnuts+','+a.Peanuts+','+a.Walnuts_black+','+a.Walnuts_english+'\n';
 }
 
-var csv1 = document.getElementById('visitor_application');
-csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_application_csv));
-csv1.setAttribute('download', 'VendorApplications.csv');
-
-var attendance_csv = "Market,Business/Farm Name,Owner Last Name,Week 1,Week 2,Week 3,Week 4,Week 5,Week 6,Week 7,Week 8,Week 9,Week 10,Week 11,Week 12,Week 13,Week 14,Week 15,Week 16,Week 17,Week 18,Week 19,Week 20,Week 21,Week 22,Week 23,Week 24,Week 25,Week 26,Week 27,Week 28,Week 29,Week 30,Week 31,Week 32,Week 33,Week 34,Week 35,Week 36\n";
+var attendance_csv = "Market,Business/Farm Name,Week 1,Week 2,Week 3,Week 4,Week 5,Week 6,Week 7,Week 8,Week 9,Week 10,Week 11,Week 12,Week 13,Week 14,Week 15,Week 16,Week 17,Week 18,Week 19,Week 20,Week 21,Week 22,Week 23,Week 24,Week 25,Week 26,Week 27,Week 28,Week 29,Week 30,Week 31,Week 32,Week 33,Week 34,Week 35,Week 36\n";
 for(var i in attendance){
 	var a = attendance[i];
-	attendance_csv += "'"+a.name+"','"+a.farm_name+"',"+a.owner_last+","+(a.week1 ?'Yes':'No')+","+(a.week2 ?'Yes':'No')+","+(a.week3 ?'Yes':'No')+","+(a.week4 ?'Yes':'No')+","+(a.week5 ?'Yes':'No')+","+(a.week6 ?'Yes':'No')+","+(a.week7 ?'Yes':'No')+","+(a.week8 ?'Yes':'No')+","+(a.week9 ?'Yes':'No')+","+(a.week10 ?'Yes':'No')+","+(a.week11 ?'Yes':'No')+","+(a.week12 ?'Yes':'No')+","+(a.week13 ?'Yes':'No')+","+(a.week14 ?'Yes':'No')+","+(a.week15 ?'Yes':'No')+","+(a.week16 ?'Yes':'No')+","+(a.week17 ?'Yes':'No')+","+(a.week18 ?'Yes':'No')+","+(a.week19 ?'Yes':'No')+","+(a.week20 ?'Yes':'No')+","+(a.week21 ?'Yes':'No')+","+(a.week22 ?'Yes':'No')+","+(a.week23 ?'Yes':'No')+","+(a.week24 ?'Yes':'No')+","+(a.week25 ?'Yes':'No')+","+(a.week26 ?'Yes':'No')+","+(a.week27 ?'Yes':'No')+","+(a.week28 ?'Yes':'No')+","+(a.week29 ?'Yes':'No')+","+(a.week30 ?'Yes':'No')+","+(a.week31 ?'Yes':'No')+","+(a.week32 ?'Yes':'No')+","+(a.week33 ?'Yes':'No')+","+(a.week34 ?'Yes':'No')+","+(a.week35 ?'Yes':'No')+","+(a.week36 ?'Yes':'No')+"\n";
+	attendance_csv += "'"+a.name+"','"+a.farm_name+"',"+(a.week1 ?1:2)+","+(a.week1 ?1:2)+","+(a.week3 ?1:2)+","+(a.week4 ?1:2)+","+(a.week5 ?1:2)+","+(a.week6 ?1:2)+","+(a.week7 ?1:2)+","+(a.week8 ?1:2)+","+(a.week9 ?1:2)+","+(a.week10 ?1:2)+","+(a.week11 ?1:2)+","+(a.week12 ?1:2)+","+(a.week13 ?1:2)+","+(a.week14 ?1:2)+","+(a.week15 ?1:2)+","+(a.week16 ?1:2)+","+(a.week17 ?1:2)+","+(a.week18 ?1:2)+","+(a.week19 ?1:2)+","+(a.week20 ?1:2)+","+(a.week21 ?1:2)+","+(a.week22 ?1:2)+","+(a.week23 ?1:2)+","+(a.week24 ?1:2)+","+(a.week25 ?1:2)+","+(a.week26 ?1:2)+","+(a.week27 ?1:2)+","+(a.week28 ?1:2)+","+(a.week29 ?1:2)+","+(a.week30 ?1:2)+","+(a.week31 ?1:2)+","+(a.week32 ?1:2)+","+(a.week33 ?1:2)+","+(a.week34 ?1:2)+","+(a.week35 ?1:2)+","+(a.week36 ?1:2)+"\n";
 }
-
-var csv1 = document.getElementById('vendor_attendance'); 
-csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(attendance_csv));
-csv1.setAttribute('download', 'VendorAttendance.csv');
 
 var events_csv = 'Market,Event Date,Youth Specific?, Total Participants,Number of Participants under 18\n';
 
@@ -502,10 +494,6 @@ for(var i in events){
 	events_csv += '"'+a.name+'",'+a.event_date+','+(a.youth_specific ? 'Yes' : 'No')+','+a.participants+','+a.under_18+'\n';
 }
 
-var csv1 = document.getElementById('market_events'); 
-csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(events_csv));
-csv1.setAttribute('download', 'MarketEvents.csv');
-
 var vol_csv = 'Market,Service Date,First Name,Last Name,People Committed,Hours Committed,Assigned Task,People Attended,Arrival Time,Departure Time,Completed Task\n';
 
 for(var i in volunteers){
@@ -513,9 +501,48 @@ for(var i in volunteers){
 	vol_csv += '"'+a.name+'",'+a.service_date+','+a.first+','+a.last+','+a.people_committed+','+a.hours_committed+','+a.assigned_task+','+a.people_attended+','+a.arrival+','+a.departure+','+a.completed_task+'\n';
 }
 
-var csv1 = document.getElementById('volunteers'); 
-csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(vol_csv));
-csv1.setAttribute('download', 'VolunteerSales.csv');
+var csvs = {
+	'profileDoc' : {
+		file : 'data:text/csv;charset=utf-8,' + encodeURIComponent(finalVal),
+		download : 'Profiles.csv'
+	},
+	'visitor_surveys' : {
+		file : 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_survey),
+		download : 'VisitorSurveys.csv'
+	}, 
+	'visitor_counts' : {
+		file : 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_count_csv),
+		download : 'VisitorCounts.csv'
+	},
+	'sales_slips' : {
+		file : 'data:text/csv;charset=utf-8,' + encodeURIComponent(sales_slips_csv),
+		download : 'SalesSlips.csv'
+	},
+	'food_assistance' : {
+		file : 'data:text/csv;charset=utf-8,' + encodeURIComponent(food_assistance_csv),
+		download : 'FoodAssistance.csv'
+	},
+	'credit_debit' : {
+		file : 'data:text/csv;charset=utf-8,' + encodeURIComponent(credit_debit_csv),
+		download : 'CreditDebit.csv'
+	},
+	'visitor_application'  : {
+		file : 'data:text/csv;charset=utf-8,' + encodeURIComponent(visitor_application_csv),
+		download : 'VisitorApplication.csv'
+	},
+	'vendor_attendance'  : {
+		file : 'data:text/csv;charset=utf-8,' + encodeURIComponent(attendance_csv),
+		download : 'Attendance.csv'
+	},
+	'market_events' : {
+		file : 'data:text/csv;charset=utf-8,' + encodeURIComponent(events_csv),
+		download : 'Events.csv'
+	},
+	'volunteers' : {
+		file : 'data:text/csv;charset=utf-8,' + encodeURIComponent(vol_csv),
+		download : 'Volunteers.csv'
+	}
+}
 
 function displayCtrl($scope){
 
@@ -551,6 +578,13 @@ function displayCtrl($scope){
 	    	$(id).slideUp("slow");
 	  	}
 	};
+
+	$scope.selectFile = function(){
+		var csv = csvs[$scope.csv];
+		var csv1 = document.getElementById('file'); 
+		csv1.setAttribute('href', csv.file);
+		csv1.setAttribute('download', csv.download);
+	}
 
 }
 </script>
