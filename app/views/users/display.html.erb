@@ -5,46 +5,6 @@
 	<% if !@profile.nil? && !@profile.new_record? %>
 	<%= render "shared/nav" %>
 	<div class="clearfix"></div>
-	<!--div class="row">
-		<div class='col-md-3'>
-			<a id='profileDoc' class='btn btn-default'>Export Profile{{user.admin ? 's' : ''}} </a>
-		</div>
-
-		<div class='col-md-3'>
-			<a id='visitor_surveys' class='btn btn-default'>Export{{user.admin ? ' All' : ''}} Survey{{user.admin ? 's' : ''}}</a>
-		</div>
-		
-		<div class='col-md-3'>
-			<a id='visitor_counts' class='btn btn-default'>Export {{user.admin ? ' All' : ''}}  Visitor Count{{user.admin ? 's' : ''}}</a>
-		</div>
-
-		<div class='col-md-3'>
-			<a id='sales_slips' class='btn btn-default'>Export {{user.admin ? ' All' : ''}}  Sales Slip{{user.admin ? 's' : ''}}</a>
-		</div>
-	</div>
-	<div class="row" style="  margin-top: 15px;">
-		<div class='col-md-3'>
-			<a id='food_assistance' class='btn btn-default'>Export {{user.admin ? ' All' : ''}} Food Assistance</a>
-		</div>
-		<div class='col-md-3'>
-			<a id='credit_debit' class='btn btn-default'>Export {{user.admin ? ' All' : ''}} Debit/Credit</a>
-		</div>
-		<div class='col-md-3'>
-			<a id='visitor_application' class='btn btn-default'>Export {{user.admin ? ' All' : ''}} Application{{user.admin ? 's' : ''}}</a>
-		</div>
-		<div class='col-md-3'>
-			<a id='vendor_attendance' class='btn btn-default'>{{user.admin ? ' All ' : ''}}Attendance Slip{{user.admin ? 's' : ''}}</a>
-		</div>
-	</div>
-	<div class="row" style="  margin-top: 15px;">
-		<div class='col-md-3'>
-			<a id='market_events' class='btn btn-default'>Export {{user.admin ? ' All' : ''}} Market Event{{user.admin ? 's' : ''}}</a>
-		</div>
-		<div class='col-md-3'>
-			<a id='volunteers' class='btn btn-default'>Export {{user.admin ? ' All' : ''}} Volunteer{{user.admin ? 's' : ''}}</a>
-		</div>
-	</div>
-	<div class="clearfix"></div-->
 	<div class="row">
 		<label class="col-md-5">Choose the data you want to export: </label>
 		<div class="col-md-3">
@@ -481,20 +441,20 @@ for(var i in applications){
 	visitor_application_csv += a.Apples+','+a.Apricots+','+a.Apriums+','+a.Asian_pears+','+a.Blackberries+','+a.Blueberries+','+a.Boysenberries+','+a.Canary_melons+','+a.Cantaloupes+','+a.Cherimoyas+','+a.Cherries+','+a.Currants+','+a.Dates+','+a.Feijoas+','+a.Figs+','+a.Grapefruit+','+a.Grapes+','+a.Honeydew_melons+','+a.Mulberries+','+a.PawPaws+','+a.Peaches+','+a.Pears+','+a.Plums+','+a.Quince+','+a.Raspberries_black+','+a.Raspberries_red+','+a.Strawberries+','+a.Tayberries+','+a.Watermelon+','+a.Wineberries+','+a.Artichokes+','+a.Arugula+','+a.Asparagus+','+a.Beans_green+','+a.Beans_dry+','+a.Beets+','+a.Beet_greens+','+a.Bok_choy+','+a.Broccoli+','+a.Broccoli_rabe+','+a.Brussels_sprouts+','+a.Cabbage_green+','+a.Cabbage_purple+','+a.Cardoons+','+a.Carrots+','+a.Cauliflower+','+a.Celeriac+','+a.Celery+','+a.Chard+','+a.Chicory+','+a.Chipilín+','+a.Collards+','+a.Corn_Sweet+','+a.Cress+','+a.Cucumbers+','+a.Dandelion_greens+','+a.Eggplant+','+a.Epazote+','+a.Fava_beans+','+a.Fennel+','+a.Garlic_bulb+','+a.Garlic_scapes+','+a.Herbs_fresh+','+a.Hierbamora+','+a.Horseradish+','+a.Jicama+','+a.Jujubes+','+a.Kale+','+a.Kohlrabi+','+a.Lambs_quarters+','+a.Leeks+','+a.Lettuce+','+a.Lima_beans+','+a.Mesclun_mixed_salad_greens+','+a.Mushrooms+','+a.Mustard_greens+','+a.Okra+','+a.Onions+','+a.Parsnips+','+a.Peas_english+','+a.Peas_sugar_snap+','+a.Peas_snow+','+a.Pea_shoots+','+a.Peppers_hot+','+a.Peppers_sweet_green+','+a.Peppers_sweet_red+','+a.Peppers_sweet_purple+','+a.Peppers_sweet_yellow+','+a.Potatoes+','+a.Pumpkins+','+a.Purslane+','+a.Radishes+','+a.Rhubarb+','+a.Rutabagas+','+a.Salsify+','+a.Scallions+','+a.Shallots+','+a.Spinach+','+a.Sprouts+','+a.Squash_aummer+','+a.Squash_winter+','+a.Sunchokes+','+a.Sweet_potatoes+','+a.Sweet_potato_greens+','+a.Tomatillos+','+a.Tomatoes+','+a.Turnips+','+a.Turnip_greens+','+a.Yacon+','+a.Chestnuts+','+a.Peanuts+','+a.Walnuts_black+','+a.Walnuts_english+'\n';
 }
 
-var attendance_csv = "Market,Business/Farm Name,Week 1,Week 2,Week 3,Week 4,Week 5,Week 6,Week 7,Week 8,Week 9,Week 10,Week 11,Week 12,Week 13,Week 14,Week 15,Week 16,Week 17,Week 18,Week 19,Week 20,Week 21,Week 22,Week 23,Week 24,Week 25,Week 26,Week 27,Week 28,Week 29,Week 30,Week 31,Week 32,Week 33,Week 34,Week 35,Week 36\n";
+var attendance_csv = admin ? "Market Name,Business/Farm Name,Week 1,Week 2,Week 3,Week 4,Week 5,Week 6,Week 7,Week 8,Week 9,Week 10,Week 11,Week 12,Week 13,Week 14,Week 15,Week 16,Week 17,Week 18,Week 19,Week 20,Week 21,Week 22,Week 23,Week 24,Week 25,Week 26,Week 27,Week 28,Week 29,Week 30,Week 31,Week 32,Week 33,Week 34,Week 35,Week 36\n" : "Business/Farm Name,Week 1,Week 2,Week 3,Week 4,Week 5,Week 6,Week 7,Week 8,Week 9,Week 10,Week 11,Week 12,Week 13,Week 14,Week 15,Week 16,Week 17,Week 18,Week 19,Week 20,Week 21,Week 22,Week 23,Week 24,Week 25,Week 26,Week 27,Week 28,Week 29,Week 30,Week 31,Week 32,Week 33,Week 34,Week 35,Week 36\n";
 for(var i in attendance){
 	var a = attendance[i];
-	attendance_csv += "'"+a.name+"','"+a.farm_name+"',"+(a.week1 ?1:2)+","+(a.week1 ?1:2)+","+(a.week3 ?1:2)+","+(a.week4 ?1:2)+","+(a.week5 ?1:2)+","+(a.week6 ?1:2)+","+(a.week7 ?1:2)+","+(a.week8 ?1:2)+","+(a.week9 ?1:2)+","+(a.week10 ?1:2)+","+(a.week11 ?1:2)+","+(a.week12 ?1:2)+","+(a.week13 ?1:2)+","+(a.week14 ?1:2)+","+(a.week15 ?1:2)+","+(a.week16 ?1:2)+","+(a.week17 ?1:2)+","+(a.week18 ?1:2)+","+(a.week19 ?1:2)+","+(a.week20 ?1:2)+","+(a.week21 ?1:2)+","+(a.week22 ?1:2)+","+(a.week23 ?1:2)+","+(a.week24 ?1:2)+","+(a.week25 ?1:2)+","+(a.week26 ?1:2)+","+(a.week27 ?1:2)+","+(a.week28 ?1:2)+","+(a.week29 ?1:2)+","+(a.week30 ?1:2)+","+(a.week31 ?1:2)+","+(a.week32 ?1:2)+","+(a.week33 ?1:2)+","+(a.week34 ?1:2)+","+(a.week35 ?1:2)+","+(a.week36 ?1:2)+"\n";
+	attendance_csv += (admin ? '"'+a.name+'",' : '')+"'"a.farm_name+"',"+(a.week1 ?1:0)+","+(a.week1 ?1:0)+","+(a.week3 ?1:0)+","+(a.week4 ?1:0)+","+(a.week5 ?1:0)+","+(a.week6 ?1:0)+","+(a.week7 ?1:0)+","+(a.week8 ?1:0)+","+(a.week9 ?1:0)+","+(a.week10 ?1:0)+","+(a.week11 ?1:0)+","+(a.week12 ?1:0)+","+(a.week13 ?1:0)+","+(a.week14 ?1:0)+","+(a.week15 ?1:0)+","+(a.week16 ?1:0)+","+(a.week17 ?1:0)+","+(a.week18 ?1:0)+","+(a.week19 ?1:0)+","+(a.week20 ?1:0)+","+(a.week21 ?1:0)+","+(a.week22 ?1:0)+","+(a.week23 ?1:0)+","+(a.week24 ?1:0)+","+(a.week25 ?1:0)+","+(a.week26 ?1:0)+","+(a.week27 ?1:0)+","+(a.week28 ?1:0)+","+(a.week29 ?1:0)+","+(a.week30 ?1:0)+","+(a.week31 ?1:0)+","+(a.week32 ?1:0)+","+(a.week33 ?1:0)+","+(a.week34 ?1:0)+","+(a.week35 ?1:0)+","+(a.week36 ?1:0)+"\n";
 }
 
-var events_csv = 'Market,Event Date,Youth Specific?, Total Participants,Number of Participants under 18\n';
+var events_csv = admin ? 'Market Name,Event Date,Youth Specific (Y/N), Total # Participants,# of Participants < 18\n' : 'Event Date,Youth Specific (Y=1/N=0), Total # Participants,# of Participants < 18\n';
 
 for(var i in events){
 	var a = events[i];
-	events_csv += '"'+a.name+'",'+a.event_date+','+(a.youth_specific ? 'Yes' : 'No')+','+a.participants+','+a.under_18+'\n';
+	events_csv += (admin ? '"'+a.name+'",' : '')+''+a.event_date+','+(a.youth_specific ? 1 : 0)+','+a.participants+','+a.under_18+'\n';
 }
 
-var vol_csv = 'Market,Service Date,First Name,Last Name,People Committed,Hours Committed,Assigned Task,People Attended,Arrival Time,Departure Time,Completed Task\n';
+var vol_csv = 'Market,Service Date,First Name/Org Name,Last Name,People Committed,Hours Committed (.25),Assigned Task,# People Attended,Arrival Time,Departure Time,Completed Task,#Hours Volunteered\n';
 
 for(var i in volunteers){
 	var a = volunteers[i];

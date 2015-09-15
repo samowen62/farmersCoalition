@@ -195,6 +195,8 @@ class UsersController < ApplicationController
           @credit = CreditSales.select("credit_sales.*, profiles.name").joins(:profile).order("profile_id ASC").order("credit_sales.id ASC")
           @events = MarketProgram.select("market_programs.*, profiles.name").joins(:profile).order("profile_id ASC").order("market_programs.id ASC")
           @volunteers = Volunteer.select("volunteers.*, profiles.name").joins(:profile).order("profile_id ASC").order("volunteers.id ASC")
+          #for each volunteers ((Time.parse(v.departure).to_i - Time.parse(v.arrival).to_i)/3600.0) * v.hours_committed
+
         else
           p = Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).where("profiles.id = #{@profile.id}").order("visitor_surveys.date ASC")
           @visitor_surveys << p
