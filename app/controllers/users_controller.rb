@@ -220,7 +220,7 @@ class UsersController < ApplicationController
                 row = Hash.new
                 id = k.visitor_application_id
 
-                if (v = VisitorApplication.where(:id => 10).first()).nil?
+                unless (v = VisitorApplication.where(:id => 10).first()).nil?
                   row['application'] = v
                   lists = ProduceList.where("visitor_application_id" => id)
                   row['first'] = lists[0] 
