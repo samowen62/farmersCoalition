@@ -175,6 +175,7 @@ class UsersController < ApplicationController
         @research = []
         @events = []
         @volunteers = []
+        app_ids = []
 
         if(@user.admin)
           
@@ -182,12 +183,12 @@ class UsersController < ApplicationController
           @visitor_surveys << p
           sales_p = Profile.select('profiles.*').joins(:sales_slip).uniq
           slips = []
-
           profiles = Profile.select("name", "id", "day1", "day2", "day3", "day4")
-
-          @applications = VisitorApplication.select("profiles.name, visitor_applications.*, produce_list.*").joins(:profile).joins(:produce_list).order(:profile_id).order("visitor_applications.id ASC")
-          @assistances = FoodAssistance.select("food_assistance.*, profiles.name").joins(:profile).order("profile_id ASC").order("food_assistance.id ASC")
+          app_ids = ProduceList.select("visitor_application_id").uniq
           
+
+          @assistances = FoodAssistance.select("food_assistance.*, profiles.name").joins(:profile).order("profile_id ASC").order("food_assistance.id ASC")
+
           snap_sql = "select transaction_date, profiles.name, count(*), array_length(array_agg(distinct digits_of_snap),1) from food_assistance left join profiles on profiles.id = profile_id group by profiles.name, transaction_date order by profiles.name, transaction_date;"
           @assistance_snap = ActiveRecord::Base.connection.execute(snap_sql)
 
@@ -203,10 +204,32 @@ class UsersController < ApplicationController
           slips = []
 
           profiles = Profile.select("name", "id", "day1", "day2", "day3", "day4").where("profiles.id = #{@profile.id}")
+          #check
+          app_ids = ProduceList.select("visitor_application_id").where("profile_id" => @profile.id).uniq
+
           @research = MiscResearch.select("profiles.name, misc_researches.*").joins(:profile).order("misc_researches.id").where(:id => @profile.id)
           @events = MarketProgram.select("profiles.name, market_programs.*").joins(:profile).order("market_programs.id").where(:id => @profile.id)
           @volunteers = Volunteer.select("profiles.name, volunteers.*").joins(:profile).order("volunteers.id").where(:id => @profile.id)
         end
+
+          app_ids.each do |k,v|
+            unless k.nil? 
+            #this is because whoever invented this crappy language never thought to include short curcuit
+            #evaluation. Jesus...
+              if k.visitor_application_id
+                row = Hash.new
+                id = k.visitor_application_id
+
+                row['application'] = VisitorApplication.find(id)
+                lists = ProduceList.where("visitor_application_id" => id)
+                row['first'] = lists[0] 
+                row['second'] = lists[1] 
+              
+                @applications << row
+              end
+            end
+          end
+
           for v in @volunteers do 
             #address is used so we can replace it
             num = (v.departure.length > 0 ? Time.parse(v.departure).to_i : 0) - (v.arrival.length > 0 ? Time.parse(v.arrival).to_i : 0)
