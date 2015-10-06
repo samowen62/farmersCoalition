@@ -284,7 +284,8 @@ class ProfileController < ApplicationController
   def update_visitor_app
     if user_is_logged_in?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
-        #if (application = VisitorApplication.where(profile_id: profile.id).first).nil?
+
+        if (application = VisitorApplication.where(profile_id: profile.id).where(id: params[:id]).first).nil?
           application = VisitorApplication.new(app_params)
           application[:profile_id] = profile.id
           application.save!
@@ -296,15 +297,22 @@ class ProfileController < ApplicationController
           p4.save!
           p5.save!
 
-        #  render plain: application.inspect
-        #  return
-        #else
-        #  application.update_attributes!(app_params)
-        #  application.save!
+          render plain: application.inspect
+          return
+        else
+          application.update_attributes!(app_params)
+          application.save!
+
+          p4 = ProduceList.where(visitor_application_id: application.id).where(id: params[:year2014][:id]).first
+          p5 = ProduceList.where(visitor_application_id: application.id).where(id: params[:year2015][:id]).first
+          p4.update_attributes!(year2014_params)
+          p5.update_attributes!(year2015_params)
+          p4.save!
+          p5.save!
 
           render plain: application.inspect
           return
-        #end
+        end
       end
     end
     render plain: "error"

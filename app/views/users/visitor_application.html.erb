@@ -4,8 +4,20 @@
 	<div id="summary" class="main money">
 
 		<%= render "shared/nav" %>
-
-		<h1>Vendor Application</h1>
+		<div class="col-md-7">
+			<h1>Vendor Application</h1>
+		</div>
+		<div class="col-md-5">
+			<div class="row">
+			 	<div class="col-md-6">
+					<select ng-options="o.vendor_name for o in past_apps track by o.id" ng-model="app_page">
+					</select>
+				</div>
+				<div class="col-md-6">
+					<a class="btn btn-success" href="javascript:void(0)" ng-click="gotoPage()" style="margin: 0;">Edit Page</a>
+				</div>
+			</div>
+		</div>
 		<div class="col-md-10 col-md-offset-1">
 			<div class="progress" style="width:96%">
 				<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 26%">
@@ -553,9 +565,21 @@
 
 		$scope.metrics = <%= raw(@metrics.to_json) %>;
 		$scope.profile = <%= raw(@profile.to_json) %>;
+		$scope.survey = <%= raw(@application.to_json) %>;
+		$scope.year2014 = <%= raw(@list2014.to_json) %>;
+		$scope.year2015 = <%= raw(@list2015.to_json) %>;
+		$scope.past_apps = <%= raw(@past_apps.to_json) %>;
 
-		$scope.year2014 = { year : 2014};
-		$scope.year2015 = { year : 2015};
+		if($scope.survey == null)
+			$scope.survey = {}
+		if($scope.year2014 == null)
+			$scope.year2014 = { year : 2014};
+		if($scope.year2015 == null)
+			$scope.year2015 = { year : 2015};
+
+		$scope.gotoPage = function(){
+			window.location.href = "/edit_application/"+$scope.app_page.id
+		}
 
 		$scope.setList = function(){
 			$scope.listOfFood = $scope[$scope.variety];
@@ -694,10 +718,6 @@
 	{ name : "Walnuts_english", value : "Walnuts (english"}
 		];
 
-	//$scope.survey = <%= raw(@application.to_json) %>;
-
-	//if($scope.survey == null)
-	$scope.survey = {};
 	
 	var d = new Date();
 	$scope.year = d.getFullYear() - 1;
