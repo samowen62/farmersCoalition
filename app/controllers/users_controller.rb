@@ -57,12 +57,12 @@ class UsersController < ApplicationController
           @metrics = metric_calc(@profile)
           #@application = @profile.visitor_application
           #@application = []
-          @application = VisitorApplication.where(:profile_id => 11).where(:id => params[:id]).first()
+          @application = VisitorApplication.where(:profile_id => @profile.id).where(:id => params[:id]).first()
           @list2014 = {}
           @list2015 = {}
           unless @application.nil?
-            @list2014 = ProduceList.where(:visitor_application_id => 10).where(:year => 2014).first()
-            @list2015 = ProduceList.where(:visitor_application_id => 10).where(:year => 2015).first()
+            @list2014 = ProduceList.where(:visitor_application_id => @application.id).where(:year => 2014).first()
+            @list2015 = ProduceList.where(:visitor_application_id => @application.id).where(:year => 2015).first()
           else
             @application = {}
           end
