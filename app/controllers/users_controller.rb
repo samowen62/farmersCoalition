@@ -230,8 +230,8 @@ class UsersController < ApplicationController
           slips = []
 
           profiles = Profile.select("name", "id", "day1", "day2", "day3", "day4").where("profiles.id = #{@profile.id}")
-          #check
-          app_ids = ProduceList.select("visitor_application_id").where("profile_id" => @profile.id).uniq
+          app_ids = ProduceList.select("visitor_application_id").joins(:visitor_application).where("visitor_applications.profile_id" => @profile.id).uniq
+          #app_ids = ProduceList.select("visitor_application_id").where("profile_id" => @profile.id).uniq
 
           @research = MiscResearch.select("profiles.name, misc_researches.*").joins(:profile).order("misc_researches.id").where(:id => @profile.id)
           @events = MarketProgram.select("profiles.name, market_programs.*").joins(:profile).order("market_programs.id").where(:id => @profile.id)
