@@ -1,0 +1,5 @@
+Subject: fmmetrics.wisc.edu Password Reset
+
+<p>Hello there,/p>
+
+<p>Please go to %url% to reset your password at fmmetrics</p>
