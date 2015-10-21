@@ -2,14 +2,29 @@
 
 <div id="newUser" class="col-md-12">
 	<div class="main" style="height: 300px;">
-		<h1 class="col-md-offset-1">Enter a new password</h1>
+		<h1 class="col-md-offset-1">Enter a new password <%= @user.name %></h1>
 		<div class="col-md-offset-3 col-md-6">
-
+			<input style="  margin-top: 15px;" id="pass" type="password" class="form-control" placeholder="Password"/><br />
+			<input id="pass_confirm" class="form-control" type="password" placeholder="Confirm Password"/><br />
+			<button id="sub" class="btn btn-default form-control">Submit</button>
 		</div>
 	</div>
-
 </div>
 <%= render "shared/footer" %>
 <script type="text/javascript">
-
+	$('#sub').click(function(){
+		$.ajax({
+			url: "/change_pass",
+			data: JSON.stringify({hash : '<%= params[:hash] %>', pass : $('#pass').val(), pass_confirm : $('#pass_confirm').val()}),
+			type: "POST",
+			contentType: "application/json",
+			success: function(data){
+				console.log(data);
+				//change pages
+			},
+			error: function(data){
+				alert("Error Submitting Data");
+			}
+		});
+	});
 </script>

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   post "login_attempt", :to => "sessions#login_attempt"
   post "pass_reset", :to => "users#pass_reset"
+  post "change_pass", :to => "users#change_pass"
   post "post_info", :to => "profile#create"
   post "post_market", :to => "markets#create"
   post "post_managements", :to => "profile#create_man"

@@ -19,8 +19,30 @@ class UsersController < ApplicationController
     
   end 
 
-  def reset
+  #change user's password
+  def change_pass
+    u = User.where(:reset_hash => params[:hash])
+    if u.count() == 0
+      render plain: "ded"
+      return
+    else
+      u = u.first()
+      if (params[:pass_confirm] == params[:pass]) and !params[:pass_confirm].nil? and params[:pass_confirm].length > 0 
+        u.salt = BCrypt::Engine.generate_salt
+        u.pass = BCrypt::Engine.hash_secret(params[:pass], u.salt)
+        u.save!
+      end
+      render plain: "ded "
+      return  
+    end 
+  end
 
+  def reset
+    u = User.where(:reset_hash => params[:hash])
+    if u.count() == 0
+      redirect_to root_path
+    end 
+    @user = u.first()
   end
 
   def pass_reset
