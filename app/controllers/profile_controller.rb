@@ -31,7 +31,8 @@ class ProfileController < ApplicationController
   def update_visitor_count
     profile = nil
 
-    if user_is_logged_in?
+    if user_is_logged_in? && !admin?
+
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
         EntryPoint.where(profile_id: profile.id, period: params[:period], int_day: params[:day]).destroy_all
 
@@ -60,7 +61,7 @@ class ProfileController < ApplicationController
     doubleList = ["spent_morning", "downtown_spent_morning"]
     radioList = [28, 13, 36, 7]
 
-    if user_is_logged_in?
+    if user_is_logged_in?  && !admin?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
 =begin
         unless (survey = VisitorSurvey.where(date: params[:date]).where(profile_id: profile.id).first).nil?
@@ -131,7 +132,7 @@ class ProfileController < ApplicationController
 
   def update_sales_slip
 
-    if user_is_logged_in?
+    if user_is_logged_in?  && !admin?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
         #if (slip = SalesSlip.where(date: params[:date]).where(profile_id: profile.id).first).nil?
           slip = SalesSlip.new(sales_params)
@@ -154,7 +155,7 @@ class ProfileController < ApplicationController
   end
 
   def update_food_assistance
-    if user_is_logged_in?
+    if user_is_logged_in?  && !admin?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
         if params[:id] == -1
           food = FoodAssistance.new(food_params)
@@ -177,7 +178,7 @@ class ProfileController < ApplicationController
   end
 
   def post_credit_sales
-    if user_is_logged_in?
+    if user_is_logged_in?  && !admin?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
         if params[:id] == -1
           sale = CreditSales.new(credit_params)
@@ -200,7 +201,7 @@ class ProfileController < ApplicationController
   end
 
   def post_misc_research
-    if user_is_logged_in?
+    if user_is_logged_in?  && !admin?
 
       #  params[:_json].each do |d|
       #    d.delete("$$hashKey")
@@ -234,7 +235,7 @@ class ProfileController < ApplicationController
   end
 
   def post_volunteer
-    if user_is_logged_in?
+    if user_is_logged_in?  && !admin?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
 
         if params[:id] == -1
@@ -258,7 +259,7 @@ class ProfileController < ApplicationController
   end
 
   def post_market_program
-    if user_is_logged_in?
+    if user_is_logged_in?  && !admin?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
 
         if params[:id] == -1
@@ -282,7 +283,7 @@ class ProfileController < ApplicationController
   end
 
   def update_visitor_app
-    if user_is_logged_in?
+    if user_is_logged_in?  && !admin?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
 
         if (application = VisitorApplication.where(profile_id: profile.id).where(id: params[:id]).first).nil?

@@ -268,7 +268,7 @@ class UsersController < ApplicationController
                 row = Hash.new
                 id = k.visitor_application_id
 
-                unless (v = VisitorApplication.where(:id => 10).first()).nil?
+                unless (v = VisitorApplication.where(:id => id).joins(:profile).select("visitor_applications.*, profiles.name").first()).nil?
                   row['application'] = v
                   lists = ProduceList.where("visitor_application_id" => id)
                   row['first'] = lists[0] 

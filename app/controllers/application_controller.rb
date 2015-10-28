@@ -31,4 +31,9 @@ class ApplicationController < ActionController::Base
   def user_is_logged_in?
     !!session[:user_id]
   end
+
+  #we use this method to restrict admins from posting data to the site
+  def admin?
+    return User.find(session[:user_id]).admin
+  end
 end
