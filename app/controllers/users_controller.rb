@@ -154,21 +154,8 @@ class UsersController < ApplicationController
       end
     end
 
-=begin
-  	def instruments
-    	if user_is_logged_in?
-      		@user = User.find(session[:user_id])
-      		@profile = profile = Profile.where(user_id: session[:user_id]).first
-
-	    else 
-      		redirect_to root_path
-    	end
-  	end
-=end
 
 	def show
-		#render plain: user_is_logged_in?
-		#return
 		if user_is_logged_in?
   		@user = User.find(session[:user_id])
   		@profile = Profile.where(user_id: session[:user_id]).first
@@ -250,6 +237,8 @@ class UsersController < ApplicationController
 
           sales_p = Profile.select('profiles.*').where("profiles.id = #{@profile.id}").joins(:sales_slip).uniq
           slips = []
+          snap_sql = "select transaction_date, profiles.name, count(*), array_length(array_agg(distinct digits_of_snap),1) from food_assistance left join profiles on profiles.id = profile_id where profiles.id = #{@profile.id} group by profiles.name, transaction_date order by profiles.name, transaction_date ;"
+          @assistance_snap = ActiveRecord::Base.connection.execute(snap_sql)
 
           profiles = Profile.select("name", "id", "day1", "day2", "day3", "day4").where("profiles.id = #{@profile.id}")
           app_ids = ProduceList.select("visitor_application_id").joins(:visitor_application).where("visitor_applications.profile_id" => @profile.id).uniq
@@ -257,7 +246,7 @@ class UsersController < ApplicationController
 
           @research = MiscResearch.select("profiles.name, misc_researches.*").joins(:profile).order("misc_researches.id").where(:id => @profile.id)
           @events = MarketProgram.select("profiles.name, market_programs.*").joins(:profile).order("market_programs.id").where(:id => @profile.id)
-          @volunteers = Volunteer.select("profiles.name, volunteers.*").joins(:profile).order("volunteers.id").where(:id => @profile.id)
+          @volunteers = Volunteer.select("profiles.name, volunteers.*, profiles.address").joins(:profile).order("volunteers.id").where(:id => @profile.id)
         end
 
           app_ids.each do |k,v|
@@ -278,6 +267,7 @@ class UsersController < ApplicationController
               end
             end
           end
+          @applications.sort! { |x, y| x['application'].name <=> y['application'].name }
 
           for v in @volunteers do 
             #address is used so we can replace it
@@ -360,6 +350,188 @@ class UsersController < ApplicationController
     		redirect_to root_path
     	end
   	end
+
+    def csv_metric_request
+      if user_is_logged_in?
+        @user = User.find(session[:user_id])
+        session[:user_id] = @user.id
+
+        @profile = Profile.where(user_id: session[:user_id]).first
+
+        case params[:type].to_i
+        when 1 #profile
+          @profiles = {}
+          i = 0
+
+          profs = if @user.admin then Profile.all().order('id') else [Profile.find(@profile.id)] end
+
+          profs.each do |p|
+            prof = {:profile => p}
+            prof[:markets] = p.markets
+            prof[:management] = p.managements
+            prof[:accessibility] = p.accessibility
+            prof[:community] = p.community
+            @profiles[i] = prof
+             i += 1
+          end
+          ret = @profiles
+
+        when 2 #survey
+          ret = if @user.admin then
+            Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).order("profiles.id ASC").order("visitor_surveys.date ASC")
+          else
+            Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).where("profiles.id = #{@profile.id}").order("visitor_surveys.date ASC")
+          end
+
+        when 3 #Counts
+          profiles = if @user.admin then
+            Profile.select("name", "id", "day1", "day2", "day3", "day4")
+          else
+            Profile.select("name", "id", "day1", "day2", "day3", "day4").where("profiles.id = #{@profile.id}")
+          end
+
+          visitor_counts = []
+          for prof in profiles do
+            points = prof.entry_points.order(ptNum: :asc)
+            if points.count() == 0
+              next
+            end
+            profile = Hash.new
+
+            prof_points = []
+            day = []
+            for i in 0..3 do
+              for j in 0..8 do
+                day.push([])
+              end
+              prof_points.push(day)
+              day = []
+            end
+
+            for p in points do
+              prof_points[p.int_day][p.period].push(p)
+            end 
+            profile["points"] = prof_points
+            profile["name"] = prof.name
+            profile["day0"] = prof.day1
+            profile["day1"] = prof.day2
+            profile["day2"] = prof.day3
+            profile["day3"] = prof.day4
+
+            visitor_counts.push(profile)
+          end
+          ret = visitor_counts
+
+        when 4 #sales slips
+          sales_p = if @user.admin then
+            sales_p =Profile.select('profiles.*').joins(:sales_slip).uniq
+          else
+            sales_p =Profile.select('profiles.*').where("profiles.id = #{@profile.id}").joins(:sales_slip).uniq
+          end
+          slips = []
+
+          for sp in sales_p do
+            dates = sp.sales_slip.select(:date).order(:date).uniq
+            prof = Hash.new
+            s = []
+            for d in dates
+              s.push(SalesSlip.select("*").where(profile_id: sp.id, date: d.date))
+            end
+            prof[:slips] = s
+            prof[:name] = sp.name
+
+            slips.push(prof)
+          end
+          ret = slips
+
+        when 5 #assistance
+          ret = Hash.new
+          ret['assistances'] = if @user.admin then 
+            FoodAssistance.select("food_assistance.*, profiles.name").joins(:profile).order("profile_id ASC").order("food_assistance.id ASC")
+          else 
+            FoodAssistance.select("food_assistance.*, profiles.name").where("profiles.id = #{@profile.id}").joins(:profile).order("profile_id ASC").order("food_assistance.id ASC")
+          end
+
+          snap_sql = if @user.admin then
+            "select transaction_date, profiles.name, count(*), array_length(array_agg(distinct digits_of_snap),1) from food_assistance left join profiles on profiles.id = profile_id group by profiles.name, transaction_date order by profiles.name, transaction_date;"
+          else
+           "select transaction_date, profiles.name, count(*), array_length(array_agg(distinct digits_of_snap),1) from food_assistance left join profiles on profiles.id = profile_id where profiles.id = #{@profile.id} group by profiles.name, transaction_date order by profiles.name, transaction_date ;"
+          end
+          ret['assistance_snap'] = ActiveRecord::Base.connection.execute(snap_sql)
+
+        when 6 #credit_debit
+          ret = if @user.admin then
+            CreditSales.select("credit_sales.*, profiles.name").joins(:profile).order("profile_id ASC").order("credit_sales.id ASC")
+          else
+            CreditSales.select("credit_sales.*, profiles.name").where("profiles.id = #{@profile.id}").joins(:profile).order("profile_id ASC").order("credit_sales.id ASC")
+          end
+
+        when 7 #vendor app
+          app_ids = if @user.admin then
+            ProduceList.select("visitor_application_id").uniq
+          else
+            ProduceList.select("visitor_application_id").joins(:visitor_application).where("visitor_applications.profile_id" => @profile.id).uniq
+          end
+
+          ret = []
+          app_ids.each do |k,v|
+            unless k.nil? 
+            #this is because whoever invented this crappy language never thought to include short curcuit
+            #evaluation. Jesus...
+              if k.visitor_application_id
+                row = Hash.new
+                id = k.visitor_application_id
+
+                unless (v = VisitorApplication.where(:id => id).joins(:profile).select("visitor_applications.*, profiles.name").first()).nil?
+                  row['application'] = v
+                  lists = ProduceList.where("visitor_application_id" => id)
+                  row['first'] = lists[0] 
+                  row['second'] = lists[1] 
+                  ret << row
+                end
+              end
+            end
+          end
+          ret.sort! { |x, y| x['application'].name <=> y['application'].name }
+
+        when 8 #attendance
+          ret = if @user.admin then
+            MiscResearch.select("profiles.name, misc_researches.*").joins(:profile).order("profile_id, misc_researches.id")
+          else
+            MiscResearch.select("profiles.name, misc_researches.*").joins(:profile).order("profile_id, misc_researches.id").where(:id => @profile.id)
+          end
+
+        when 9 #events
+          ret = if @user.admin then 
+            MarketProgram.select("market_programs.*, profiles.name").joins(:profile).order("profile_id ASC").order("market_programs.id ASC")
+          else
+            MarketProgram.select("market_programs.*, profiles.name").joins(:profile).order("profile_id ASC").order("market_programs.id ASC").where(:id => @profile.id)
+          end
+
+        when 10 #volunteers
+          vols = if @user.admin then
+            Volunteer.select("volunteers.*, profiles.name, profiles.address").joins(:profile).order("profile_id ASC").order("volunteers.id ASC")
+          else
+            Volunteer.select("volunteers.*, profiles.name, profiles.address").joins(:profile).order("profile_id ASC").order("volunteers.id ASC").where(:id => @profile.id)
+          end
+
+          for v in vols do 
+            #address is used so we can replace it
+            num = (v.departure.length > 0 ? Time.parse(v.departure).to_i : 0) - (v.arrival.length > 0 ? Time.parse(v.arrival).to_i : 0)
+            v.address = ((num * 1.0)/3600.0)
+          end
+          ret = vols
+        else
+          ret = []
+        end
+
+        render plain: ret.to_json
+        return
+
+      else 
+        redirect_to root_path
+      end
+    end
 
   	def visitor_survey
   		if user_is_logged_in?

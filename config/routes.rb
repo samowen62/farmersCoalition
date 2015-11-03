@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get "show", :to => "users#show"
   get "home", :to => "users#home"
   get "reset/:hash", :to => "users#reset"
+  get "csv/:type", :to => "users#csv_metric_request"
 
   post "login_attempt", :to => "sessions#login_attempt"
   post "pass_reset", :to => "users#pass_reset"
