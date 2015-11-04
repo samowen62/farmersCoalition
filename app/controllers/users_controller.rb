@@ -211,7 +211,7 @@ class UsersController < ApplicationController
         @events = []
         @volunteers = []
         app_ids = []
-
+=begin
         if(@user.admin)
           
           p = Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).order("profiles.id ASC").order("visitor_surveys.date ASC")
@@ -343,7 +343,7 @@ class UsersController < ApplicationController
         #else
         #  @profiles = {}
         #end
-
+=end
     		@surveys = VisitorSurvey.where(profile_id: @profile.id)
 
     	else 
@@ -377,11 +377,22 @@ class UsersController < ApplicationController
           ret = @profiles
 
         when 2 #survey
-          ret = if @user.admin then
+          slips = if @user.admin then
             Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).order("profiles.id ASC").order("visitor_surveys.date ASC")
           else
             Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).where("profiles.id = #{@profile.id}").order("visitor_surveys.date ASC")
           end
+
+          sql = if @user.admin then
+            "select count(home_zip), home_zip, profiles.name, date from visitor_surveys left join profiles on profiles.id = visitor_surveys.profile_id group by date, home_zip, profiles.name order by profiles.name;"
+          else
+            "select count(home_zip), home_zip, profiles.name, date from visitor_surveys profiles.id = #{@profile.id} left join profiles on profiles.id = visitor_surveys.profile_id group by date, home_zip, profiles.name;"
+          end
+          zips = ActiveRecord::Base.connection.execute(sql)
+
+          ret = Hash.new
+          ret['slips'] = slips
+          ret['zips'] = zips
 
         when 3 #Counts
           profiles = if @user.admin then
@@ -521,6 +532,8 @@ class UsersController < ApplicationController
             v.address = ((num * 1.0)/3600.0)
           end
           ret = vols
+        when 11 #test
+
         else
           ret = []
         end

@@ -271,7 +271,10 @@ var food_list_heading = {
     Apples: "Apples"
 };
 
-function gen_surveys(visitor_surveys){
+function gen_surveys(data){
+	var visitor_surveys = data['slips'];
+	var zips = data['zips']
+
 	var visitor_survey = '"Date",';
 	var visitor_survey_heading = {
 		name: "Market Name",
@@ -296,36 +299,42 @@ function gen_surveys(visitor_surveys){
 
 	};
 
-	//if(visitor_surveys[0] && visitor_surveys[0][0]){
-		for (var key in visitor_surveys[0]) {
-			if(key != 'profile_id' && key != 'id' && key != 'date'){
-				if(key in food_list_heading) {
-					key = '"' + food_list_heading[key] + '",';
-					visitor_survey += key;
-				}else if(key in visitor_survey_heading) {
-					key = '"' + visitor_survey_heading[key] + '",';
-					visitor_survey += key;
-				}
+	for (var key in visitor_surveys[0]) {
+		if(key != 'profile_id' && key != 'id' && key != 'date'){
+			if(key in food_list_heading) {
+				key = '"' + food_list_heading[key] + '",';
+				visitor_survey += key;
+			}else if(key in visitor_survey_heading) {
+				key = '"' + visitor_survey_heading[key] + '",';
+				visitor_survey += key;
+			}
+		}
+	}
+	visitor_survey += '\n';
+
+	for(var j in visitor_surveys){
+
+		var survey = visitor_surveys[j];
+		visitor_survey += survey.date + ',';
+		for (var key in survey) {
+			k = '';
+			if ((food_list_heading.hasOwnProperty(key) || visitor_survey_heading.hasOwnProperty(key)) && key != 'profile_id' && key != 'id' && key != 'date') {
+					k = '"' + survey[key] + '",';
+				visitor_survey += k;
 			}
 		}
 		visitor_survey += '\n';
+	}
 
-		//for (var i in visitor_surveys){
-			for(var j in visitor_surveys){
+	if(zips.length > 0)
+		visitor_survey += '\n\nMarket, Date, Zip Code,, Count\n';
 
-				var survey = visitor_surveys[j];
-				visitor_survey += survey.date + ',';
-				for (var key in survey) {
-					k = '';
-					if ((food_list_heading.hasOwnProperty(key) || visitor_survey_heading.hasOwnProperty(key)) && key != 'profile_id' && key != 'id' && key != 'date') {
-							k = '"' + survey[key] + '",';
-						visitor_survey += k;
-					}
-				}
-				visitor_survey += '\n';
-			}
-		//}
-	//}
+	for(var i in zips){
+		var z = zips[i];
+		if(z.home_zip)
+			visitor_survey += z.name+','+z.date+','+z.home_zip+','+z.count+'\n';
+
+	}
 
 	return visitor_survey;
 }
