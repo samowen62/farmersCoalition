@@ -327,13 +327,46 @@ function gen_surveys(data){
 	}
 
 	if(zips.length > 0)
-		visitor_survey += '\n\nMarket, Date, Zip Code,, Count\n';
+		visitor_survey += '\n\nMarket, Date, Zip Code,, Count, Percentage\n';
 
+	var set = [], cur_day = null; curr_prof = null, sum = 0;
 	for(var i in zips){
 		var z = zips[i];
-		if(z.home_zip)
-			visitor_survey += z.name+','+z.date+','+z.home_zip+','+z.count+'\n';
+		if(z.home_zip && parseInt(z.count) > 0){
+			if(z.name != curr_prof){
+				sect='';
+				for(var j in set){
+					sect += set[j][0] + ',%' + (100*(parseInt(set[j][1]) / sum)) + '\n';
+				}
+				visitor_survey += sect;
+				console.log(sect);
+				
+				sum = parseInt(z.count);
+				set = [[z.name+','+z.date+','+z.home_zip+','+z.count, z.count]];
+				curr_prof = z.name;
+			}else if(z.date != cur_day){
+				sect='';
+				for(var j in set){
+					sect += set[j][0] + ',%' + (100*(parseInt(set[j][1]) / sum)) + '\n';
+				}
+				visitor_survey += sect;
+				console.log(sect);
 
+				sum = parseInt(z.count);
+				set = [[z.name+','+z.date+','+z.home_zip+','+z.count, z.count]];
+				cur_day = z.date;
+			}else if(i + 1 == zips.length){
+				sect='';
+				for(var j in set){
+					sect += set[j][0] + ',%' + (100*(parseInt(set[j][1]) / sum)) + '\n';
+				}
+				visitor_survey += sect;
+				console.log(sect);
+			}else{
+				sum += parseInt(z.count);
+				set.push([z.name+','+z.date+','+z.home_zip+','+z.count, z.count]);
+			}		
+		}
 	}
 
 	return visitor_survey;
