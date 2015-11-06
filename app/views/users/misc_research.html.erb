@@ -53,20 +53,22 @@
 		</div>
   	</div>
 	<div class="col-md-12">
-		<table>
-			<tbody style="  overflow-x: auto;width: 720px;height:580px;display: block;">
-				<tr>
-					<td><label>Business/Farm Name</label></td>
-					<td><label>Owner Last Name</label></td>
-					<td ng-repeat="col in cLen track by $index" style="padding: 0px 10px;" >{{($index + 1)}}</td>
-				</tr>
-				<tr ng-repeat="r in research">
-					<td><input ng-model="r.farm_name" /></td>
-					<td><input style="  width: 130px;" ng-model="r.owner_last"  /></td>
-					<td ng-repeat="c in cLen track by $index"><input class="int-input" ng-model="r['week'+($index + 1)]" type="checkbox" /></td>
-				</tr>
-			</tbody>
-		</table>
+		<div  >
+			<table style=" transform:rotateX(180deg);-ms-transform:rotateX(180deg);-webkit-transform:rotateX(180deg);overflow-x: auto;width: 720px;display: block;">
+				<tbody style="   transform:rotateX(180deg);-ms-transform:rotateX(180deg);-webkit-transform:rotateX(180deg);">
+					<tr>
+						<td><label>Business/Farm Name</label></td>
+						<td><label>Owner Last Name</label></td>
+						<td ng-repeat="col in cLen track by $index" style="padding: 0px 10px;" >{{($index + 1)}}</td>
+					</tr>
+					<tr ng-repeat="r in research">
+						<td><input ng-model="r.farm_name" /></td>
+						<td><input style="  width: 130px;" ng-model="r.owner_last"  /></td>
+						<td ng-repeat="c in cLen track by $index"><input class="int-input" ng-model="r['week'+($index + 1)]" type="checkbox" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
   </div>
 </div>

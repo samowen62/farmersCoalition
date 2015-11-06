@@ -546,6 +546,83 @@ class UsersController < ApplicationController
       end
     end
 
+    def metric_data
+      if user_is_logged_in?
+        @user = User.find(session[:user_id])
+        session[:user_id] = @user.id
+        @profile = Profile.where(user_id: session[:user_id]).first
+        @metrics = metric_calc(@profile)
+
+        metrics = Hash.new
+
+        if @metrics[0]
+          metrics["1"] = []
+          metrics["1"].push({count: EntryPoint.where(:profile_id => @profile.id).where(:int_day => 0).sum(:count), day: @profile.day1})
+          metrics["1"].push({count: EntryPoint.where(:profile_id => @profile.id).where(:int_day => 1).sum(:count), day: @profile.day2})
+          metrics["1"].push({count: EntryPoint.where(:profile_id => @profile.id).where(:int_day => 2).sum(:count), day: @profile.day3})
+          metrics["1"].push({count: EntryPoint.where(:profile_id => @profile.id).where(:int_day => 3).sum(:count), day: @profile.day4})
+        end
+        if @metrics[1]
+          metrics["2"] = Hash.new
+          metrics["2"]["sales_slip"] = @profile.sales_slip.select("sum(total_sales) as total, sum(farm_sales) as farm, sum(value_sales) as value, sum(ready_sales) as ready")
+          metrics["2"]["application"] = @profile.visitor_application.select("sum(total_gross) as total, sum(farm_sales) as farm, sum(value_sales) as value, sum(ready_sales) as ready")
+        end
+        if @metrics[2]
+          metrics["3"] = Hash.new
+          metrics["3"]["primary"] = @profile.visitor_application.sum(:miles_prim)
+          metrics["3"]["secondary"] = @profile.visitor_application.sum(:miles_second)
+          #need year specification
+        end
+        if @metrics[3]
+          metrics["4"] = @profile.visitor_application.select("acres_owned, acres_leased, acres_cultivated")
+        end
+        if @metrics[4]
+          metrics["5"] = ActiveRecord::Base.connection.execute("select distinct farm_name from misc_researches where profile_id = #{@profile.id} and (coalesce(week1,0)+coalesce(week2,0)+coalesce(week3,0)+coalesce(week4,0)+coalesce(week5,0)+coalesce(week6,0)+coalesce(week7,0)+coalesce(week8,0)+coalesce(week9,0)+coalesce(week10,0)+coalesce(week11,0)+coalesce(week12,0)+coalesce(week13,0)+coalesce(week14,0)+coalesce(week15,0)+coalesce(week16,0)+coalesce(week17,0)+coalesce(week18,0)+coalesce(week19,0)+coalesce(week20,0)+coalesce(week21,0)+coalesce(week22,0)+coalesce(week23,0)+coalesce(week24,0)+coalesce(week25,0)+coalesce(week26,0)+coalesce(week27,0)+coalesce(week28,0)+coalesce(week29,0)+coalesce(week30,0)+coalesce(week31,0)+coalesce(week32,0)+coalesce(week33,0)+coalesce(week34,0)+coalesce(week35,0)+coalesce(week36,0)) > 0;")
+        end
+        if @metrics[5]
+          #no info
+        end
+        if @metrics[6]
+          metrics["7"] = @profile.visitor_survey.average(:downtown_spent_morning)
+          #metrics["7"] = ActiveRecord::Base.connection.execute("select avg(downtown_spent_morning) as avg from visitor_surveys group by profile_id")
+        end
+        if @metrics[7]
+          metrics["8"] = Hash.new
+          metrics["8"]["slip"] = @profile.sales_slip.average(:Debt_sales)#.groupBy(:profile_id)
+          metrics["8"]["credit"] = CreditSales.select("avg(credit_sales) as credit, avg(debit_sales) as debit").where(:profile_id => @profile.id)
+        end
+        if @metrics[8]
+          metrics["9"] = {seasonal: @profile.visitor_application.sum(:workers_seasonal), yearly: @profile.visitor_application.sum(:workers_yearly)}
+        end
+        if @metrics[9]
+          metrics["10"] = Hash.new
+          metrics["10"]["sales_slip"] = @profile.sales_slip.select("sum(farm_sales) as farm, sum(value_sales) as value, sum(ready_sales) as ready")
+          metrics["10"]["application"] = @profile.visitor_application.select("sum(farm_sales) as farm, sum(value_sales) as value, sum(ready_sales) as ready")
+        end
+        if @metrics[10]
+          metrics["11"] = @profile.visitor_survey.average(:spent_morning)
+        end
+        if @metrics[11]
+          metrics["12"] = @profile.visitor_survey.average(:spent_morning)
+        end
+        if @metrics[12]
+          #needs modification
+          metrics["13"] = @profile.visitor_survey.select("sum(yes13) as sum, count(*) as total, date").group(:date)
+
+        end
+
+
+
+
+
+        render plain: metrics.to_json
+        return
+      else
+        redirect_to root_path
+      end
+    end
+
+
   	def visitor_survey
   		if user_is_logged_in?
   			@user = User.find(session[:user_id])

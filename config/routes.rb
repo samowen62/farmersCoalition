@@ -52,6 +52,8 @@ Rails.application.routes.draw do
   get "programs", :to => "users#programs"
   get "volunteers", :to => "users#volunteers"
   get "edit_application/:id", :to => "users#edit_application"
+  get "metric_data", :to => "users#metric_data"
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -63,38 +63,7 @@ class ProfileController < ApplicationController
 
     if user_is_logged_in?  && !admin?
       unless (profile = Profile.where(user_id: session[:user_id]).first).nil?
-=begin
-        unless (survey = VisitorSurvey.where(date: params[:date]).where(profile_id: profile.id).first).nil?
-          for i in list
-            if doubleList.include?(i)
-              survey[i] += params[i] ? params[i].to_f : 0
-            else
-              if i == "home_zip"
-                survey[i] += params[i] ? "#{params[i]};" : ""
-              else  
-                survey[i] += params[i] ? 1 : 0
-              end
-            end
-          end
 
-          for i in radioList
-            if survey ["yes#{i}"].nil?
-              survey["yes#{i}"] = 0
-            else
-              survey ["yes#{i}"] += params["yes#{i}"] == 'true' ? 1 : 0
-              survey ["no#{i}"] += params["yes#{i}"] == 'false' ? 1 : 0
-            end
-          end
-
-          food = params[:food]
-          food.each do |k,v|
-            if(v)
-              survey[k] += 1
-            end
-          end
-          survey.save!
-=end
-     #   else
           survey = VisitorSurvey.new
           survey[:date] = params[:date]
           survey[:profile_id] = profile.id
