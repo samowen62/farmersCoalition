@@ -432,8 +432,8 @@ function gen_counts (visitor_counts) {
 	var visitor_count_csv = ',,Early Visitors,Sample Period 1,,,,,,,,,,Sample Period 2,,,,,,,,,,Sample Period 3,,,,,,,,,,Sample Period 4,,,,,,,,,,Sample Period 5,,,,,,,,,,Sample Period 6,,,,,,,,,,Sample Period 7,,,,,,,,,,Sample Period 8\nMarket Name,Date,In the Market,Entry Point 1,Entry Point 2,Entry Point 3,Entry Point 4,Entry Point 5,Entry Point 6,Entry Point 7,Entry Point 8,Entry Point 9,Entry Point 10,Entry Point 1,Entry Point 2,Entry Point 3,Entry Point 4,Entry Point 5,Entry Point 6,Entry Point 7,Entry Point 8,Entry Point 9,Entry Point 10,Entry Point 1,Entry Point 2,Entry Point 3,Entry Point 4,Entry Point 5,Entry Point 6,Entry Point 7,Entry Point 8,Entry Point 9,Entry Point 10,Entry Point 1,Entry Point 2,Entry Point 3,Entry Point 4,Entry Point 5,Entry Point 6,Entry Point 7,Entry Point 8,Entry Point 9,Entry Point 10,Entry Point 1,Entry Point 2,Entry Point 3,Entry Point 4,Entry Point 5,Entry Point 6,Entry Point 7,Entry Point 8,Entry Point 9,Entry Point 10,Entry Point 1,Entry Point 2,Entry Point 3,Entry Point 4,Entry Point 5,Entry Point 6,Entry Point 7,Entry Point 8,Entry Point 9,Entry Point 10,Entry Point 1,Entry Point 2,Entry Point 3,Entry Point 4,Entry Point 5,Entry Point 6,Entry Point 7,Entry Point 8,Entry Point 9,Entry Point 10,Entry Point 1,Entry Point 2,Entry Point 3,Entry Point 4,Entry Point 5,Entry Point 6,Entry Point 7,Entry Point 8,Entry Point 9,Entry Point 10\n';
 	for(var i = 0; i < visitor_counts.length; i++){
 		var vci = visitor_counts[i];
-		if(vci.name == null)
-			continue;
+		//if(vci.name == null)
+		//	continue;
 
 		for(var j = 0; j < vci.points.length; j ++){
 			var vcj = vci.points[j];

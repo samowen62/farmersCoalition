@@ -211,139 +211,7 @@ class UsersController < ApplicationController
         @events = []
         @volunteers = []
         app_ids = []
-=begin
-        if(@user.admin)
-          
-          p = Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).order("profiles.id ASC").order("visitor_surveys.date ASC")
-          @visitor_surveys << p
-          sales_p = Profile.select('profiles.*').joins(:sales_slip).uniq
-          slips = []
-          profiles = Profile.select("name", "id", "day1", "day2", "day3", "day4")
-          app_ids = ProduceList.select("visitor_application_id").uniq
-          
 
-          @assistances = FoodAssistance.select("food_assistance.*, profiles.name").joins(:profile).order("profile_id ASC").order("food_assistance.id ASC")
-
-          snap_sql = "select transaction_date, profiles.name, count(*), array_length(array_agg(distinct digits_of_snap),1) from food_assistance left join profiles on profiles.id = profile_id group by profiles.name, transaction_date order by profiles.name, transaction_date;"
-          @assistance_snap = ActiveRecord::Base.connection.execute(snap_sql)
-
-          @research = MiscResearch.select("profiles.name, misc_researches.*").joins(:profile).order("profile_id, misc_researches.id")
-          @credit = CreditSales.select("credit_sales.*, profiles.name").joins(:profile).order("profile_id ASC").order("credit_sales.id ASC")
-          @events = MarketProgram.select("market_programs.*, profiles.name").joins(:profile).order("profile_id ASC").order("market_programs.id ASC")
-          @volunteers = Volunteer.select("volunteers.*, profiles.name, profiles.address").joins(:profile).order("profile_id ASC").order("volunteers.id ASC")
-        else
-          p = Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).where("profiles.id = #{@profile.id}").order("visitor_surveys.date ASC")
-          @visitor_surveys << p
-
-          sales_p = Profile.select('profiles.*').where("profiles.id = #{@profile.id}").joins(:sales_slip).uniq
-          slips = []
-          snap_sql = "select transaction_date, profiles.name, count(*), array_length(array_agg(distinct digits_of_snap),1) from food_assistance left join profiles on profiles.id = profile_id where profiles.id = #{@profile.id} group by profiles.name, transaction_date order by profiles.name, transaction_date ;"
-          @assistance_snap = ActiveRecord::Base.connection.execute(snap_sql)
-
-          profiles = Profile.select("name", "id", "day1", "day2", "day3", "day4").where("profiles.id = #{@profile.id}")
-          app_ids = ProduceList.select("visitor_application_id").joins(:visitor_application).where("visitor_applications.profile_id" => @profile.id).uniq
-          #app_ids = ProduceList.select("visitor_application_id").where("profile_id" => @profile.id).uniq
-
-          @research = MiscResearch.select("profiles.name, misc_researches.*").joins(:profile).order("misc_researches.id").where(:id => @profile.id)
-          @events = MarketProgram.select("profiles.name, market_programs.*").joins(:profile).order("market_programs.id").where(:id => @profile.id)
-          @volunteers = Volunteer.select("profiles.name, volunteers.*, profiles.address").joins(:profile).order("volunteers.id").where(:id => @profile.id)
-        end
-
-          app_ids.each do |k,v|
-            unless k.nil? 
-            #this is because whoever invented this crappy language never thought to include short curcuit
-            #evaluation. Jesus...
-              if k.visitor_application_id
-                row = Hash.new
-                id = k.visitor_application_id
-
-                unless (v = VisitorApplication.where(:id => id).joins(:profile).select("visitor_applications.*, profiles.name").first()).nil?
-                  row['application'] = v
-                  lists = ProduceList.where("visitor_application_id" => id)
-                  row['first'] = lists[0] 
-                  row['second'] = lists[1] 
-                  @applications << row
-                end
-              end
-            end
-          end
-          @applications.sort! { |x, y| x['application'].name <=> y['application'].name }
-
-          for v in @volunteers do 
-            #address is used so we can replace it
-            num = (v.departure.length > 0 ? Time.parse(v.departure).to_i : 0) - (v.arrival.length > 0 ? Time.parse(v.arrival).to_i : 0)
-            v.address = ((num * 1.0)/3600.0)
-          end
-          
-          for sp in sales_p do
-            dates = sp.sales_slip.select(:date).order(:date).uniq
-            prof = Hash.new
-            s = []
-            for d in dates
-              s.push(SalesSlip.select("*").where(profile_id: sp.id, date: d.date))
-            end
-            prof[:slips] = s
-            prof[:name] = sp.name
-
-            slips.push(prof)
-          end
-
-          @sales_slips = slips
-
-          
-
-          for prof in profiles do
-            points = prof.entry_points.order(ptNum: :asc)
-            if points.count() == 0
-              next
-            end
-            profile = Hash.new
-
-            prof_points = []
-            day = []
-            for i in 0..3 do
-              for j in 0..8 do
-                day.push([])
-              end
-              prof_points.push(day)
-              day = []
-            end
-
-            for p in points do
-              prof_points[p.int_day][p.period].push(p)
-            end 
-            profile["points"] = prof_points
-            profile["name"] = prof.name
-            profile["day0"] = prof.day1
-            profile["day1"] = prof.day2
-            profile["day2"] = prof.day3
-            profile["day3"] = prof.day4
-
-            @visitor_counts.push(profile)
-          end
-
-      		@profiles = {}
-      		i = 0
-
-          if @user.admin
-        		profs = Profile.all().order('id')
-          else
-            profs = [Profile.find(@profile.id)]
-          end
-
-    	   	profs.each do |p|
-    		  	prof = {:profile => p}
-      			prof[:markets] = p.markets
-      			prof[:management] = p.managements
-      			prof[:accessibility] = p.accessibility
-    	   		prof[:community] = p.community
-    	 	   	@profiles[i] = prof
-    			   i += 1
-    		  end
-        #else
-        #  @profiles = {}
-        #end
-=end
     		@surveys = VisitorSurvey.where(profile_id: @profile.id)
 
     	else 
@@ -386,7 +254,7 @@ class UsersController < ApplicationController
           sql = if @user.admin then
             "select count(home_zip), home_zip, profiles.name, date from visitor_surveys left join profiles on profiles.id = visitor_surveys.profile_id group by date, home_zip, profiles.name order by profiles.name;"
           else
-            "select count(home_zip), home_zip, profiles.name, date from visitor_surveys profiles.id = #{@profile.id} left join profiles on profiles.id = visitor_surveys.profile_id group by date, home_zip, profiles.name;"
+            "select count(home_zip), home_zip, profiles.name, date from visitor_surveys left join profiles on profiles.id = visitor_surveys.profile_id where profiles.id = #{@profile.id} group by date, home_zip, profiles.name;"
           end
           zips = ActiveRecord::Base.connection.execute(sql)
 
@@ -603,15 +471,183 @@ class UsersController < ApplicationController
           metrics["11"] = @profile.visitor_survey.average(:spent_morning)
         end
         if @metrics[11]
-          metrics["12"] = @profile.visitor_survey.average(:spent_morning)
+          #ask about this
+          metrics["12"] = Hash.new
+          total1 = @profile.visitor_application.where("owner1_years is not NULL").count()
+          sum1 = @profile.visitor_application.select("sum(owner1_years)").where("owner1_years >= 10")
+          total2 = @profile.visitor_application.where("owner2_years is not NULL").count()
+          sum2 = @profile.visitor_application.select("sum(owner2_years)").where("owner2_years >= 10")
+          metrics["12"]["1"] = if total1 > 0 then sum1 / total1 else 0 end 
+          metrics["12"]["2"] = if total2 > 0 then sum2 / total2 else 0 end 
         end
         if @metrics[12]
           #needs modification
           metrics["13"] = @profile.visitor_survey.select("sum(yes13) as sum, count(*) as total, date").group(:date)
 
         end
+        if @metrics[13]
+          slips = Hash.new
+          #\"SNAP_sales\"/NULLIF(\"SNAP_transactions\",0) as avg
+          slips["april"] = @profile.sales_slip.select("sum(\"SNAP_transactions\")").where("EXTRACT(MONTH FROM date) = 4")
+          slips["may"] = @profile.sales_slip.select("sum(\"SNAP_transactions\")").where("EXTRACT(MONTH FROM date) = 5")
+          slips["june"] = @profile.sales_slip.select("sum(\"SNAP_transactions\")").where("EXTRACT(MONTH FROM date) = 6")
+          slips["july"] = @profile.sales_slip.select("sum(\"SNAP_transactions\")").where("EXTRACT(MONTH FROM date) = 7")
+          slips["august"] = @profile.sales_slip.select("sum(\"SNAP_transactions\")").where("EXTRACT(MONTH FROM date) = 8")
+          slips["september"] = @profile.sales_slip.select("sum(\"SNAP_transactions\")").where("EXTRACT(MONTH FROM date) = 9")
+          
+          #just the number
+          assistance = Hash.new
+          assistance["april"] = @profile.food_assistance.where(:type_of_assistance => "SNAP").where("EXTRACT(MONTH FROM transaction_date) = 4").count()
+          assistance["may"] = @profile.food_assistance.where(:type_of_assistance => "SNAP").where("EXTRACT(MONTH FROM transaction_date) = 5").count()
+          assistance["june"] = @profile.food_assistance.where(:type_of_assistance => "SNAP").where("EXTRACT(MONTH FROM transaction_date) = 6").count()
+          assistance["july"] = @profile.food_assistance.where(:type_of_assistance => "SNAP").where("EXTRACT(MONTH FROM transaction_date) = 7").count()
+          assistance["august"] = @profile.food_assistance.where(:type_of_assistance => "SNAP").where("EXTRACT(MONTH FROM transaction_date) = 8").count()
+          assistance["september"] = @profile.food_assistance.where(:type_of_assistance => "SNAP").where("EXTRACT(MONTH FROM transaction_date) = 9").count()
 
+          metrics["14"] = Hash.new
+          metrics["14"]['slips'] = slips
+          metrics["14"]['assistance'] = assistance
+        end
+        if @metrics[14]
 
+          #check these again
+          metrics["15"] = Hash.new
+          metrics["15"]['slips'] = @profile.sales_slip.select("sum(\"SNAP_transactions\")").where("\"SNAP_transactions\" is not null")
+          metrics["15"]['assistance'] = @profile.food_assistance.select("sum(redeemed)").where(:type_of_assistance => "SNAP").where("redeemed is not null")
+        end
+        if @metrics[15]
+
+          metrics["16"] = Hash.new
+          metrics["16"]['slips'] = @profile.sales_slip.select("sum(\"WIC_FMNP_sales\")").where("\"WIC_FMNP_sales\" is not null")
+          metrics["16"]['assistance'] = @profile.food_assistance.select("sum(redeemed)").where(:type_of_assistance => "WIC FMNP").where("redeemed is not null")
+        end
+        if @metrics[16]
+
+          metrics["17"] = Hash.new
+          metrics["17"]['slips'] = @profile.sales_slip.select("sum(\"WIC_sales\")").where("\"WIC_sales\" is not null")
+          metrics["17"]['assistance'] = @profile.food_assistance.select("sum(redeemed)").where(:type_of_assistance => "WIC CVV").where("redeemed is not null")
+        end
+        if @metrics[17]
+
+          metrics["18"] = Hash.new
+          metrics["18"]["april"] = @profile.food_assistance.where("EXTRACT(MONTH FROM transaction_date) = 4").select(:digits_of_snap).uniq
+          metrics["18"]["may"] = @profile.food_assistance.where("EXTRACT(MONTH FROM transaction_date) = 5").select(:digits_of_snap).uniq
+          metrics["18"]["june"] = @profile.food_assistance.where("EXTRACT(MONTH FROM transaction_date) = 6").select(:digits_of_snap).uniq
+          metrics["18"]["july"] = @profile.food_assistance.where("EXTRACT(MONTH FROM transaction_date) = 7").select(:digits_of_snap).uniq
+          metrics["18"]["august"] = @profile.food_assistance.where("EXTRACT(MONTH FROM transaction_date) = 8").select(:digits_of_snap).uniq
+          metrics["18"]["september"] = @profile.food_assistance.where("EXTRACT(MONTH FROM transaction_date) = 9").select(:digits_of_snap).uniq
+        end
+        if @metrics[18]
+          #check this one too by putting a bunch of sample values into assistance
+          #metrics["19"] @profile.food_assistance.where("count(select distinct transaction_date")
+        end
+        if @metrics[20]
+
+          metrics["21"] = Hash.new
+          metrics["21"]['slips'] = @profile.sales_slip.select("sum(\"Senior_FMNP_sales\")").where("\"Senior_FMNP_sales\" is not null")
+          metrics["21"]['assistance'] = @profile.food_assistance.select("sum(redeemed)").where(:type_of_assistance => "Senior FMNP").where("redeemed is not null")
+        end
+        if @metrics[21]
+          num = @profile.visitor_application.where(:owned_by_women => "yes").count()
+          den = @profile.visitor_application.count()
+          metrics["22"] = den > 0 ? num / den : 0;
+        end
+        if @metrics[22]
+          #no idea how to do this one
+          metrics["23"]
+        end
+        #24
+        if @metrics[24]
+          # or certified_natural or certified_biodynamic or certified_food_alliance or certified_other         
+          metrics["25"] = @profile.visitor_application.where("certified_organic = TRUE").count()
+        end
+        if @metrics[25]
+          metrics["26"] = @profile.visitor_application.select("sum(num_certified)")
+        end
+        if @metrics[26]
+          apps = @profile.visitor_application
+          keys = {}
+          for p in apps do 
+            produce = p.produce_list
+            if produce.size > 0
+              produce[0].attributes.each do |k, v|
+                if v && !keys.key?(k)
+                  keys[k] = 1;
+                end
+              end
+            end
+            if produce.size == 2
+              produce[1].attributes.each do |k, v|
+                if v && !keys.key?(k)
+                  keys[k] = 1;
+                end
+              end
+            end
+          end
+
+          metrics["27"] = keys.size - 2 #id and year
+        end
+        if @metrics[27]
+          n = @profile.visitor_survey.where(:no28 => 1).count()
+          den = @profile.visitor_survey.where(:no28 => 0).count() + n
+          metrics["28"] = if den > 0 then n / den else 0 end
+        end
+        if @metrics[28]
+          metrics["29"] = @profile.visitor_application.select("sum(under_35)")
+        end
+        if @metrics[29]
+          vols = @profile.volunteer.select("volunteers.*")
+          sum = 0
+          sum_comm = 0
+
+          for v in vols do 
+            num = (v.departure.length > 0 ? Time.parse(v.departure).to_i : 0) - (v.arrival.length > 0 ? Time.parse(v.arrival).to_i : 0)
+            sum += ((num * 1.0)/3600.0)
+            sum_comm += v.hours_committed ? v.hours_committed : 0
+          end
+          metrics["30"] = {sum: sum, committed: sum_comm}
+        end
+        if @metrics[30]
+          sql = "select count(home_zip), home_zip, profiles.name, date from visitor_surveys left join profiles on profiles.id = visitor_surveys.profile_id where profiles.id = #{@profile.id} group by date, home_zip, profiles.name;"
+          metrics["31"] = ActiveRecord::Base.connection.execute(sql) 
+        end
+        if @metrics[31]
+          #don't know how v app tied in
+          lbs = @profile.sales_slip.select("sum(pounds_donated)")
+          val = @profile.sales_slip.select("sum(values_donated)")
+          metrics["32"] = {pounds: lbs, value: val}
+        end
+        if @metrics[32]
+          metrics["33"] = @profile.market_program.where("event_type = 'Demonstrations' or event_type = 'Skills workshops'").count()
+        end
+        #no 34 /35
+        if @metrics[35]
+          v1 = @profile.sales_slip.select("veg1, count(veg1)").group(:veg1).uniq
+          v2 = @profile.sales_slip.select("veg2, count(veg2)").group(:veg2).uniq
+          v3 = @profile.sales_slip.select("veg3, count(veg3)").group(:veg3).uniq
+          vegs = {}
+
+          for i in v1 do 
+            unless i.veg1.nil?
+              vegs.key = i.count + (vegs.key?(i.veg1) ? vegs.key : 0)
+            end
+          end
+          for i in v2 do 
+            unless i.veg2.nil?
+              vegs.key = i.count + (vegs.key?(i.veg2) ? vegs.key : 0)
+            end
+          end
+          for i in v3 do 
+            unless i.veg3.nil?
+              vegs.key = i.count + (vegs.key?(i.veg3) ? vegs.key : 0)
+            end
+          end
+
+          metrics["36"] = vegs
+        end
+        if @metrics[36]
+          metrics["37"] = @profile.market_program.select("sum(under_18)")
+        end
 
 
 
