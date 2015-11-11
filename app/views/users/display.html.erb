@@ -295,7 +295,7 @@ function gen_surveys(data){
 		walking: "Walking",
 		taxi: "Taxi",
 		other_method: "Other Method",
-		home_zip: "Zip Codes"//probs delete
+		//home_zip: "Zip Codes"//probs delete
 
 	};
 
@@ -305,8 +305,10 @@ function gen_surveys(data){
 				key = '"' + food_list_heading[key] + '",';
 				visitor_survey += key;
 			}else if(key in visitor_survey_heading) {
-				key = '"' + visitor_survey_heading[key] + '",';
-				visitor_survey += key;
+				var k = '"' + visitor_survey_heading[key] + '",';
+				if(key == 'bikes')
+					k = "Personal Vehicle," + k;
+				visitor_survey += k;
 			}
 		}
 	}
@@ -320,6 +322,10 @@ function gen_surveys(data){
 			k = '';
 			if ((food_list_heading.hasOwnProperty(key) || visitor_survey_heading.hasOwnProperty(key)) && key != 'profile_id' && key != 'id' && key != 'date') {
 					k = '"' + survey[key] + '",';
+					if(key == 'bikes')
+						k = survey.yes28 + ',' + k;
+					if((key == "downtown_spent_morning" || key == "downtown_spent_afternoon") && survey.yes7 == 0)
+						k = "N/A,";
 				visitor_survey += k;
 			}
 		}

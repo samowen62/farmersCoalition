@@ -588,8 +588,8 @@ class UsersController < ApplicationController
           metrics["27"] = keys.size - 2 #id and year
         end
         if @metrics[27]
-          n = @profile.visitor_survey.where(:no28 => 1).count()
-          den = @profile.visitor_survey.where(:no28 => 0).count() + n
+          n = @profile.visitor_survey.where(:yes28 => 0).count()
+          den = @profile.visitor_survey.where(:yes28 => 1).count() + n
           metrics["28"] = if den > 0 then n / den else 0 end
         end
         if @metrics[28]
