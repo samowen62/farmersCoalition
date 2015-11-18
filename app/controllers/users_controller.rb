@@ -411,7 +411,7 @@ class UsersController < ApplicationController
           ret = []
           profiles.each do |p|
             metrics = metric_calc(p)
-            ret << calc_metrics(metrics,p)
+            ret << {data: calc_metrics(metrics,p), name: p.name}
           end
         else
           ret = []
@@ -495,6 +495,7 @@ class UsersController < ApplicationController
         end
         if mets[13]
           slips = Hash.new
+          #this one is confusing to know which one too
           #\"SNAP_sales\"/NULLIF(\"SNAP_transactions\",0) as avg
           slips["april"] = profile.sales_slip.select("sum(\"SNAP_transactions\")").where("EXTRACT(MONTH FROM date) = 4")
           slips["may"] = profile.sales_slip.select("sum(\"SNAP_transactions\")").where("EXTRACT(MONTH FROM date) = 5")
@@ -668,7 +669,7 @@ class UsersController < ApplicationController
         @metrics = metric_calc(@profile)
 
         #profiles = Profile.all
-        @data = calc_metrics(@metrics, @profile)
+        @data = {data: calc_metrics(@metrics, @profile), name: @profile.name}
 
       else
         redirect_to root_path

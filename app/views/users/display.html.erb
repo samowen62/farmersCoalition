@@ -558,10 +558,11 @@ function gen_metrics(profiles){
 	output = '';
 	
 	for(var d in profiles){
-		var data = profiles[d];
+		var data = profiles[d].data;
 		if(!data["2"])
 			continue;
 		//console.log(d,data);	
+		output += 'Market: '+profiles[d].name + '\n\n';
 
 		if(data["1"]){
 			output += 'Metric 1: Average number of visitors per market day\n';
@@ -597,25 +598,155 @@ function gen_metrics(profiles){
 
 		if(data["7"]){
 			output += '\n\nMetric 7: Dollars spent at neighboring businesses by market shoppers on market days (annual average)\n';
-			',$'+data["7"]+'\n';
+			output += ',$'+data["7"]+'\n';
 		}
 
 		if(data["8"]){
 			output += '\n\nMetric 8: Dollars amount of credit/debit sales per market day (annual average)\n';
-			',Credit Sales:,$'+(data["8"].credit ? data["8"].credit[0].credit : '')+
+			output += ',Credit Sales:,$'+(data["8"].credit ? data["8"].credit[0].credit : '')+
 			',Debit Sales:,$'+(data["8"].credit ? data["8"].credit[0].debit : '')+'\n';
 		}
 
 		if(data["9"]){
 			output += '\n\nMetric 9: Number of individuals employed by market businesses annually\n';
-			',Seasonal Workers:,$'+data["9"].seasonal+',Yearly Workers:,$'+data["9"].yearly+'\n';
+			output += ',Seasonal Workers:,$'+data["9"].seasonal+',Yearly Workers:,$'+data["9"].yearly+'\n';
 		}
 
 		if(data["10"]){
 			output += '\n\nMetric 10: Total annual farm vendor sales\n';
-			',Sales Slip:,$'+(data["10"].sales_slip ? data["10"].sales_slip[0].farm : '')+
+			output += ',Sales Slip:,$'+(data["10"].sales_slip ? data["10"].sales_slip[0].farm : '')+
 			',Vendor Application:,$'+(data["10"].application ? data["10"].application[0].farm : '')+'\n';
 		}
+
+		if(data["11"]){
+			output += '\n\nMetric 11: Average total spending per shopper per visit\n';
+			output += ',$'+data["11"]+'\n';
+		}
+
+		if(data["12"]){
+			output += '\n\nMetric 12: Percentage of farm vendors with < 10 years farming experience\n';
+			output += ',Owner 1:,'+data["12"]["1"]+',Owner 2:,'+data["12"]["2"]+'\n';
+		}
+
+		if(data["13"]){
+			output += '\n\nMetric 13: Percent of customers who were first time visitors\n';
+			for(var i in data["13"]){
+				output += ',Date:,'+data["13"][i].date+',Total:,'+data["13"][i].sum+'\n';
+			}
+		}
+
+		if(data["14"]){
+			output += '\n\nMetric 14: Average number of SNAP transactions per month\n';
+			output += ',Sales Slip:,April,May,June,July,August,September\n';
+			output += ',,'+data["14"].slips.april[0].sum+','+data["14"].slips.may[0].sum+','+data["14"].slips.june[0].sum+','+data["14"].slips.july[0].sum+','+data["14"].slips.august[0].sum+','+data["14"].slips.september[0].sum+'\n';
+			output += ',Food Assistance:,April,May,June,July,August,September\n';
+			output += ',,'+data["14"].assistance.april+','+data["14"].assistance.may+','+data["14"].assistance.june+','+data["14"].assistance.july+','+data["14"].assistance.august+','+data["14"].assistance.september+'\n';
+		}
+
+		if(data["15"]){
+			output += '\n\nMetric 15: Total dollar amount of SNAP Benefits redeemed annually\n';
+			output += ',Sales Slips:,'+data["15"].slips[0].sum+',Food Assistance:,'+data["15"].assistance[0].sum+'\n';
+		}
+
+		if(data["16"]){
+			output += '\n\nMetric 16: Total dollar amount of WIC FMNP redeemed annually\n';
+			output += ',Sales Slips:,'+data["16"].slips[0].sum+',Food Assistance:,'+data["16"].assistance[0].sum+'\n';
+		}
+
+		if(data["17"]){
+			output += '\n\nMetric 17: Total dollar amount of WIC/CVV redeemed annually\n';
+			output += ',Sales Slips:,'+data["17"].slips[0].sum+',Food Assistance:,'+data["17"].assistance[0].sum+'\n';
+		}
+
+		if(data["18"]){
+			//check this one with real data
+			output += '\n\nMetric 18: Number of SNAP customers participating in incentive campaign monthly\n';
+			output += ',April,May,June,July,August,September\n';
+			output += ','+(data["18"].april.length > 0 ? data["18"].april[0] : '')+
+						','+(data["18"].may.length > 0 ? data["18"].may[0] : '')+
+						','+(data["18"].june.length > 0 ? data["18"].june[0] : '')+
+						','+(data["18"].july.length > 0 ? data["18"].july[0] : '')+
+						','+(data["18"].august.length > 0 ? data["18"].august[0] : '')+
+						','+(data["18"].september.length > 0 ? data["18"].september[0] : '')+'\n';
+		}
+
+		//skipping 19 for now but do it later
+
+		if(data["21"]){
+			output += '\n\nMetric 21: Total dollar amount of senior FMNP redeemed annually\n';
+			output += ',Sales Slips:,'+data["21"].slips[0].sum+',Food Assistance:,'+data["21"].assistance[0].sum+'\n';
+		}
+
+		if(data["22"]){
+			output += '\n\nMetric 22: Number or percentage of Women-owned producer businesses selling\nat least once at the market (estimated annually)\n';
+			output += ',Total:,'+data["22"]+'\n';
+		}
+
+		//skipping 23 for now and 24 doesn't exist
+
+		if(data["25"]){
+			output += '\n\nMetric 25: Number of farm vendors with organic certification (or in 3 year\ntransition) selling at market (estimated annually)\n';
+			output += ',Total:,'+data["25"]+'\n';
+		}
+
+		if(data["26"]){
+			output += '\n\nMetric 26: Number of farm products sold as Certified Organic or certified by other\nthird-party sustainability criteria (estimated annually)\n';
+			output += ',Total:,'+data["26"][0].sum+'\n';
+		}
+
+		if(data["27"]){
+			output += '\n\nMetric 27: Number of different fruit and vegetable crops available for sale annually\n';
+			output += ',Total:,'+(data["27"] > 0 ? data["27"] : 0)+'\n';
+		}
+
+		if(data["28"]){
+			output += '\n\nMetric 28: Percentage of shoppers walking bicycling, carpooling, driving or\ntaking public transportation to the market (estimated annually)\n';
+			output += ',Percentage:,'+data["28"]+'%\n';
+		}
+
+		if(data["29"]){
+			output += '\n\nMetric 29: Percentage of agricultural producers at market who are < 35 years old\n(estimated annually)\n';
+			output += ',Percentage:,'+data["29"][0].sum+'%\n';
+		}
+
+
+		if(data["30"]){
+			output += '\n\nMetric 30: Number of volunteer hours contributed (estimated annually)\n';
+			output += ',Entered:,'+data["30"].sum+',Committed,'+data["30"].committed+'\n';
+		}
+
+		if(data["31"]){
+			output += '\n\nMetric 31: Percentage of shoppers from represented zip codes (estimated annually)\n';
+			for(var i in data["31"]){
+				output += ',date:,'+data["31"][i].date+',count:,'+data["31"][i].count+',zip:,'+data["31"][i].home_zip+'\n';
+			}
+		}
+
+		if(data["32"]){
+			output += '\n\nMetric 32: Pounds or retail value of food donated by vendors (estimated\nannually)\n';
+			output += ',pounds:,'+data["32"].pounds[0].sum+',Value:,$'+data["32"].value[0].sum+'\n';
+		}
+
+		if(data["33"]){
+			output += '\n\nMetric 33: Number of food education programs held (including cooking\ndemonstrations) (estimated annually)\n';
+			output += ',Total:,'+data["33"]+'\n';
+		}
+
+		//34 an 35 don't exist
+
+		if(data["36"]){
+			output += '\n\nMetric 36: Most frequently sold fruit or vegetables (estimated monthly)\n';
+			for(var i in data["36"]){
+				output += ','+i+':,'+data["36"][i]+'\n';
+			}
+		}
+
+		if(data["37"]){
+			output += '\n\nMetric 37: Number of youth < 18 participating in market programs annually\n';
+			output += data["37"][0].sum+'\n';
+		}
+
+		output += '\n\n\n\n';
 	}
 
 	return output;
