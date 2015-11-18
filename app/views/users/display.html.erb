@@ -19,6 +19,7 @@
 				<option value="vendor_attendance">Vendor Attendance</option>
 				<option value="market_events">Market Events</option>
 				<option value="volunteers">Volunteers</option>
+				<option value="metrics">Metrics</option>
 			</select>
 		</div>
 		<div class="col-md-3">
@@ -553,6 +554,73 @@ function gen_volunteers(volunteers){
 	return vol_csv;
 }
 
+function gen_metrics(profiles){
+	output = '';
+	
+	for(var d in profiles){
+		var data = profiles[d];
+		if(!data["2"])
+			continue;
+		//console.log(d,data);	
+
+		if(data["1"]){
+			output += 'Metric 1: Average number of visitors per market day\n';
+			for(var i in data["1"]){
+				if(data["1"].day != null)
+					output += ','+data["1"].day + ':,' + data["1"].count + '\n';
+			}
+		}
+
+		if(data["2"]){
+			output += '\n\nMetric 2: Total annual vendor sales at market\n';
+			output += ','+(data["2"].sales_slip ? data["2"].sales_slip[0].total : '');
+		}	
+
+		if(data["3"]){
+			output += '\n\nMetric 3: Average distance in miles traveled from product origin (eg. farm) to market (estimated annually)\n';
+			output += ',Primary location:,'+data["3"].primary+ ',Secondary location:,' +data["3"].primary+ '\n';
+		}
+
+		if(data["4"]){
+			output += '\n\nMetric 4: Acres in agricultural production by market vendors\n';
+			for(var i in data["4"]){
+				',Acres Owned:,'+data["4"].acres_owned+'Acres Leased:,'+data["4"].acres_leased+'Acres Cultivated:,'+data["4"].acres_cultivated+'\n';
+			}
+		}
+
+		if(data["5"]){
+			output += '\n\nMetric 5: Number of vendors who sold through the market at least onec per year\n';
+			for(var i in data["5"]){
+				',Farm Name:,'+data["5"].farm_name+'\n';
+			}
+		}	
+
+		if(data["7"]){
+			output += '\n\nMetric 7: Dollars spent at neighboring businesses by market shoppers on market days (annual average)\n';
+			',$'+data["7"]+'\n';
+		}
+
+		if(data["8"]){
+			output += '\n\nMetric 8: Dollars amount of credit/debit sales per market day (annual average)\n';
+			',Credit Sales:,$'+(data["8"].credit ? data["8"].credit[0].credit : '')+
+			',Debit Sales:,$'+(data["8"].credit ? data["8"].credit[0].debit : '')+'\n';
+		}
+
+		if(data["9"]){
+			output += '\n\nMetric 9: Number of individuals employed by market businesses annually\n';
+			',Seasonal Workers:,$'+data["9"].seasonal+',Yearly Workers:,$'+data["9"].yearly+'\n';
+		}
+
+		if(data["10"]){
+			output += '\n\nMetric 10: Total annual farm vendor sales\n';
+			',Sales Slip:,$'+(data["10"].sales_slip ? data["10"].sales_slip[0].farm : '')+
+			',Vendor Application:,$'+(data["10"].application ? data["10"].application[0].farm : '')+'\n';
+		}
+	}
+
+	return output;
+}
+
 var csvs = {
 	'profileDoc' : {
 		index : 1,
@@ -603,6 +671,11 @@ var csvs = {
 		index : 10,
 		funct : gen_volunteers,
 		download : 'Volunteers.csv'
+	},
+	'metrics' : {
+		index : 11,
+		funct : gen_metrics,
+		download : 'Metrics.csv'
 	}
 }
 

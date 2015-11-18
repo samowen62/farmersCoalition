@@ -6,21 +6,6 @@
 	<%= render "shared/nav" %>
 
   	<h1>Vendor Attendance (Metric 5)</h1>
-  	<!--div class="row">
-		<div class="col-md-offset-1 col-md-3">
-			<labels style="  margin-top: 12px;">Weeks</label>
-			<a class="plus" href="javascript:void(0)" ng-click="addCol()">+</a>
-			<a class="minus" href="javascript:void(0)" ng-click="removeCol()">-</a>
-		</div>
-		<div class="col-md-offset-1 col-md-3">
-			<label style="  margin-top: 12px;">Vendors</label>
-			<a class="plus" href="javascript:void(0)" ng-click="addRow()">+</a>
-			<a class="minus" href="javascript:void(0)" ng-click="removeRow()">-</a>
-		</div>
-		<div class="col-md-3">
-			<a class="btn btn-success" href="javascript:void(0)" ng-click="submit()">Save</a>
-		</div>
-  	</div-->
   	<div class="row">
   		<div class="col-md-7">
 			<span class="step">Step 1</span> Add your vendor information 
@@ -56,15 +41,17 @@
 		<div  >
 			<table style=" transform:rotateX(180deg);-ms-transform:rotateX(180deg);-webkit-transform:rotateX(180deg);overflow-x: auto;width: 720px;display: block;">
 				<tbody style="   transform:rotateX(180deg);-ms-transform:rotateX(180deg);-webkit-transform:rotateX(180deg);">
-					<tr>
-						<td><label>Business/Farm Name</label></td>
-						<td><label>Owner Last Name</label></td>
-						<td ng-repeat="col in cLen track by $index" style="padding: 0px 10px;" >{{($index + 1)}}</td>
-					</tr>
 					<tr ng-repeat="r in research">
 						<td><input ng-model="r.farm_name" /></td>
 						<td><input style="  width: 130px;" ng-model="r.owner_last"  /></td>
 						<td ng-repeat="c in cLen track by $index"><input class="int-input" ng-model="r['week'+($index + 1)]" type="checkbox" /></td>
+					</tr>
+				</tbody>
+				<tbody style="   transform:rotateX(180deg);-ms-transform:rotateX(180deg);-webkit-transform:rotateX(180deg);">
+					<tr>
+						<td><label>Business/Farm Name</label></td>
+						<td><label>Owner Last Name</label></td>
+						<td ng-repeat="col in cLen track by $index" style="padding: 0px 10px;" >{{($index + 1)}}</td>
 					</tr>
 				</tbody>
 			</table>

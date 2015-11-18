@@ -1,0 +1,52 @@
+<%= render "shared/menu" %>
+
+<div id="survey" class="col-md-12" ng-app ng-controller="displayCtrl">
+  <div id="summary" class="main money">
+	<%= render "shared/nav" %>
+
+  	<h1>Metric Data</h1>
+  	<div class="col-md-12">
+  		<ul class="drop-down-metrics">
+  			<% if @metrics[0] %><li>
+  				<div class="title" ng-click="slide('#1')"><span class="number">1</span> Average number of visitors per market day</div>
+  				<div class="description" id="1">
+  					<table>
+  						<tr>
+  							<th>Date</th>
+  							<th>Visitors</th>
+  						</tr>
+	  					<tr ng-repeat="d in data[1]">
+  							<td>{{d.day}}</td>
+  							<td>{{d.count}}</td>
+  						</tr>
+  					</table>
+  				</div>
+  			</li><% end %>
+  		</ul>
+	</div>
+  </div>
+</div>
+
+<div id="successScreen"> 
+	<a href="#" class="suc-text">Success!</a>
+</div> 
+<div id="cover" ></div>
+<%= render "shared/footer" %>
+
+<script type="text/javascript">
+
+function displayCtrl($scope){
+
+	$scope.data = <%= raw(@data.to_json) %>;
+	
+	console.log($scope.data);
+
+	$scope.slide = function(id) {
+	  	if ($(id).is(":hidden")) {
+	    	$(id).slideDown(400);
+	  	}else{
+	    	$(id).slideUp(400);
+	  	}
+	};
+}
+</script>
