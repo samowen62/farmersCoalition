@@ -470,7 +470,7 @@ class UsersController < ApplicationController
           metrics["9"] = {seasonal: profile.visitor_application.sum(:workers_seasonal), yearly: profile.visitor_application.sum(:workers_yearly)}
         end
         if mets[9]
-          metrics["10"] = Hash.new
+          metrics["10"] = Hash.new #same as #2 copy lol
           #not sure which to use
           metrics["10"]["sales_slip"] = profile.sales_slip.select("sum(farm_sales) as farm, sum(value_sales) as value, sum(ready_sales) as ready")
           metrics["10"]["application"] = profile.visitor_application.select("sum(farm_sales) as farm, sum(value_sales) as value, sum(ready_sales) as ready")
@@ -495,7 +495,7 @@ class UsersController < ApplicationController
         end
         if mets[13]
           slips = Hash.new
-          #this one is confusing to know which one too
+          #for all these sum or average over both tables at the same time
           #\"SNAP_sales\"/NULLIF(\"SNAP_transactions\",0) as avg
           slips["april"] = profile.sales_slip.select("sum(\"SNAP_transactions\")").where("EXTRACT(MONTH FROM date) = 4")
           slips["may"] = profile.sales_slip.select("sum(\"SNAP_transactions\")").where("EXTRACT(MONTH FROM date) = 5")
@@ -539,6 +539,7 @@ class UsersController < ApplicationController
         if mets[17]
 
           metrics["18"] = Hash.new
+          #where(snap?)
           metrics["18"]["april"] = profile.food_assistance.where("EXTRACT(MONTH FROM transaction_date) = 4").select(:digits_of_snap).uniq
           metrics["18"]["may"] = profile.food_assistance.where("EXTRACT(MONTH FROM transaction_date) = 5").select(:digits_of_snap).uniq
           metrics["18"]["june"] = profile.food_assistance.where("EXTRACT(MONTH FROM transaction_date) = 6").select(:digits_of_snap).uniq
@@ -547,8 +548,9 @@ class UsersController < ApplicationController
           metrics["18"]["september"] = profile.food_assistance.where("EXTRACT(MONTH FROM transaction_date) = 9").select(:digits_of_snap).uniq
         end
         if mets[18]
-          #check this one too by putting a bunch of sample values into assistance
-          #metrics["19"] profile.food_assistance.where("count(select distinct transaction_date")
+          #I think we're golden
+          metrics["19"] = profile.food_assistance.select("transaction_date, array_agg(digits_of_snap), count(distinct digits_of_snap)").group(:transaction_date)
+
         end
         if mets[20]
 
@@ -562,7 +564,8 @@ class UsersController < ApplicationController
           metrics["22"] = den > 0 ? num / den : 0;
         end
         if mets[22]
-          #no idea how to do this one
+          #no idea how to do this one (lol just add up all the non-whites)
+          #in va csv separate ethnicities into different columns instead of just one
           metrics["23"]
         end
         #24
@@ -621,7 +624,7 @@ class UsersController < ApplicationController
           metrics["31"] = ActiveRecord::Base.connection.execute(sql) 
         end
         if mets[31]
-          #don't know how v app tied in
+          #v app not tied in after all
           lbs = profile.sales_slip.select("sum(pounds_donated)")
           val = profile.sales_slip.select("sum(values_donated)")
           metrics["32"] = {pounds: lbs, value: val}

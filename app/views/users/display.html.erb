@@ -131,12 +131,6 @@ var visitor_survey_sheet = '';
 var visitor_count_sheet = '';
 var sales_slip_sheet = '';
 
-//for (var key in profile) {if (profile.hasOwnProperty(key)) {key = '"' + key + '",';finalVal += key;}}
-//for (var key in markets) {if (markets.hasOwnProperty(key) && key != 'profile_id') {key = '"' + key + '",';finalVal += key;}}
-//for (var key in management) {if (management.hasOwnProperty(key) && key != 'profile_id') {key = '"' + key + '",';finalVal += key;}}
-//for (var key in accessibility) {if (accessibility.hasOwnProperty(key) && key != 'profile_id') {key = '"' + key + '",';finalVal += key;}}
-//for (var key in communities) {if (communities.hasOwnProperty(key) && key != 'profile_id') {key = '"' + key + '",';finalVal += key;}}
-
 function gen_profiles(profiles){
 	var finalVal = '';
 	finalVal += '\n';
@@ -556,7 +550,11 @@ function gen_volunteers(volunteers){
 
 function gen_metrics(profiles){
 	output = '';
-	
+	//just say which metric without the entire description on the top
+	//then seprate into 2 cols when data from 2 cols
+	//don't delete data yet but make sure all instruments are fine!!
+	//on all the csvs put '-' instead of null if metric does not apply
+
 	for(var d in profiles){
 		var data = profiles[d].data;
 		if(!data["2"])
@@ -662,12 +660,12 @@ function gen_metrics(profiles){
 			//check this one with real data
 			output += '\n\nMetric 18: Number of SNAP customers participating in incentive campaign monthly\n';
 			output += ',April,May,June,July,August,September\n';
-			output += ','+(data["18"].april.length > 0 ? data["18"].april[0] : '')+
-						','+(data["18"].may.length > 0 ? data["18"].may[0] : '')+
-						','+(data["18"].june.length > 0 ? data["18"].june[0] : '')+
-						','+(data["18"].july.length > 0 ? data["18"].july[0] : '')+
-						','+(data["18"].august.length > 0 ? data["18"].august[0] : '')+
-						','+(data["18"].september.length > 0 ? data["18"].september[0] : '')+'\n';
+			output += ','+(data["18"].april.length)+
+						','+(data["18"].may.length)+
+						','+(data["18"].june.length)+
+						','+(data["18"].july.length)+
+						','+(data["18"].august.length)+
+						','+(data["18"].september.length)+'\n';
 		}
 
 		//skipping 19 for now but do it later

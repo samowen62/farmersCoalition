@@ -10,7 +10,7 @@
   		<div class="col-md-6" >
   			<div class="col-md-12" style="height: 65px;">
 	  			<label>Sample Date</label>
-				<input type="text" ng-model="date" class="tcal "  />
+				<input type="text" ng-model="date" class="tcal " id="date-inp" />
   			</div>
 			<div class="col-md-12" ng-if="metrics[27]">
 				<div class="row">
@@ -245,7 +245,8 @@ function visitorCtrl($scope){
 		if($scope.survey.veg2) $scope.food[$scope.survey.veg2] = true;
 		if($scope.survey.veg3) $scope.food[$scope.survey.veg3] = true;
 
-		if(($scope.date = $('input')[0].value) == ""){
+		$scope.date = $('#date-inp').val();
+		if($scope.date == "" || $scope.date == null){
 			alert("Please Enter a Date");
 			return;
 		}
@@ -318,12 +319,14 @@ function visitorCtrl($scope){
 			success: function(data){
 				console.log(data);
 				location.href = '#successScreen';
-				$('.btn-danger').click();//for some fucking reason
+				$scope.survey = {};
+				$scope.food = {};
 				setTimeout(ret, 1000);
 			},
 			error: function(data){
 				alert("Error Submitting Data");
-				$('.btn-danger').click();
+				$scope.survey = {};
+				$scope.food = {};
 			}
 		});
 	};
@@ -334,8 +337,10 @@ function visitorCtrl($scope){
 	}
 
 	function ret(){
+		$scope.survey = {};
+		$scope.food = {};
 		location.href = "#";
-		$('input')[0].value = $scope.date;
+		
 	}
 }
 

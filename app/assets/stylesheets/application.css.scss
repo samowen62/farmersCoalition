@@ -587,6 +587,55 @@ nav{
 		}
 	}
 }
+#attendance-table{
+	table {
+		display: block;
+		table-layout: fixed;
+		width: 690px;
+		overflow-x: scroll;
+		thead {
+			display: table-header-group;
+			th{
+				min-width:46px;
+				text-align: center;
+				height: 50px;	
+			}
+			.text-inp{
+				/* position: absolute; */
+				max-width: 130px;
+				min-width: 130px;
+				background-color: $background-prim;
+			}
+		}
+		tbody {
+			overflow-y: auto;
+			overflow-x: hidden;
+			height: 380px;
+			display: inline-block;
+			.text-inp{
+				/* position: absolute; */
+				max-width: 130px;
+				min-width: 130px;
+				background-color: $background-prim;
+				input{
+					width: 90%;
+				}
+			}
+		}
+
+		left-most{
+			margin-left:260px;
+		}
+	}
+	.left-table{
+		float:left;
+		width:275px;
+	}
+	.right-table{
+		float:left;
+		width:480px;
+	}
+}
 .drop-down-metrics{
 	li{
 	    list-style: none;

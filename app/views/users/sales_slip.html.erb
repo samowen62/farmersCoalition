@@ -12,7 +12,7 @@
 				<br />
 				<div class="col-md-7">
 			  		<label>Date</label>
-					<input type="text" ng-change="setdate()" ng-model="date" class="tcal">
+					<input type="text" ng-change="setdate()" ng-model="date" class="tcal" id="date-inp">
 		  		</div>
 		  		<div style="margin-top:23px">
 					<span class="col-xs-1 dollars">$</span>
@@ -290,9 +290,12 @@ function surveyCtrl($scope){
 
 		if($scope.survey.day10 != null)
 			$scope.survey['spent_'+$scope.survey.day10] = $scope.survey.spent;
-		$scope.survey.date = $('input')[0].value;
 
-		if($scope.survey.date == ''){
+		//change this to id and on the vs as well
+		//$scope.survey.date = $('input')[0].value;
+		$scope.survey.date = $('#date-inp').val();
+
+		if($scope.survey.date == null || $scope.survey.date == ''){
 			alert("Please Enter a Valid Date");
 			return;
 		}
@@ -307,13 +310,13 @@ function surveyCtrl($scope){
 			success: function(data){
 				console.log(data);
 				location.href = '#successScreen';
-				$('.btn-danger').click();
+				$scope.survey = {};
 				setTimeout(ret, 1000);
 			},
 			error: function(data){
 				alert("Error Submitting Data");
 				location.href = '#successScreen';
-				$('.btn-danger').click();
+				$scope.survey = {};
 				setTimeout(ret, 1000);
 			}
 		});

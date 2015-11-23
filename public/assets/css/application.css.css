@@ -690,10 +690,67 @@ nav a .navbar-brand {
 }
 
 /* line 591, ../../../app/assets/stylesheets/application.css.scss */
+#attendance-table table {
+  display: block;
+  table-layout: fixed;
+  width: 690px;
+  overflow-x: scroll;
+}
+/* line 596, ../../../app/assets/stylesheets/application.css.scss */
+#attendance-table table thead {
+  display: table-header-group;
+}
+/* line 598, ../../../app/assets/stylesheets/application.css.scss */
+#attendance-table table thead th {
+  min-width: 46px;
+  text-align: center;
+  height: 50px;
+}
+/* line 603, ../../../app/assets/stylesheets/application.css.scss */
+#attendance-table table thead .text-inp {
+  /* position: absolute; */
+  max-width: 130px;
+  min-width: 130px;
+  background-color: #e2e2e2;
+}
+/* line 610, ../../../app/assets/stylesheets/application.css.scss */
+#attendance-table table tbody {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 380px;
+  display: inline-block;
+}
+/* line 615, ../../../app/assets/stylesheets/application.css.scss */
+#attendance-table table tbody .text-inp {
+  /* position: absolute; */
+  max-width: 130px;
+  min-width: 130px;
+  background-color: #e2e2e2;
+}
+/* line 620, ../../../app/assets/stylesheets/application.css.scss */
+#attendance-table table tbody .text-inp input {
+  width: 90%;
+}
+/* line 626, ../../../app/assets/stylesheets/application.css.scss */
+#attendance-table table left-most {
+  margin-left: 260px;
+}
+/* line 630, ../../../app/assets/stylesheets/application.css.scss */
+#attendance-table .left-table {
+  float: left;
+  width: 275px;
+}
+/* line 634, ../../../app/assets/stylesheets/application.css.scss */
+#attendance-table .right-table {
+  float: left;
+  width: 480px;
+}
+
+/* line 640, ../../../app/assets/stylesheets/application.css.scss */
 .drop-down-metrics li {
   list-style: none;
 }
-/* line 593, ../../../app/assets/stylesheets/application.css.scss */
+/* line 642, ../../../app/assets/stylesheets/application.css.scss */
 .drop-down-metrics li .title {
   cursor: pointer;
   border-radius: 5px;
@@ -703,7 +760,7 @@ nav a .navbar-brand {
   background-color: #e7540c;
   color: #e2e2e2;
 }
-/* line 594, ../../../app/assets/stylesheets/application.css.scss */
+/* line 643, ../../../app/assets/stylesheets/application.css.scss */
 .drop-down-metrics li .title .number {
   border-radius: 10px;
   background-color: #eee;
@@ -711,7 +768,7 @@ nav a .navbar-brand {
   padding: 1px 4px;
   font-size: 12px;
 }
-/* line 609, ../../../app/assets/stylesheets/application.css.scss */
+/* line 658, ../../../app/assets/stylesheets/application.css.scss */
 .drop-down-metrics li .description {
   padding: 2px 30px;
   display: none;
@@ -719,36 +776,36 @@ nav a .navbar-brand {
   color: black;
 }
 
-/* line 618, ../../../app/assets/stylesheets/application.css.scss */
+/* line 667, ../../../app/assets/stylesheets/application.css.scss */
 .profile-info h2 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
   color: #e2e2e2;
 }
-/* line 623, ../../../app/assets/stylesheets/application.css.scss */
+/* line 672, ../../../app/assets/stylesheets/application.css.scss */
 .profile-info .profile-group {
   background-color: white;
   padding: 20px;
   border-radius: 20px;
 }
 
-/* line 629, ../../../app/assets/stylesheets/application.css.scss */
+/* line 678, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header {
   cursor: pointer;
 }
-/* line 631, ../../../app/assets/stylesheets/application.css.scss */
+/* line 680, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #info, .profile-header #impact {
   display: none;
 }
-/* line 634, ../../../app/assets/stylesheets/application.css.scss */
+/* line 683, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #markets {
   display: none;
 }
-/* line 636, ../../../app/assets/stylesheets/application.css.scss */
+/* line 685, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #markets .date {
   font-size: 12px;
 }
-/* line 640, ../../../app/assets/stylesheets/application.css.scss */
+/* line 689, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header h2 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
@@ -758,17 +815,17 @@ nav a .navbar-brand {
   background-color: #e7540c;
   border-radius: 8px;
 }
-/* line 649, ../../../app/assets/stylesheets/application.css.scss */
+/* line 698, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group {
   background-color: white;
   padding: 20px;
   font-size: 12px;
 }
-/* line 653, ../../../app/assets/stylesheets/application.css.scss */
+/* line 702, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group h3 {
   margin: 10px 5px;
 }
-/* line 655, ../../../app/assets/stylesheets/application.css.scss */
+/* line 704, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group h3 span {
   font-family: "Droid Sans", sans-serif;
   font-size: 20px;
@@ -777,16 +834,16 @@ nav a .navbar-brand {
   padding: 4px;
   border-radius: 8px;
 }
-/* line 664, ../../../app/assets/stylesheets/application.css.scss */
+/* line 713, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group .val {
   padding: 5px;
 }
-/* line 667, ../../../app/assets/stylesheets/application.css.scss */
+/* line 716, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group .row {
   margin-bottom: 15px;
 }
 
-/* line 672, ../../../app/assets/stylesheets/application.css.scss */
+/* line 721, ../../../app/assets/stylesheets/application.css.scss */
 label.yes {
   cursor: pointer;
   background-color: #33CC33;
@@ -795,32 +852,32 @@ label.yes {
   margin: 5px 10px !important;
 }
 
-/* line 679, ../../../app/assets/stylesheets/application.css.scss */
+/* line 728, ../../../app/assets/stylesheets/application.css.scss */
 .label-sel {
   color: white;
 }
 
-/* line 682, ../../../app/assets/stylesheets/application.css.scss */
+/* line 731, ../../../app/assets/stylesheets/application.css.scss */
 .hasPtTimeSelect {
   border: 1px solid;
 }
 
-/* line 685, ../../../app/assets/stylesheets/application.css.scss */
+/* line 734, ../../../app/assets/stylesheets/application.css.scss */
 select {
   cursor: pointer;
 }
 
-/* line 688, ../../../app/assets/stylesheets/application.css.scss */
+/* line 737, ../../../app/assets/stylesheets/application.css.scss */
 input[type='checkbox'] {
   cursor: pointer;
 }
 
-/* line 691, ../../../app/assets/stylesheets/application.css.scss */
+/* line 740, ../../../app/assets/stylesheets/application.css.scss */
 input[type='radio'] {
   cursor: pointer;
 }
 
-/* line 694, ../../../app/assets/stylesheets/application.css.scss */
+/* line 743, ../../../app/assets/stylesheets/application.css.scss */
 label.no {
   cursor: pointer;
   background-color: #FF1919;
@@ -829,7 +886,7 @@ label.no {
   margin: 5px 10px !important;
 }
 
-/* line 701, ../../../app/assets/stylesheets/application.css.scss */
+/* line 750, ../../../app/assets/stylesheets/application.css.scss */
 label.day {
   padding: 1px 4px;
   background-color: #eee;
@@ -837,7 +894,7 @@ label.day {
   float: none !important;
 }
 
-/* line 707, ../../../app/assets/stylesheets/application.css.scss */
+/* line 756, ../../../app/assets/stylesheets/application.css.scss */
 .opt {
   position: absolute;
   display: none;
@@ -847,7 +904,7 @@ label.day {
   border-radius: 4px;
   z-index: 2;
 }
-/* line 715, ../../../app/assets/stylesheets/application.css.scss */
+/* line 764, ../../../app/assets/stylesheets/application.css.scss */
 .opt ul {
   cursor: pointer;
   list-style: none;
@@ -855,7 +912,7 @@ label.day {
   margin-bottom: 5px;
 }
 
-/* line 723, ../../../app/assets/stylesheets/application.css.scss */
+/* line 772, ../../../app/assets/stylesheets/application.css.scss */
 .money .dollars {
   background-color: #eee;
   padding: 4px;
@@ -863,17 +920,17 @@ label.day {
   text-align: right;
   border-radius: 6px 0px 0px 6px;
 }
-/* line 730, ../../../app/assets/stylesheets/application.css.scss */
+/* line 779, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3, .money .col-xs-10 {
   padding-left: 0px !important;
 }
-/* line 732, ../../../app/assets/stylesheets/application.css.scss */
+/* line 781, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3 input[type="text"], .money .col-xs-10 input[type="text"] {
   border-radius: 0px 6px 6px 0px !important;
   margin-left: 0px !important;
 }
 
-/* line 738, ../../../app/assets/stylesheets/application.css.scss */
+/* line 787, ../../../app/assets/stylesheets/application.css.scss */
 #cover {
   position: fixed;
   top: 0;
@@ -885,7 +942,7 @@ label.day {
   display: none;
 }
 
-/* line 748, ../../../app/assets/stylesheets/application.css.scss */
+/* line 797, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen {
   height: 80px;
   width: 340px;
@@ -899,13 +956,13 @@ label.day {
   border-radius: 10px;
 }
 
-/* line 760, ../../../app/assets/stylesheets/application.css.scss */
+/* line 809, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen:target, #successScreen:target + #cover {
   display: block;
   opacity: 2;
 }
 
-/* line 763, ../../../app/assets/stylesheets/application.css.scss */
+/* line 812, ../../../app/assets/stylesheets/application.css.scss */
 .suc-text {
   display: block;
   position: absolute;
@@ -915,20 +972,20 @@ label.day {
   color: green;
 }
 
-/* line 772, ../../../app/assets/stylesheets/application.css.scss */
+/* line 821, ../../../app/assets/stylesheets/application.css.scss */
 #home p {
   font-size: 15px;
 }
-/* line 774, ../../../app/assets/stylesheets/application.css.scss */
+/* line 823, ../../../app/assets/stylesheets/application.css.scss */
 #home p a {
   color: #eee;
 }
-/* line 776, ../../../app/assets/stylesheets/application.css.scss */
+/* line 825, ../../../app/assets/stylesheets/application.css.scss */
 #home p a:hover {
   text-decoration: none;
 }
 
-/* line 783, ../../../app/assets/stylesheets/application.css.scss */
+/* line 832, ../../../app/assets/stylesheets/application.css.scss */
 #myModal select {
   width: 85px;
   border: 1px solid #333;
