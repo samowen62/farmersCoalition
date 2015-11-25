@@ -225,6 +225,7 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id
 
         @profile = Profile.where(user_id: session[:user_id]).first
+        metrics = metric_calc(@profile)
 
         case params[:type].to_i
         when 1 #profile
@@ -251,12 +252,60 @@ class UsersController < ApplicationController
             Profile.select("profiles.name, visitor_surveys.*").joins(:visitor_survey).where("profiles.id = #{@profile.id}").order("visitor_surveys.date ASC")
           end
 
+          if !@user.admin
+            for s in slips do
+              if !metrics[27] #28
+                s[:bikes] = '-'
+                s[:walking] = '-'
+                s[:bus] = '-'
+                s[:taxi] = '-'
+                s[:other_method] = '-'
+                s[:yes28] = '-'
+                s[:no28] = '-'
+              end
+              if !metrics[12] #13
+                s[:every_week] = '-'
+                s[:every_other_week] = '-'
+                s[:every_month] = '-'
+                s[:less_than_month] = '-'
+                s[:yes13] = '-'
+                s[:no13] = '-'
+              end
+              if !metrics[10] #11
+                s[:spent_morning] = '-'
+                s[:spent_afternoon] = '-'
+              end
+              if !metrics[6] #7
+                s[:downtown_spent_morning] = '-'
+                s[:downtown_spent_afternoon] = '-'
+                s[:yes7] = '-'
+                s[:no7] = '-'
+              end
+              if !metrics[35] #6
+                s[:yes36] = '-'
+                s[:no36] = '-'
+              end
+              
+            end
+          end
+
           sql = if @user.admin then
             "select count(home_zip), home_zip, profiles.name, date from visitor_surveys left join profiles on profiles.id = visitor_surveys.profile_id group by date, home_zip, profiles.name order by profiles.name;"
           else
             "select count(home_zip), home_zip, profiles.name, date from visitor_surveys left join profiles on profiles.id = visitor_surveys.profile_id where profiles.id = #{@profile.id} group by date, home_zip, profiles.name;"
           end
           zips = ActiveRecord::Base.connection.execute(sql)
+
+          if !@user.admin
+            if !metrics[30]
+              for z in zips do
+                z[:count] = '-'
+                z[:home_zip] = '-'
+                z[:name] = '-'
+                z[:date] = '-'
+              end
+            end
+          end
 
           ret = Hash.new
           ret['slips'] = slips
@@ -316,9 +365,42 @@ class UsersController < ApplicationController
             for d in dates
               s.push(SalesSlip.select("*").where(profile_id: sp.id, date: d.date))
             end
-            prof[:slips] = s
+            
             prof[:name] = sp.name
 
+              for slip in s do
+              if !@user.admin
+                if !metrics[15] #16
+                  slip[0][:WIC_FMNP_sales] = '-'
+                end
+                if !metrics[16] #17 WIC CVV
+                  slip[0][:WIC_sales] = '-'
+                end
+                if !metrics[20] #21
+                  slip[0][:Senior_FMNP_sales] = '-'
+                end
+                if !metrics[7] #8
+                  slip[0][:Debt_sales] = '-'
+                end
+                if !metrics[14] #15
+                  slip[0][:SNAP_sales] = '-'
+                end
+                if !metrics[13] #14
+                  slip[0][:SNAP_transactions] = '-'
+                end
+                if !metrics[31] #32
+                  slip[0][:pounds_donated] = '-'
+                  slip[0][:values_donated] = '-'
+                end
+                if !metrics[35] #36
+                  slip[0][:veg1] = "-"
+                  slip[0][:veg2] = "-"
+                  slip[0][:veg3] = "-"
+                end
+              end
+            end
+
+            prof[:slips] = s
             slips.push(prof)
           end
           ret = slips
@@ -363,6 +445,48 @@ class UsersController < ApplicationController
 
                 unless (v = VisitorApplication.where(:id => id).joins(:profile).select("visitor_applications.*, profiles.name").first()).nil?
                   row['application'] = v
+
+                  if !@user.admin
+                    if !metrics[8] #9 
+                      v[:workers_seasonal] = "-"
+                      v[:workers_yearly] = "-"
+                      v[:level_of_worker_anticipation] = "-"
+                    end
+                    if !metrics[11] #12 
+                      v[:owner1_years] = "-"
+                      v[:owner2_years] = "-"
+                    end
+                    if !metrics[21] #22 
+                      v[:owned_by_women] = "-"
+                    end
+=begin
+      booleans (maybe just keep null)
+            v[certified_organic]"
+            v[certified_natural]"
+            v[certified_biodynamic]"
+            v[certified_food_alliance]"
+            v[certified_other]"
+            v[certified_none]"
+=end
+                    if !metrics[25] #26
+                      v[:num_certified] = "-"
+                      v[:certified_organic_number] = "-"
+                      v[:certified_naturaly_number] = "-"
+                      v[:certified_biodynamic_number] = "-"
+                      v[:food_alliance_number] = "-"
+                      v[:other_certification_number] = "-"
+                    end
+                    if !metrics[28] #29 
+                      v[:under_35] = "-"
+                    end
+                    if !metrics[33] #34 
+                      v[:total_distance] = "-"
+                    end
+                    if !metrics[23] #24 
+                      v[:unique_crops] = "-"
+                    end
+                  end
+
                   lists = ProduceList.where("visitor_application_id" => id)
                   row['first'] = lists[0] 
                   row['second'] = lists[1] 
@@ -490,8 +614,9 @@ class UsersController < ApplicationController
         end
         if mets[12]
           #needs modification
-          metrics["13"] = profile.visitor_survey.select("sum(yes13) as sum, count(*) as total, date").group(:date)
-
+          den = profile.visitor_survey.select("count(*)")
+          num = profile.visitor_survey.select("count(*)").where("yes13 > 0")#, count(*) as total, date").group(:date)
+          metrics["13"] = if den[0].count == 0 then 0 else num[0].count / den[0].count end
         end
         if mets[13]
           slips = Hash.new
@@ -564,9 +689,11 @@ class UsersController < ApplicationController
           metrics["22"] = den > 0 ? num / den : 0;
         end
         if mets[22]
-          #no idea how to do this one (lol just add up all the non-whites)
-          #in va csv separate ethnicities into different columns instead of just one
-          metrics["23"]
+          metrics["23"] = profile.visitor_application.select("
+            sum(case when operators_mexican then 1 else 0 end) as mexican, 
+            sum(case when operators_black then 1 else 0 end) as black, 
+            sum(case when operators_asian then 1 else 0 end) as asian, 
+            sum(case when operators_indian then 1 else 0 end) as indian")     
         end
         #24
         if mets[24]
