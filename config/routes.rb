@@ -54,6 +54,8 @@ Rails.application.routes.draw do
   get "edit_application/:id", :to => "users#edit_application"
   get "metric_data", :to => "users#metric_data"
 
+  get "gen_pdf", :to => "pdf#gen_pdf"
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

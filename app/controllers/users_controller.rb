@@ -51,50 +51,51 @@ class UsersController < ApplicationController
       return
   end
 
+
 	def metrics
-    	if user_is_logged_in?
-      		@user = User.find(session[:user_id])
-      		@profile = Profile.where(user_id: session[:user_id]).first
-      		@metrics = metric_calc(@profile)
-	    else 
-      		redirect_to root_path
-    	end
+  	if user_is_logged_in?
+    		@user = User.find(session[:user_id])
+    		@profile = Profile.where(user_id: session[:user_id]).first
+    		@metrics = metric_calc(@profile)
+    else 
+    		redirect_to root_path
   	end
+	end
 
-    def metric3
-      if user_is_logged_in?
-          @user = User.find(session[:user_id])
-          @profile = Profile.where(user_id: session[:user_id]).first
-          @metrics = metric_calc(@profile)
-      else 
-          redirect_to root_path
-      end
+  def metric3
+    if user_is_logged_in?
+        @user = User.find(session[:user_id])
+        @profile = Profile.where(user_id: session[:user_id]).first
+        @metrics = metric_calc(@profile)
+    else 
+        redirect_to root_path
     end
+  end
 
-    def edit_application
-      if user_is_logged_in?
-          @user = User.find(session[:user_id])
-          @profile = Profile.where(user_id: session[:user_id]).first
-          @past_apps = Profile.find(@profile.id).visitor_application.select(:id,:vendor_name)
-          @metrics = metric_calc(@profile)
-          #@application = @profile.visitor_application
-          #@application = []
-          @application = VisitorApplication.where(:profile_id => @profile.id).where(:id => params[:id]).first()
-          @list2014 = {}
-          @list2015 = {}
-          unless @application.nil?
-            @list2014 = ProduceList.where(:visitor_application_id => @application.id).where(:year => 2014).first()
-            @list2015 = ProduceList.where(:visitor_application_id => @application.id).where(:year => 2015).first()
-          else
-            @application = {}
-          end
+  def edit_application
+    if user_is_logged_in?
+        @user = User.find(session[:user_id])
+        @profile = Profile.where(user_id: session[:user_id]).first
+        @past_apps = Profile.find(@profile.id).visitor_application.select(:id,:vendor_name)
+        @metrics = metric_calc(@profile)
+        #@application = @profile.visitor_application
+        #@application = []
+        @application = VisitorApplication.where(:profile_id => @profile.id).where(:id => params[:id]).first()
+        @list2014 = {}
+        @list2015 = {}
+        unless @application.nil?
+          @list2014 = ProduceList.where(:visitor_application_id => @application.id).where(:year => 2014).first()
+          @list2015 = ProduceList.where(:visitor_application_id => @application.id).where(:year => 2015).first()
+        else
+          @application = {}
+        end
 
-          render  "visitor_application"
-          return
-      else 
-          redirect_to root_path
-      end
+        render  "visitor_application"
+        return
+    else 
+        redirect_to root_path
     end
+  end
 
     def visitor_application
       if user_is_logged_in?
@@ -890,29 +891,32 @@ class UsersController < ApplicationController
 	end
 
 
+  def metric_calc(profile)
+    metrics = Array.new
+
+    if profile[:metrics_1].nil?
+      profile[:metrics_1] = 0
+    end
+    if profile[:metrics_2] .nil?
+      profile[:metrics_2] = 0
+    end
+
+    for i in 0..19
+      metrics[i] = ((profile[:metrics_1] >> i) % 2 == 1)
+    end
+    for i in 20..39
+      metrics[i] = ((profile[:metrics_2] >> i - 20) % 2 == 1)
+    end
+    return metrics
+  end
+
 	private
 	  def user_params
 	    params.require(:user).permit(:email, :password , :password_confirmation)
 	  end
 
 
-	def metric_calc(profile)
-		metrics = Array.new
+	
 
-		if profile[:metrics_1].nil?
-			profile[:metrics_1] = 0
-		end
-		if profile[:metrics_2] .nil?
-			profile[:metrics_2] = 0
-		end
-
-		for i in 0..19
-			metrics[i] = ((profile[:metrics_1] >> i) % 2 == 1)
-		end
-		for i in 20..39
-			metrics[i] = ((profile[:metrics_2] >> i - 20) % 2 == 1)
-		end
-		return metrics
-	end
 
 end
