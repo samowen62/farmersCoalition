@@ -520,7 +520,7 @@ class UsersController < ApplicationController
             ret << {data: calc_metrics(metrics,p), name: p.name}
           end
 
-        when 2 #survey
+        when 12 #survey
 
           sql = if @user.admin then
             "select count(home_zip), home_zip, profiles.name, date from visitor_surveys left join profiles on profiles.id = visitor_surveys.profile_id group by date, home_zip, profiles.name order by profiles.name;"
