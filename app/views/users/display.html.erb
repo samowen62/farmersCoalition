@@ -750,8 +750,7 @@ function gen_metrics(profiles){
 function gen_zips(data){
 	var zips = data;
 
-	if(zips.length > 0)
-		zip_file = 'Market, Date, Zip Code,, Count, Percentage\n';
+	var zip_file = 'Market, Date, Zip Code,, Count, Percentage\n';
 
 	var set = [], cur_day = null; curr_prof = null, sum = 0;
 	for(var i in zips){
