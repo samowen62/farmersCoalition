@@ -20,6 +20,7 @@
 				<option value="market_events">Market Events</option>
 				<option value="volunteers">Volunteers</option>
 				<option value="metrics">Metrics</option>
+				<option value="zips">Zip Codes</option>
 			</select>
 		</div>
 		<div class="col-md-3">
@@ -268,7 +269,6 @@ var food_list_heading = {
 
 function gen_surveys(data){
 	var visitor_surveys = data['slips'];
-	var zips = data['zips']
 
 	var visitor_survey = '"Date",';
 	var visitor_survey_heading = {
@@ -325,49 +325,6 @@ function gen_surveys(data){
 			}
 		}
 		visitor_survey += '\n';
-	}
-
-	if(zips.length > 0)
-		visitor_survey += '\n\nMarket, Date, Zip Code,, Count, Percentage\n';
-
-	var set = [], cur_day = null; curr_prof = null, sum = 0;
-	for(var i in zips){
-		var z = zips[i];
-		if(z.home_zip && parseInt(z.count) > 0){
-			if(z.name != curr_prof){
-				sect='';
-				for(var j in set){
-					sect += set[j][0] + ',%' + (100*(parseInt(set[j][1]) / sum)) + '\n';
-				}
-				visitor_survey += sect;
-				console.log(sect);
-				
-				sum = parseInt(z.count);
-				set = [[z.name+','+z.date+','+z.home_zip+','+z.count, z.count]];
-				curr_prof = z.name;
-			}else if(z.date != cur_day){
-				sect='';
-				for(var j in set){
-					sect += set[j][0] + ',%' + (100*(parseInt(set[j][1]) / sum)) + '\n';
-				}
-				visitor_survey += sect;
-				console.log(sect);
-
-				sum = parseInt(z.count);
-				set = [[z.name+','+z.date+','+z.home_zip+','+z.count, z.count]];
-				cur_day = z.date;
-			}else if(i + 1 == zips.length){
-				sect='';
-				for(var j in set){
-					sect += set[j][0] + ',%' + (100*(parseInt(set[j][1]) / sum)) + '\n';
-				}
-				visitor_survey += sect;
-				console.log(sect);
-			}else{
-				sum += parseInt(z.count);
-				set.push([z.name+','+z.date+','+z.home_zip+','+z.count, z.count]);
-			}		
-		}
 	}
 
 	return visitor_survey;
@@ -790,6 +747,55 @@ function gen_metrics(profiles){
 	return output;
 }
 
+function gen_zips(data){
+	var zips = data;
+
+	if(zips.length > 0)
+		zip_file = 'Market, Date, Zip Code,, Count, Percentage\n';
+
+	var set = [], cur_day = null; curr_prof = null, sum = 0;
+	for(var i in zips){
+		var z = zips[i];
+		if(z.home_zip && parseInt(z.count) > 0){
+			if(z.name != curr_prof){
+				sect='';
+				for(var j in set){
+					sect += set[j][0] + ',%' + (100*(parseInt(set[j][1]) / sum)) + '\n';
+				}
+				zip_file += sect;
+				console.log(sect);
+				
+				sum = parseInt(z.count);
+				set = [[z.name+','+z.date+','+z.home_zip+','+z.count, z.count]];
+				curr_prof = z.name;
+			}else if(z.date != cur_day){
+				sect='';
+				for(var j in set){
+					sect += set[j][0] + ',%' + (100*(parseInt(set[j][1]) / sum)) + '\n';
+				}
+				zip_file += sect;
+				console.log(sect);
+
+				sum = parseInt(z.count);
+				set = [[z.name+','+z.date+','+z.home_zip+','+z.count, z.count]];
+				cur_day = z.date;
+			}else if(i + 1 == zips.length){
+				sect='';
+				for(var j in set){
+					sect += set[j][0] + ',%' + (100*(parseInt(set[j][1]) / sum)) + '\n';
+				}
+				zip_file += sect;
+				console.log(sect);
+			}else{
+				sum += parseInt(z.count);
+				set.push([z.name+','+z.date+','+z.home_zip+','+z.count, z.count]);
+			}		
+		}
+	}
+
+	return zip_file;
+}
+
 var csvs = {
 	'profileDoc' : {
 		index : 1,
@@ -845,6 +851,11 @@ var csvs = {
 		index : 11,
 		funct : gen_metrics,
 		download : 'Metrics.csv'
+	},
+	'zips' : {
+		index : 12,
+		funct : gen_zips,
+		download : 'Zip Codes.csv'
 	}
 }
 
@@ -888,7 +899,7 @@ function displayCtrl($scope){
 		var csv = csvs[$scope.csv];
 		$.get('/csv/'+csv.index, function(data){
 			var csv1 = document.createElement('a');
-			var file = csv.funct(JSON.parse(data)); 
+			var file = csv.funct(JSON.parse(data)).replace("null","-"); 
 
 			csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(file));
 			csv1.setAttribute('download', csv.download);

@@ -290,27 +290,8 @@ class UsersController < ApplicationController
             end
           end
 
-          sql = if @user.admin then
-            "select count(home_zip), home_zip, profiles.name, date from visitor_surveys left join profiles on profiles.id = visitor_surveys.profile_id group by date, home_zip, profiles.name order by profiles.name;"
-          else
-            "select count(home_zip), home_zip, profiles.name, date from visitor_surveys left join profiles on profiles.id = visitor_surveys.profile_id where profiles.id = #{@profile.id} group by date, home_zip, profiles.name;"
-          end
-          zips = ActiveRecord::Base.connection.execute(sql)
-
-          if !@user.admin
-            if !metrics[30]
-              for z in zips do
-                z[:count] = '-'
-                z[:home_zip] = '-'
-                z[:name] = '-'
-                z[:date] = '-'
-              end
-            end
-          end
-
           ret = Hash.new
           ret['slips'] = slips
-          ret['zips'] = zips
 
         when 3 #Counts
           profiles = if @user.admin then
@@ -538,6 +519,27 @@ class UsersController < ApplicationController
             metrics = metric_calc(p)
             ret << {data: calc_metrics(metrics,p), name: p.name}
           end
+
+        when 2 #survey
+
+          sql = if @user.admin then
+            "select count(home_zip), home_zip, profiles.name, date from visitor_surveys left join profiles on profiles.id = visitor_surveys.profile_id group by date, home_zip, profiles.name order by profiles.name;"
+          else
+            "select count(home_zip), home_zip, profiles.name, date from visitor_surveys left join profiles on profiles.id = visitor_surveys.profile_id where profiles.id = #{@profile.id} group by date, home_zip, profiles.name;"
+          end
+          ret = ActiveRecord::Base.connection.execute(sql)
+
+          if !@user.admin
+            if !metrics[30]
+              for z in ret do
+                z[:count] = '-'
+                z[:home_zip] = '-'
+                z[:name] = '-'
+                z[:date] = '-'
+              end
+            end
+          end
+
         else
           ret = []
         end
