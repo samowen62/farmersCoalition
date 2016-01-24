@@ -38,8 +38,8 @@
 		</div>
   	</div>
 	<div class="col-md-12">
-		<div id="attendance-table" class="row">
-			<table>
+		<div id="attnd-table" class="row"><!-- id="attendance-table" -->
+			<!--table>
 				<thead >
 					<tr>
 						<th class="text-inp" ><label>Business/Farm Name</label></th>
@@ -54,6 +54,38 @@
 						<td ng-repeat="c in cLen track by $index" ><input class="int-input" ng-model="r['week'+($index + 1)]" type="checkbox" comment-style="{'margin-left' : ($index == 0 ? 260: 0) + 'px' }"/></td>
 					</tr>
 				</tbody>
+			</table-->
+
+			<table cellspacing="0" cellpadding="0" border="0" >
+			  <tr>
+			    <td id="firstTd">g
+			    </td>
+			    <td>
+			        <table cellspacing="0" cellpadding="0" border="1" >
+			          <tr>
+			            <td class="tableHeader" ng-repeat="col in cLen track by $index" style="padding: 0px 10px;" ><span comment-style="{'margin-left' : ($index == 0 ? 270: 0) + 'px' }">{{($index + 1)}}</span></td>
+			          </tr>
+			        </table>
+			    </td>
+			  </tr>
+			  <tr>
+			  
+			    <td valign="top">
+			        <table width="200px" cellspacing="0" cellpadding="0" border="1" >
+			        	<tr ng-repeat="r in research">
+							<td class="text-inp tableFirstCol" ng-style="{top : $index * 29 + 54}"><input ng-model="r.farm_name" /></td>
+						</tr>
+			        </table>
+			    </td>
+			    
+			    <td valign="top">
+			        <table width="500px" cellspacing="0" cellpadding="0" border="1" >
+			          <tr ng-repeat="r in research" id="firstTr">
+						<td ng-repeat="c in cLen track by $index" class="dayCell" ><input class="int-input" ng-model="r['week'+($index + 1)]" type="checkbox" comment-style="{'margin-left' : ($index == 0 ? 260: 0) + 'px' }"/></td>
+					</tr>
+			        </table>
+			    </td>
+			  </tr>
 			</table>
 			<!--div class="left-table">
 				<table>
@@ -84,7 +116,7 @@
 						</tr>
 					</tbody>
 				</table>
-			</div--->
+			</div-->
 		</div>
 	</div>
   </div>
@@ -96,6 +128,69 @@
 <%= render "shared/footer" %>
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+  fnAdjustTable();
+});
+
+fnAdjustTable = function(){
+
+  var colCount = $('#firstTr>td').length; //get total number of column
+
+  var m = 0;
+  var n = 0;
+  var brow = 'mozilla';
+  
+  jQuery.each(jQuery.browser, function(i, val) {
+    if(val == true){
+      brow = i.toString();
+    }
+  });
+  
+  $('.tableHeader').each(function(i){
+    if (m < colCount){
+
+      if (brow == 'mozilla'){
+        $('#firstTd').css("width",$('.tableFirstCol').innerWidth());//for adjusting first td
+        $(this).css('width',$('#table_div td:eq('+m+')').innerWidth());//for assigning width to table Header div
+      }
+      else if (brow == 'msie'){
+        $('#firstTd').css("width",$('.tableFirstCol').width());
+        $(this).css('width',$('#table_div td:eq('+m+')').width()-2);//In IE there is difference of 2 px
+      }
+      else if (brow == 'safari'){
+        $('#firstTd').css("width",$('.tableFirstCol').width());
+        $(this).css('width',$('#table_div td:eq('+m+')').width());
+      }
+      else {
+        $('#firstTd').css("width",$('.tableFirstCol').width());
+        $(this).css('width',$('#table_div td:eq('+m+')').innerWidth());
+      }
+    }
+    m++;
+  });
+
+  $('.tableFirstCol').each(function(i){
+    if(brow == 'mozilla'){
+      $(this).css('height',$('#table_div td:eq('+colCount*n+')').outerHeight());//for providing height using scrollable table column height
+    }
+    else if(brow == 'msie'){
+      $(this).css('height',$('#table_div td:eq('+colCount*n+')').innerHeight()-2);
+    }
+    else {
+      $(this).css('height',$('#table_div td:eq('+colCount*n+')').height());
+    }
+    n++;
+  });
+
+};
+
+//function to support scrolling of title and first column
+fnScroll = function(){
+  $('#divHeader').scrollLeft($('#table_div').scrollLeft());
+  $('#firstcol').scrollTop($('#table_div').scrollTop());
+};
+
 
 function surveyCtrl($scope){
 	
