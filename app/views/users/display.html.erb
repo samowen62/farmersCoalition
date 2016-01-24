@@ -898,7 +898,9 @@ function displayCtrl($scope){
 		var csv = csvs[$scope.csv];
 		$.get('/csv/'+csv.index, function(data){
 			var csv1 = document.createElement('a');
-			var file = csv.funct(JSON.parse(data)).replace("null","-"); 
+			var file = csv.funct(JSON.parse(data));
+
+			file = file.replaceAll("null","-");
 
 			csv1.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(file));
 			csv1.setAttribute('download', csv.download);
@@ -907,4 +909,9 @@ function displayCtrl($scope){
 	}
 
 }
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
 </script>
