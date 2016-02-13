@@ -30,8 +30,83 @@
           </ul>
         </li>
         <li><%= link_to "Export Data", controller: "users", action: "display" %></li>
+        <li><a href="javascript:void(0)" onclick="showInfographicModal()">Pdf Report</a></li>
         <li style="float:right"><%= link_to "Logout", controller: "sessions", action: "logout" %></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+<!-- later move all of below to seperate partial -->
+<div id="infographicModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Choose your desired metrics for your report</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12">
+          <form id="infoForm">
+            <table>
+              <tr>
+                <td>Average number of visitors per market day</td>
+                <td><input type="checkbox"/></td>
+              </tr>
+              <tr>
+                <td>Total annual vendor sales at market</td>
+                <td><input type="checkbox" /></td>
+              </tr>
+              <tr>
+                <td>Average distance in miles traveled from product origin</td>
+                <td><input type="checkbox" /></td>
+              </tr>
+              <tr>
+                <td>Acres in agricultural production by market vendors</td>
+                <td><input type="checkbox" /></td>
+              </tr>
+            </table>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" data-dismiss="modal" onclick="submitChoices()">Submit</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+
+    function showInfographicModal(){
+      $("#infographicModal").modal('show');
+    }
+
+    function submitChoices(){
+      var inputs = $('#infoForm input');
+      var metrics = new Array(37)
+
+      for(var i = 0; i < inputs.length; i++){
+        console.log(i);
+        metrics[i] = inputs[i].checked;
+      }
+
+      $.ajax({
+        type: "POST",
+        url: "/post_infographic_prefs",
+        data: JSON.stringify(metrics),
+        contentType: "application/json",
+        success: function(data){
+          window.location.href = "/gen_pdf";
+        },
+        error: function(data){
+          alert("Error Submitting Data");
+        }
+      });
+
+    }
+
+  </script>

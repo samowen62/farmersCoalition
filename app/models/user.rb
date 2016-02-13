@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 	attr_accessor :password
 	has_one :profiles
+	has_one :info_graphic_prefs
 
 	before_save :encrypt_password
 	after_save :clear_password

@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   post "post_market_program", :to => "profile#post_market_program"
   post "post_food_list", :to => "profile#post_food_list"
   post "post_volunteer", :to => "profile#post_volunteer"
+  post "post_infographic_prefs", :to => "pdf#infographic_prefs"
+
 
   get "user_metrics", :to => "users#metrics"
   get "user_instruments", :to => "users#instruments"

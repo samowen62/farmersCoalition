@@ -15,7 +15,34 @@ class PdfController < ApplicationController
 		pdf.fill_color "0b5b0b"
 	end
 
+	def infographic_prefs
+		if user_is_logged_in?
+			prefs = InfoGraphicPrefs.where(users_id: session[:user_id]).first
+
+			if prefs.nil?
+				new_prefs = InfoGraphicPrefs.create
+				new_prefs[:users_id] = session[:user_id]
+				new_prefs[:metrics] = params[:_json]
+				new_prefs.save!
+			else
+	    		prefs[:metrics] = params[:_json]	
+	    		prefs.save!	
+			end
+			render plain: session[:user_id]
+		else 
+    		redirect_to root_path
+  		end
+	end
+
 	def gen_pdf
+		prefs = InfoGraphicPrefs.where(users_id: session[:user_id]).first
+
+		if prefs.nil?
+			render plain: "nothing found"
+			return
+		end
+
+		metric_prefs = prefs[:metrics]
 
 		fonts = {
 			"Hanken" => "app/assets/stylesheets/fonts/Hanken-Book.ttf",
@@ -39,33 +66,65 @@ class PdfController < ApplicationController
 		img_market = "app/assets/images/FARMERS MARKET.jpg" 
     	pdf.image img_market, :at => [50,500], :width => 450  
 
+    	#metric 1
+    	if metric_prefs[0]
+			pdf.bounding_box([0,700], :width => 250, :height => 120) do
+				# This has the effect of creating a box of
+				# padding 5 around the text
+				pdf.stroke_bounds
+				pdf.bounds.add_left_padding 5
+				pdf.bounds.add_right_padding 5
+				pdf.move_down 5
+
+		    	pdf.text "Average number of visitors per market day"
+		    	pdf.move_down 13
+
+		    	pdf.indent (5) do
+		    	 	pdf.text "#{profile[:day1]}: #{metric_data['1'][0][:count]}\n"
+		    	end
+		    	pdf.indent (5) do
+		    	 	pdf.text "#{profile[:day2]}: #{metric_data['1'][1][:count]}\n"
+		    	end
+		    	pdf.indent (5) do
+		    	 	pdf.text "#{profile[:day3]}: #{metric_data['1'][2][:count]}\n"
+		    	end
+		    	pdf.indent (5) do
+		    	 	pdf.text "#{profile[:day4]}: #{metric_data['1'][3][:count]}\n"
+		    	end
+
+			end
+		end
+
     	#metric 2
-		pdf.bounding_box([0,700], :width => 250, :height => 120) do
-			# This has the effect of creating a box of
-			# padding 5 around the text
-			pdf.stroke_bounds
-			pdf.bounds.add_left_padding 5
-			pdf.bounds.add_right_padding 5
-			pdf.move_down 5
+    	if metric_prefs[1]
+			pdf.bounding_box([300,700], :width => 250, :height => 120) do
+				# This has the effect of creating a box of
+				# padding 5 around the text
+				pdf.stroke_bounds
+				pdf.bounds.add_left_padding 5
+				pdf.bounds.add_right_padding 5
+				pdf.move_down 5
 
-	    	pdf.text "Total annual vendor sales at market"
-	    	pdf.move_down 13
+		    	pdf.text "Total annual vendor sales at market"
+		    	pdf.move_down 13
 
-	    	pdf.indent (5) do
-	    	 	pdf.text "Total sales: $#{if metric_data['2']['sales_slip'][0].total.nil? then 0.00 else metric_data['2']['sales_slip'][0].total end}\n"
-	    	end
-	    	pdf.indent (5) do
-	    		pdf.text "Farm sales: $#{if metric_data['2']['sales_slip'][0].farm.nil? then 0.00 else metric_data['2']['sales_slip'][0].farm end}\n"
-	    	end
-	    	pdf.indent (5) do
-	    		pdf.text "Value added sales: $#{if metric_data['2']['sales_slip'][0].value.nil? then 0.00 else metric_data['2']['sales_slip'][0].value end}\n"
-	    	end
-	    	pdf.indent (5) do
-	    		pdf.text "Ready sales: $#{if metric_data['2']['sales_slip'][0].ready.nil? then 0.00 else metric_data['2']['sales_slip'][0].ready end}\n"
-	    	end
+		    	pdf.indent (5) do
+		    	 	pdf.text "Total sales: $#{if metric_data['2']['sales_slip'][0].total.nil? then 0.00 else metric_data['2']['sales_slip'][0].total end}\n"
+		    	end
+		    	pdf.indent (5) do
+		    		pdf.text "Farm sales: $#{if metric_data['2']['sales_slip'][0].farm.nil? then 0.00 else metric_data['2']['sales_slip'][0].farm end}\n"
+		    	end
+		    	pdf.indent (5) do
+		    		pdf.text "Value added sales: $#{if metric_data['2']['sales_slip'][0].value.nil? then 0.00 else metric_data['2']['sales_slip'][0].value end}\n"
+		    	end
+		    	pdf.indent (5) do
+		    		pdf.text "Ready sales: $#{if metric_data['2']['sales_slip'][0].ready.nil? then 0.00 else metric_data['2']['sales_slip'][0].ready end}\n"
+		    	end
+			end
 		end
 
 		#Metric 12
+=begin
 		pdf.bounding_box([300,700], :width => 250, :height => 120) do
 			
 			pdf.stroke_bounds
@@ -82,6 +141,7 @@ class PdfController < ApplicationController
 	    	 	pdf.text "#{avg}%\n", :size => 30
 	    	end
 		end
+=end
 
 		send_data pdf.render, type: "application/pdf", disposition: "inline"
 		return

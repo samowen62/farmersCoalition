@@ -15,6 +15,7 @@ body{
 	color: $text-prim;
 	font-size: 15px;
 	line-height: 1.5;
+
 	font-family: $font-serif;
 	font-weight: 400;
 }
@@ -634,6 +635,38 @@ nav{
 	.right-table{
 		float:left;
 		width:480px;
+	}
+}
+#attnd-table{
+	.tableHeader, .dayCell{
+		max-width: 80px;
+		min-width: 80px;
+	}
+}
+#infographicModal{
+	margin: 0 auto;
+	
+	.modal-content{
+		    width: 400px;
+
+		.modal-body{
+			width:400px;
+			height:	170px;
+			tr{
+				border: 0;
+				background-color: white;
+				td{
+				    font-weight: 200;
+				    font-size: 13px;
+				    font-family: "Droid Sans", sans-serif;
+			    	padding: 3px;
+				}
+			}
+		}
+		.modal-footer{
+		    height: 50px;
+		    margin-bottom: 10px;
+		}
 	}
 }
 .drop-down-metrics{
