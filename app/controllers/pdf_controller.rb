@@ -64,8 +64,9 @@ class PdfController < ApplicationController
     	title(pdf, [40, 720], profile.name)
 
 		img_market = "app/assets/images/FARMERS MARKET.jpg" 
-    	pdf.image img_market, :at => [50,500], :width => 450  
+    	pdf.image img_market, :at => [0,300], :width => 450  
 
+    	#make into functions and pass blocks to gen specific content
     	#metric 1
     	if metric_prefs[0]
 			pdf.bounding_box([0,700], :width => 250, :height => 120) do
@@ -120,6 +121,55 @@ class PdfController < ApplicationController
 		    	pdf.indent (5) do
 		    		pdf.text "Ready sales: $#{if metric_data['2']['sales_slip'][0].ready.nil? then 0.00 else metric_data['2']['sales_slip'][0].ready end}\n"
 		    	end
+			end
+		end
+
+		#metric 3
+    	if metric_prefs[2]
+			pdf.bounding_box([0,550], :width => 250, :height => 120) do
+				# This has the effect of creating a box of
+				# padding 5 around the text
+				pdf.stroke_bounds
+				pdf.bounds.add_left_padding 5
+				pdf.bounds.add_right_padding 5
+				pdf.move_down 5
+
+		    	pdf.text "Average distance in miles traveled from product origin"
+		    	pdf.move_down 13
+
+		    	pdf.indent (5) do
+		    	 	pdf.text "Primary Miles #{metric_data['3']['primary']}\n"
+		    	end
+
+		    	pdf.indent (5) do
+		    	 	pdf.text "Secondary Miles #{metric_data['3']['secondary']}\n"
+		    	end
+
+			end
+		end
+
+		#metric 4
+    	if metric_prefs[3]
+			pdf.bounding_box([300,550], :width => 250, :height => 120) do
+
+				pdf.stroke_bounds
+				pdf.bounds.add_left_padding 5
+				pdf.bounds.add_right_padding 5
+				pdf.move_down 5
+
+		    	pdf.text "Acres in agricultural production by market vendors"
+		    	pdf.move_down 13
+
+		    	pdf.indent (5) do
+		    	 	pdf.text "Acres Owned: #{metric_data['4'][0].acres_owned}\n"
+		    	end
+		    	pdf.indent (5) do
+		    	 	pdf.text "Acres Leased: #{metric_data['4'][0]['acres_leased']}\n"
+		    	end
+		    	pdf.indent (5) do
+		    	 	pdf.text "Acres Cultivated: #{metric_data['4'][0]['acres_cultivated']}\n"
+		    	end
+
 			end
 		end
 
