@@ -49,7 +49,7 @@
         </div>
         <div class="modal-body">
           <div class="col-md-12">
-          <form id="infoForm">
+          <!--form id="infoForm">
             <table>
               <tr>
                 <td>Average number of visitors per market day</td>
@@ -68,7 +68,51 @@
                 <td><input type="checkbox" /></td>
               </tr>
             </table>
-            </form>
+            </form-->
+            <div class="col-md-6">
+              <h3>Metrics</h3>
+              <div class="col-md-12 list-view">
+                <div class="list-item" id="metric_1" ondragstart="drag(event)" draggable="true">
+                Metric 1
+                </div>
+                <div class="list-item" id="metric_2" ondragstart="drag(event)" draggable="true">
+                Metric 2
+                </div>
+                <div class="list-item" id="metric_3" ondragstart="drag(event)" draggable="true">
+                Metric 3
+                </div>
+                <div class="list-item" id="metric_4" ondragstart="drag(event)" draggable="true">
+                Metric 4
+                </div>
+                <div class="list-item" id="metric_5" ondragstart="drag(event)" draggable="true">
+                Metric 5
+                </div>
+                <div class="list-item" id="metric_6" ondragstart="drag(event)" draggable="true">
+                Metric 6
+                </div>
+                <div class="list-item" id="metric_7" ondragstart="drag(event)" draggable="true">
+                Metric 7
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+            <h3>Report</h3>
+              <div class="col-md-12 list-view">
+              <div class="box-item" id="box_1"  ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="unhighlight(event)">
+                Box 1
+                </div>
+                <div class="box-item" id="box_2"  ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="unhighlight(event)">
+                Box 2
+                </div>
+                <div class="box-item" id="box_3"  ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="unhighlight(event)">
+                Box 3
+                </div>
+                <div class="box-item" id="box_4"  ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="unhighlight(event)">
+                Box 4
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -80,6 +124,26 @@
   </div>
 
   <script type="text/javascript">
+
+    function drag(ev) {
+      ev.dataTransfer.setData("metric", ev.target.id);
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+      ev.target.style.border = "2px solid yellow";
+    }
+
+    function unhighlight(ev) {
+      ev.target.style.border = "2px solid #333";
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("metric");
+      this.innerHTML = '';
+      ev.target.appendChild(document.getElementById(data));
+    }
 
     function showInfographicModal(){
       $("#infographicModal").modal('show');
