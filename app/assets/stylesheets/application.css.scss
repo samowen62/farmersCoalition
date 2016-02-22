@@ -650,6 +650,12 @@ nav{
 		    width: 600px;
 
 		.modal-body{
+			#report-page{
+			    border: 1px solid #ddd;
+    			height: 280px;
+    			padding-top: 20px;
+			}
+
 			.list-view{
 				max-height: 300px;
 				max-width:	200px;
@@ -660,13 +666,17 @@ nav{
 				    height: 50px;
 				    margin: 4px;
 				    border: 2px solid #0099cc;
+				    border-radius: 5px;
 				}
 				.box-item{
 					width: 68px;
 				    float: left;
 				    height: 50px;
 				    margin: 4px;
-				    border: 2px solid #666;
+				    border: 2px dashed rgb(102, 102, 102);
+				    border-radius: 10px;
+				    padding: 2px;
+				    text-align: center;
 				}
 			}
 

@@ -765,50 +765,60 @@ nav a .navbar-brand {
   height: 400px;
 }
 /* line 653, ../../../app/assets/stylesheets/application.css.scss */
+#infographicModal .modal-content .modal-body #report-page {
+  border: 1px solid #ddd;
+  height: 280px;
+  padding-top: 20px;
+}
+/* line 659, ../../../app/assets/stylesheets/application.css.scss */
 #infographicModal .modal-content .modal-body .list-view {
   max-height: 300px;
   max-width: 200px;
   overflow: auto;
 }
-/* line 657, ../../../app/assets/stylesheets/application.css.scss */
+/* line 663, ../../../app/assets/stylesheets/application.css.scss */
 #infographicModal .modal-content .modal-body .list-view .list-item {
   width: 68px;
   float: left;
   height: 50px;
   margin: 4px;
   border: 2px solid #0099cc;
+  border-radius: 5px;
 }
-/* line 664, ../../../app/assets/stylesheets/application.css.scss */
+/* line 671, ../../../app/assets/stylesheets/application.css.scss */
 #infographicModal .modal-content .modal-body .list-view .box-item {
   width: 68px;
   float: left;
   height: 50px;
   margin: 4px;
-  border: 2px solid #666;
+  border: 2px dashed #666666;
+  border-radius: 10px;
+  padding: 2px;
+  text-align: center;
 }
-/* line 674, ../../../app/assets/stylesheets/application.css.scss */
+/* line 684, ../../../app/assets/stylesheets/application.css.scss */
 #infographicModal .modal-content .modal-body tr {
   border: 0;
   background-color: white;
 }
-/* line 677, ../../../app/assets/stylesheets/application.css.scss */
+/* line 687, ../../../app/assets/stylesheets/application.css.scss */
 #infographicModal .modal-content .modal-body tr td {
   font-weight: 200;
   font-size: 13px;
   font-family: "Droid Sans", sans-serif;
   padding: 3px;
 }
-/* line 685, ../../../app/assets/stylesheets/application.css.scss */
+/* line 695, ../../../app/assets/stylesheets/application.css.scss */
 #infographicModal .modal-content .modal-footer {
   height: 50px;
   margin-bottom: 10px;
 }
 
-/* line 692, ../../../app/assets/stylesheets/application.css.scss */
+/* line 702, ../../../app/assets/stylesheets/application.css.scss */
 .drop-down-metrics li {
   list-style: none;
 }
-/* line 694, ../../../app/assets/stylesheets/application.css.scss */
+/* line 704, ../../../app/assets/stylesheets/application.css.scss */
 .drop-down-metrics li .title {
   cursor: pointer;
   border-radius: 5px;
@@ -818,7 +828,7 @@ nav a .navbar-brand {
   background-color: #e7540c;
   color: #e2e2e2;
 }
-/* line 695, ../../../app/assets/stylesheets/application.css.scss */
+/* line 705, ../../../app/assets/stylesheets/application.css.scss */
 .drop-down-metrics li .title .number {
   border-radius: 10px;
   background-color: #eee;
@@ -826,7 +836,7 @@ nav a .navbar-brand {
   padding: 1px 4px;
   font-size: 12px;
 }
-/* line 710, ../../../app/assets/stylesheets/application.css.scss */
+/* line 720, ../../../app/assets/stylesheets/application.css.scss */
 .drop-down-metrics li .description {
   padding: 2px 30px;
   display: none;
@@ -834,36 +844,36 @@ nav a .navbar-brand {
   color: black;
 }
 
-/* line 719, ../../../app/assets/stylesheets/application.css.scss */
+/* line 729, ../../../app/assets/stylesheets/application.css.scss */
 .profile-info h2 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
   color: #e2e2e2;
 }
-/* line 724, ../../../app/assets/stylesheets/application.css.scss */
+/* line 734, ../../../app/assets/stylesheets/application.css.scss */
 .profile-info .profile-group {
   background-color: white;
   padding: 20px;
   border-radius: 20px;
 }
 
-/* line 730, ../../../app/assets/stylesheets/application.css.scss */
+/* line 740, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header {
   cursor: pointer;
 }
-/* line 732, ../../../app/assets/stylesheets/application.css.scss */
+/* line 742, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #info, .profile-header #impact {
   display: none;
 }
-/* line 735, ../../../app/assets/stylesheets/application.css.scss */
+/* line 745, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #markets {
   display: none;
 }
-/* line 737, ../../../app/assets/stylesheets/application.css.scss */
+/* line 747, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header #markets .date {
   font-size: 12px;
 }
-/* line 741, ../../../app/assets/stylesheets/application.css.scss */
+/* line 751, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header h2 {
   font-weight: 600;
   font-family: "Droid Sans",sans-serif;
@@ -873,17 +883,17 @@ nav a .navbar-brand {
   background-color: #e7540c;
   border-radius: 8px;
 }
-/* line 750, ../../../app/assets/stylesheets/application.css.scss */
+/* line 760, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group {
   background-color: white;
   padding: 20px;
   font-size: 12px;
 }
-/* line 754, ../../../app/assets/stylesheets/application.css.scss */
+/* line 764, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group h3 {
   margin: 10px 5px;
 }
-/* line 756, ../../../app/assets/stylesheets/application.css.scss */
+/* line 766, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group h3 span {
   font-family: "Droid Sans", sans-serif;
   font-size: 20px;
@@ -892,16 +902,16 @@ nav a .navbar-brand {
   padding: 4px;
   border-radius: 8px;
 }
-/* line 765, ../../../app/assets/stylesheets/application.css.scss */
+/* line 775, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group .val {
   padding: 5px;
 }
-/* line 768, ../../../app/assets/stylesheets/application.css.scss */
+/* line 778, ../../../app/assets/stylesheets/application.css.scss */
 .profile-header .profile-group .row {
   margin-bottom: 15px;
 }
 
-/* line 773, ../../../app/assets/stylesheets/application.css.scss */
+/* line 783, ../../../app/assets/stylesheets/application.css.scss */
 label.yes {
   cursor: pointer;
   background-color: #33CC33;
@@ -910,32 +920,32 @@ label.yes {
   margin: 5px 10px !important;
 }
 
-/* line 780, ../../../app/assets/stylesheets/application.css.scss */
+/* line 790, ../../../app/assets/stylesheets/application.css.scss */
 .label-sel {
   color: white;
 }
 
-/* line 783, ../../../app/assets/stylesheets/application.css.scss */
+/* line 793, ../../../app/assets/stylesheets/application.css.scss */
 .hasPtTimeSelect {
   border: 1px solid;
 }
 
-/* line 786, ../../../app/assets/stylesheets/application.css.scss */
+/* line 796, ../../../app/assets/stylesheets/application.css.scss */
 select {
   cursor: pointer;
 }
 
-/* line 789, ../../../app/assets/stylesheets/application.css.scss */
+/* line 799, ../../../app/assets/stylesheets/application.css.scss */
 input[type='checkbox'] {
   cursor: pointer;
 }
 
-/* line 792, ../../../app/assets/stylesheets/application.css.scss */
+/* line 802, ../../../app/assets/stylesheets/application.css.scss */
 input[type='radio'] {
   cursor: pointer;
 }
 
-/* line 795, ../../../app/assets/stylesheets/application.css.scss */
+/* line 805, ../../../app/assets/stylesheets/application.css.scss */
 label.no {
   cursor: pointer;
   background-color: #FF1919;
@@ -944,7 +954,7 @@ label.no {
   margin: 5px 10px !important;
 }
 
-/* line 802, ../../../app/assets/stylesheets/application.css.scss */
+/* line 812, ../../../app/assets/stylesheets/application.css.scss */
 label.day {
   padding: 1px 4px;
   background-color: #eee;
@@ -952,7 +962,7 @@ label.day {
   float: none !important;
 }
 
-/* line 808, ../../../app/assets/stylesheets/application.css.scss */
+/* line 818, ../../../app/assets/stylesheets/application.css.scss */
 .opt {
   position: absolute;
   display: none;
@@ -962,7 +972,7 @@ label.day {
   border-radius: 4px;
   z-index: 2;
 }
-/* line 816, ../../../app/assets/stylesheets/application.css.scss */
+/* line 826, ../../../app/assets/stylesheets/application.css.scss */
 .opt ul {
   cursor: pointer;
   list-style: none;
@@ -970,7 +980,7 @@ label.day {
   margin-bottom: 5px;
 }
 
-/* line 824, ../../../app/assets/stylesheets/application.css.scss */
+/* line 834, ../../../app/assets/stylesheets/application.css.scss */
 .money .dollars {
   background-color: #eee;
   padding: 4px;
@@ -978,17 +988,17 @@ label.day {
   text-align: right;
   border-radius: 6px 0px 0px 6px;
 }
-/* line 831, ../../../app/assets/stylesheets/application.css.scss */
+/* line 841, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3, .money .col-xs-10 {
   padding-left: 0px !important;
 }
-/* line 833, ../../../app/assets/stylesheets/application.css.scss */
+/* line 843, ../../../app/assets/stylesheets/application.css.scss */
 .money .col-xs-3 input[type="text"], .money .col-xs-10 input[type="text"] {
   border-radius: 0px 6px 6px 0px !important;
   margin-left: 0px !important;
 }
 
-/* line 839, ../../../app/assets/stylesheets/application.css.scss */
+/* line 849, ../../../app/assets/stylesheets/application.css.scss */
 #cover {
   position: fixed;
   top: 0;
@@ -1000,7 +1010,7 @@ label.day {
   display: none;
 }
 
-/* line 849, ../../../app/assets/stylesheets/application.css.scss */
+/* line 859, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen {
   height: 80px;
   width: 340px;
@@ -1014,13 +1024,13 @@ label.day {
   border-radius: 10px;
 }
 
-/* line 861, ../../../app/assets/stylesheets/application.css.scss */
+/* line 871, ../../../app/assets/stylesheets/application.css.scss */
 #successScreen:target, #successScreen:target + #cover {
   display: block;
   opacity: 2;
 }
 
-/* line 864, ../../../app/assets/stylesheets/application.css.scss */
+/* line 874, ../../../app/assets/stylesheets/application.css.scss */
 .suc-text {
   display: block;
   position: absolute;
@@ -1030,20 +1040,20 @@ label.day {
   color: green;
 }
 
-/* line 873, ../../../app/assets/stylesheets/application.css.scss */
+/* line 883, ../../../app/assets/stylesheets/application.css.scss */
 #home p {
   font-size: 15px;
 }
-/* line 875, ../../../app/assets/stylesheets/application.css.scss */
+/* line 885, ../../../app/assets/stylesheets/application.css.scss */
 #home p a {
   color: #eee;
 }
-/* line 877, ../../../app/assets/stylesheets/application.css.scss */
+/* line 887, ../../../app/assets/stylesheets/application.css.scss */
 #home p a:hover {
   text-decoration: none;
 }
 
-/* line 884, ../../../app/assets/stylesheets/application.css.scss */
+/* line 894, ../../../app/assets/stylesheets/application.css.scss */
 #myModal select {
   width: 85px;
   border: 1px solid #333;

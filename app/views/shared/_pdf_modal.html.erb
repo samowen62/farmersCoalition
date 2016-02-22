@@ -1,0 +1,140 @@
+<div id="infographicModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Drag your desired metrics onto the report on the right</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <h3>Metrics</h3>
+              <div class="col-md-12 list-view">
+                <div class="list-item" id="metric_1" data-metric="1" ondragstart="drag(event)" draggable="true">
+                Metric 1
+                </div>
+                <div class="list-item" id="metric_2" data-metric="2" ondragstart="drag(event)" draggable="true">
+                Metric 2
+                </div>
+                <div class="list-item" id="metric_3" data-metric="3" ondragstart="drag(event)" draggable="true">
+                Metric 3
+                </div>
+                <div class="list-item" id="metric_4" data-metric="4" ondragstart="drag(event)" draggable="true">
+                Metric 4
+                </div>
+                <div class="list-item" id="metric_5" data-metric="5" ondragstart="drag(event)" draggable="true">
+                Metric 5
+                </div>
+                <div class="list-item" id="metric_6" data-metric="6" ondragstart="drag(event)" draggable="true">
+                Metric 6
+                </div>
+                <div class="list-item" id="metric_7" data-metric="7" ondragstart="drag(event)" draggable="true">
+                Metric 7
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+            <h3>Report Page</h3>
+              <div class="col-md-12 list-view" id="report-page">
+              <div class="box-item" id="box_1" data-metric="false" ondrop="drop(event, this)" ondragover="allowDrop(event)" ondragleave="unhighlight(event, this)">
+                Drag Here
+                </div>
+                <div class="box-item" id="box_2" data-metric="false" ondrop="drop(event, this)" ondragover="allowDrop(event)" ondragleave="unhighlight(event, this)">
+                Drag Here
+                </div>
+                <div class="box-item" id="box_3" data-metric="false" ondrop="drop(event, this)" ondragover="allowDrop(event)" ondragleave="unhighlight(event, this)">
+                Drag Here
+                </div>
+                <div class="box-item" id="box_4" data-metric="false" ondrop="drop(event, this)" ondragover="allowDrop(event)" ondragleave="unhighlight(event, this)">
+                Drag Here
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <span style="color:red;">*In development: as of now only metrics 1-4 are supported and will show up</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default" data-dismiss="modal" onclick="submitChoices()">View PDF</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  var metric_array = [];
+
+    function drag(ev) {
+      ev.dataTransfer.setData("metric", ev.target.id);
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+      ev.target.style.border = "2px solid yellow";
+    }
+
+    function unhighlight(ev, box_element) {
+      if(box_element.dataset.metric == "false"){
+        ev.target.style.border = "2px dashed rgb(102, 102, 102)";
+        ev.target.style.borderRadius = "10px";
+      }else{
+        ev.target.style.border = "2px solid #666";
+        ev.target.style.borderRadius = "5px";
+      }
+    }
+
+    function drop(ev, box_element) {
+      ev.preventDefault();
+      ev.target.style.border = "2px solid #666";
+      ev.target.style.borderRadius = "5px";
+
+      var data = ev.dataTransfer.getData("metric");
+      var metric_num = document.getElementById(data).dataset.metric;
+
+      if(metric_array.indexOf(metric_num) < 0){
+        var prev_num = box_element.dataset.metric;
+        if(prev_num != "false")
+          metric_array.splice(metric_array.indexOf(prev_num), 1);
+        
+        box_element.dataset.metric = metric_num;
+        box_element.innerHTML = "Metric " + metric_num;
+        metric_array.push(metric_num);
+      }
+    }
+
+    function showInfographicModal(){
+      $("#infographicModal").modal('show');
+    }
+
+    function submitChoices(){
+      var inputs = $('#infoForm input');
+      var metrics = [];
+      var box_items = $('.box-item');
+
+      for(var i = 0 ; i < box_items.length; i++){ 
+        var metric_int = parseInt(box_items[i].dataset.metric);
+        metrics.push(isNaN(metric_int) ? 0 : metric_int); 
+      }
+
+
+      $.ajax({
+        type: "POST",
+        url: "/post_infographic_prefs",
+        data: JSON.stringify(metrics),
+        contentType: "application/json",
+        success: function(data){
+          window.location.href = "/gen_pdf";
+        },
+        error: function(data){
+          alert("Error Submitting Data");
+        }
+      });
+
+    }
+
+  </script>

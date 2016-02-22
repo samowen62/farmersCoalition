@@ -17,11 +17,12 @@ class PdfController < ApplicationController
 
 	def infographic_prefs
 		if user_is_logged_in?
-			prefs = InfoGraphicPrefs.where(users_id: session[:user_id]).first
+			profile = Profile.where(user_id: session[:user_id]).first
+			prefs = ReportPrefs.where(profile_id: profile[:id]).first
 
 			if prefs.nil?
-				new_prefs = InfoGraphicPrefs.create
-				new_prefs[:users_id] = session[:user_id]
+				new_prefs = ReportPrefs.create
+				new_prefs[:profile_id] = session[:user_id]
 				new_prefs[:metrics] = params[:_json]
 				new_prefs.save!
 			else
@@ -35,14 +36,15 @@ class PdfController < ApplicationController
 	end
 
 	def gen_pdf
-		prefs = InfoGraphicPrefs.where(users_id: session[:user_id]).first
+		profile = Profile.where(user_id: session[:user_id]).first
+		#prefs = InfoGraphicPrefs.where(users_id: profile[:id]).first
+		prefs = ReportPrefs.where(profile_id: profile[:id]).first.metrics
+
 
 		if prefs.nil?
 			render plain: "nothing found"
 			return
 		end
-
-		metric_prefs = prefs[:metrics]
 
 		fonts = {
 			"Hanken" => "app/assets/stylesheets/fonts/Hanken-Book.ttf",
@@ -56,8 +58,6 @@ class PdfController < ApplicationController
 
 		metrics = user_controller.metric_calc(profile)
 		metric_data = user_controller.calc_metrics(metrics, profile)
-		#render plain: metric_data
-		#return
 
     	pdf = Prawn::Document.new
 
@@ -66,18 +66,22 @@ class PdfController < ApplicationController
 		img_market = "app/assets/images/FARMERS MARKET.jpg" 
     	pdf.image img_market, :at => [0,300], :width => 450  
 
-    	#make into functions and pass blocks to gen specific content
-    	#metric 1
-    	if metric_prefs[0]
-			pdf.bounding_box([0,700], :width => 250, :height => 120) do
-				# This has the effect of creating a box of
-				# padding 5 around the text
-				pdf.stroke_bounds
-				pdf.bounds.add_left_padding 5
-				pdf.bounds.add_right_padding 5
-				pdf.move_down 5
 
-		    	pdf.text "Average number of visitors per market day"
+    	add_border = Proc.new { 
+			# This has the effect of creating a box of
+			# padding 5 around the text
+			pdf.stroke_bounds
+			pdf.bounds.add_left_padding 5
+			pdf.bounds.add_right_padding 5
+			pdf.move_down 5
+		}
+
+		metric_functions = [
+			Proc.new { 
+				#empty 
+			},
+			Proc.new {
+				pdf.text "Average number of visitors per market day"
 		    	pdf.move_down 13
 
 		    	pdf.indent (5) do
@@ -92,21 +96,9 @@ class PdfController < ApplicationController
 		    	pdf.indent (5) do
 		    	 	pdf.text "#{profile[:day4]}: #{metric_data['1'][3][:count]}\n"
 		    	end
-
-			end
-		end
-
-    	#metric 2
-    	if metric_prefs[1]
-			pdf.bounding_box([300,700], :width => 250, :height => 120) do
-				# This has the effect of creating a box of
-				# padding 5 around the text
-				pdf.stroke_bounds
-				pdf.bounds.add_left_padding 5
-				pdf.bounds.add_right_padding 5
-				pdf.move_down 5
-
-		    	pdf.text "Total annual vendor sales at market"
+			},
+			Proc.new {
+				pdf.text "Total annual vendor sales at market"
 		    	pdf.move_down 13
 
 		    	pdf.indent (5) do
@@ -121,19 +113,8 @@ class PdfController < ApplicationController
 		    	pdf.indent (5) do
 		    		pdf.text "Ready sales: $#{if metric_data['2']['sales_slip'][0].ready.nil? then 0.00 else metric_data['2']['sales_slip'][0].ready end}\n"
 		    	end
-			end
-		end
-
-		#metric 3
-    	if metric_prefs[2]
-			pdf.bounding_box([0,550], :width => 250, :height => 120) do
-				# This has the effect of creating a box of
-				# padding 5 around the text
-				pdf.stroke_bounds
-				pdf.bounds.add_left_padding 5
-				pdf.bounds.add_right_padding 5
-				pdf.move_down 5
-
+		    },
+		    Proc.new {
 		    	pdf.text "Average distance in miles traveled from product origin"
 		    	pdf.move_down 13
 
@@ -144,19 +125,8 @@ class PdfController < ApplicationController
 		    	pdf.indent (5) do
 		    	 	pdf.text "Secondary Miles #{metric_data['3']['secondary']}\n"
 		    	end
-
-			end
-		end
-
-		#metric 4
-    	if metric_prefs[3]
-			pdf.bounding_box([300,550], :width => 250, :height => 120) do
-
-				pdf.stroke_bounds
-				pdf.bounds.add_left_padding 5
-				pdf.bounds.add_right_padding 5
-				pdf.move_down 5
-
+		    }, 
+		    Proc.new {
 		    	pdf.text "Acres in agricultural production by market vendors"
 		    	pdf.move_down 13
 
@@ -169,8 +139,37 @@ class PdfController < ApplicationController
 		    	pdf.indent (5) do
 		    	 	pdf.text "Acres Cultivated: #{metric_data['4'][0]['acres_cultivated']}\n"
 		    	end
+		    },
+		    Proc.new { 
+				#metric 5 
+			},
+			Proc.new { 
+				#metric 6 
+			},
+			Proc.new { 
+				#metric 7 
+			}
 
-			end
+    	]
+
+		pdf.bounding_box([0,700], :width => 250, :height => 120) do
+			add_border.call()
+			metric_functions[prefs[0]].call()
+		end
+
+		pdf.bounding_box([300,700], :width => 250, :height => 120) do
+			add_border.call()
+			metric_functions[prefs[1]].call()
+		end
+
+		pdf.bounding_box([0,550], :width => 250, :height => 120) do
+			add_border.call()
+			metric_functions[prefs[2]].call()
+		end
+
+		pdf.bounding_box([300,550], :width => 250, :height => 120) do
+			add_border.call()
+			metric_functions[prefs[3]].call()
 		end
 
 		#Metric 12

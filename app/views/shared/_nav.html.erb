@@ -1,6 +1,5 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
@@ -10,7 +9,6 @@
       </button>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav" style="width:100%">
         <li><%= link_to "Profile", controller: "users", action: "show", id: @user.id %></li>
@@ -33,144 +31,8 @@
         <li><a href="javascript:void(0)" onclick="showInfographicModal()">Pdf Report</a></li>
         <li style="float:right"><%= link_to "Logout", controller: "sessions", action: "logout" %></li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
-<!-- later move all of below to seperate partial -->
-<div id="infographicModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Choose your desired metrics for your report</h4>
-        </div>
-        <div class="modal-body">
-          <div class="col-md-12">
-          <!--form id="infoForm">
-            <table>
-              <tr>
-                <td>Average number of visitors per market day</td>
-                <td><input type="checkbox"/></td>
-              </tr>
-              <tr>
-                <td>Total annual vendor sales at market</td>
-                <td><input type="checkbox" /></td>
-              </tr>
-              <tr>
-                <td>Average distance in miles traveled from product origin</td>
-                <td><input type="checkbox" /></td>
-              </tr>
-              <tr>
-                <td>Acres in agricultural production by market vendors</td>
-                <td><input type="checkbox" /></td>
-              </tr>
-            </table>
-            </form-->
-            <div class="col-md-6">
-              <h3>Metrics</h3>
-              <div class="col-md-12 list-view">
-                <div class="list-item" id="metric_1" ondragstart="drag(event)" draggable="true">
-                Metric 1
-                </div>
-                <div class="list-item" id="metric_2" ondragstart="drag(event)" draggable="true">
-                Metric 2
-                </div>
-                <div class="list-item" id="metric_3" ondragstart="drag(event)" draggable="true">
-                Metric 3
-                </div>
-                <div class="list-item" id="metric_4" ondragstart="drag(event)" draggable="true">
-                Metric 4
-                </div>
-                <div class="list-item" id="metric_5" ondragstart="drag(event)" draggable="true">
-                Metric 5
-                </div>
-                <div class="list-item" id="metric_6" ondragstart="drag(event)" draggable="true">
-                Metric 6
-                </div>
-                <div class="list-item" id="metric_7" ondragstart="drag(event)" draggable="true">
-                Metric 7
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-            <h3>Report</h3>
-              <div class="col-md-12 list-view">
-              <div class="box-item" id="box_1"  ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="unhighlight(event)">
-                Box 1
-                </div>
-                <div class="box-item" id="box_2"  ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="unhighlight(event)">
-                Box 2
-                </div>
-                <div class="box-item" id="box_3"  ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="unhighlight(event)">
-                Box 3
-                </div>
-                <div class="box-item" id="box_4"  ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="unhighlight(event)">
-                Box 4
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-success" data-dismiss="modal" onclick="submitChoices()">Submit</button>
-          <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-        </div>
-      </div>
     </div>
   </div>
+</nav>
 
-  <script type="text/javascript">
-
-    function drag(ev) {
-      ev.dataTransfer.setData("metric", ev.target.id);
-    }
-
-    function allowDrop(ev) {
-      ev.preventDefault();
-      ev.target.style.border = "2px solid yellow";
-    }
-
-    function unhighlight(ev) {
-      ev.target.style.border = "2px solid #333";
-    }
-
-    function drop(ev) {
-      ev.preventDefault();
-      var data = ev.dataTransfer.getData("metric");
-      this.innerHTML = '';
-      ev.target.appendChild(document.getElementById(data));
-    }
-
-    function showInfographicModal(){
-      $("#infographicModal").modal('show');
-    }
-
-    function submitChoices(){
-      var inputs = $('#infoForm input');
-      var metrics = new Array(37)
-
-      for(var i = 0; i < inputs.length; i++){
-        console.log(i);
-        metrics[i] = inputs[i].checked;
-      }
-
-      $.ajax({
-        type: "POST",
-        url: "/post_infographic_prefs",
-        data: JSON.stringify(metrics),
-        contentType: "application/json",
-        success: function(data){
-          window.location.href = "/gen_pdf";
-        },
-        error: function(data){
-          alert("Error Submitting Data");
-        }
-      });
-
-    }
-
-  </script>
+<%= render "shared/pdf_modal" %>

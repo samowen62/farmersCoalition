@@ -4,6 +4,7 @@ class Profile < ActiveRecord::Base
   has_one :managements
   has_one :accessibility
   has_one :community
+  has_one :report_prefs
   
   has_many :visitor_application
   has_many :visitor_survey

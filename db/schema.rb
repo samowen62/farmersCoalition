@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160213004304) do
+ActiveRecord::Schema.define(version: 20160221231035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -416,6 +416,13 @@ ActiveRecord::Schema.define(version: 20160213004304) do
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
+
+  create_table "report_prefs", force: true do |t|
+    t.integer "metrics",    default: [], array: true
+    t.integer "profile_id"
+  end
+
+  add_index "report_prefs", ["profile_id"], name: "index_report_prefs_on_profile_id", using: :btree
 
   create_table "sales_slips", force: true do |t|
     t.integer  "profile_id"
